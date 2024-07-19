@@ -5,12 +5,7 @@ import { useState } from "react";
 import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/error";
 import Item from "@/components/item";
-
-export enum SCREENS {
-  SEND_RESET_CODE = "SEND_RESET_CODE",
-  VERIFICATION_RESET_CODE = "VERIFICATION_RESET_CODE",
-  CREATE_NEW_PASSWORD = "CREATE_NEW_PASSWORD",
-}
+import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 
 const LoginPage = () => {
   const router = useRouter();

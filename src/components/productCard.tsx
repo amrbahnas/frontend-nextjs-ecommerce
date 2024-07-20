@@ -8,36 +8,33 @@ import { Product } from "../types/product";
 const ProductCard = ({ product }: { product: Product }) => {
   const { addProduct, isPending } = useAddProductToCart();
   return (
-    <Link
-      href={"/" + product._id}
-      className=" flex flex-col gap-4 w-full  md:w-1/4 "
-      key={product._id}
-    >
-      <div className="relative w-full h-80">
-        <Image
-          src={product?.imageCover || "/product.png"}
-          alt=""
-          fill
-          sizes="25vw"
-          className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
-        />
-        {product.images[0] && (
+    <div className=" flex flex-col gap-4 w-full  md:w-1/4 ">
+      <Link href={"/" + product._id} key={product._id}>
+        <div className="relative w-full h-80">
           <Image
-            src={product.images[0] || "/product.png"}
+            src={product?.imageCover || "/product.png"}
             alt=""
             fill
             sizes="25vw"
-            className="absolute object-cover rounded-md"
+            className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
           />
-        )}
-      </div>
-      <div className="flex justify-between">
-        <span className="font-medium">{product.title}</span>
-        <span className="font-semibold">${product.price}</span>
-      </div>
+          {product.images[0] && (
+            <Image
+              src={product.images[0] || "/product.png"}
+              alt=""
+              fill
+              sizes="25vw"
+              className="absolute object-cover rounded-md"
+            />
+          )}
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="font-medium">{product.title}</span>
+          <span className="font-semibold">${product.price}</span>
+        </div>
+      </Link>
       <Button
         onClick={(e) => {
-          e.preventDefault();
           addProduct(
             {
               productId: product._id,
@@ -58,7 +55,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       >
         Add to Cart
       </Button>
-    </Link>
+    </div>
   );
 };
 

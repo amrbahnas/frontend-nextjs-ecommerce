@@ -4,12 +4,10 @@ import Filter from "@/components/filter";
 import ProductList from "@/components/productList";
 import { Button, Skeleton } from "antd";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
+import ProductListSection from "./_comps/productList";
 
 const ListPage = () => {
-  const searchParams = useSearchParams();
-
   return (
     <Container>
       {/* CAMPAIGN */}
@@ -31,7 +29,9 @@ const ListPage = () => {
       <Filter />
       {/* PRODUCTS */}
       <h1 className="mt-12 text-xl font-semibold">For You!</h1>
-      <ProductList search={searchParams.get("search") || ""} />
+      <Suspense fallback={"loading"}>
+        <ProductListSection />
+      </Suspense>
     </Container>
   );
 };

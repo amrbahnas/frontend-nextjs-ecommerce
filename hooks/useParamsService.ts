@@ -22,7 +22,7 @@ const useParamsService: ParamsService = () => {
   };
 
   const resetParams = () => {
-    replace(pathname);
+    // replace(pathname);
   };
 
   return { setParams, resetParams };

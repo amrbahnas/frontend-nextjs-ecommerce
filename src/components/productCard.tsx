@@ -9,7 +9,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const { addProduct, isPending } = useAddProductToCart();
   return (
     <div className=" flex flex-col gap-4 w-full  md:w-1/4 ">
-      <Link href={"/" + product._id} key={product._id}>
+      <Link href={"/product/" + product._id} key={product._id}>
         <div className="relative w-full h-80">
           <Image
             src={product?.imageCover || "/product.png"}

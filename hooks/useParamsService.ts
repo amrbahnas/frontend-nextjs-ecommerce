@@ -5,12 +5,14 @@
 // so we use Suspense to pass fallback "Loading" until component rendered
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-type ParamsService = () => {
+type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
   setParams: (key: string, value?: string) => void;
   resetParams: () => void;
 };
 
-const useParamsService: ParamsService = () => {
+const useParamsService: ParamsService = (
+  currentComponent_Must_WrappedWith_Suspense
+) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();

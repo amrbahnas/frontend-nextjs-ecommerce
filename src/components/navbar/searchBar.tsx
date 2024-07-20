@@ -9,7 +9,7 @@ const { Search } = Input;
 const { Item } = Form;
 
 const SearchBar = () => {
-  const { setParams } = useParamsService();
+  const { setParams } = useParamsService("okay I will");
   const pathname = usePathname();
   const router = useRouter();
 

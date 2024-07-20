@@ -3,7 +3,7 @@ import { InputNumber, Select } from "antd";
 import useParamsService from "../../hooks/useParamsService";
 
 const Filter = () => {
-  const { setParams } = useParamsService();
+  const { setParams } = useParamsService("okay I will");
 
   const handleFilterChange = ({
     name,

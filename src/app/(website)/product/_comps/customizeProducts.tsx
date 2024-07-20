@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Add from "./add";
+import { Product } from "@/types/product";
 
 const CustomizeProducts = ({
-  productId,
+  product,
   variants,
   productOptions,
 }: {
-  productId: string;
-  variants: any;
-  productOptions: any;
+  product: Product;
+  variants: any[];
+  productOptions: any[];
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string;
@@ -115,13 +116,7 @@ const CustomizeProducts = ({
           </ul>
         </div>
       ))}
-      <Add
-        productId={productId}
-        variantId={
-          selectedVariant?._id || "00000000-0000-0000-0000-000000000000"
-        }
-        stockNumber={selectedVariant?.stock?.quantity || 0}
-      />
+      <Add product={product} />
       {/* COLOR */}
       {/* 
           <ul className="flex items-center gap-3">

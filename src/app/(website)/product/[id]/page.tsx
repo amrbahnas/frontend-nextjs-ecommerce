@@ -1,5 +1,5 @@
 "use client";
-import Add from "@/components/add";
+import Add from "@/app/(website)/product/_comps/add";
 
 import Reviews from "../_comps/reviews";
 import { Product } from "@/types/product";
@@ -59,11 +59,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
               stockNumber={product.quantity || 0}
             />
           )} */}
-          <Add
-            productId={product?._id!}
-            variantId="00000000-0000-0000-0000-000000000000"
-            stockNumber={product?.quantity || 0}
-          />
+          <Add product={product} />
           <div className="h-[2px] bg-gray-100" />
           {/* {product?.additionalInfoSections?.map((section: any, index) => (
             <div className="text-sm" key={section.title + index}>

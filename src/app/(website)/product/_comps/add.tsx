@@ -1,32 +1,21 @@
 "use client";
 
-import { Button } from "antd";
+import AddProductToCard from "@/components/addProductToCard";
+import { Product } from "@/types/product";
 import { useState } from "react";
 
-const Add = ({
-  productId,
-  variantId,
-  stockNumber,
-}: {
-  productId: string;
-  variantId: string;
-  stockNumber: number;
-}) => {
+const Add = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
-
-  // // TEMPORARY
-  // const stock = 4;
+  const stockNumber = product.quantity - quantity;
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (type === "i" && quantity < stockNumber) {
+    if (type === "i" && quantity < product.quantity) {
       setQuantity((prev) => prev + 1);
     }
   };
-
-  //   const { addItem, isLoading } = useCartStore();
 
   return (
     <div className="flex flex-col gap-4">
@@ -45,7 +34,7 @@ const Add = ({
             <button
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("i")}
-              disabled={quantity === stockNumber}
+              disabled={quantity === product.quantity}
             >
               +
             </button>
@@ -60,13 +49,7 @@ const Add = ({
             </div>
           )}
         </div>
-        <Button
-          //   onClick={() => addItem(wixClient, productId, variantId, quantity)}
-          //   disabled={isLoading}
-          className="w-36 text-sm rounded-3xl ring-1 !ring-lama !text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-        >
-          Add to Cart
-        </Button>
+        <AddProductToCard product={product} />
       </div>
     </div>
   );

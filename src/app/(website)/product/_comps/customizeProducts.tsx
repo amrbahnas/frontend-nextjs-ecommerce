@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Add from "../../../../components/add";
+import Add from "./add";
 
 const CustomizeProducts = ({
   productId,

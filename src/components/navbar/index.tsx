@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import Menu from "./menu";
 import Image from "next/image";
 import SearchBar from "./searchBar";
@@ -35,7 +35,9 @@ const Navbar = () => {
           </div>
           {/* Right */}
           <div className="w-2/3 xl:w-1/2 flex items-center   gap-8 ">
-            <SearchBar />
+            <Suspense fallback={<div>Loading...</div>}>
+              <SearchBar />
+            </Suspense>
             <NavIcons />
           </div>
         </div>

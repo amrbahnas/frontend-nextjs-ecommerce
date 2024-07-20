@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import NextTopLoader from "nextjs-toploader";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import AntdLayout from "./antdLayout";
-import ReactQueryLayout from ".//reactQueryLayout";
+import AntDLayout from "../components/layout/antDLayout";
+import ReactQueryLayout from "../components/layout/reactQueryLayout";
+import ProgressBarLayout from "@/components/layout/progressBarLayout";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,25 +24,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextTopLoader
-          color="##007BFF"
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={3}
-          crawl={true}
-          showSpinner={false}
-          easing="ease"
-          speed={200}
-          shadow="0 0 10px ##9B7029,0 0 5px ##9B7029"
-        />
-        <ToastContainer />
-        <AntdLayout>
+        <AntDLayout>
           <ReactQueryLayout>
-            <Navbar />
-            {children}
-            <Footer />
+            <ProgressBarLayout>
+              <Navbar />
+              {children}
+              <Footer />
+            </ProgressBarLayout>
           </ReactQueryLayout>
-        </AntdLayout>
+        </AntDLayout>
+        <ToastContainer />
       </body>
     </html>
   );

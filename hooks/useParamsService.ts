@@ -1,3 +1,8 @@
+// Important For Usage: => "Suspense Wrapper"
+// component which import this Hook must be wrap at parent component with Suspense component
+// this for avoid error "Missing Suspense boundary with useSearchParams" when  build the app
+// the idea is => useSearchParams() entire page into client-side rendering. This could cause your page to be blank until the client-side JavaScript has loaded.
+// so we use Suspense to pass fallback "Loading" until component rendered
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 type ParamsService = () => {
@@ -22,7 +27,7 @@ const useParamsService: ParamsService = () => {
   };
 
   const resetParams = () => {
-    // replace(pathname);
+    replace(pathname);
   };
 
   return { setParams, resetParams };

@@ -24,6 +24,10 @@ const nextConfig = {
       },
     ],
   },
+  // if you want to display "Missing Suspense boundary with useSearchParams" error
+  // experimental: {
+  //   missingSuspenseWithCSRBailout: false,
+  // },
 };
 
 export default nextConfig;

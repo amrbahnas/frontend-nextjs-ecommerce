@@ -9,7 +9,7 @@ const { Search } = Input;
 const { Item } = Form;
 
 const SearchBar = () => {
-  // const { setParams } = useParamsService();
+  const { setParams } = useParamsService();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -17,7 +17,7 @@ const SearchBar = () => {
     if (pathname === "/" && value) {
       return router.push(`/list?search=${value}`);
     }
-    // setParams("search", value);
+    setParams("search", value);
   };
 
   return (

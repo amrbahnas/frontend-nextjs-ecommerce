@@ -1,11 +1,10 @@
 "use client";
 import Container from "@/components/container";
 import Filter from "@/components/filter";
-import ProductList from "@/components/productList";
 import { Button, Skeleton } from "antd";
 import Image from "next/image";
 import React, { Suspense } from "react";
-import ProductListSection from "./_comps/productList";
+import ProductSection from "./_comps/productSection";
 
 const ListPage = () => {
   return (
@@ -26,11 +25,15 @@ const ListPage = () => {
         </div>
       </div>
       {/* FILTER */}
-      <Filter />
+      {/* using Suspense because Filter using useParamsService() hook */}
+      <Suspense fallback={<Skeleton active />}>
+        <Filter />
+      </Suspense>
       {/* PRODUCTS */}
       <h1 className="mt-12 text-xl font-semibold">For You!</h1>
-      <Suspense fallback={"loading"}>
-        <ProductListSection />
+      {/* using Suspense because ProductSection using useSearchParams() hook */}
+      <Suspense fallback={<Skeleton active />}>
+        <ProductSection />
       </Suspense>
     </Container>
   );

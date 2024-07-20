@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-import useMutation from "../../../../hooks/useMutation";
-import useUserStore from "../../../../store/useUserStore";
+import useMutation from "../../../hooks/useMutation";
+import useUserStore from "../../../store/useUserStore";
 import { useRouter } from "next/navigation";
-import { SCREENS } from "../../../../enum/forgetPasswordScreens";
+import { SCREENS } from "../../../enum/forgetPasswordScreens";
 
 export const useLogin = () => {
   const router = useRouter();

@@ -4,7 +4,7 @@ import CustomizeProducts from "@/app/(website)/[slug]/_comps/customizeProducts";
 import ProductImages from "@/app/(website)/[slug]/_comps/productImage";
 import Container from "@/components/container";
 import { useGetSpecificProduct } from "./_api/query";
-import { Product } from "../../../../types/product";
+import { Product } from "../../../types/product";
 import Reviews from "./_comps/reviews";
 
 const SinglePage = ({ params }: { params: { slug: string } }) => {

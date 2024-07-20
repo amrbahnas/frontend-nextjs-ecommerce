@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import CartModal from "./cartModal";
 import Cookies from "js-cookie";
-import logOut from "../../../services/logOut";
+import logOut from "../../services/logOut";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);

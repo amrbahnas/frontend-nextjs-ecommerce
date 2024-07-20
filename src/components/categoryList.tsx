@@ -2,7 +2,7 @@ import { useGetCategories } from "@/api/query";
 import { Spin } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { CategoryType } from "../../types/category";
+import { CategoryType } from "../types/category";
 
 const CategoryList = () => {
   const { categories, isLoading } = useGetCategories();

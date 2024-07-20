@@ -1,6 +1,6 @@
 import { useGetProducts } from "@/api/query";
 import { Spin } from "antd";
-import { Product } from "../../types/product";
+import { Product } from "../types/product";
 import ProductCard from "./productCard";
 
 const ProductList = ({

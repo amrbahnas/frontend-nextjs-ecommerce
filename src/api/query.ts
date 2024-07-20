@@ -1,4 +1,4 @@
-import { useQuery } from "../../hooks/useQuery";
+import { useQuery } from "../hooks/useQuery";
 
 export const useGetProducts = (params?: any) => {
   const { data: products, isLoading } = useQuery("/products", {

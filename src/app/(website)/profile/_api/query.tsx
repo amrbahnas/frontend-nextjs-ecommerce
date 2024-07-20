@@ -1,4 +1,4 @@
-import { usePagination, useQuery } from "../../../../../hooks/useQuery";
+import { usePagination, useQuery } from "../../../../hooks/useQuery";
 
 export const useMe = () => {
   const { data, error, refetch, isError, isLoading } = useQuery("/users/me");

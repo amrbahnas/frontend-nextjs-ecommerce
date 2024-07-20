@@ -1,4 +1,4 @@
-import useMutation from "../../hooks/useMutation";
+import useMutation from "../hooks/useMutation";
 
 export const useAddProductToCart = () => {
   const { mutate: addProduct, isPending } = useMutation(`/cart`);

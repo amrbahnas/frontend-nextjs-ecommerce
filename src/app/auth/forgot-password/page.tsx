@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/error";
 import Item from "@/components/item";
-import { SCREENS } from "../../../../enum/forgetPasswordScreens";
+import { SCREENS } from "../../../enum/forgetPasswordScreens";
 
 const LoginPage = () => {
   const router = useRouter();

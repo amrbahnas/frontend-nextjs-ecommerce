@@ -3,7 +3,7 @@ import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { Product } from "../../types/product";
+import { Product } from "../types/product";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { addProduct, isPending } = useAddProductToCart();

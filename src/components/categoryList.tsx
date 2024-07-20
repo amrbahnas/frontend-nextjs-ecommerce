@@ -1,11 +1,11 @@
+import { useGetCategories } from "@/api/query";
+import { Spin } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useQuery } from "../../hooks/useQuery";
 import { CategoryType } from "../../types/category";
-import { Spin } from "antd";
 
 const CategoryList = () => {
-  const { data: categories, isLoading } = useQuery("/categories");
+  const { categories, isLoading } = useGetCategories();
   return (
     <Spin spinning={isLoading}>
       <div className="   px-4 overflow-x-scroll scrollbar-hide">

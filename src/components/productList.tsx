@@ -1,11 +1,7 @@
-import { Button, Input, Spin } from "antd";
-import Image from "next/image";
-import Link from "next/link";
-import { useQuery } from "../../hooks/useQuery";
+import { useGetProducts } from "@/api/query";
+import { Spin } from "antd";
 import { Product } from "../../types/product";
-import useMutation from "../../hooks/useMutation";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import ProductCard from "./productCard";
 
 const ProductList = ({
   category,
@@ -14,14 +10,7 @@ const ProductList = ({
   category?: string;
   search?: string;
 }) => {
-  const { data: products, isLoading } = useQuery("/products", {
-    params: {
-      fields: "title,price,imageCover,images",
-      category,
-      search,
-    },
-    initialData: [],
-  });
+  const { isLoading, products } = useGetProducts({ category, search });
 
   if (products?.length === 0)
     return (
@@ -42,63 +31,6 @@ const ProductList = ({
         ))}
       </div>
     </Spin>
-  );
-};
-
-const ProductCard = ({ product }: { product: Product }) => {
-  const { mutate: addProduct, isPending } = useMutation(`/cart`);
-  return (
-    <Link
-      href={"/" + product._id}
-      className=" flex flex-col gap-4 w-full  md:w-1/4 "
-      key={product._id}
-    >
-      <div className="relative w-full h-80">
-        <Image
-          src={product?.imageCover || "/product.png"}
-          alt=""
-          fill
-          sizes="25vw"
-          className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
-        />
-        {product.images[0] && (
-          <Image
-            src={product.images[0] || "/product.png"}
-            alt=""
-            fill
-            sizes="25vw"
-            className="absolute object-cover rounded-md"
-          />
-        )}
-      </div>
-      <div className="flex justify-between">
-        <span className="font-medium">{product.title}</span>
-        <span className="font-semibold">${product.price}</span>
-      </div>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          addProduct(
-            {
-              productId: product._id,
-              color: product?.colors?.length ? product.colors[0] : "black",
-            },
-            {
-              onSuccess: () => {
-                toast.success("Product added to cart");
-              },
-            }
-          );
-        }}
-        size="middle"
-        className="!w-32 !py-4"
-        shape="round"
-        disabled={isPending}
-        loading={isPending}
-      >
-        Add to Cart
-      </Button>
-    </Link>
   );
 };
 

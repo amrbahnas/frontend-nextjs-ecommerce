@@ -4,8 +4,6 @@ import Container from "@/components/container";
 import ProductList from "@/components/productList";
 import Slider from "@/components/slider";
 
-import type { Metadata } from "next";
-
 const HomePage = () => {
   return (
     <div>

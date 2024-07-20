@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/components/container";
-import Filter from "@/components/filter";
+import Filter from "@/app/(website)/list/_comps/filter";
 import { Button, Skeleton } from "antd";
 import Image from "next/image";
 import React, { Suspense } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import Add from "@/components/add";
-import CustomizeProducts from "@/components/customizeProducts";
+import CustomizeProducts from "@/app/(website)/[slug]/_comps/customizeProducts";
 import ProductImages from "@/app/(website)/[slug]/_comps/productImage";
 import Container from "@/components/container";
 import { useGetSpecificProduct } from "./_api/query";

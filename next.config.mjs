@@ -22,6 +22,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "elbahnsawy-nodejs-ecommerce.vercel.app",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
   // if you want to display "Missing Suspense boundary with useSearchParams" error

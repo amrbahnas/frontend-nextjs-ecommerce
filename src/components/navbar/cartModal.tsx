@@ -3,7 +3,6 @@ import { Badge, Button, Popover, Spin } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "../../hooks/useQuery";
-import { CartItemType, CartType } from "../../types/cart";
 import useMutation from "../../hooks/useMutation";
 
 const CartModal = () => {

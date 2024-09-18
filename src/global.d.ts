@@ -1,4 +1,39 @@
-export interface Product {
+type CategoryType = {
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type CartType = {
+  cartItems: CartItemType[];
+  totalCartPrice: number;
+};
+
+type CartItemType = {
+  product: Product;
+  color: string;
+  quantity: number;
+  price: number;
+  _id: string;
+};
+
+type Product = {
+  _id: string;
+  title: string;
+  price: number;
+  imageCover: string;
+  category: Category;
+  id: string;
+};
+
+type Category = {
+  name: string;
+};
+
+type Product = {
   _id: string;
   title: string;
   slug: string;
@@ -18,13 +53,13 @@ export interface Product {
   ratingsAverage: number;
   reviews: ReviewType[];
   id: string;
-}
+};
 
-export interface Category {
+type Category = {
   name: string;
-}
+};
 
-export interface ReviewType {
+type ReviewType = {
   _id: string;
   title: string;
   rating: number;
@@ -33,10 +68,10 @@ export interface ReviewType {
   createdAt: string;
   updatedAt: string;
   __v: number;
-}
+};
 
-export interface User {
+type User = {
   _id: string;
   name: string;
   image: string;
-}
+};

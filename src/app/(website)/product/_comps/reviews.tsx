@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useGetProductReviews } from "../_api/query";
-import { ReviewType } from "../../../../types/product";
 
 const reviews = [
   {

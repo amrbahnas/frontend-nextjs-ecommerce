@@ -2,8 +2,9 @@
 import { Badge, Button, Popover, Spin } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "../../hooks/useQuery";
+
 import useMutation from "../../hooks/useMutation";
+import useQuery from "@/hooks/useQuery";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);

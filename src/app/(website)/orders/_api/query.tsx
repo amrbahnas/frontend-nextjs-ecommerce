@@ -1,4 +1,4 @@
-import { useQuery } from "../../../../hooks/useQuery";
+import useQuery from "@/hooks/useQuery";
 
 export const useGetSpecificOrder = (id: string) => {
   const { data, error, refetch, isError, isLoading } = useQuery(

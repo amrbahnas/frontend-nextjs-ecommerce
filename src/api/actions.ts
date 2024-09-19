@@ -7,3 +7,24 @@ export const useAddProductToCart = () => {
     isPending,
   };
 };
+
+export const useRemoveItemFromCart = (id: string) => {
+  const { mutate: removeItem, isPending } = useMutation(
+    `/cart/${id}`,
+    "delete"
+  );
+  return {
+    removeItem,
+    isPending,
+  };
+};
+
+// reset cart
+
+export const useResetCart = () => {
+  const { mutate: resetCart, isPending } = useMutation(`/cart/reset`);
+  return {
+    resetCart,
+    isPending,
+  };
+};

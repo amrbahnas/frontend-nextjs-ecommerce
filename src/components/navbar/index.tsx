@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import Menu from "./menu";
@@ -5,8 +6,10 @@ import Image from "next/image";
 import SearchBar from "./searchBar";
 import NavIcons from "./navIcons";
 import Container from "../container";
+import { UseCartCountHandler } from "@/hooks/useCartCountHandler";
 
 const Navbar = () => {
+  UseCartCountHandler();
   return (
     <Container>
       <div className="h-20">

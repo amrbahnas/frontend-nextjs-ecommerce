@@ -9,6 +9,7 @@ type CategoryType = {
 
 type CartType = {
   cartItems: CartItemType[];
+  numberOfCartsItems: number;
   totalCartPrice: number;
 };
 
@@ -25,6 +26,9 @@ type Product = {
   title: string;
   price: number;
   imageCover: string;
+  quantity: number;
+  images: string[];
+  colors: string[];
   category: Category;
   id: string;
 };
@@ -54,6 +58,8 @@ type Product = {
   reviews: ReviewType[];
   id: string;
 };
+
+type ProductSize = "S" | "M" | "L" | "XL" | "XXL";
 
 type Category = {
   name: string;

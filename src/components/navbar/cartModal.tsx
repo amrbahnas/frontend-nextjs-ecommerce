@@ -4,27 +4,45 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import useMutation from "../../hooks/useMutation";
-import useQuery from "@/hooks/useQuery";
+import { useGetCart, useGetCartCount } from "@/api/query";
+import useCardStore from "@/store/useCardStore";
+import useAuthStore from "@/store/useAuthStore";
+import { useRemoveItemFromCart, useResetCart } from "@/api/actions";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);
-  const { data: cart, isLoading, refetch } = useQuery("/cart");
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { storeCart, cartItemsCount } = useCardStore();
+
+  const {
+    cart: apiCart,
+    isLoading,
+    refetch,
+  } = useGetCart({
+    skip: !isLogin || !open,
+  });
+
+  const renderedCart = isLogin ? apiCart : storeCart;
 
   useEffect(() => {
-    if (open) refetch();
-  }, [open]);
+    if (open && isLogin) refetch();
+  }, [open, isLogin, refetch]);
 
   return (
     <Popover
       open={open}
       onOpenChange={() => setOpen(!open)}
-      content={<CartBody isLoading={isLoading} cart={cart} refetch={refetch} />}
+      content={
+        <CartBody
+          isLoading={isLoading}
+          refetch={refetch}
+          totalCartPrice={renderedCart.totalCartPrice}
+          cartItems={renderedCart.cartItems}
+        />
+      }
       trigger="click"
     >
-      <Badge
-        count={cart?.cartItems?.length > 0 ? cart.cartItems.length : 0}
-        size="small"
-      >
+      <Badge count={cartItemsCount} size="small">
         <Image
           src="/cart.png"
           width={22}
@@ -39,18 +57,22 @@ const CartModal = () => {
 
 const CartBody = ({
   isLoading,
-  cart,
+  cartItems,
+  totalCartPrice,
   refetch,
 }: {
   isLoading: boolean;
-  cart: CartType;
+
+  totalCartPrice: number;
+  cartItems: CartItemType[];
   refetch: any;
 }) => {
   const [deleting, setDeleting] = useState(false);
+  const { isPending, resetCart } = useResetCart();
   return (
     <Spin spinning={isLoading || deleting}>
       <div className="  flex flex-col gap-6 z-20">
-        {!cart?.cartItems[0] ? (
+        {!cartItems[0] ? (
           <div className="">Cart is Empty</div>
         ) : (
           <>
@@ -58,7 +80,7 @@ const CartBody = ({
             {/* LIST */}
             <div className="flex flex-col gap-8">
               {/* ITEM */}
-              {cart?.cartItems?.map((item: CartItemType) => (
+              {cartItems?.map((item: CartItemType) => (
                 <CartItem
                   item={item}
                   key={item._id}
@@ -71,7 +93,7 @@ const CartBody = ({
             <div className="">
               <div className="flex items-center justify-between font-semibold">
                 <span className="">Subtotal</span>
-                <span className="">${cart?.totalCartPrice}</span>
+                <span className="">${totalCartPrice}</span>
               </div>
               <p className="text-gray-500 text-sm mt-2 mb-4">
                 Shipping and taxes calculated at checkout.
@@ -82,6 +104,7 @@ const CartBody = ({
                   Checkout
                 </Button>
               </div>
+              {/* reset */}
             </div>
           </>
         )}
@@ -99,11 +122,9 @@ const CartItem = ({
   refetch: any;
   setDeleting: (value: boolean) => void;
 }) => {
-  const { mutate: removeItem, isPending } = useMutation(
-    `/cart/${item._id}`,
-    "delete"
-  );
-
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { deleteCartItem, decreaseCartItemsCount } = useCardStore();
+  const { removeItem, isPending } = useRemoveItemFromCart(item._id);
   return (
     <div className="flex gap-4" key={item._id}>
       {item?.product?.imageCover && (
@@ -137,15 +158,21 @@ const CartItem = ({
             style={{ cursor: isPending ? "not-allowed" : "pointer" }}
             onClick={async () => {
               setDeleting(true);
-              removeItem(
-                {},
-                {
-                  onSuccess: () => {
-                    setDeleting(false);
-                    refetch();
-                  },
-                }
-              );
+              if (isLogin) {
+                removeItem(
+                  {},
+                  {
+                    onSuccess: () => {
+                      setDeleting(false);
+                      decreaseCartItemsCount();
+                      refetch();
+                    },
+                  }
+                );
+              } else {
+                deleteCartItem(item);
+                setDeleting(false);
+              }
             }}
           >
             Remove

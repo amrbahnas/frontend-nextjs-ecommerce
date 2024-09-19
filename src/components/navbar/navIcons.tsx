@@ -1,18 +1,17 @@
 "use client";
-import { Badge, Popover } from "antd";
+import useAuthStore from "@/store/useAuthStore";
+import { Popover } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import CartModal from "./cartModal";
-import Cookies from "js-cookie";
-import logOut from "../../services/logOut";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+  const { isLogin, logOut } = useAuthStore();
 
   const handleProfile = () => {
-    const isLogin = Cookies.get("isLogin") === "true";
     isLogin ? setIsProfileOpen(!isProfileOpen) : router.push("/auth/login");
   };
 

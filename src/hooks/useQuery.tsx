@@ -2,8 +2,9 @@
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import axiosInstance from "../config/apiClient";
+import ms from "ms";
 
-const useQuery = (
+function useQuery<T>(
   endpoint: string,
   options?: {
     params?: Record<string, any>;
@@ -11,8 +12,9 @@ const useQuery = (
     skip?: boolean;
     retry?: number;
     staleTime?: string;
+    refetchOnWindowFocus?: boolean;
   }
-) => {
+) {
   const queryFn = () =>
     axiosInstance
       .get(endpoint, {
@@ -24,16 +26,18 @@ const useQuery = (
       .then((res) => res.data);
 
   const { data, ...result } = reactUseQuery({
-    queryKey: [endpoint, options?.params],
+    queryKey: [endpoint, options?.params || ""],
     queryFn,
     initialData: options?.initialData,
     enabled: !Boolean(options?.skip),
     retry: options?.retry || 3,
+    staleTime: ms(options?.staleTime || "0s"),
+    refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
   return {
-    data: data?.data,
+    data: data?.data as T,
     ...result,
   };
-};
+}
 
 export default useQuery;

@@ -1,7 +1,6 @@
 "use client";
 
 import AddProductToCard from "@/components/addProductToCard";
-import { Product } from "@/types/product";
 import { useState } from "react";
 
 const Add = ({ product }: { product: Product }) => {
@@ -49,7 +48,13 @@ const Add = ({ product }: { product: Product }) => {
             </div>
           )}
         </div>
-        <AddProductToCard product={product} />
+        <AddProductToCard
+          product={product}
+          options={{
+            color: product?.colors[0] || product?.colors[0],
+            quantity: quantity,
+          }}
+        />
       </div>
     </div>
   );

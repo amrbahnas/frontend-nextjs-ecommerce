@@ -10,15 +10,16 @@ import axiosInstance from "../config/apiClient";
 import ms from "ms";
 import { useEffect, useMemo, useState } from "react";
 
-const usePagination = (
+function usePagination<T>(
   endpoint: string,
   options?: {
     params?: Record<string, any>;
     initialData?: any;
     skip?: boolean;
     retry?: number;
+    refetchOnWindowFocus?: boolean;
   }
-) => {
+) {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
@@ -51,6 +52,7 @@ const usePagination = (
     enabled: !Boolean(options?.skip),
     retry: options?.retry || 3,
     placeholderData: keepPreviousData,
+    refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
   useEffect(() => {
@@ -75,9 +77,9 @@ const usePagination = (
         pageSize && setPageSize(pageSize);
       },
     },
-    data: data?.data,
+    data: data?.data as T,
     ...result,
   };
-};
+}
 
 export default usePagination;

@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const isLogin = request.cookies.get("isLogin")?.value;
+  const token = request.cookies.get("token")?.value;
+  console.log("🚀 ~ middleware ~ token:", token);
 
   //1) Handling Auth routes section
   if (request.nextUrl.pathname.startsWith("/auth")) {
-    if (isLogin !== "true") {
+    if (!token) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(new URL("/", request.url));
@@ -14,7 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   //2) Handling protected routes section
-  if (isLogin === "true") {
+  if (token) {
     return NextResponse.next();
   } else {
     return NextResponse.redirect(new URL("/auth/login", request.url));

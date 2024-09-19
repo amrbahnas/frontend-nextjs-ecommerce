@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "../types/product";
+
 import AddProductToCard from "./addProductToCard";
 
 const ProductCard = ({ product }: { product: Product }) => {
+  console.log("🚀 ~ ProductCard ~ product:", product);
   return (
     <div className=" flex flex-col gap-4 w-full  md:w-1/4 ">
       <Link href={"/product/" + product._id} key={product._id}>
@@ -30,7 +31,10 @@ const ProductCard = ({ product }: { product: Product }) => {
           <span className="font-semibold">${product.price}</span>
         </div>
       </Link>
-      <AddProductToCard product={product} />
+      <AddProductToCard
+        product={product}
+        options={{ color: product.colors[0], quantity: 1 }}
+      />
     </div>
   );
 };

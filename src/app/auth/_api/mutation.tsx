@@ -1,12 +1,12 @@
-import Cookies from "js-cookie";
 import useMutation from "../../../hooks/useMutation";
 import useUserStore from "../../../store/useUserStore";
 import { useRouter } from "next/navigation";
 import { SCREENS } from "../../../enum/forgetPasswordScreens";
+import useAuthStore from "@/store/useAuthStore";
 
 export const useLogin = () => {
-  const router = useRouter();
   const { setUser } = useUserStore();
+  const makeUserLogin = useAuthStore((state) => state.makeUserLogin);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
   const login = (values: { email: string; password: string }) => {
@@ -14,9 +14,7 @@ export const useLogin = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        Cookies.set("token", "bearer " + data.token);
-        Cookies.set("isLogin", "true");
-        router.push("/");
+        makeUserLogin(data.token);
       },
     });
   };
@@ -32,8 +30,8 @@ export const useLogin = () => {
 };
 
 export const useSignUp = () => {
-  const router = useRouter();
-  const { setUser } = useUserStore();
+  const setUser = useUserStore((state) => state.setUser);
+  const makeUserLogin = useAuthStore((state) => state.makeUserLogin);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/signup");
   const signUp = (values: {
@@ -46,9 +44,7 @@ export const useSignUp = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        Cookies.set("token", "bearer " + data.token);
-        Cookies.set("isLogin", "true");
-        router.push("/");
+        makeUserLogin(data.token);
       },
     });
   };

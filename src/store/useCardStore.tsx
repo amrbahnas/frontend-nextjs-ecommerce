@@ -4,11 +4,14 @@ import { persist } from "zustand/middleware";
 type Store = {
   storeCart: CartType;
   cartItemsCount: number;
+  cartLoading: boolean;
   setCartItemsCount: (count: number) => void;
   increaseCartItemsCount: () => void;
   decreaseCartItemsCount: () => void;
   addCartItem: (cartItem: CartItemType) => boolean;
   deleteCartItem: (cartItem: CartItemType) => void;
+  resetCart: () => void;
+  setCartLoading: (loading: boolean) => void;
 };
 
 const newCartItemsHandler = (
@@ -43,6 +46,7 @@ const useCardStore = create<Store>(
         totalCartPrice: 0,
       },
       cartItemsCount: 0,
+      cartLoading: false,
       setCartItemsCount: (count: number) => set({ cartItemsCount: count }),
       increaseCartItemsCount: () =>
         set((state: Store) => ({ cartItemsCount: state.cartItemsCount + 1 })),
@@ -76,6 +80,16 @@ const useCardStore = create<Store>(
             totalCartPrice: state.storeCart.totalCartPrice - item.price,
           },
         })),
+
+      resetCart: () =>
+        set({
+          storeCart: {
+            cartItems: [],
+            totalCartPrice: 0,
+          },
+        }),
+
+      setCartLoading: (loading: boolean) => set({ cartLoading: loading }),
     }),
     {
       name: "user-cart",

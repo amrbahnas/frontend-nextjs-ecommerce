@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import CartModal from "./cartModal";
 import { useLogout } from "@/hooks/useLogout";
+import Link from "next/link";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -17,7 +18,6 @@ const NavIcons = () => {
   };
 
   const handleProfilePage = () => {
-    router.push("/profile");
     setIsProfileOpen(false);
   };
 
@@ -33,13 +33,15 @@ const NavIcons = () => {
         onOpenChange={handleProfileIcon}
         content={
           <div className="flex flex-col gap-2">
-            <Button
-              className="mt-2 cursor-pointer"
-              onClick={handleProfilePage}
-              type="primary"
-            >
-              Profile
-            </Button>
+            <Link href="/profile">
+              <Button
+                className="mt-2 cursor-pointer"
+                onClick={handleProfilePage}
+                type="primary"
+              >
+                Profile
+              </Button>
+            </Link>
             <Button
               loading={isPending}
               className="mt-2 cursor-pointer"

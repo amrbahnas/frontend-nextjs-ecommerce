@@ -81,3 +81,18 @@ type User = {
   name: string;
   image: string;
 };
+
+type OrderType = {
+  _id: string;
+  user: User;
+  orderItems: CartItemType[];
+  taxPrice: number;
+  shippingPrice: number;
+  totalOrderPrice: number;
+  paymentMethod: string;
+  isPaid: boolean;
+  paidAt: string;
+  isDelivered: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

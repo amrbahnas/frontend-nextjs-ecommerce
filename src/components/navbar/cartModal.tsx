@@ -2,8 +2,6 @@
 import { Badge, Button, Popover, Spin } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
-import useMutation from "../../hooks/useMutation";
 import { useGetCart, useGetCartCount } from "@/api/query";
 import useCardStore from "@/store/useCardStore";
 import useAuthStore from "@/store/useAuthStore";
@@ -68,9 +66,10 @@ const CartBody = ({
   refetch: any;
 }) => {
   const [deleting, setDeleting] = useState(false);
+  const cartLoading = useCardStore((state) => state.cartLoading);
   const { isPending, resetCart } = useResetCart();
   return (
-    <Spin spinning={isLoading || deleting}>
+    <Spin spinning={isLoading || deleting || cartLoading}>
       <div className="  flex flex-col gap-6 z-20">
         {!cartItems[0] ? (
           <div className="">Cart is Empty</div>

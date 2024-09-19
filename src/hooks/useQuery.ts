@@ -31,6 +31,7 @@ function useQuery<T>(
     initialData: options?.initialData,
     enabled: !Boolean(options?.skip),
     retry: options?.retry || 3,
+    retryDelay: (retryCount: number) => retryCount * 2000,
     staleTime: ms(options?.staleTime || "0s"),
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });

@@ -28,3 +28,11 @@ export const useResetCart = () => {
     isPending,
   };
 };
+
+export const useMergeLocalCart = () => {
+  const { mutate: mergeCart, isPending } = useMutation(`/cart/mergeLocalCart`);
+  return {
+    mergeCart,
+    isPending,
+  };
+};

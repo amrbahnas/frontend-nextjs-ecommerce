@@ -1,5 +1,6 @@
 "use client";
 import {
+  DefinedInitialDataOptions,
   QueryClient,
   keepPreviousData,
   useQuery as reactUseQuery,
@@ -23,6 +24,7 @@ function usePagination<T>(
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
+  const [paginationLoading, setPaginationLoading] = useState(false);
 
   const variables = useMemo(() => {
     return {
@@ -31,36 +33,40 @@ function usePagination<T>(
     };
   }, [page, pageSize]);
 
-  const queryFn = () =>
-    axiosInstance
-      .get(endpoint, {
-        params: {
-          ...variables,
-          ...options?.params,
-        },
-        headers: {
-          Authorization: Cookies.get("token"),
-        },
-      })
-      .then((res) => res.data);
+  const queryFn = async () => {
+    setPaginationLoading(true);
+    const res = await axiosInstance.get(endpoint, {
+      params: {
+        ...variables,
+        ...options?.params,
+      },
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+    });
+    setPaginationLoading(false);
+    return res.data;
+  };
 
-  const { isPlaceholderData, data, ...result } = reactUseQuery({
+  const commonQuerySettings = {
     queryKey: [endpoint, page],
     queryFn,
-    initialData: options?.initialData,
     staleTime: ms("5m"),
-    enabled: !Boolean(options?.skip),
+    retryDelay: (retryCount: number) => retryCount * 2000,
     retry: options?.retry || 3,
+    initialData: options?.initialData,
+  };
+
+  const { isPlaceholderData, data, isLoading, ...result } = reactUseQuery({
+    ...commonQuerySettings,
+    enabled: !Boolean(options?.skip),
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
   useEffect(() => {
     if (!isPlaceholderData && data?.paginator.hasMore) {
-      queryClient.prefetchQuery({
-        queryKey: [endpoint, page],
-        queryFn,
-      });
+      queryClient.prefetchQuery(commonQuerySettings);
     }
   }, [data, isPlaceholderData, variables, queryClient]);
 
@@ -78,6 +84,7 @@ function usePagination<T>(
       },
     },
     data: data?.data as T,
+    isLoading: isLoading || paginationLoading,
     ...result,
   };
 }

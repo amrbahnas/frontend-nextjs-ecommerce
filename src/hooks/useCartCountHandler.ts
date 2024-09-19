@@ -7,21 +7,15 @@ import useCardStore from "@/store/useCardStore";
 export const UseCartCountHandler = () => {
   const { setCartItemsCount, storeCart } = useCardStore();
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { cartItemsCount, refetchCartCount } = useGetCartCount({
-    skip: !isLogin,
+  const { cartItemsCount, isLoading } = useGetCartCount({
+    skip: !isLogin || storeCart.cartItems.length > 0,
   });
-
   useEffect(() => {
-    if (isLogin) {
+    // if login && storeCart has items => useMergeCartHandler will handle cartItemsCount, so we add storeCart.cartItems.length === 0 condition
+    if (isLogin && !isLoading && storeCart.cartItems.length === 0) {
       setCartItemsCount(cartItemsCount);
-    } else {
+    } else if (!isLogin) {
       setCartItemsCount(storeCart.cartItems.length);
     }
-  }, [
-    isLogin,
-    refetchCartCount,
-    cartItemsCount,
-    storeCart.cartItems.length,
-    setCartItemsCount,
-  ]);
+  }, [isLogin, isLoading]); // note => don`t edit dependencies here
 };

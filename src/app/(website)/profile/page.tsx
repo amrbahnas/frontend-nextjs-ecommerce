@@ -25,7 +25,7 @@ const ProfilePage = () => {
     ordersRefetch,
     pagination,
   } = useGetOrders();
-  console.log("🚀 ~ ProfilePage ~ orders:", orders);
+  console.log("🚀 ~ ProfilePage ~ ordersIsLoading:", ordersIsLoading);
   const {
     updateUser,
     updateUserIsPending,
@@ -134,14 +134,12 @@ const ProfilePage = () => {
       <div className="w-full md:w-1/2">
         <h1 className="text-2xl">Orders</h1>
         <div className="mt-12 flex flex-col">
-          <Spin spinning={ordersIsLoading}>
-            <Table
-              dataSource={orders}
-              columns={columns}
-              pagination={pagination}
-              loading={ordersIsLoading}
-            />
-          </Spin>
+          <Table
+            dataSource={orders}
+            columns={columns}
+            pagination={pagination}
+            loading={ordersIsLoading}
+          />
         </div>
       </div>
     </div>

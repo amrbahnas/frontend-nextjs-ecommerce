@@ -14,7 +14,7 @@ export const useMe = () => {
 
 export const useGetOrders = () => {
   const { data, error, refetch, isError, isLoading, pagination } =
-    usePagination("/orders");
+    usePagination<OrderType[]>("/orders");
   return {
     orders: isLoading ? [] : data,
     ordersError: error,

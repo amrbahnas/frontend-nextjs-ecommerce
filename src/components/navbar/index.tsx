@@ -8,10 +8,12 @@ import NavIcons from "./navIcons";
 import Container from "../container";
 import { UseCartCountHandler } from "@/hooks/useCartCountHandler";
 import useCheckCookies from "@/hooks/useCheckCookies";
+import useMergeCartHandler from "@/hooks/useMergeCartHandler";
 
 const Navbar = () => {
   UseCartCountHandler();
   useCheckCookies();
+  useMergeCartHandler();
   return (
     <Container>
       <div className="h-20">

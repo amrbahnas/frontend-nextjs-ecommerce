@@ -10,7 +10,7 @@ const CategoryList = () => {
     <Spin spinning={isLoading}>
       <div className="   px-4 overflow-x-scroll scrollbar-hide">
         <div className="flex gap-4 md:gap-8">
-          {categories?.map((item: CategoryType) => (
+          {categories?.map((item) => (
             <Link
               href={`/list?cat=${item._id}`}
               className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"

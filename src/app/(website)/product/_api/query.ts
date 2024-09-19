@@ -1,7 +1,7 @@
 import useQuery from "@/hooks/useQuery";
 
 export const useGetSpecificProduct = (id: string) => {
-  const { data, error, refetch, isError, isLoading } = useQuery(
+  const { data, error, refetch, isError, isLoading } = useQuery<Product>(
     `/products/${id}`,
     {
       skip: !id,
@@ -17,7 +17,7 @@ export const useGetSpecificProduct = (id: string) => {
 };
 
 export const useGetProductReviews = (id: string) => {
-  const { data, error, refetch, isError, isLoading } = useQuery(
+  const { data, error, refetch, isError, isLoading } = useQuery<ReviewType[]>(
     `/products/${id}/reviews`,
     {
       skip: !id,

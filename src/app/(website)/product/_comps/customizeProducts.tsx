@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Add from "./add";
-import { Product } from "@/types/product";
 
 const CustomizeProducts = ({
   product,

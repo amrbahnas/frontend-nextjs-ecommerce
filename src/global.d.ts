@@ -34,22 +34,6 @@ type CartItemType = {
 type Product = {
   _id: string;
   title: string;
-  price: number;
-  imageCover: string;
-  quantity: number;
-  images: string[];
-  colors: string[];
-  category: Category;
-  id: string;
-};
-
-type Category = {
-  name: string;
-};
-
-type Product = {
-  _id: string;
-  title: string;
   slug: string;
   description: string;
   quantity: number;
@@ -58,7 +42,7 @@ type Product = {
   colors: any[];
   imageCover: string;
   images: string[];
-  category: Category;
+  category: CategoryType;
   subCategories: any[];
   ratingsQuantity: number;
   createdAt: string;
@@ -70,10 +54,6 @@ type Product = {
 };
 
 type ProductSize = "S" | "M" | "L" | "XL" | "XXL";
-
-type Category = {
-  name: string;
-};
 
 type ReviewType = {
   _id: string;
@@ -90,6 +70,7 @@ type User = {
   _id: string;
   name: string;
   image: string;
+  email: string;
 };
 
 type OrderType = {
@@ -100,6 +81,7 @@ type OrderType = {
   shippingPrice: number;
   totalOrderPrice: number;
   paymentMethod: string;
+  address: string;
   isPaid: boolean;
   paidAt: string;
   isDelivered: boolean;

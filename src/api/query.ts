@@ -1,7 +1,7 @@
 import useQuery from "@/hooks/useQuery";
 
 export const useGetProducts = (params?: any) => {
-  const { data: products, isLoading } = useQuery("/products", {
+  const { data: products, isLoading } = useQuery<Product[]>("/products", {
     params: {
       fields: "title,price,imageCover,images,colors",
       ...params,
@@ -12,10 +12,13 @@ export const useGetProducts = (params?: any) => {
 };
 
 export const useGetCategories = (params?: any) => {
-  const { data: categories, isLoading } = useQuery("/categories", {
-    params,
-    staleTime: "1d",
-  });
+  const { data: categories, isLoading } = useQuery<CategoryType[]>(
+    "/categories",
+    {
+      params,
+      staleTime: "1d",
+    }
+  );
 
   return { categories, isLoading };
 };

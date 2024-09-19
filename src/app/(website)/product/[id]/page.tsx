@@ -2,23 +2,15 @@
 import Add from "@/app/(website)/product/_comps/add";
 
 import Reviews from "../_comps/reviews";
-import { Product } from "@/types/product";
+
 import { useGetSpecificProduct } from "../_api/query";
 import Container from "@/components/container";
 import ProductImages from "../_comps/productImage";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
-  const {
-    product,
-    error,
-    isLoading,
-    refetch,
-  }: {
-    product: Product;
-    error: any;
-    isLoading: boolean;
-    refetch: any;
-  } = useGetSpecificProduct(params.id);
+  const { product, error, isLoading, refetch } = useGetSpecificProduct(
+    params.id
+  );
 
   return (
     <Container>

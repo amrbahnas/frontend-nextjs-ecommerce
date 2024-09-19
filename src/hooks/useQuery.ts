@@ -4,17 +4,7 @@ import Cookies from "js-cookie";
 import axiosInstance from "../config/apiClient";
 import ms from "ms";
 
-function useQuery<T>(
-  endpoint: string,
-  options?: {
-    params?: Record<string, any>;
-    initialData?: any;
-    skip?: boolean;
-    retry?: number;
-    staleTime?: string;
-    refetchOnWindowFocus?: boolean;
-  }
-) {
+function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const queryFn = () =>
     axiosInstance
       .get(endpoint, {

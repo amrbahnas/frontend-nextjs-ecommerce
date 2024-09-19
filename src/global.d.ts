@@ -1,3 +1,12 @@
+type UseQueryOptionsType = {
+  params?: Record<string, any>;
+  initialData?: any;
+  skip?: boolean;
+  retry?: number;
+  staleTime?: string;
+  refetchOnWindowFocus?: boolean;
+};
+
 type CategoryType = {
   _id: string;
   name: string;
@@ -8,6 +17,7 @@ type CategoryType = {
 };
 
 type CartType = {
+  _id: string;
   cartItems: CartItemType[];
   numberOfCartsItems: number;
   totalCartPrice: number;

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type Store = {
-  user: any;
+  user: User | null;
   setUser: (user: any) => void;
 };
 

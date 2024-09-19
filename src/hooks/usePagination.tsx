@@ -19,11 +19,12 @@ function usePagination<T>(
     skip?: boolean;
     retry?: number;
     refetchOnWindowFocus?: boolean;
+    pageSize?: number;
   }
 ) {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(options?.pageSize || 10);
   const [paginationLoading, setPaginationLoading] = useState(false);
 
   const variables = useMemo(() => {

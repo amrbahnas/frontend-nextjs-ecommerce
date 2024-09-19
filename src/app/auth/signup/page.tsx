@@ -12,9 +12,9 @@ const SignUpPage = () => {
   const { signUp, signUpError, signUpPending } = useSignUp();
   console.log("🚀 ~ SignUpPage ~ signUpError:", signUpError);
   return (
-    <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
+    <div className="h-[calc(100vh-80px)] mx-auto w-[80%] lg:w-[30%] flex items-center justify-center">
       <Form
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-5 w-full"
         form={form}
         layout="vertical"
         onFinish={signUp}
@@ -31,7 +31,11 @@ const SignUpPage = () => {
               },
             ]}
           >
-            <Input placeholder="Enter your Name" className=" rounded-md p-4" />
+            <Input
+              placeholder="Enter your Name"
+              className=" rounded-md p-4"
+              size="large"
+            />
           </Item>
         </div>
         <div className="flex flex-col gap-2">
@@ -49,6 +53,7 @@ const SignUpPage = () => {
               type="email"
               placeholder="Enter your email"
               className=" rounded-md p-4"
+              size="large"
             />
           </Item>
         </div>
@@ -68,6 +73,7 @@ const SignUpPage = () => {
               type="password"
               placeholder="Enter your password"
               className=" rounded-md p-4"
+              size="large"
             />
           </Item>
         </div>
@@ -86,6 +92,7 @@ const SignUpPage = () => {
               type="password"
               placeholder="Enter your confirmPassword"
               className=" rounded-md p-4"
+              size="large"
             />
           </Item>
         </div>
@@ -95,6 +102,8 @@ const SignUpPage = () => {
           disabled={signUpPending}
           loading={signUpPending}
           htmlType="submit"
+          type="primary"
+          size="large"
         >
           {signUpPending ? "Loading..." : "Register"}
         </Button>

@@ -1,14 +1,14 @@
 "use client";
-import Link from "next/link";
-import React, { Suspense } from "react";
-import Menu from "./menu";
-import Image from "next/image";
-import SearchBar from "./searchBar";
-import NavIcons from "./navIcons";
-import Container from "../container";
 import { UseCartCountHandler } from "@/hooks/useCartCountHandler";
 import useCheckCookies from "@/hooks/useCheckCookies";
 import useMergeCartHandler from "@/hooks/useMergeCartHandler";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import Container from "../container";
+import Menu from "./menu";
+import NavIcons from "./navIcons";
+import SearchBar from "./searchBar";
 
 const Navbar = () => {
   UseCartCountHandler();
@@ -16,37 +16,42 @@ const Navbar = () => {
   useMergeCartHandler();
   return (
     <Container>
-      <div className="h-20">
-        {/* MOBILE */}
-        <div className="flex items-center justify-between h-full md:hidden">
-          <Link href={"/"}>
+      <div className="min-h-20 flex  flex-col  justify-center py-4 ">
+        <div className="flex items-center justify-between h-full ">
+          {/* left */}
+          <Link href={"/"} className="flex items-center gap-3 ">
+            <Image src="/logo.png" width={24} height={24} alt="logo" />
             <div className="text-2xl tracking-wide">Shope</div>
           </Link>
-          <Menu />
-        </div>
-        {/*  Bigger screen */}
-        <div className="hidden md:flex items-center justify-between h-full">
-          {/* left */}
-          <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
-            <Link href={"/"} className="flex items-center gap-3 ">
-              <Image src="/logo.png" width={24} height={24} alt="logo" />
-              <div className="text-2xl tracking-wide">Shope</div>
-            </Link>
-            <div className="hidden xl:flex gap-4">
-              <Link href={"/"}>Home</Link>
-              <Link href={"/"}>Shop</Link>
-              <Link href={"/"}>Deals</Link>
-              <Link href={"/"}>About</Link>
-              <Link href={"/"}>Contact</Link>
-            </div>
+          {/* Big screen */}
+          <div className="hidden xl:flex gap-4">
+            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Shop</Link>
+            <Link href={"/"}>Deals</Link>
+            <Link href={"/"}>About</Link>
+            <Link href={"/"}>Contact</Link>
           </div>
-          {/* Right */}
-          <div className="w-2/3 xl:w-1/2 flex items-center   gap-8 ">
+          {/* Big screen */}
+          <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
             <Suspense fallback={<div>Loading...</div>}>
               <SearchBar />
             </Suspense>
             <NavIcons />
           </div>
+          <div className="flex items-center gap-6">
+            {/* Mobile */}
+            <div className="flex md:hidden items-center justify-between h-full gap-6">
+              <NavIcons />
+
+              <Menu />
+            </div>
+          </div>
+        </div>
+        {/*  mobile */}
+        <div className=" mt-6 block md:hidden items-center justify-between h-full">
+          <Suspense fallback={<div>Loading...</div>}>
+            <SearchBar />
+          </Suspense>
         </div>
       </div>
     </Container>

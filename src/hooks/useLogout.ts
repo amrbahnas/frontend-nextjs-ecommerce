@@ -1,11 +1,13 @@
 "use client";
 import { useLogoutApi } from "@/app/auth/_api/mutation";
 import useAuthStore from "@/store/useAuthStore";
+import useUserStore from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
 
 export const useLogout = () => {
   const router = useRouter();
   const removeAuthData = useAuthStore((state) => state.removeAuthData);
+  const setUser = useUserStore((state) => state.setUser);
 
   const { mutate, isPending } = useLogoutApi();
   const logout = () => {
@@ -14,6 +16,7 @@ export const useLogout = () => {
       {
         onSuccess: () => {
           removeAuthData();
+          setUser(null);
           router.push("/");
         },
       }

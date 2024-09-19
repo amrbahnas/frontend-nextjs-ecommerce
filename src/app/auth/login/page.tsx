@@ -10,9 +10,9 @@ const LoginPage = () => {
   const { login, loginError, loginPending } = useLogin();
 
   return (
-    <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
+    <div className="h-[calc(100vh-80px)] mx-auto w-[80%]  lg:w-[30%]  flex items-center justify-center">
       <Form
-        className="flex flex-col gap-5 "
+        className="flex flex-col gap-5 w-full"
         form={form}
         layout="vertical"
         onFinish={login}
@@ -31,6 +31,7 @@ const LoginPage = () => {
           <Input
             type="email"
             placeholder="Enter your email"
+            size="large"
             className=" rounded-md p-4"
           />
         </Item>
@@ -47,6 +48,7 @@ const LoginPage = () => {
           <Input
             type="password"
             name="password"
+            size="large"
             placeholder="Enter your password"
             className=" rounded-md p-4"
           />
@@ -64,6 +66,8 @@ const LoginPage = () => {
           disabled={loginPending}
           loading={loginPending}
           htmlType="submit"
+          type="primary"
+          size="large"
         >
           {loginPending ? "Loading..." : "Login"}
         </Button>

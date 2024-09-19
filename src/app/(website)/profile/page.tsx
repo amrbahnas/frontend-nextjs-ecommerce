@@ -133,7 +133,7 @@ const ProfilePage = () => {
       </div>
       <div className="w-full md:w-1/2">
         <h1 className="text-2xl">Orders</h1>
-        <div className="mt-12 flex flex-col">
+        <div className="mt-2 flex flex-col">
           <Table
             dataSource={orders}
             columns={columns}

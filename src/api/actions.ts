@@ -22,10 +22,11 @@ export const useRemoveItemFromCart = (id: string) => {
 // reset cart
 
 export const useResetCart = () => {
-  const { mutate: resetCart, isPending } = useMutation(`/cart/reset`);
+  const { mutate: resetApiCart, isPending: resetApiCartLoading } =
+    useMutation(`/cart/reset`);
   return {
-    resetCart,
-    isPending,
+    resetApiCart,
+    resetApiCartLoading,
   };
 };
 
@@ -34,5 +35,25 @@ export const useMergeLocalCart = () => {
   return {
     mergeCart,
     isPending,
+  };
+};
+
+export const useCardCheckout = (cartId: string) => {
+  const { mutate: cardCheckout, isPending: checkoutLoading } = useMutation(
+    `/orders/payment-page-url/${cartId}`
+  );
+  return {
+    cardCheckout,
+    checkoutLoading,
+  };
+};
+
+export const useCashCheckout = (cartId: string) => {
+  const { mutate: cashCheckout, isPending: cashCheckoutLoading } = useMutation(
+    `/orders/${cartId}`
+  );
+  return {
+    cashCheckout,
+    cashCheckoutLoading,
   };
 };

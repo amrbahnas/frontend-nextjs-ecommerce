@@ -4,13 +4,16 @@ import { Button, Popover } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-import CartModal from "./cartModal";
+
 import { useLogout } from "@/hooks/useLogout";
 import Link from "next/link";
+import CartModal from "./cartModel";
+import useUserStore from "@/store/useUserStore";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
   const { isLogin } = useAuthStore();
+  const user = useUserStore((state) => state.user);
   const { logout, isPending } = useLogout();
 
   const handleProfileIcon = () => {
@@ -53,13 +56,16 @@ const NavIcons = () => {
         }
         trigger="click"
       >
-        <Image
-          src={"/profile.png"}
-          width={22}
-          height={22}
-          alt=""
-          className="cursor-pointer"
-        />
+        <div className="flex items-center gap-2 cursor-pointer">
+          <Image
+            src={"/profile.png"}
+            width={22}
+            height={22}
+            alt=""
+            className="cursor-pointer"
+          />
+          <span>{user?.name}</span>
+        </div>
       </Popover>
       <Image
         src="/notification.png"

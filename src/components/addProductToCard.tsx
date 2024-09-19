@@ -5,11 +5,6 @@ import { Button } from "antd";
 import React from "react";
 import { toast } from "react-toastify";
 
-enum CartStatus {
-  Login = "login",
-  Guest = "guest",
-}
-
 type OptionsType = {
   color: string;
   size?: ProductSize;

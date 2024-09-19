@@ -1,31 +1,52 @@
 "use client";
 import useAuthStore from "@/store/useAuthStore";
-import { Popover } from "antd";
+import { Button, Popover } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import CartModal from "./cartModal";
+import { useLogout } from "@/hooks/useLogout";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
-  const { isLogin, logOut } = useAuthStore();
+  const { isLogin } = useAuthStore();
+  const { logout, isPending } = useLogout();
 
-  const handleProfile = () => {
+  const handleProfileIcon = () => {
     isLogin ? setIsProfileOpen(!isProfileOpen) : router.push("/auth/login");
+  };
+
+  const handleProfilePage = () => {
+    router.push("/profile");
+    setIsProfileOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsProfileOpen(false);
   };
 
   return (
     <div className="flex items-center gap-4 xl:gap-6">
       <Popover
         open={isProfileOpen}
-        onOpenChange={handleProfile}
+        onOpenChange={handleProfileIcon}
         content={
           <div className="flex flex-col gap-2">
-            <Link href="/profile">Profile</Link>
-            <div className="mt-2 cursor-pointer" onClick={logOut}>
+            <Button
+              className="mt-2 cursor-pointer"
+              onClick={handleProfilePage}
+              type="primary"
+            >
+              Profile
+            </Button>
+            <Button
+              loading={isPending}
+              className="mt-2 cursor-pointer"
+              onClick={handleLogout}
+            >
               Logout
-            </div>
+            </Button>
           </div>
         }
         trigger="click"

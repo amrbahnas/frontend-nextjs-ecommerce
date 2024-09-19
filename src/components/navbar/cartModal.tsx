@@ -42,7 +42,7 @@ const CartModal = () => {
       }
       trigger="click"
     >
-      <Badge count={cartItemsCount} size="small">
+      <Badge count={cartItemsCount} size="small" className=" cursor-pointer">
         <Image
           src="/cart.png"
           width={22}

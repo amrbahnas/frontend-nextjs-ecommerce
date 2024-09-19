@@ -4,23 +4,21 @@ import Cookies from "js-cookie";
 
 type Store = {
   isLogin: boolean;
-  makeUserLogin: (token: string) => void;
-  logOut: () => void;
+  setAuthData: (token: string) => void;
+  removeAuthData: () => void;
 };
 
 const useAuthStore = create<Store>(
   persist(
     (set) => ({
       isLogin: false,
-      makeUserLogin: (token: string) => {
+      setAuthData: (token: string) => {
         set({ isLogin: true });
         Cookies.set("token", "bearer " + token);
-        window.location.href = "/";
       },
-      logOut: () => {
+      removeAuthData: () => {
         set({ isLogin: false });
         Cookies.remove("token");
-        window.location.href = "/";
       },
     }),
     {

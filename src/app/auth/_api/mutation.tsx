@@ -6,7 +6,8 @@ import useAuthStore from "@/store/useAuthStore";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
-  const makeUserLogin = useAuthStore((state) => state.makeUserLogin);
+  const router = useRouter();
+  const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
   const login = (values: { email: string; password: string }) => {
@@ -14,7 +15,8 @@ export const useLogin = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        makeUserLogin(data.token);
+        setAuthData(data.token);
+        router.push("/");
       },
     });
   };
@@ -30,8 +32,9 @@ export const useLogin = () => {
 };
 
 export const useSignUp = () => {
+  const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
-  const makeUserLogin = useAuthStore((state) => state.makeUserLogin);
+  const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/signup");
   const signUp = (values: {
@@ -44,7 +47,8 @@ export const useSignUp = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        makeUserLogin(data.token);
+        setAuthData(data.token);
+        router.push("/");
       },
     });
   };
@@ -129,5 +133,14 @@ export const useForgetPassword = (setScreen: (a: SCREENS) => void) => {
       sendResetCodeIsError ||
       verifyResetCodeIsError ||
       createNewPasswordIsSuccess,
+  };
+};
+
+// logout
+export const useLogoutApi = () => {
+  const { mutate, isPending } = useMutation("/auth/logout");
+  return {
+    mutate,
+    isPending,
   };
 };

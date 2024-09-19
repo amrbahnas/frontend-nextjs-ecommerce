@@ -74,9 +74,10 @@ const CartBody = ({
       cashCheckout(
         {},
         {
-          onSuccess: () => {
+          onSuccess: (res) => {
+            const orderId = res.data.orderId;
             toast.success("Order placed successfully");
-            router.push("/profile");
+            router.push("/orders/" + orderId);
             setOpen(false);
             setCartItemsCount(0);
           },

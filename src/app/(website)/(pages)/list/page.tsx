@@ -1,10 +1,10 @@
 "use client";
 import Container from "@/components/container";
-import Filter from "@/app/(website)/list/_comps/filter";
 import { Button, Skeleton } from "antd";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import ProductSection from "./_comps/productSection";
+import Filter from "./_comps/filter";
 
 const ListPage = () => {
   return (

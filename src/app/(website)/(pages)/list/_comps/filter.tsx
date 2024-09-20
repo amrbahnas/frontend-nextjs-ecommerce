@@ -1,6 +1,6 @@
 "use client";
+import useParamsService from "@/hooks/useParamsService";
 import { InputNumber, Select } from "antd";
-import useParamsService from "../../../../hooks/useParamsService";
 
 const Filter = () => {
   const { setParams } = useParamsService("okay I will");

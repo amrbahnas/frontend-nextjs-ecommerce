@@ -51,7 +51,7 @@ const Add = ({ product }: { product: Product }) => {
         <AddProductToCard
           product={product}
           options={{
-            color: product?.colors[0] || product?.colors[0],
+            color: product?.colors ? product.colors[0] : "black",
             quantity: quantity,
           }}
         />

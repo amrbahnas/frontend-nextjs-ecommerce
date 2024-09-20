@@ -21,9 +21,7 @@ const ProductList = ({
   return (
     <Spin spinning={isLoading}>
       <div
-        className={`mt-12 gap-x-9 gap-y-16 items-center grid ${
-          products?.length > 2 ? "grid-cols-autoFit" : ""
-        }`}
+        className={`mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}
       >
         {products?.map((product: Product) => (
           <ProductCard product={product} key={product._id} />

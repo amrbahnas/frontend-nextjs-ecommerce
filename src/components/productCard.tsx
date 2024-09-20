@@ -6,7 +6,7 @@ import AddProductToCard from "./addProductToCard";
 const ProductCard = ({ product }: { product: Product }) => {
   console.log("🚀 ~ ProductCard ~ product:", product);
   return (
-    <div className=" flex flex-col gap-4 w-full  md:w-1/4 ">
+    <div className=" flex flex-col gap-4 ">
       <Link href={"/product/" + product._id} key={product._id}>
         <div className="relative w-full h-80">
           <Image
@@ -26,15 +26,17 @@ const ProductCard = ({ product }: { product: Product }) => {
             />
           )}
         </div>
-        <div className="flex justify-between mt-2">
-          <span className="font-medium">{product.title}</span>
+        <div className="flex justify-between mt-2 p-1">
+          <span className="font-medium ">{product.title}</span>
           <span className="font-semibold">${product.price}</span>
         </div>
       </Link>
-      <AddProductToCard
-        product={product}
-        options={{ color: product.colors[0], quantity: 1 }}
-      />
+      <div className="px-1">
+        <AddProductToCard
+          product={product}
+          options={{ color: product.colors[0], quantity: 1 }}
+        />
+      </div>
     </div>
   );
 };

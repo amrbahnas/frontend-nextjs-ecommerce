@@ -14,7 +14,7 @@ const SearchBar = () => {
   const router = useRouter();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
-    if (pathname === "/" && value) {
+    if (value) {
       return router.push(`/list?search=${value}`);
     }
     setParams("search", value);

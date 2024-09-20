@@ -84,7 +84,7 @@ function usePagination<T>(
         pageSize && setPageSize(pageSize);
       },
     },
-    data: data?.data as T,
+    data: (data?.data as T) || [],
     isLoading: isLoading || paginationLoading,
     ...result,
   };

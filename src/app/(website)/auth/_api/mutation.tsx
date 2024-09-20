@@ -1,7 +1,7 @@
-import useMutation from "../../../hooks/useMutation";
-import useUserStore from "../../../store/useUserStore";
+import useMutation from "../../../../hooks/useMutation";
+import useUserStore from "../../../../store/useUserStore";
 import { useRouter } from "next/navigation";
-import { SCREENS } from "../../../enum/forgetPasswordScreens";
+import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 import useAuthStore from "@/store/useAuthStore";
 
 export const useLogin = () => {

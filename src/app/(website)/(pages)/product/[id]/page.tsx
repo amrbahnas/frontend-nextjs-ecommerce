@@ -1,5 +1,5 @@
 "use client";
-import Add from "@/app/(website)/product/_comps/add";
+import Add from "@/app/(website)/(pages)/product/_comps/add";
 
 import Reviews from "../_comps/reviews";
 

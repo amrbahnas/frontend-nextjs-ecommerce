@@ -1,13 +1,11 @@
-import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
-import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import AntDLayout from "../components/layout/antDLayout";
-import ReactQueryLayout from "../components/layout/reactQueryLayout";
 import ProgressBarLayout from "@/components/layout/progressBarLayout";
 import { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AntDLayout from "../components/layout/antDLayout";
+import ReactQueryLayout from "../components/layout/reactQueryLayout";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AntDLayout>
           <ReactQueryLayout>
-            <ProgressBarLayout>
-              <Navbar />
-              {children}
-              <Footer />
-            </ProgressBarLayout>
+            <ProgressBarLayout>{children}</ProgressBarLayout>
           </ReactQueryLayout>
         </AntDLayout>
         <ToastContainer />

@@ -1,5 +1,5 @@
 "use client";
-import { useLogoutApi } from "@/app/auth/_api/mutation";
+import { useLogoutApi } from "@/app/(website)/auth/_api/mutation";
 import useAuthStore from "@/store/useAuthStore";
 import useUserStore from "@/store/useUserStore";
 import { useRouter } from "next/navigation";

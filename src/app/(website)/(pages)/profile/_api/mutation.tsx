@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import useMutation from "../../../../hooks/useMutation";
+import useMutation from "../../../../../hooks/useMutation";
 
 export const useUpdateUser = (refetch: any) => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(

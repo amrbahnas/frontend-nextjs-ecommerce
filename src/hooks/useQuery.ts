@@ -18,13 +18,14 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const { data, ...result } = reactUseQuery({
     queryKey: [endpoint, options?.params || ""],
     queryFn,
-    initialData: options?.initialData,
     enabled: !Boolean(options?.skip),
+    initialData: options?.initialResults,
     retry: options?.retry || 3,
     retryDelay: (retryCount: number) => retryCount * 2000,
     staleTime: ms(options?.staleTime || "0s"),
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
+
   return {
     data: data?.data as T,
     ...result,

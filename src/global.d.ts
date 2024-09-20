@@ -1,10 +1,10 @@
 type UseQueryOptionsType = {
   params?: Record<string, any>;
-  initialData?: any;
   skip?: boolean;
   retry?: number;
   staleTime?: string;
   refetchOnWindowFocus?: boolean;
+  initialResults?: any;
 };
 
 type CategoryType = {
@@ -14,6 +14,12 @@ type CategoryType = {
   image: string;
   createdAt: string;
   updatedAt: string;
+};
+type SubCategoryType = {
+  userId: number;
+  _id: string;
+  title: string;
+  completed: boolean;
 };
 
 type CartType = {

@@ -14,7 +14,7 @@ const useMutation = (
 ) => {
   const config: AxiosRequestConfig<any> = {
     headers: {
-      Authorization: Cookies.get("token"),
+      Authorization: "Bearer " + Cookies.get("token"),
     },
   };
 

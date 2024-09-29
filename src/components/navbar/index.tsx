@@ -1,7 +1,4 @@
 "use client";
-import { UseCartCountHandler } from "@/hooks/useCartCountHandler";
-import useCheckCookies from "@/hooks/useCheckCookies";
-import useMergeCartHandler from "@/hooks/useMergeCartHandler";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -11,9 +8,6 @@ import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
 
 const Navbar = () => {
-  UseCartCountHandler();
-  useCheckCookies();
-  useMergeCartHandler();
   return (
     <Container>
       <div className="min-h-20 flex  flex-col  justify-center py-4 ">
@@ -23,6 +17,7 @@ const Navbar = () => {
             <Image src="/logo.png" width={24} height={24} alt="logo" />
             <div className="text-2xl tracking-wide">Shope</div>
           </Link>
+
           {/* Big screen */}
           <div className="hidden xl:flex gap-4">
             <Link href={"/"}>Home</Link>

@@ -3,6 +3,7 @@ import { Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useLogin } from "../_api/mutation";
 import Item from "@/components/item";
+import { Error } from "@/components/error";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const LoginPage = () => {
         onFinish={login}
       >
         <h1 className="text-2xl font-semibold">Login</h1>
+        <Error error={loginError} />
         <Item
           label="E-mail"
           name="email"
@@ -71,7 +73,6 @@ const LoginPage = () => {
         >
           {loginPending ? "Loading..." : "Login"}
         </Button>
-        {loginError && <div className="text-red-600">{String(loginError)}</div>}
 
         <div
           className="text-sm underline cursor-pointer"
@@ -83,16 +84,5 @@ const LoginPage = () => {
     </div>
   );
 };
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
-console.log("🚀 ~ LoginPage ~ process.env.BASE_URL:", process.env.BASE_URL);
 
 export default LoginPage;

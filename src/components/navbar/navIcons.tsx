@@ -9,6 +9,7 @@ import { useLogout } from "@/hooks/useLogout";
 import Link from "next/link";
 import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";
+import { MdDashboard } from "react-icons/md";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -67,6 +68,13 @@ const NavIcons = () => {
           <span>{user?.name}</span>
         </div>
       </Popover>
+      {user?.role === "admin" && (
+        <Link href={"/admin"} className="flex items-center gap-1 ">
+          <MdDashboard />
+          admin
+        </Link>
+      )}
+
       <Image
         src="/notification.png"
         width={22}

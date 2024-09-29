@@ -10,7 +10,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
       .get(endpoint, {
         params: options?.params,
         headers: {
-          Authorization: Cookies.get("token"),
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       })
       .then((res) => res.data);

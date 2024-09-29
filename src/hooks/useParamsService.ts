@@ -17,6 +17,10 @@ const useParamsService: ParamsService = (
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
+  const getParams = (key: string) => {
+    return searchParams.get(key);
+  };
+
   const setParams = (key: string, value?: string) => {
     const params = new URLSearchParams(searchParams);
     if (!value) {
@@ -32,7 +36,7 @@ const useParamsService: ParamsService = (
     replace(pathname);
   };
 
-  return { setParams, resetParams };
+  return { setParams, resetParams, getParams };
 };
 
 export default useParamsService;

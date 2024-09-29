@@ -15,7 +15,7 @@ export const useLogin = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        setAuthData(data.token);
+        setAuthData({ token: data.token, role: data.data.role });
         router.push("/");
       },
     });
@@ -47,7 +47,7 @@ export const useSignUp = () => {
       onSuccess: ({ data }: any) => {
         if (!data.token) return;
         setUser(data.data);
-        setAuthData(data.token);
+        setAuthData({ token: data.token, role: data.data.role });
         router.push("/");
       },
     });

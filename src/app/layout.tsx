@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AntDLayout from "../components/layout/antDLayout";
 import ReactQueryLayout from "../components/layout/reactQueryLayout";
 import "./globals.css";
+import InitialChecks from "@/components/layout/initailCheckes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <AntDLayout>
           <ReactQueryLayout>
             <ProgressBarLayout>{children}</ProgressBarLayout>
+            <InitialChecks />
           </ReactQueryLayout>
         </AntDLayout>
         <ToastContainer />

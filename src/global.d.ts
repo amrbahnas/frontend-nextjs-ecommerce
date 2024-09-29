@@ -77,6 +77,7 @@ type User = {
   name: string;
   image: string;
   email: string;
+  role: string;
 };
 
 type OrderType = {

@@ -9,7 +9,6 @@ const CategoryFilter = () => {
   const selectedCategory = getParams("category") || "";
   return (
     <Spin spinning={isLoading}>
-      <span className=" block mb-1 text-black">All Categories:</span>
       <Group
         onChange={(e: RadioChangeEvent) =>
           setParams("category", e.target.value)

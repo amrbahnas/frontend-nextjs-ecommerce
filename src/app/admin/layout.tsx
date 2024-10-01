@@ -13,7 +13,7 @@ const Admin = ({ children }: { children?: React.ReactNode }) => {
       <Button
         type="text"
         onClick={() => router.back()}
-        className="!fixed -left-8 lg:left-12 bottom-1/2 !w-fit"
+        className="!fixed -left-8 lg:left-12 bottom-8 !w-fit"
       >
         <IoArrowBackCircle fontSize="large" size={50} />
       </Button>

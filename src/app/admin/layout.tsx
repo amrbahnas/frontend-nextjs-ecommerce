@@ -8,14 +8,14 @@ const Admin = ({ children }: { children?: React.ReactNode }) => {
   const router = useRouter();
 
   return (
-    <div className="bg-[#181826] p-5 h-screen overflow-hidden">
+    <div className="py-4">
       <Container>{children}</Container>
       <Button
         type="text"
         onClick={() => router.back()}
-        className="!fixed left-12 bottom-1/2 text-white cursor-pointer p-5 bg-[#181826] border-2 border-white rounded-full flex items-center justify-center"
+        className="!fixed -left-8 lg:left-12 bottom-1/2 !w-fit"
       >
-        <IoArrowBackCircle fontSize="large" color="white" size={50} />
+        <IoArrowBackCircle fontSize="large" size={50} />
       </Button>
     </div>
   );

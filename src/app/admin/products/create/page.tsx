@@ -2,7 +2,11 @@ import React from "react";
 import ProductForm from "../_comps/productForm";
 
 const CreateProduct = () => {
-  return <ProductForm />;
+  return (
+    <div className=" flex items-center justify-center  ">
+      <ProductForm />
+    </div>
+  );
 };
 
 export default CreateProduct;

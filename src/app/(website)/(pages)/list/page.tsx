@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import ProductSection from "./_comps/productSection";
 import Filter from "./_comps/filter";
+import NextImage from "@/components/nextImage";
 
 const ListPage = () => {
   return (
@@ -21,7 +22,7 @@ const ListPage = () => {
           </Button>
         </div>
         <div className="relative w-1/3">
-          <Image src="/woman.png" alt="" fill className="object-contain" />
+          <NextImage src="/woman.png" alt="" fill className="object-contain" />
         </div>
       </div>
       {/* FILTER */}

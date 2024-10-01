@@ -6,6 +6,7 @@ import Container from "../container";
 import Menu from "./menu";
 import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
+import NextImage from "../nextImage";
 
 const Navbar = () => {
   return (
@@ -14,7 +15,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-full ">
           {/* left */}
           <Link href={"/"} className="flex items-center gap-3 ">
-            <Image src="/logo.png" width={24} height={24} alt="logo" />
+            <NextImage src="/logo.png" width={24} height={24} alt="logo" />
             <div className="text-2xl tracking-wide">Shope</div>
           </Link>
 

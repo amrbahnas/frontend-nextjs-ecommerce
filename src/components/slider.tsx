@@ -4,6 +4,7 @@ import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import NextImage from "./nextImage";
 
 const slides = [
   {
@@ -74,7 +75,7 @@ const Slider = () => {
             </div>
             {/* IMAGE CONTAINER */}
             <div className="h-1/2 xl:w-1/2 xl:h-full relative">
-              <Image
+              <NextImage
                 src={slide.img}
                 alt=""
                 fill

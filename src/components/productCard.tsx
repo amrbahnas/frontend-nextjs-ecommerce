@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import AddProductToCard from "./addProductToCard";
+import NextImage from "./nextImage";
 
 const ProductCard = ({ product }: { product: Product }) => {
   console.log("🚀 ~ ProductCard ~ product:", product);
@@ -9,7 +10,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     <div className=" flex flex-col gap-4 ">
       <Link href={"/product/" + product._id} key={product._id}>
         <div className="relative w-full h-80">
-          <Image
+          <NextImage
             src={product?.imageCover || "/product.png"}
             alt=""
             fill
@@ -17,7 +18,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
           />
           {product.images[0] && (
-            <Image
+            <NextImage
               src={product.images[0] || "/product.png"}
               alt=""
               fill

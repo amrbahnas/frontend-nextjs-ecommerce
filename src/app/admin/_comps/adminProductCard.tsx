@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
-import { useAdminDeleteProduct } from "../_api/actions";
+import { useAdminDeleteProduct } from "../products/_api/actions";
 import { Button } from "antd";
 import { toast } from "react-toastify";
+import NextImage from "@/components/nextImage";
 const AdminProductCard = ({
   product,
   refetchProduct,
@@ -29,10 +30,10 @@ const AdminProductCard = ({
 
   return (
     <div
-      className="flex items-start justify-center w-full gap-4 p-2 shadow-lg item "
+      className="flex items-start justify-center w-full gap-4 p-2  border-2 rounded-md  flex-wrap "
       key={product.id}
     >
-      <Image
+      <NextImage
         src={imageCover}
         alt="Product image"
         width={250}
@@ -49,12 +50,9 @@ const AdminProductCard = ({
         <p className="text-gray-500">{description?.substring(0, 50)}</p>
         <span className="price text-sky-700 text-md">${product.price}</span>
       </div>
-      <div className="flex self-center gap-6 text-center delete basis-1/6 mg:gap-10">
+      <div className="flex self-center gap-3 text-center ">
         <Link href={"products/" + product.id}>
-          <CiEdit
-            size={30}
-            className="text-white cursor-pointer hover:scale-110"
-          />
+          <CiEdit size={30} className="  cursor-pointer hover:scale-110" />
         </Link>
         <Button
           type="text"

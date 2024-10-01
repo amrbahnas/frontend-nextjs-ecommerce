@@ -48,3 +48,19 @@ export const useGetAdminProducts = (params?: any) => {
 
   return { products: products || [], isLoading, refetchProduct };
 };
+
+//get single product
+export const useGetAdminProduct = (productId: string | undefined) => {
+  const {
+    data: product,
+    isLoading,
+    refetch: refetchProduct,
+  } = useQuery<Product>(`/products/${productId}`, {
+    params: {
+      fields: "title,imageCover,description,price",
+      skip: !productId,
+    },
+  });
+
+  return { product, isLoading, refetchProduct };
+};

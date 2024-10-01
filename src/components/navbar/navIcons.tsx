@@ -10,6 +10,7 @@ import Link from "next/link";
 import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";
 import { MdDashboard } from "react-icons/md";
+import NextImage from "../nextImage";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -58,7 +59,7 @@ const NavIcons = () => {
         trigger="click"
       >
         <div className="flex items-center gap-2 cursor-pointer">
-          <Image
+          <NextImage
             src={"/profile.png"}
             width={22}
             height={22}
@@ -75,7 +76,7 @@ const NavIcons = () => {
         </Link>
       )}
 
-      <Image
+      <NextImage
         src="/notification.png"
         width={22}
         height={22}

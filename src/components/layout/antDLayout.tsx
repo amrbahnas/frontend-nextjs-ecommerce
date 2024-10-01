@@ -55,8 +55,8 @@ export default function AntDLayout({
             Select: {
               optionFontSize: 12,
               optionHeight: 28,
-              multipleItemHeight: 8,
-              multipleItemHeightLG: 24,
+              // multipleItemHeight: 8,
+              // multipleItemHeightLG: 24,
             },
             DatePicker: {
               activeBorderColor: "",

@@ -1,7 +1,7 @@
 import { useRemoveItemFromCart } from "@/api/actions";
+import NextImage from "@/components/nextImage";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import Image from "next/image";
 
 const CartItem = ({
   item,
@@ -18,7 +18,7 @@ const CartItem = ({
   return (
     <div className="flex gap-4" key={item._id}>
       {item?.product?.imageCover && (
-        <Image
+        <NextImage
           src={item.product?.imageCover}
           alt=""
           width={72}

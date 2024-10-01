@@ -2,6 +2,7 @@ import { useGetCategories } from "@/api/query";
 import { Spin } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import NextImage from "./nextImage";
 // import { CategoryType } from "../types/category";
 
 const CategoryList = () => {
@@ -17,7 +18,7 @@ const CategoryList = () => {
               key={item._id}
             >
               <div className="relative bg-slate-100 w-full h-96">
-                <Image
+                <NextImage
                   src={item.image}
                   alt=""
                   fill

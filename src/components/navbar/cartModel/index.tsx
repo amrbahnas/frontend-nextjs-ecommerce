@@ -5,6 +5,7 @@ import { Badge, Popover, Radio } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CartBody from "./cartBody";
+import NextImage from "@/components/nextImage";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ const CartModal = () => {
       trigger="click"
     >
       <Badge count={cartItemsCount} size="small" className=" cursor-pointer">
-        <Image
+        <NextImage
           src="/cart.png"
           width={22}
           height={22}

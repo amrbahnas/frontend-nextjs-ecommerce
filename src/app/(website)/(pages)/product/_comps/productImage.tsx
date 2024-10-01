@@ -1,5 +1,6 @@
 "use client";
 
+import NextImage from "@/components/nextImage";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -9,7 +10,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   return (
     <div className="">
       <div className="h-[500px] relative ">
-        <Image
+        <NextImage
           // src={items[index].image?.url}
           src={images[index]}
           alt=""
@@ -25,7 +26,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
             key={item.id}
             onClick={() => setIndex(i)}
           >
-            <Image
+            <NextImage
               src={item}
               alt=""
               fill

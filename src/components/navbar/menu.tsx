@@ -3,13 +3,14 @@ import { Drawer } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import NextImage from "../nextImage";
 
 const Menu = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <div>
-      <Image
+      <NextImage
         src="/menu.png"
         width={28}
         height={28}

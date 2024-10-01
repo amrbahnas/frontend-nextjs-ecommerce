@@ -8,6 +8,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
   setParams: (key: string, value?: string) => void;
   resetParams: () => void;
+  getParams: (key: string) => string | null;
 };
 
 const useParamsService: ParamsService = (

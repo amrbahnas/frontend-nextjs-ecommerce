@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useGetProductReviews } from "../_api/query";
+import NextImage from "@/components/nextImage";
 
 const reviews = [
   {
@@ -46,7 +47,7 @@ const Reviews = ({ productId }: { productId: string }) => {
     <div className="flex flex-col gap-4" key={review._id}>
       {/* USER */}
       <div className="flex items-center gap-4 font-medium">
-        <Image
+        <NextImage
           src={review?.user?.image}
           alt=""
           width={32}
@@ -58,14 +59,20 @@ const Reviews = ({ productId }: { productId: string }) => {
       {/* STARS */}
       <div className="flex gap-2">
         {Array.from({ length: review.rating }).map((_, index) => (
-          <Image src="/star.png" alt="" key={index} width={16} height={16} />
+          <NextImage
+            src="/star.png"
+            alt=""
+            key={index}
+            width={16}
+            height={16}
+          />
         ))}
       </div>
       {/* DESC */}
       {review.title && <p>{review.title}</p>}
       {/* <div className="">
         {review.media.map((media: any) => (
-          <Image
+          <NextImage
             src={media.url}
             key={media.id}
             alt=""

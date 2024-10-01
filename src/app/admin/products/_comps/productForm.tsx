@@ -118,7 +118,7 @@ const ProductForm = ({ id }: { id?: string }) => {
             {id ? "Update Product" : "Add Product"}
           </h1>
 
-          <div className="flex gap-4  e md:flex-row  ">
+          <div className="flex gap-4 flex-wrap  flex-col-reverse md:flex-row  ">
             <div className="flex-1">
               <Item name="title" label="Title" className={"!w-full"}>
                 <Input className="" />

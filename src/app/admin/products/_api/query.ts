@@ -24,9 +24,9 @@ export const useGetAdminSubCategories = (
     {
       params: {
         fields: "name",
-        skip: !categoryId,
         ...params,
       },
+      skip: !categoryId,
       staleTime: "1d",
     }
   );
@@ -49,7 +49,6 @@ export const useGetAdminProducts = (params?: any) => {
   return { products: products || [], isLoading, refetchProduct };
 };
 
-//get single product
 export const useGetAdminProduct = (productId: string | undefined) => {
   const {
     data: product,
@@ -58,8 +57,8 @@ export const useGetAdminProduct = (productId: string | undefined) => {
   } = useQuery<Product>(`/products/${productId}`, {
     params: {
       fields: "title,imageCover,description,price",
-      skip: !productId,
     },
+    skip: !productId,
   });
 
   return { product, isLoading, refetchProduct };

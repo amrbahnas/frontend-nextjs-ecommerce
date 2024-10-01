@@ -1,5 +1,10 @@
+interface BaseParamsType {
+  [key: string]: any; // Allow any other keys
+}
+
+type ParamsType = Omit<BaseParamsType, "skip">;
 type UseQueryOptionsType = {
-  params?: Record<string, any>;
+  params?: ParamsType;
   skip?: boolean;
   retry?: number;
   staleTime?: string;

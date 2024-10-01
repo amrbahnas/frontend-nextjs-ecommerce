@@ -101,7 +101,9 @@ const ProductForm = ({ id }: { id?: string }) => {
   };
 
   return (
-    <div className={" !p-4 w-full md:w-3/4  shadow-lg rounded-md "}>
+    <div
+      className={" !p-4 w-full   shadow-xl border rounded-md border-gray-100 "}
+    >
       <Spin
         spinning={createLoading || editLoading || productIsLoading}
         tip={createLoading ? "Creating..." : "Updating..."}
@@ -115,70 +117,86 @@ const ProductForm = ({ id }: { id?: string }) => {
           <h1 className="text-2xl font-bold mb-4">
             {id ? "Update Product" : "Add Product"}
           </h1>
-          <Item name="title" label="Title" className={"!w-full"}>
-            <Input className="" />
-          </Item>
-          <Item name="description" label="Description" className={"!w-full"}>
-            <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
-          </Item>
-          <Item label="Image Cover" className={"!w-full"}>
-            <ImageUploader
-              multiple={false}
-              images={imageCover}
-              setImages={setImageCover}
-            />
-          </Item>
-          <Item label="More images" className={"!w-full"}>
-            <ImageUploader
-              multiple={true}
-              images={images}
-              setImages={setImages}
-            />
-          </Item>
-          <div className={row}>
-            <Item name="quantity" label="quantity" className={"!w-full"}>
-              <InputNumber min={1} className="!w-full" />
-            </Item>
-            <Item name="price" label="Price" className={"!w-full"}>
-              <InputNumber prefix="$" min={1} className="!w-full" />
-            </Item>
+
+          <div className="flex gap-4  e md:flex-row  ">
+            <div className="flex-1">
+              <Item name="title" label="Title" className={"!w-full"}>
+                <Input className="" />
+              </Item>
+              <Item
+                name="description"
+                label="Description"
+                className={"!w-full"}
+              >
+                <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
+              </Item>
+              <div className={row}>
+                <Item name="quantity" label="quantity" className={"!w-full"}>
+                  <InputNumber min={1} className="!w-full" />
+                </Item>
+                <Item name="price" label="Price" className={"!w-full"}>
+                  <InputNumber prefix="$" min={1} className="!w-full" />
+                </Item>
+              </div>
+              <Item name="colors" label="Colors" className={"!w-full"}>
+                <Select
+                  placeholder="Select a category"
+                  allowClear
+                  mode="multiple"
+                  options={["red", "blue", "white"].map((color) => ({
+                    label: color,
+                    value: color,
+                  }))}
+                />
+              </Item>
+              <div className={row}>
+                <CategorySelector name="category" label="Category" />
+                <SubCategorySelector
+                  name="subCategories"
+                  label="Sub Category"
+                  categoryId={selectedCategory as string}
+                />
+              </div>
+              <div className={row}>
+                <Item name="status" label="status" className={"!w-full"}>
+                  <Select
+                    allowClear
+                    className=""
+                    options={[
+                      { label: "trending", value: "trending" },
+                      { label: "featured", value: "featured" },
+                      { label: "popular", value: "popular" },
+                      { label: "normal", value: "normal" },
+                    ]}
+                  />
+                </Item>
+                <Item name="isNew" label="isNew" className={"!w-full"}>
+                  <Switch checkedChildren="New" />
+                </Item>
+              </div>
+            </div>
+            <div>
+              <Item label="Image Cover" className={"!w-full"}>
+                <div className="flex justify-center md:justify-start">
+                  <ImageUploader
+                    multiple={false}
+                    images={imageCover}
+                    setImages={setImageCover}
+                  />
+                </div>
+              </Item>
+              <Item label="More images" className={"!w-full"}>
+                <div className="flex justify-center md:justify-start">
+                  <ImageUploader
+                    multiple={true}
+                    images={images}
+                    setImages={setImages}
+                  />
+                </div>
+              </Item>
+            </div>
           </div>
-          <Item name="colors" label="Colors" className={"!w-full"}>
-            <Select
-              placeholder="Select a category"
-              allowClear
-              mode="multiple"
-              options={["red", "blue", "white"].map((color) => ({
-                label: color,
-                value: color,
-              }))}
-            />
-          </Item>
-          <div className={row}>
-            <CategorySelector name="category" label="Category" />
-            <SubCategorySelector
-              name="subCategories"
-              label="Sub Category"
-              categoryId={selectedCategory as string}
-            />
-          </div>
-          <div className={row}>
-            <Item name="status" label="status" className={"!w-full"}>
-              <Select
-                allowClear
-                className=""
-                options={[
-                  { label: "trending", value: "trending" },
-                  { label: "featured", value: "featured" },
-                  { label: "popular", value: "popular" },
-                  { label: "normal", value: "normal" },
-                ]}
-              />
-            </Item>
-            <Item name="isNew" label="isNew" className={"!w-full"}>
-              <Switch checkedChildren="New" />
-            </Item>
-          </div>
+
           <Flex gap={"small"}>
             <Button size="large" type="primary" htmlType="submit">
               {id ? "Update" : "Add"}

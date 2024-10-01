@@ -39,7 +39,7 @@ const Admin = () => {
 const ActionBox = ({ title, href }: { title: string; href: string }) => {
   return (
     <Link href={href}>
-      <div className=" border h-28 flex justify-center items-center  rounded-md   hover:scale-105 shadow-md transition-all text-xl">
+      <div className=" border h-28 flex justify-center items-center  rounded-md  bg-gray-100  hover:scale-105 shadow-md transition-all text-xl">
         {title}
       </div>
     </Link>

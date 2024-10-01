@@ -30,7 +30,7 @@ const AdminProductCard = ({
 
   return (
     <div
-      className="flex items-start justify-center w-full gap-4 p-2  border-2 rounded-md  flex-wrap "
+      className="flex items-start justify-center w-full gap-4 p-2  border-2 rounded-md  flex-wrap bg-gray-100 "
       key={product.id}
     >
       <NextImage
@@ -50,9 +50,9 @@ const AdminProductCard = ({
         <p className="text-gray-500">{description?.substring(0, 50)}</p>
         <span className="price text-sky-700 text-md">${product.price}</span>
       </div>
-      <div className="flex self-center gap-3 text-center ">
+      <div className="flex self-center gap-3 text-center items-center ">
         <Link href={"products/" + product.id}>
-          <CiEdit size={30} className="  cursor-pointer hover:scale-110" />
+          <CiEdit size={25} className="  cursor-pointer hover:scale-110" />
         </Link>
         <Button
           type="text"
@@ -62,7 +62,7 @@ const AdminProductCard = ({
           onClick={handleDelete}
         >
           <MdDeleteOutline
-            size={30}
+            size={25}
             className="text-red-600 cursor-pointer hover:scale-110 "
           />
         </Button>

@@ -15,6 +15,7 @@ const CategoryFilter = () => {
           setParams("category", e.target.value)
         }
         value={selectedCategory || ""}
+        className="border-2 rounded-md !p-2"
       >
         <Radio value={""} className="!capitalize">
           All

@@ -12,7 +12,7 @@ const ImageUploader = ({
   images = [],
   setImages,
 }: {
-  multiple: boolean;
+  multiple?: boolean;
   images: any;
   setImages: any;
 }) => {
@@ -47,7 +47,7 @@ const ImageUploader = ({
                 className=" relative  w-60 h-60 border flex justify-center items-center rounded-md overflow-hidden"
               >
                 <img
-                  src={image["data_url"]}
+                  src={image?.data_url}
                   alt=""
                   className="w-full h-full object-center object-cover absolute top-0 left-0"
                 />

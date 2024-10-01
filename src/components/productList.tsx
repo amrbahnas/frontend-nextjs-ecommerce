@@ -20,8 +20,10 @@ const ProductList = ({
 
   return (
     <Spin spinning={isLoading}>
+      <h1 className="text-2xl mt-6">Featured Products</h1>
+
       <div
-        className={`mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}
+        className={`mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-4`}
       >
         {products?.map((product: Product) => (
           <ProductCard product={product} key={product._id} />

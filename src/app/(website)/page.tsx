@@ -9,15 +9,9 @@ const HomePage = () => {
     <div>
       <Slider />
       <Container>
-        <h1 className="text-2xl mt-24">Featured Products</h1>
+        <CategoryList />
         <ProductList />
       </Container>
-      <div className="mt-24">
-        <Container>
-          <h1 className="text-2xl mb-12">Categories</h1>
-        </Container>
-        <CategoryList />
-      </div>
     </div>
   );
 };

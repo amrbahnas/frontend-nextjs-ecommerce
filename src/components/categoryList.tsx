@@ -10,25 +10,23 @@ const CategoryList = () => {
   return (
     <Spin spinning={isLoading}>
       <div className="   px-4 overflow-x-scroll scrollbar-hide">
-        <div className="flex gap-4 md:gap-8">
+        <div className="flex gap-4 md:gap-8 justify-center h-36">
           {categories?.map((item) => (
             <Link
               href={`/list?cat=${item._id}`}
-              className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
               key={item._id}
+              className="flex flex-col justify-center items-center hover:scale-105 transform transition-transform"
             >
-              <div className="relative bg-slate-100 w-full h-96">
-                <NextImage
-                  src={item.image}
-                  alt=""
-                  fill
-                  sizes="20vw"
-                  className="object-cover"
-                />
-              </div>
-              <h1 className="mt-8 font-light text-xl tracking-wide">
+              <NextImage
+                src={item.image}
+                alt=""
+                width={80}
+                height={80}
+                className="object-cover rounded-full bg-gray-300"
+              />
+              <span className=" font-light text-xl tracking-wide text-center text-black">
                 {item.name}
-              </h1>
+              </span>
             </Link>
           ))}
         </div>

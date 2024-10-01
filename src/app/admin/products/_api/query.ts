@@ -1,18 +1,19 @@
 import useQuery from "@/hooks/useQuery";
 
 export const useGetAdminCategories = (params?: any) => {
-  const { data: categories, isLoading } = useQuery<CategoryType[]>(
-    "/categories",
-    {
-      params: {
-        fields: "name",
-        ...params,
-      },
-      staleTime: "1d",
-    }
-  );
+  const {
+    data: categories,
+    isLoading,
+    refetch,
+  } = useQuery<CategoryType[]>("/categories", {
+    params: {
+      fields: "name,image",
+      ...params,
+    },
+    staleTime: "1d",
+  });
 
-  return { categories: categories || [], isLoading };
+  return { categories: categories || [], isLoading, refetch };
 };
 
 export const useGetAdminSubCategories = (

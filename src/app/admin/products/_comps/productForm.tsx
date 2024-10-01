@@ -1,4 +1,5 @@
 "use client";
+import ImageUploader from "@/components/uploadImage";
 import {
   Button,
   Flex,
@@ -9,18 +10,13 @@ import {
   Spin,
   Switch,
 } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useAdminCreateProduct, useAdminEditProduct } from "../_api/actions";
+import { useGetAdminProduct } from "../_api/query";
 import CategorySelector from "./selectors/categorySelector";
 import SubCategorySelector from "./selectors/subCategorySelector";
-import ImageUploader from "@/components/uploadImage";
-import { useEffect, useState } from "react";
-import { useAdminCreateProduct, useAdminEditProduct } from "../_api/actions";
-import {
-  useGetAdminCategories,
-  useGetAdminProduct,
-  useGetAdminSubCategories,
-} from "../_api/query";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 const { Item } = Form;
 const { TextArea } = Input;
 
@@ -32,10 +28,6 @@ const ProductForm = ({ id }: { id?: string }) => {
   const router = useRouter();
   const [form] = Form.useForm();
   const selectedCategory = Form.useWatch("category", form);
-  const { categories, isLoading } = useGetAdminCategories();
-  const { Subcategories, isLoading: subIsLoading } =
-    useGetAdminSubCategories(selectedCategory);
-
   const { createLoading, createProduct } = useAdminCreateProduct();
   const { editLoading, editProduct } = useAdminEditProduct(id);
   const { product, isLoading: productIsLoading } = useGetAdminProduct(id);
@@ -102,7 +94,7 @@ const ProductForm = ({ id }: { id?: string }) => {
       createProduct(formData, {
         onSuccess: () => {
           toast.success("Product created successfully");
-          router.push("/admin/products");
+          // router.push("/admin/products");
         },
       });
     }
@@ -163,35 +155,12 @@ const ProductForm = ({ id }: { id?: string }) => {
             />
           </Item>
           <div className={row}>
-            <Item name="category" label="Category" className={"!w-full"}>
-              {/* <CategorySelector /> */}
-              <Select
-                loading={isLoading}
-                placeholder="Select a category"
-                allowClear
-                options={categories.map((category) => ({
-                  label: category.name,
-                  value: category._id,
-                }))}
-              />
-            </Item>
-            <Item
+            <CategorySelector name="category" label="Category" />
+            <SubCategorySelector
               name="subCategories"
               label="Sub Category"
-              className={"!w-full"}
-            >
-              {/* <SubCategorySelector categoryId={selectedCategory as string} /> */}
-              <Select
-                loading={subIsLoading}
-                placeholder="Select a subCategory"
-                mode="multiple"
-                allowClear
-                options={Subcategories.map((subCategory) => ({
-                  label: subCategory.title,
-                  value: subCategory._id,
-                }))}
-              />
-            </Item>
+              categoryId={selectedCategory as string}
+            />
           </div>
           <div className={row}>
             <Item name="status" label="status" className={"!w-full"}>

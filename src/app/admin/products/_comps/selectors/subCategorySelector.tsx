@@ -1,19 +1,30 @@
-import { Select } from "antd";
+import { Form, Select } from "antd";
 import React from "react";
 import { useGetAdminSubCategories } from "../../_api/query";
+const { Item } = Form;
 
-const SubCategorySelector = ({ categoryId }: { categoryId: string }) => {
+const SubCategorySelector = ({
+  categoryId,
+  name,
+  label,
+}: {
+  categoryId: string;
+  name: string;
+  label: string;
+}) => {
   const { Subcategories, isLoading } = useGetAdminSubCategories(categoryId);
   return (
-    <Select
-      loading={isLoading}
-      placeholder="Select a subCategory"
-      allowClear
-      options={Subcategories.map((subCategory) => ({
-        label: subCategory.title,
-        value: subCategory._id,
-      }))}
-    />
+    <Item name={name} label={label} className={"!w-full"}>
+      <Select
+        loading={isLoading}
+        placeholder="Select a subCategory"
+        allowClear
+        options={Subcategories.map((subCategory) => ({
+          label: subCategory.title,
+          value: subCategory._id,
+        }))}
+      />
+    </Item>
   );
 };
 

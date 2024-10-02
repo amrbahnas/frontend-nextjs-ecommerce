@@ -11,7 +11,7 @@ const useCheckCookies = () => {
     if (isLogin && !token) {
       logout();
     }
-  }, []);
+  }, [isLogin]);
 };
 
 export default useCheckCookies;

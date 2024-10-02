@@ -13,11 +13,10 @@ const LoginPage = () => {
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { logout } = useLogout();
 
   useEffect(() => {
     if (isLogin) {
-      logout();
+      router.push("/");
     }
   }, [isLogin]);
 

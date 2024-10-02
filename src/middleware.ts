@@ -25,6 +25,7 @@ async function verifyToken(token: string | undefined) {
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const tokenData = await verifyToken(token);
+  console.log("🚀 ~ middleware ~ tokenData:", tokenData);
 
   //1) Handling Auth routes section
   if (request.nextUrl.pathname.startsWith("/auth")) {

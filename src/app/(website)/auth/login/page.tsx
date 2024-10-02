@@ -1,14 +1,25 @@
 "use client";
-import { Error } from "@/components/error";
-import Item from "@/components/item";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useLogin } from "../_api/mutation";
+import Item from "@/components/item";
+import { Error } from "@/components/error";
+import { useLogout } from "@/hooks/useLogout";
+import useAuthStore from "@/store/useAuthStore";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { logout } = useLogout("");
+
+  useEffect(() => {
+    if (isLogin) {
+      logout();
+    }
+  }, []); // do not change dependencies
 
   return (
     <div className="h-[calc(100vh-80px)] mx-auto w-[80%]  lg:w-[30%]  flex items-center justify-center">

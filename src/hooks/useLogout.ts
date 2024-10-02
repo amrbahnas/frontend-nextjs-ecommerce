@@ -4,7 +4,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useUserStore from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
 
-export const useLogout = () => {
+export const useLogout = (customRote = "/") => {
   const router = useRouter();
   const removeAuthData = useAuthStore((state) => state.removeAuthData);
   const setUser = useUserStore((state) => state.setUser);
@@ -17,7 +17,7 @@ export const useLogout = () => {
         onSuccess: () => {
           removeAuthData();
           setUser(null);
-          router.push("/");
+          router.push(customRote);
         },
       }
     );

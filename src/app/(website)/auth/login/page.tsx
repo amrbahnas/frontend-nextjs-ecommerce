@@ -5,20 +5,16 @@ import { useLogin } from "../_api/mutation";
 import Item from "@/components/item";
 import { Error } from "@/components/error";
 import { useLogout } from "@/hooks/useLogout";
-import useAuthStore from "@/store/useAuthStore";
 import { useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();
-  const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout("");
 
   useEffect(() => {
-    if (isLogin) {
-      logout();
-    }
+    logout();
   }, []); // do not change dependencies
 
   return (

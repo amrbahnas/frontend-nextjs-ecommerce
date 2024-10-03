@@ -1,38 +1,66 @@
 import { useGetCategories } from "@/api/query";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
 import { Spin } from "antd";
-import Image from "next/image";
 import Link from "next/link";
 import NextImage from "./nextImage";
-// import { CategoryType } from "../types/category";
 
 const CategoryList = () => {
   const { categories, isLoading } = useGetCategories();
   return (
     <Spin spinning={isLoading}>
-      <div className="   px-4 overflow-x-scroll scrollbar-hide">
-        <div className="flex gap-4 md:gap-8 justify-center h-36">
-          {categories?.map((item) => (
-            <Link
-              href={`/list?cat=${item._id}`}
-              key={item._id}
-              className="flex flex-col justify-center items-center hover:scale-105 transform transition-transform"
-            >
-              <NextImage
-                src={item.image}
-                alt=""
-                width={80}
-                height={80}
-                className="object-cover rounded-full bg-gray-300"
-              />
-              <span className=" font-light text-xl tracking-wide text-center text-black">
-                {item.name}
-              </span>
-            </Link>
+      <div className="mt-4">
+        <Swiper
+          spaceBetween={25}
+          onSlideChange={() => console.log("slide change")}
+          onSwiper={(swiper) => console.log(swiper)}
+          breakpoints={{
+            0: {
+              slidesPerView: 4,
+            },
+            640: {
+              slidesPerView: 5,
+            },
+            768: {
+              slidesPerView: 6,
+            },
+            1024: {
+              slidesPerView: 7,
+            },
+          }}
+        >
+          {categories?.map((category) => (
+            <SwiperSlide key={category._id}>
+              <CategoryCard category={category} />
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </Spin>
   );
 };
 
 export default CategoryList;
+
+const CategoryCard = ({ category }: { category: CategoryType }) => {
+  return (
+    <Link
+      href={`/list?cat=${category._id}`}
+      key={category._id}
+      className="flex flex-col justify-center items-center hover:scale-105 transform transition-transform  "
+    >
+      <NextImage
+        src={category.image}
+        alt=""
+        width={80}
+        height={80}
+        className="object-cover rounded-full bg-gray-300"
+      />
+      <span className=" font-light text-sm sm:text-xl tracking-wide text-center text-black">
+        {category.name}
+      </span>
+    </Link>
+  );
+};

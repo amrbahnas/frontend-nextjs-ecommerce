@@ -6,7 +6,6 @@ import NextImage from "./nextImage";
 import { Divider } from "antd";
 
 const ProductCard = ({ product }: { product: Product }) => {
-  console.log("🚀 ~ ProductCard ~ product:", product);
   return (
     <div className=" flex flex-col gap-4  bg-gray-100   overflow-hidden rounded-md  hover:shadow-lg">
       <Link href={"/product/" + product._id} key={product._id}>

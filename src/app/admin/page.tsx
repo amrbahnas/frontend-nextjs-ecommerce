@@ -30,6 +30,7 @@ const Admin = () => {
       <div className="  flex flex-col gap-4  w-full sm:w-[60%] mx-auto ">
         <ActionBox title="All Products" href="/admin/products" />
         <ActionBox title="Categories" href="/admin/categories" />
+        <ActionBox title="Orders" href="/admin/orders" />
         <ActionBox title="Create New Product" href="/admin/products/create" />
       </div>
     </div>

@@ -9,6 +9,7 @@ import { MdEdit } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useAdminDeleteCategory } from "./_api/action";
 import { toast } from "react-toastify";
+import AdminPageTile from "../_comps/adminPageTile";
 
 const Page = () => {
   const { categories, isLoading, refetch } = useGetAdminCategories();
@@ -18,10 +19,8 @@ const Page = () => {
     React.useState(false);
   return (
     <div>
-      <h1 className=" text-3xl   sm:text-4xl font-bold text-primary">
-        Categories
-      </h1>
-      <span className=" capitalize text-sm text-black my-4 block">
+      <AdminPageTile>Categories</AdminPageTile>
+      <span className=" capitalize text-sm text-black my-4 block w-full text-right">
         {categories.length} items found
       </span>
       <Spin

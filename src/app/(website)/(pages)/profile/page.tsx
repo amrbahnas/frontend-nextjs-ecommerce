@@ -7,14 +7,6 @@ import { Error } from "@/components/error";
 import Link from "next/link";
 const { Item } = Form;
 
-interface DataType {
-  _id: string;
-  createdAt: string;
-  totalOrderPrice: number;
-  isPaid: boolean;
-  paymentMethod: string;
-  isDelivered: boolean;
-}
 const ProfilePage = () => {
   const { user, isError, isLoading, error, refetch } = useMe();
   const {
@@ -41,7 +33,7 @@ const ProfilePage = () => {
     }
   }, [user]);
 
-  const columns: TableProps<DataType>["columns"] = [
+  const columns: TableProps<OrderType>["columns"] = [
     {
       title: "N",
       key: "number",

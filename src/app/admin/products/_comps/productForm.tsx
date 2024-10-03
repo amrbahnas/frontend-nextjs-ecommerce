@@ -17,6 +17,7 @@ import { useAdminCreateProduct, useAdminEditProduct } from "../_api/actions";
 import { useGetAdminProduct } from "../_api/query";
 import CategorySelector from "./selectors/categorySelector";
 import SubCategorySelector from "./selectors/subCategorySelector";
+import AdminPageTile from "../../_comps/adminPageTile";
 const { Item } = Form;
 const { TextArea } = Input;
 
@@ -34,9 +35,9 @@ const ProductForm = ({ id }: { id?: string }) => {
 
   useEffect(() => {
     if (product) {
-      form.setFieldsValue({ ...product, category: product.category._id });
+      form.setFieldsValue({ ...product, category: product.category?._id });
 
-      setImageCover([{ data_url: product.imageCover, file: null }]);
+      setImageCover([{ data_url: product?.imageCover, file: null }]);
       setImages(
         product.images.map((image: string) => ({
           data_url: image,
@@ -114,9 +115,7 @@ const ProductForm = ({ id }: { id?: string }) => {
           className="!w-full"
           onFinish={onFinish}
         >
-          <h1 className="text-2xl font-bold mb-4">
-            {id ? "Update Product" : "Add Product"}
-          </h1>
+          <AdminPageTile>{id ? "Update Product" : "Add Product"}</AdminPageTile>
 
           <div className="flex gap-4 flex-wrap  flex-col-reverse md:flex-row  ">
             <div className="flex-1">

@@ -4,12 +4,14 @@ import Link from "next/link";
 import { Suspense } from "react";
 import CategoryFilter from "./_comps/categoryFilter";
 import ProductsList from "./_comps/productsList";
+import AdminPageTile from "../_comps/adminPageTile";
 
 const AllProducts = () => {
   return (
-    <div className="flex flex-col gap-3  text-white">
-      <span className=" block mb-1 text-black">All Categories:</span>
-      <div className="flex  items-center justify-between flex-wrap">
+    <div className="flex flex-col   text-white">
+      <AdminPageTile>All Products</AdminPageTile>
+      <span className=" block  text-black mb-1">All Categories:</span>
+      <div className="flex  items-center justify-between flex-wrap mb-1">
         <Suspense fallback={<Spin />}>
           <CategoryFilter />
         </Suspense>

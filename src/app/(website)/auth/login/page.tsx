@@ -18,7 +18,7 @@ const LoginPage = () => {
   }, []); // do not change dependencies
 
   return (
-    <div className="h-[calc(100vh-80px)] mx-auto w-[80%]  lg:w-[30%]  flex items-center justify-center">
+    <div className="h-[calc(100dvh-80px)] mx-auto w-[80%]  lg:w-[30%]   mt-10 ">
       <Form
         className="flex flex-col gap-5 w-full"
         form={form}

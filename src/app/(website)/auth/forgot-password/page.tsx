@@ -58,7 +58,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
+    <div className="h-[calc(100dvh-80px)] mx-auto w-[80%] lg:w-[30%] mt-10">
       <Spin spinning={loading}>
         <Form
           className="flex flex-col gap-8"
@@ -163,6 +163,7 @@ const LoginPage = () => {
             disabled={loading}
             loading={loading}
             htmlType="submit"
+            type="primary"
           >
             {loading ? "Loading..." : buttonTitle}
           </Button>

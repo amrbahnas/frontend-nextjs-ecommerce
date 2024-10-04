@@ -57,3 +57,13 @@ export const useCashCheckout = (cartId: string) => {
     cashCheckoutLoading,
   };
 };
+
+export const useToggleProductWishlist = (productId: string) => {
+  const { mutate: toggleWishlist, isPending } = useMutation(
+    `/wishlist/${productId}/toggle`
+  );
+  return {
+    toggleWishlist,
+    isPending,
+  };
+};

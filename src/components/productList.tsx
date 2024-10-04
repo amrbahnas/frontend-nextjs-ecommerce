@@ -1,16 +1,13 @@
-import { useGetProducts } from "@/api/query";
 import { Spin } from "antd";
 import ProductCard from "./productCard";
 
 const ProductList = ({
-  category,
-  search,
+  products,
+  isLoading,
 }: {
-  category?: string;
-  search?: string;
+  products: Product[];
+  isLoading: boolean;
 }) => {
-  const { isLoading, products } = useGetProducts({ category, search });
-
   if (products?.length === 0)
     return (
       <p className="text-center text-2xl font-semibold mt-12">
@@ -20,8 +17,6 @@ const ProductList = ({
 
   return (
     <Spin spinning={isLoading}>
-      <h1 className="text-2xl mt-6">Featured Products</h1>
-
       <div
         className={`mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-4`}
       >

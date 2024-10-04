@@ -1,16 +1,16 @@
 "use client";
-import CategoryList from "@/components/categoryList";
+import CategoriesSlider from "@/app/(website)/_comps/categoriesSlider";
 import Container from "@/components/container";
-import ProductList from "@/components/productList";
 import Slider from "@/components/slider";
+import FeaturedProducts from "./_comps/featuredProducts";
 
 const HomePage = () => {
   return (
     <div>
       <Slider />
       <Container>
-        <CategoryList />
-        <ProductList />
+        <CategoriesSlider />
+        <FeaturedProducts />
       </Container>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Popover } from "antd";
+import { Badge, Button, Popover } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,6 +11,7 @@ import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";
 import { MdDashboard } from "react-icons/md";
 import NextImage from "../nextImage";
+import { CiHeart } from "react-icons/ci";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -69,20 +70,32 @@ const NavIcons = () => {
           <span>{user?.name}</span>
         </div>
       </Popover>
+
       {user?.role === "admin" && (
         <Link href={"/admin"} className="flex items-center gap-1 ">
           <MdDashboard />
           admin
         </Link>
       )}
-
-      <NextImage
+      {isLogin && (
+        <Link href={"/wishlist"} className="flex items-center justify-center">
+          <Badge
+            count={user?.wishlist.length}
+            size="small"
+            className=" cursor-pointer"
+            color="blue"
+          >
+            <CiHeart size={25} />
+          </Badge>
+        </Link>
+      )}
+      {/* <NextImage
         src="/notification.png"
         width={22}
         height={22}
         alt="heart"
         className=" cursor-pointer"
-      />
+      /> */}
       <CartModal />
     </div>
   );

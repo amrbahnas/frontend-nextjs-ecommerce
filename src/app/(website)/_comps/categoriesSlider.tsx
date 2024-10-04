@@ -5,9 +5,9 @@ import "swiper/css";
 
 import { Spin } from "antd";
 import Link from "next/link";
-import NextImage from "./nextImage";
+import NextImage from "../../../components/nextImage";
 
-const CategoryList = () => {
+const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();
   return (
     <Spin spinning={isLoading}>
@@ -42,7 +42,7 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default CategoriesSlider;
 
 const CategoryCard = ({ category }: { category: CategoryType }) => {
   return (

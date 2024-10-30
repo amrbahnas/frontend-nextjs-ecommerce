@@ -66,7 +66,7 @@ const ReviewForm = ({
         layout="vertical"
         className="flex flex-col gap-3"
       >
-        <Item name={"rating"} initialValue={5}>
+        <Item name={"rating"} initialValue={4}>
           <Rate />
         </Item>
         <Item

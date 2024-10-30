@@ -1,4 +1,4 @@
-import { Error } from "@/components/error";
+import { Error } from "@/components/ui/error";
 import { Button, Form, Rate } from "antd";
 import { useForm } from "antd/es/form/Form";
 import Item from "@/components/antd/item";

@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Input, Radio } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useSignUp } from "../_api/mutation";
-import { Error } from "@/components/error";
+import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 
 const SignUpPage = () => {

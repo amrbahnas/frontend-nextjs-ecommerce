@@ -20,7 +20,7 @@ const NextImage = ({
   ...props
 }: React.ComponentProps<typeof Image>) => {
   if (!src) {
-    return <Skeleton.Image className="!w-full !h-full" />;
+    return <Skeleton.Image className="!w-full !h-full" active />;
   }
   return <Image src={validateSrc(src)} alt={alt} {...props} />;
 };

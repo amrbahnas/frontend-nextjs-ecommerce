@@ -3,7 +3,7 @@ import { useGetOrders, useMe } from "./_api/query";
 import { useUpdateUser } from "./_api/mutation";
 import { Button, Form, Input, Spin, Table, TableProps } from "antd";
 import { useEffect } from "react";
-import { Error } from "@/components/error";
+import { Error } from "@/components/ui/error";
 import Link from "next/link";
 const { Item } = Form;
 

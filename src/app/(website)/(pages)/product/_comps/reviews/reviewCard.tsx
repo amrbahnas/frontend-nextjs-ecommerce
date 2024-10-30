@@ -6,7 +6,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import EditReviewModal from "./editReviewModal";
 import { useState } from "react";
 import { useDeleteReview } from "../../_api/action";
-import { Error } from "@/components/error";
+import { Error } from "@/components/ui/error";
 
 const ReviewCard = ({
   review,

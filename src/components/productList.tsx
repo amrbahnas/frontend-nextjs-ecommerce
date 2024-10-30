@@ -1,5 +1,7 @@
-import { Spin } from "antd";
-import ProductCard from "./productCard";
+import ProductCard from "./productCard/productCard";
+import ProductCardSkeleton from "./productCard/productCard.skeleton";
+
+const layoutClassName = `mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-4`;
 
 const ProductList = ({
   products,
@@ -8,6 +10,15 @@ const ProductList = ({
   products: Product[];
   isLoading: boolean;
 }) => {
+  if (isLoading)
+    return (
+      <div className={layoutClassName}>
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+
   if (products?.length === 0)
     return (
       <p className="text-center text-2xl font-semibold mt-12">
@@ -16,15 +27,11 @@ const ProductList = ({
     );
 
   return (
-    <Spin spinning={isLoading}>
-      <div
-        className={`mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-4`}
-      >
-        {products?.map((product: Product) => (
-          <ProductCard product={product} key={product._id} />
-        ))}
-      </div>
-    </Spin>
+    <div className={layoutClassName}>
+      {products?.map((product: Product) => (
+        <ProductCard product={product} key={product._id} />
+      ))}
+    </div>
   );
 };
 

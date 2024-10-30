@@ -3,7 +3,7 @@ import { Button, Form, Input, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForgetPassword } from "../_api/mutation";
-import { Error } from "@/components/error";
+import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 

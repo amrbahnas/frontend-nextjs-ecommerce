@@ -3,42 +3,46 @@ import { useGetCategories } from "@/api/query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { Spin } from "antd";
+import { Skeleton, Spin } from "antd";
 import Link from "next/link";
 import NextImage from "../../../components/ui/nextImage";
 
 const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();
   return (
-    <Spin spinning={isLoading}>
-      <div className="mt-4">
-        <Swiper
-          spaceBetween={25}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
-          breakpoints={{
-            0: {
-              slidesPerView: 4,
-            },
-            640: {
-              slidesPerView: 5,
-            },
-            768: {
-              slidesPerView: 6,
-            },
-            1024: {
-              slidesPerView: 7,
-            },
-          }}
-        >
-          {categories?.map((category) => (
-            <SwiperSlide key={category._id}>
-              <CategoryCard category={category} />
+    <div className="mt-4">
+      <Swiper
+        spaceBetween={25}
+        onSlideChange={() => console.log("slide change")}
+        onSwiper={(swiper) => console.log(swiper)}
+        breakpoints={{
+          0: {
+            slidesPerView: 4,
+          },
+          640: {
+            slidesPerView: 5,
+          },
+          768: {
+            slidesPerView: 6,
+          },
+          1024: {
+            slidesPerView: 7,
+          },
+        }}
+      >
+        {isLoading &&
+          Array.from({ length: 7 }).map((_, i) => (
+            <SwiperSlide key={i}>
+              <Skeleton.Avatar size={80} active />;
             </SwiperSlide>
           ))}
-        </Swiper>
-      </div>
-    </Spin>
+        {categories?.map((category) => (
+          <SwiperSlide key={category._id}>
+            <CategoryCard category={category} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

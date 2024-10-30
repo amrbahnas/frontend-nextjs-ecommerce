@@ -5,7 +5,7 @@ import "swiper/css";
 
 import { Spin } from "antd";
 import Link from "next/link";
-import NextImage from "../../../components/nextImage";
+import NextImage from "../../../components/ui/nextImage";
 
 const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();

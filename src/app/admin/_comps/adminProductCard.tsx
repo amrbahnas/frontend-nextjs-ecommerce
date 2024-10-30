@@ -5,7 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { useAdminDeleteProduct } from "../products/_api/actions";
 import { Button } from "antd";
 import { toast } from "react-toastify";
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 const AdminProductCard = ({
   product,
   refetchProduct,

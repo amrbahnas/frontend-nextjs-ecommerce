@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./container";
-import NextImage from "./nextImage";
+import NextImage from "./ui/nextImage";
 
 const Footer = () => {
   return (

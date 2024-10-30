@@ -2,7 +2,7 @@
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useLogin } from "../_api/mutation";
-import Item from "@/components/item";
+import Item from "@/components/antd/item";
 import { Error } from "@/components/error";
 import { useLogout } from "@/hooks/useLogout";
 import { useEffect } from "react";

@@ -6,7 +6,7 @@ import { Divider } from "antd";
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import AddProductToCard from "./addProductToCard";
-import NextImage from "./nextImage";
+import NextImage from "./ui/nextImage";
 import { CiHeart } from "react-icons/ci";
 
 const ProductCard = ({ product }: { product: Product }) => {

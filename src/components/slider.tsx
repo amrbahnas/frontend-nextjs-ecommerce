@@ -4,7 +4,7 @@ import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import NextImage from "./nextImage";
+import NextImage from "./ui/nextImage";
 
 const slides = [
   {

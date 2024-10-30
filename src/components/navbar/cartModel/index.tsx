@@ -5,7 +5,7 @@ import { Badge, Popover, Radio } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CartBody from "./cartBody";
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);

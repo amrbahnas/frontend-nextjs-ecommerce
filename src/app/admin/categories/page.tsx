@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useGetAdminCategories } from "../products/_api/query";
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 import { Divider, Spin } from "antd";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import CategoryModal from "./_comps/categoryModal";

@@ -18,7 +18,7 @@ import { useGetAdminProduct } from "../_api/query";
 import CategorySelector from "./selectors/categorySelector";
 import SubCategorySelector from "./selectors/subCategorySelector";
 import AdminPageTile from "../../_comps/adminPageTile";
-const { Item } = Form;
+import Item from "@/components/antd/item";
 const { TextArea } = Input;
 
 const row = "flex items-center gap-5 flex-col md:flex-row ";

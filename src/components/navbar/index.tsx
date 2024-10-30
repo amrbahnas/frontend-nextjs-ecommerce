@@ -6,7 +6,7 @@ import Container from "../container";
 import Menu from "./menu";
 import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
-import NextImage from "../nextImage";
+import NextImage from "../ui/nextImage";
 
 const Navbar = () => {
   return (

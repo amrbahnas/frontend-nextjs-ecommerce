@@ -1,6 +1,6 @@
 "use client";
 
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 import Image from "next/image";
 import { useState } from "react";
 

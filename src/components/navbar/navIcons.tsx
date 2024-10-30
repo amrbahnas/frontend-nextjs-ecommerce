@@ -10,7 +10,7 @@ import Link from "next/link";
 import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";
 import { MdDashboard } from "react-icons/md";
-import NextImage from "../nextImage";
+import NextImage from "../ui/nextImage";
 import { CiHeart } from "react-icons/ci";
 const NavIcons = () => {
   const router = useRouter();

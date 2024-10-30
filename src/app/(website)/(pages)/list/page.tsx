@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import ProductSection from "./_comps/productSection";
 import Filter from "./_comps/filter";
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 
 const ListPage = () => {
   return (

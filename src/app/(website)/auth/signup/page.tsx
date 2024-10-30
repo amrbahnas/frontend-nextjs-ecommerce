@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useSignUp } from "../_api/mutation";
 import { Error } from "@/components/error";
-import Item from "@/components/item";
+import Item from "@/components/antd/item";
 
 const SignUpPage = () => {
   const router = useRouter();

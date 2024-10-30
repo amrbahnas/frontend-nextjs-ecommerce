@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useGetProductReviews } from "../_api/query";
-import NextImage from "@/components/nextImage";
+import NextImage from "@/components/ui/nextImage";
 
 const reviews = [
   {

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/error";
-import Item from "@/components/item";
+import Item from "@/components/antd/item";
 import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 
 const LoginPage = () => {

@@ -1,5 +1,4 @@
-// Important For Usage: => "Suspense Wrapper"
-// component which import this Hook must be wrap at parent component with Suspense component
+// Important For Usage: => create "Loading" file beside project layout file or "Suspense Wrapper"
 // this for avoid error "Missing Suspense boundary with useSearchParams" when  build the app
 // the idea is => useSearchParams() entire page into client-side rendering. This could cause your page to be blank until the client-side JavaScript has loaded.
 // so we use Suspense to pass fallback "Loading" until component rendered
@@ -12,7 +11,7 @@ type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
 };
 
 const useParamsService: ParamsService = (
-  currentComponent_Must_WrappedWith_Suspense
+  makeSure_create_loading_file_beside_project_layout_file_Or_currentComponent_Must_WrappedWith_Suspense
 ) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();

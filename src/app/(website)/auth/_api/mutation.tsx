@@ -3,9 +3,11 @@ import useUserStore from "../../../../store/useUserStore";
 import { useRouter } from "next/navigation";
 import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 import useAuthStore from "@/store/useAuthStore";
+import useParamsService from "@/hooks/useParamsService";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
+  const { getParams } = useParamsService({});
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
@@ -16,7 +18,12 @@ export const useLogin = () => {
         if (!data.token) return;
         setUser(data.data);
         setAuthData({ token: data.token, role: data.data.role });
-        router.push("/");
+        const redirect = getParams("redirect");
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
       },
     });
   };

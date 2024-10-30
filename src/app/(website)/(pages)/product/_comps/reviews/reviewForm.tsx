@@ -5,6 +5,9 @@ import Item from "@/components/antd/item";
 import TextArea from "antd/es/input/TextArea";
 import { useAddReview, useEditReview } from "../../_api/action";
 import { useEffect } from "react";
+import useAuthStore from "@/store/useAuthStore";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ReviewForm = ({
   productId,
@@ -16,7 +19,10 @@ const ReviewForm = ({
 
   customOnSuccess?: () => void;
 }) => {
+  const router = useRouter();
+  const pathName = usePathname();
   const { addReview, error, isPending: addReviewIsPending } = useAddReview();
+  const isLogin = useAuthStore((state) => state.isLogin);
 
   const {
     editReview,
@@ -77,11 +83,14 @@ const ReviewForm = ({
         </Item>
 
         <Button
-          size={review ? "large" : "middle"}
+          size="large"
           type={review ? "primary" : "default"}
           htmlType="submit"
           disabled={addReviewIsPending || editIsPending}
           loading={addReviewIsPending || editIsPending}
+          onClick={() => {
+            if (!isLogin) router.push(`/auth/login?redirect=${pathName}`);
+          }}
         >
           {review ? "Edit Review" : "Add Review"}
         </Button>

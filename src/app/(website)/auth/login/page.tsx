@@ -7,7 +7,7 @@ import { Error } from "@/components/ui/error";
 import { useLogout } from "@/hooks/useLogout";
 import { useEffect } from "react";
 
-const LoginPage = () => {
+const LoginPage = ({}) => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();

@@ -52,7 +52,8 @@ const CardActions = ({
   currentUser: User | null;
   refetch: () => void;
 }) => {
-  const [open, setOpen] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openActionsMenu, setOpenActionsMenu] = useState(false);
   const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
   const {
     deleteReview,
@@ -73,13 +74,18 @@ const CardActions = ({
       <Popover
         trigger="click"
         placement="bottom"
+        open={openActionsMenu}
+        onOpenChange={setOpenActionsMenu}
         content={
           <div className="flex flex-col gap-2">
             <Button
               disabled={!currentUserIsOwnThisReview}
               className="mt-2 cursor-pointer"
               type="primary"
-              onClick={() => setOpen(true)}
+              onClick={() => {
+                setOpenActionsMenu(false);
+                setOpenEditModal(true);
+              }}
             >
               Edit
             </Button>
@@ -102,11 +108,11 @@ const CardActions = ({
       </Popover>
 
       <EditReviewModal
-        open={open}
+        open={openEditModal}
         review={review}
         customOnSuccess={() => {
           refetch();
-          setOpen(false);
+          setOpenEditModal(false);
         }}
       />
     </>

@@ -1,5 +1,5 @@
 "use client";
-import ImageUploader from "@/components/uploadImage";
+import ImageUploader from "@/components/ui/uploadImage";
 import {
   Button,
   Flex,

@@ -1,7 +1,7 @@
 "use client";
 import Add from "@/app/(website)/(pages)/product/_comps/add";
 
-import Reviews from "../_comps/reviews";
+import Reviews from "../_comps/reviews/reviews";
 
 import { useGetSpecificProduct } from "../_api/query";
 import Container from "@/components/container";

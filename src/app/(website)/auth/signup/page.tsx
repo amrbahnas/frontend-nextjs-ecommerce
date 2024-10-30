@@ -1,5 +1,5 @@
 "use client";
-import { Button, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Radio } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useSignUp } from "../_api/mutation";
@@ -86,6 +86,17 @@ const SignUpPage = () => {
                 required: true,
                 message: "Please input your confirmPassword!",
               },
+              // must be the same as password
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    "The two passwords that you entered do not match!"
+                  );
+                },
+              }),
             ]}
           >
             <Input
@@ -94,6 +105,22 @@ const SignUpPage = () => {
               className=" rounded-md p-4"
               size="large"
             />
+          </Item>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Item
+            name="sex"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Sex!",
+              },
+            ]}
+          >
+            <Radio.Group defaultValue={"male"}>
+              <Radio value="male">Male</Radio>
+              <Radio value="female">Female</Radio>
+            </Radio.Group>
           </Item>
         </div>
 

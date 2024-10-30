@@ -1,7 +1,7 @@
 import { Form, Modal, Input, Button, Spin } from "antd";
 import React, { useEffect } from "react";
 import { useAdminCreateCategory, useAdminEditCategory } from "../_api/action";
-import ImageUploader from "@/components/uploadImage";
+import ImageUploader from "@/components/ui/uploadImage";
 import { toast } from "react-toastify";
 const { Item } = Form;
 const CategoryModal = ({

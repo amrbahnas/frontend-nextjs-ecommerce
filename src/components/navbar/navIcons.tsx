@@ -61,7 +61,7 @@ const NavIcons = () => {
       >
         <div className="flex items-center gap-2 cursor-pointer">
           <NextImage
-            src={"/profile.png"}
+            src={user?.profileImg || "/profile.png"}
             width={22}
             height={22}
             alt=""

@@ -1,3 +1,5 @@
+"use client";
+import { Skeleton } from "antd";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
@@ -17,6 +19,9 @@ const NextImage = ({
   alt = "image",
   ...props
 }: React.ComponentProps<typeof Image>) => {
+  if (!src) {
+    return <Skeleton.Image className="!w-full !h-full" />;
+  }
   return <Image src={validateSrc(src)} alt={alt} {...props} />;
 };
 

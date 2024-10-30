@@ -1,14 +1,18 @@
 import { useAddProductToCart } from "@/api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import { Button } from "antd";
+import { Button, ButtonProps } from "antd";
 import React from "react";
+import { MdAddShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
 
 type OptionsType = {
   color: string;
   size?: ProductSize;
   quantity: number;
+  buttonClassName?: string;
+  buttonSize?: "small" | "middle" | "large";
+  buttonType?: "primary" | "default" | "dashed" | "link" | "text";
 };
 
 const AddProductToCard = ({
@@ -23,9 +27,21 @@ const AddProductToCard = ({
   const { addCartItem, increaseCartItemsCount, setCartItemsCount } =
     useCardStore();
 
+  const commonOptions: ButtonProps = React.useMemo(
+    () => ({
+      type: options.buttonType || "default",
+      size: options.buttonSize || "middle",
+      className: `!w-32 !py-4 ${options.buttonClassName}`,
+      shape: "default",
+      icon: <MdAddShoppingCart />,
+    }),
+    [options.buttonType, options.buttonSize, options.buttonClassName]
+  );
+
   if (isLogin) {
     return (
       <Button
+        {...commonOptions}
         onClick={(e) => {
           addProduct(
             {
@@ -42,9 +58,6 @@ const AddProductToCard = ({
             }
           );
         }}
-        size="middle"
-        className="!w-32 !py-4"
-        shape="round"
         disabled={isPending}
         loading={isPending}
       >
@@ -55,9 +68,7 @@ const AddProductToCard = ({
 
   return (
     <Button
-      size="middle"
-      className="!w-32 !py-4"
-      shape="round"
+      {...commonOptions}
       onClick={() => {
         const isExist = addCartItem({
           product: product,

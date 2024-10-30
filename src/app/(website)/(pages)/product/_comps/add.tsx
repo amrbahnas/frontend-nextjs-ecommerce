@@ -19,7 +19,7 @@ const Add = ({ product }: { product: Product }) => {
   return (
     <div className="flex flex-col gap-4">
       <h4 className="font-medium">Choose a Quantity</h4>
-      <div className="flex justify-between">
+      <div className="flex  flex-col gap-5">
         <div className="flex items-center gap-4">
           <div className="bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
             <button
@@ -53,6 +53,9 @@ const Add = ({ product }: { product: Product }) => {
           options={{
             color: product?.colors ? product.colors[0] : "black",
             quantity: quantity,
+            buttonClassName: "!w-full",
+            buttonSize: "large",
+            buttonType: "primary",
           }}
         />
       </div>

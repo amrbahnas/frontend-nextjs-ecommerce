@@ -53,6 +53,7 @@ const CardActions = ({
   refetch: () => void;
 }) => {
   const [open, setOpen] = useState(false);
+  const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
   const {
     deleteReview,
     error,
@@ -75,7 +76,7 @@ const CardActions = ({
         content={
           <div className="flex flex-col gap-2">
             <Button
-              disabled={currentUser?.role === "admin"}
+              disabled={!currentUserIsOwnThisReview}
               className="mt-2 cursor-pointer"
               type="primary"
               onClick={() => setOpen(true)}
@@ -95,8 +96,7 @@ const CardActions = ({
           </div>
         }
       >
-        {(currentUser?.role === "admin" ||
-          currentUser?._id === review.user?._id) && (
+        {(currentUser?.role === "admin" || currentUserIsOwnThisReview) && (
           <HiOutlineDotsVertical className=" cursor-pointer" />
         )}
       </Popover>

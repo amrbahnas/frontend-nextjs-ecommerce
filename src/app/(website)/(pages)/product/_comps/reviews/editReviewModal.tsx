@@ -14,6 +14,7 @@ const EditReviewModal = ({
   return (
     <Modal
       title="Edit Review"
+      centered
       open={open}
       onCancel={() => customOnSuccess && customOnSuccess()}
       footer={null}

@@ -1,6 +1,6 @@
 "use client";
 import useAuthStore from "@/store/useAuthStore";
-import { Badge, Button, Popover } from "antd";
+import { Avatar, Badge, Button, Popover } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -60,13 +60,7 @@ const NavIcons = () => {
         trigger="click"
       >
         <div className="flex items-center gap-2 cursor-pointer">
-          <NextImage
-            src={user?.profileImg || "/profile.png"}
-            width={22}
-            height={22}
-            alt=""
-            className="cursor-pointer"
-          />
+          <Avatar src={user?.profileImg || "/profile.png"} size={30} alt="" />
           <span>{user?.name}</span>
         </div>
       </Popover>

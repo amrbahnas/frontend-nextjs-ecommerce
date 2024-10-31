@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 type AuthData = {
   token: string;
-  role: string;
+  role?: string;
 };
 
 type Store = {

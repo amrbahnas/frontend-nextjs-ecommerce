@@ -10,7 +10,7 @@ import NextImage from "../ui/nextImage";
 
 const Navbar = () => {
   return (
-    <Container>
+    <Container className=" shadow-sm">
       <div className="min-h-20 flex  flex-col  justify-center py-4 ">
         <div className="flex items-center justify-between h-full ">
           {/* left */}

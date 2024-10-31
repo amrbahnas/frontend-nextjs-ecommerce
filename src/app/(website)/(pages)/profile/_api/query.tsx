@@ -2,9 +2,10 @@ import usePagination from "@/hooks/usePagination";
 import useQuery from "@/hooks/useQuery";
 
 export const useMe = () => {
-  const { data, error, refetch, isError, isLoading } = useQuery("/users/me");
+  const { data, error, refetch, isError, isLoading } =
+    useQuery<User>("/users/me");
   return {
-    user: isLoading ? {} : data,
+    user: data || {},
     error,
     refetch,
     isError,

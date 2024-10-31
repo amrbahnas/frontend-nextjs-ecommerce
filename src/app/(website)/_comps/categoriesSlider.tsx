@@ -1,11 +1,10 @@
-import { useGetCategories } from "@/api/query";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { Skeleton, Spin } from "antd";
 import Link from "next/link";
 import NextImage from "../../../components/ui/nextImage";
+import { useGetCategories } from "../_api/query";
 
 const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();

@@ -6,6 +6,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
   setParams: (key: string, value?: string) => void;
+  setMultiParams: (params: { [key: string]: string }) => void;
   resetParams: () => void;
   getParams: (key: string) => string | null;
 };
@@ -32,11 +33,23 @@ const useParamsService: ParamsService = (
     }
   };
 
+  const setMultiParams = (params: { [key: string]: string }) => {
+    const newParams = new URLSearchParams(searchParams);
+    Object.keys(params).forEach((key) => {
+      if (!params[key]) {
+        newParams.delete(key);
+      } else {
+        newParams.set(key, params[key]);
+      }
+    });
+    replace(`${pathname}?${newParams.toString()}`);
+  };
+
   const resetParams = () => {
     replace(pathname);
   };
 
-  return { setParams, resetParams, getParams };
+  return { setParams, resetParams, getParams, setMultiParams };
 };
 
 export default useParamsService;

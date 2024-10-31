@@ -8,19 +8,7 @@ export const useGetProducts = (params?: any) => {
     },
   });
 
-  return { products, isLoading };
-};
-
-export const useGetCategories = (params?: any) => {
-  const { data: categories, isLoading } = useQuery<CategoryType[]>(
-    "/categories",
-    {
-      params,
-      staleTime: "1d",
-    }
-  );
-
-  return { categories, isLoading };
+  return { products: products || [], isLoading };
 };
 
 export const useGetCart = ({ skip }: { skip?: boolean }) => {

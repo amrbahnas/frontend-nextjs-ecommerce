@@ -88,6 +88,7 @@ const ChangePasswordForm = () => {
         <Button
           disabled={changePasswordIsPending}
           loading={changePasswordIsPending}
+          size="large"
           htmlType="submit"
           className="bg-lama text-white p-2 rounded-md cursor-pointer disabled:bg-pink-200 disabled:cursor-not-allowed "
         >

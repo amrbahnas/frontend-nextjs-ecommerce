@@ -47,7 +47,7 @@ export default function AntDLayout({
               // headerPadding: ""
             },
             Input: {
-              activeShadow: "",
+              activeShadow: "none",
             },
             Badge: {
               colorBgContainer: "#fff",
@@ -55,6 +55,7 @@ export default function AntDLayout({
             Select: {
               optionFontSize: 12,
               optionHeight: 28,
+              colorBorder: "#E9E9E9",
               // multipleItemHeight: 8,
               // multipleItemHeightLG: 24,
             },

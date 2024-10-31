@@ -17,7 +17,7 @@ const ListPage = () => {
             Grab up to 50% off on
             <br /> Selected Products
           </h1>
-          <Button className="rounded-3xl !bg-lama !text-white w-max !py-4 px-5 text-sm">
+          <Button className="rounded-3xl   w-max !py-4 px-5 text-sm">
             Buy Now
           </Button>
         </div>

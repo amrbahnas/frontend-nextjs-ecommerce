@@ -28,14 +28,14 @@ const ReviewCard = ({
       <NextImage
         src={review?.user?.profileImg || "/profile.png"}
         alt=""
-        width={32}
-        height={32}
+        width={42}
+        height={42}
         className="rounded-full"
       />
       <div className="flex flex-col flex-1">
         <div className="flex flex-col">
           <div className="flex flex-col mb-1">
-            <div>
+            <div className="flex items-center gap-1 text-gray-700">
               <span>{review.user?.name}</span>
               {currentUserIsOwnThisReview && (
                 <span className="text-xs text-gray-500"> (You)</span>
@@ -50,7 +50,7 @@ const ReviewCard = ({
           </div>
           <Rate disabled value={review.rating} className="!text-sm" />
         </div>
-        <p className="font-normal text-gray-500">{review.title}</p>
+        <p className="font-normal">{review.title}</p>
       </div>
 
       <CardActions

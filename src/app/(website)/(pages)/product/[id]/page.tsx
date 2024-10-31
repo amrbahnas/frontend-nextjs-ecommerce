@@ -13,7 +13,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
   );
 
   return (
-    <Container>
+    <Container className="mt-8">
       <div className=" relative flex flex-col lg:flex-row gap-16">
         {/* IMG */}
         <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">

@@ -9,6 +9,9 @@ const ProductSection = () => {
     search: searchParams.get("search") || "",
     category: searchParams.get("cat") || "",
     sort: searchParams.get("sort") || "",
+    "price[gte]": searchParams.get("minPrice") || "",
+    "price[lte]": searchParams.get("maxPrice") || "",
+    status: searchParams.get("status") || "",
   });
 
   return <ProductList products={products} isLoading={isLoading} />;

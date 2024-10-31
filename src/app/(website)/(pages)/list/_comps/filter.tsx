@@ -7,9 +7,9 @@ import { CiFilter } from "react-icons/ci";
 import { GrPowerReset } from "react-icons/gr";
 
 type FilterProps = {
-  type?: string;
-  min?: string;
-  max?: string;
+  status?: string;
+  minPrice?: string;
+  maxPrice?: string;
   cat?: string;
   sort?: string;
 };
@@ -34,30 +34,32 @@ const Filter = () => {
         <Select
           placeholder="Type"
           dropdownStyle={{ minWidth: "150px" }}
-          value={filters.type}
+          value={filters.status}
           allowClear
           onChange={(value) => {
-            setFilters({ ...filters, type: value });
+            setFilters({ ...filters, status: value });
           }}
           options={[
-            { label: "Physical", value: "physical" },
-            { label: "Digital", value: "digital" },
+            { label: "Trending", value: "trending" },
+            { label: "Featured", value: "featured" },
+            { label: "Popular", value: "popular" },
+            { label: "Normal", value: "normal" },
           ]}
         />
         <InputNumber
           className="!w-full"
           placeholder="min price"
-          value={filters.min}
+          value={filters.minPrice}
           onChange={(value) => {
-            setFilters({ ...filters, min: value?.toString() });
+            setFilters({ ...filters, minPrice: value?.toString() });
           }}
         />
         <InputNumber
           className="!w-full"
-          value={filters.max}
+          value={filters.maxPrice}
           placeholder="max price"
           onChange={(value) => {
-            setFilters({ ...filters, max: value?.toString() });
+            setFilters({ ...filters, maxPrice: value?.toString() });
           }}
         />
         <CategoriesSelector
@@ -75,10 +77,10 @@ const Filter = () => {
           }}
           dropdownStyle={{ minWidth: "150px" }}
           options={[
-            { label: "Price (low to high)", value: "asc price" },
-            { label: "Price (high to low)", value: "desc price" },
-            { label: "Newest", value: "asc lastUpdated" },
-            { label: "Oldest", value: "desc lastUpdated" },
+            { label: "Price (low to high)", value: "price" },
+            { label: "Price (high to low)", value: "-price" },
+            { label: "Newest", value: "-createdAt" },
+            { label: "Oldest", value: "createdAt" },
           ]}
         />
       </div>

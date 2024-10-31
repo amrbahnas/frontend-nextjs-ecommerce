@@ -95,7 +95,7 @@ const ProductForm = ({ id }: { id?: string }) => {
       createProduct(formData, {
         onSuccess: () => {
           toast.success("Product created successfully");
-          // router.push("/admin/products");
+          router.push("/admin/products");
         },
       });
     }

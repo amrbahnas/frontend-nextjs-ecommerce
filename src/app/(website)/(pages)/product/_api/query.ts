@@ -1,4 +1,5 @@
 import useQuery from "@/hooks/useQuery";
+import { Sora } from "next/font/google";
 
 export const useGetSpecificProduct = (id: string) => {
   const { data, error, refetch, isError, isLoading } = useQuery<Product>(
@@ -21,6 +22,9 @@ export const useGetProductReviews = (id: string) => {
     `/products/${id}/reviews`,
     {
       skip: !id,
+      params: {
+        sort: "-createdAt",
+      },
     }
   );
   return {

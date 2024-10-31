@@ -7,6 +7,9 @@ import EditReviewModal from "./editReviewModal";
 import { useState } from "react";
 import { useDeleteReview } from "../../_api/action";
 import { Error } from "@/components/ui/error";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 const ReviewCard = ({
   review,
@@ -17,6 +20,9 @@ const ReviewCard = ({
   currentUser: User | null;
   refetch: () => void;
 }) => {
+  const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
+  const displayedDate =
+    review.updatedAt !== review.createdAt ? review.updatedAt : review.createdAt;
   return (
     <div className="flex items-start gap-4 font-medium border px-4 py-3 rounded-md">
       <NextImage
@@ -28,7 +34,20 @@ const ReviewCard = ({
       />
       <div className="flex flex-col flex-1">
         <div className="flex flex-col">
-          <span>{review.user?.name}</span>
+          <div className="flex flex-col mb-1">
+            <div>
+              <span>{review.user?.name}</span>
+              {currentUserIsOwnThisReview && (
+                <span className="text-xs text-gray-500"> (You)</span>
+              )}
+            </div>
+            <div className="text-xs text-gray-500">
+              <span>{dayjs(displayedDate).fromNow()}</span>
+              {review.updatedAt !== review.createdAt && (
+                <span className="text-gray-500 "> (edited)</span>
+              )}
+            </div>
+          </div>
           <Rate disabled value={review.rating} className="!text-sm" />
         </div>
         <p className="font-normal text-gray-500">{review.title}</p>
@@ -38,6 +57,7 @@ const ReviewCard = ({
         review={review}
         currentUser={currentUser}
         refetch={refetch}
+        currentUserIsOwnThisReview={currentUserIsOwnThisReview}
       />
     </div>
   );
@@ -47,14 +67,15 @@ const CardActions = ({
   review,
   currentUser,
   refetch,
+  currentUserIsOwnThisReview,
 }: {
   review: ReviewType;
   currentUser: User | null;
   refetch: () => void;
+  currentUserIsOwnThisReview: boolean;
 }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openActionsMenu, setOpenActionsMenu] = useState(false);
-  const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
   const {
     deleteReview,
     error,

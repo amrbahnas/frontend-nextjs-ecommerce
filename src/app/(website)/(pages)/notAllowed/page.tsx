@@ -4,11 +4,7 @@ import { Suspense } from "react";
 import RenderNotAllowMessage from "./_comps/renderNotAllowMessage";
 
 const NotAllowed = () => {
-  return (
-    <Suspense fallback={<Spin />}>
-      <RenderNotAllowMessage />
-    </Suspense>
-  );
+  return <RenderNotAllowMessage />;
 };
 
 export default NotAllowed;

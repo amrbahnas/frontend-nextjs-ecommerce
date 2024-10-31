@@ -29,9 +29,7 @@ const Navbar = () => {
           </div>
           {/* Big screen */}
           <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
-            {/* <Suspense fallback={<div>Loading...</div>}> */}
             <SearchBar />
-            {/* </Suspense> */}
             <NavIcons />
           </div>
           <div className="flex items-center gap-6">
@@ -45,9 +43,7 @@ const Navbar = () => {
         </div>
         {/*  mobile */}
         <div className=" mt-6 block md:hidden items-center justify-between h-full">
-          <Suspense fallback={<div>Loading...</div>}>
-            <SearchBar />
-          </Suspense>
+          <SearchBar />
         </div>
       </div>
     </Container>

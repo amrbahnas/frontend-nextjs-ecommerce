@@ -12,9 +12,8 @@ const AllProducts = () => {
       <AdminPageTile>All Products</AdminPageTile>
       <span className=" block  text-black mb-1">All Categories:</span>
       <div className="flex  items-center justify-between flex-wrap mb-1">
-        <Suspense fallback={<Spin />}>
-          <CategoryFilter />
-        </Suspense>
+        <CategoryFilter />
+
         <Link
           href="/admin/products/create"
           className="text-primary underline cursor-pointer flex items-center"
@@ -23,9 +22,7 @@ const AllProducts = () => {
         </Link>
       </div>
 
-      <Suspense fallback={<Spin />}>
-        <ProductsList />
-      </Suspense>
+      <ProductsList />
     </div>
   );
 };

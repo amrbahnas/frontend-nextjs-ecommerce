@@ -29,9 +29,9 @@ const Navbar = () => {
           </div>
           {/* Big screen */}
           <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
-            <Suspense fallback={<div>Loading...</div>}>
-              <SearchBar />
-            </Suspense>
+            {/* <Suspense fallback={<div>Loading...</div>}> */}
+            <SearchBar />
+            {/* </Suspense> */}
             <NavIcons />
           </div>
           <div className="flex items-center gap-6">

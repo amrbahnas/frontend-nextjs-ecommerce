@@ -91,6 +91,7 @@ const MainInfoForm = () => {
           loading={updateUserIsPending || isLoading}
           htmlType="submit"
           type="primary"
+          size="large"
           className="bg-lama text-white p-2 rounded-md cursor-pointer disabled:bg-pink-200 disabled:cursor-not-allowed "
         >
           {updateUserIsPending ? "Updating..." : "Update"}

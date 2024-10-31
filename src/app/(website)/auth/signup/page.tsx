@@ -110,6 +110,7 @@ const SignUpPage = () => {
         <div className="flex flex-col gap-2">
           <Item
             name="sex"
+            initialValue={"male"}
             rules={[
               {
                 required: true,
@@ -117,7 +118,7 @@ const SignUpPage = () => {
               },
             ]}
           >
-            <Radio.Group defaultValue={"male"}>
+            <Radio.Group>
               <Radio value="male">Male</Radio>
               <Radio value="female">Female</Radio>
             </Radio.Group>

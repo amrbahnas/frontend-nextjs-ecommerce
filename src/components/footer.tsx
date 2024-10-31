@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "./container";
 import NextImage from "./ui/nextImage";
+import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
+import { IoLogoInstagram } from "react-icons/io5";
 
 const Footer = () => {
   return (
@@ -14,18 +16,47 @@ const Footer = () => {
             <Link href="/">
               <div className="text-2xl tracking-wide">Elbahnsawy</div>
             </Link>
-            <p>
-              3252 Winding Way, Central Plaza, Willowbrook, CA 90210, United
-              States
-            </p>
-            <span className="font-semibold">hello@Elbahnsawy.dev</span>
-            <span className="font-semibold">+1 234 567 890</span>
+            <p>Elbahnsawy is a global online fashion retail company. We sell</p>
+            <a
+              className="font-semibold"
+              href="mailto:elbahnsawy.work@gmail.com"
+            >
+              elbahnsawy.work@gmail.com
+            </a>
+            <span className="font-semibold">(+20)1064480375</span>
             <div className="flex gap-6">
-              <NextImage src="/facebook.png" alt="" width={16} height={16} />
-              <NextImage src="/instagram.png" alt="" width={16} height={16} />
-              <NextImage src="/youtube.png" alt="" width={16} height={16} />
-              <NextImage src="/pinterest.png" alt="" width={16} height={16} />
-              <NextImage src="/x.png" alt="" width={16} height={16} />
+              <a
+                href="https://www.facebook.com/amr.bahnas.75"
+                target="_blank"
+                rel="noreferrer"
+                className="text-3xl"
+              >
+                <FaFacebookSquare />
+              </a>
+              <a
+                href="https://www.instagram.com/amr_elbahnsawy/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-3xl"
+              >
+                <IoLogoInstagram />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/amr-elbahnsawy/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-3xl"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="https://github.com/amrbahnas"
+                target="_blank"
+                rel="noreferrer"
+                className="text-3xl"
+              >
+                <FaGithub />
+              </a>
             </div>
           </div>
           {/* CENTER */}
@@ -96,7 +127,7 @@ const Footer = () => {
             </div>
             <div className="">
               <span className="text-gray-500 mr-4">Currency</span>
-              <span className="font-medium">$ USD</span>
+              <span className="font-medium">$ EGP</span>
             </div>
           </div>
         </div>

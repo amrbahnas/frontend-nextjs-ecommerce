@@ -60,14 +60,14 @@ const LoginPage = () => {
 
   return (
     <Container>
-      <div className="h-[calc(100dvh-80px)] mx-auto   justify-center flex items-center">
-        <Spin spinning={loading}>
-          <Form
-            className="flex flex-col  border !p-8 rounded-md shadow-md !-mt-14 "
-            form={form}
-            layout="vertical"
-            onFinish={handleSubmit}
-          >
+      <div className="h-[calc(100dvh-80px)]   justify-center flex items-center">
+        <Form
+          className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full "
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+        >
+          <Spin spinning={loading}>
             <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
             {screen === SCREENS.SEND_RESET_CODE && (
               <div className="flex flex-col gap-2 w-full md:w-96 mb-4">
@@ -173,8 +173,8 @@ const LoginPage = () => {
                 Go back to Login
               </div>
             )}
-          </Form>
-        </Spin>
+          </Spin>
+        </Form>
       </div>
     </Container>
   );

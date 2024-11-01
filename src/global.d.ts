@@ -102,3 +102,10 @@ type OrderType = {
   createdAt: string;
   updatedAt: string;
 };
+
+interface CustomError extends Error {
+  response: {
+    data: string;
+    status: number;
+  };
+}

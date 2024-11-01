@@ -6,15 +6,17 @@ import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import { useLogout } from "@/hooks/useLogout";
 import { useEffect } from "react";
+import useAuthStore from "@/store/useAuthStore";
 
 const LoginPage = ({}) => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout("");
 
   useEffect(() => {
-    logout();
+    isLogin && logout();
   }, []); // do not change dependencies
 
   return (

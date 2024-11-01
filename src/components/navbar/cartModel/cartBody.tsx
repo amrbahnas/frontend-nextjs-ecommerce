@@ -10,12 +10,10 @@ import CartItem from "./cartItem";
 const { Group } = Radio;
 
 const CartBody = ({
-  isLoading,
   cart,
   refetch,
   setOpen,
 }: {
-  isLoading: boolean;
   cart: CartType;
   refetch: any;
   setOpen: (value: boolean) => void;
@@ -87,9 +85,7 @@ const CartBody = ({
   };
 
   return (
-    <Spin
-      spinning={isLoading || deleting || cartLoading || resetApiCartLoading}
-    >
+    <Spin spinning={deleting || cartLoading || resetApiCartLoading}>
       <div className="  flex flex-col gap-6 z-20">
         {!cartItems[0] ? (
           <div className="">Cart is Empty</div>

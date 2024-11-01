@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import CartBody from "./cartBody";
 import NextImage from "@/components/ui/nextImage";
+import CartSkeleton from "./cart.skeleton";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);
@@ -31,12 +32,11 @@ const CartModal = () => {
       open={open}
       onOpenChange={() => setOpen(!open)}
       content={
-        <CartBody
-          isLoading={isLoading}
-          refetch={refetch}
-          cart={renderedCart}
-          setOpen={setOpen}
-        />
+        isLoading ? (
+          <CartSkeleton />
+        ) : (
+          <CartBody refetch={refetch} cart={renderedCart} setOpen={setOpen} />
+        )
       }
       trigger="click"
     >

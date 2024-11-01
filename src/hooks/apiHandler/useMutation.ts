@@ -51,13 +51,23 @@ const useMutation = (
     },
   });
 
+  const renderedError = errorMessageHandler(error);
+
   return {
-    error: error?.response?.data,
+    error: renderedError,
     ...result,
   };
 };
 
 export default useMutation;
+
+const errorMessageHandler = (error: any) => {
+  if (error) {
+    if (typeof error?.response?.data === "string") return error?.response?.data;
+    else return "Something went wrong";
+  }
+  return null;
+};
 
 // Replace optimistic todo in the todos list with the result
 // queryClient.setQueryData([endpoint], (old) =>

@@ -110,7 +110,7 @@ const LoginPage = () => {
                     },
                   ]}
                 >
-                  <Input.OTP size="large" length={4} />
+                  <Input.OTP size="large" length={5} />
                 </Item>
                 {/*  resend code  */}
                 <div

@@ -51,6 +51,7 @@ const AddProductToCard = ({
             },
             {
               onSuccess: (res) => {
+                console.log("🚀 ~ res:", res);
                 const cartItemsCount = res.data.cartItemsCount;
                 setCartItemsCount(cartItemsCount);
                 toast.success("Product added to cart");

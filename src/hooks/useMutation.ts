@@ -1,8 +1,8 @@
 import axiosInstance from "../config/apiClient";
 import Cookies from "js-cookie";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import { AxiosRequestConfig } from "axios";
+import { toast } from "react-toastify";
 
 const useMutation = (
   endpoint: string,
@@ -35,7 +35,7 @@ const useMutation = (
 
     onError: (error, variables, context) => {
       //@ts-ignore
-      // toast.error(error?.response?.data || "Something went wrong");
+      toast.error(error?.response?.data || "Internal Server Error");
       options?.onError && options.onError(error, variables, context);
     },
   });

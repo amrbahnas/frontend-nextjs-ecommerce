@@ -15,7 +15,9 @@ type FilterProps = {
 };
 
 const Filter = () => {
-  const { setMultiParams, resetParams } = useParamsService("okay I will");
+  const { setMultiParams, resetParams, getParams } =
+    useParamsService("okay I will");
+
   const [filters, setFilters] = useState<FilterProps>({});
 
   const handleFilterChange = () => {
@@ -34,7 +36,7 @@ const Filter = () => {
         <Select
           placeholder="Type"
           dropdownStyle={{ minWidth: "150px" }}
-          value={filters.status}
+          value={filters.status || getParams("status")}
           allowClear
           onChange={(value) => {
             setFilters({ ...filters, status: value });
@@ -49,21 +51,21 @@ const Filter = () => {
         <InputNumber
           className="!w-full"
           placeholder="min price"
-          value={filters.minPrice}
+          value={filters.minPrice || getParams("minPrice")}
           onChange={(value) => {
             setFilters({ ...filters, minPrice: value?.toString() });
           }}
         />
         <InputNumber
           className="!w-full"
-          value={filters.maxPrice}
+          value={filters.maxPrice || getParams("maxPrice")}
           placeholder="max price"
           onChange={(value) => {
             setFilters({ ...filters, maxPrice: value?.toString() });
           }}
         />
         <CategoriesSelector
-          value={filters.cat}
+          value={filters.cat || getParams("cat")}
           onChange={(value) => {
             setFilters({ ...filters, cat: value });
           }}
@@ -71,7 +73,7 @@ const Filter = () => {
         <Select
           placeholder="Sort By"
           allowClear
-          value={filters.sort}
+          value={filters.sort || getParams("sort")}
           onChange={(value) => {
             setFilters({ ...filters, sort: value });
           }}

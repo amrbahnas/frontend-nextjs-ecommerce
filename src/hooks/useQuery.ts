@@ -3,6 +3,7 @@ import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import axiosInstance from "../config/apiClient";
 import ms from "ms";
+import { toast } from "react-toastify";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const queryFn = () =>
@@ -25,6 +26,10 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     staleTime: ms(options?.staleTime || "0s"),
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
+
+  if (result.error) {
+    toast.error(result.error.message || "Internal server error");
+  }
 
   return {
     data: data?.data as T,

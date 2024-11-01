@@ -6,6 +6,7 @@ import useAuthStore from "@/store/useAuthStore";
 const useCheckCookies = () => {
   const { logout } = useLogout();
   const isLogin = useAuthStore((state) => state.isLogin);
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (isLogin && !token) {

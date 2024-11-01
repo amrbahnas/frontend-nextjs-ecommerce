@@ -6,14 +6,14 @@ const CategoriesSelector = ({
   value,
   onChange,
 }: {
-  value: string | undefined;
+  value: string | null;
   onChange: (value: string) => void;
 }) => {
   const { categories, isLoading } = useGetCategories();
   return (
     <Select
       placeholder="Category"
-      value={value}
+      value={categories.length > 0 ? value : undefined}
       loading={isLoading}
       dropdownStyle={{ minWidth: "150px" }}
       allowClear

@@ -1,6 +1,7 @@
 import { useMergeLocalCart } from "@/api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 
 const useMergeCartHandler = () => {
@@ -30,7 +31,8 @@ const useMergeCartHandler = () => {
   };
 
   useEffect(() => {
-    if (isLogin) mergeCartHandler();
+    const token = Cookies.get("token");
+    if (isLogin && token) mergeCartHandler();
   }, [isLogin]);
 };
 

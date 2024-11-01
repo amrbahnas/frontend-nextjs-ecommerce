@@ -11,16 +11,10 @@ export const useLogout = (customRote = "/") => {
 
   const { mutate, isPending } = useLogoutApi();
   const logout = () => {
-    mutate(
-      {},
-      {
-        onSuccess: () => {
-          removeAuthData();
-          setUser(null);
-          router.push(customRote);
-        },
-      }
-    );
+    removeAuthData();
+    setUser(null);
+    router.push(customRote);
+    mutate({});
   };
 
   return {

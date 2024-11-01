@@ -60,7 +60,7 @@ const LoginPage = () => {
 
   return (
     <Container className="flex justify-center items-center h-[calc(100dvh-80px)] ">
-      <div className="  justify-center flex items-center w-full md:w-auto">
+      <div className="  justify-center flex items-center w-full md:w-auto -mt-12">
         <Form
           className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full "
           form={form}
@@ -161,6 +161,7 @@ const LoginPage = () => {
               loading={loading}
               htmlType="submit"
               type="primary"
+              size="large"
             >
               {loading ? "Loading..." : buttonTitle}
             </Button>

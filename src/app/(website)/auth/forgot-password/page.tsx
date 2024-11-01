@@ -89,6 +89,7 @@ const LoginPage = () => {
                     className=" rounded-md p-4"
                   />
                 </Item>
+                <Error error={error} />
               </div>
             )}
             {screen === SCREENS.VERIFICATION_RESET_CODE && (
@@ -98,6 +99,7 @@ const LoginPage = () => {
                   <span>We have sent a code to your email:</span>
                   <span className="  font-semibold pl-1">{email}</span>
                 </div>
+                <Error error={error} />
                 <Item
                   label="Code"
                   name="resetCode"
@@ -121,6 +123,7 @@ const LoginPage = () => {
             )}
             {screen === SCREENS.CREATE_NEW_PASSWORD && (
               <div className="flex flex-col gap-2 mb-4">
+                <Error error={error} />
                 <Item
                   label="Password"
                   name="password"
@@ -165,7 +168,6 @@ const LoginPage = () => {
             >
               {loading ? "Loading..." : buttonTitle}
             </Button>
-            <Error error={error} />
             {screen === SCREENS.SEND_RESET_CODE && (
               <div
                 className="text-sm underline cursor-pointer mt-3"

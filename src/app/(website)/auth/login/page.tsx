@@ -30,7 +30,9 @@ const LoginPage = ({}) => {
           onFinish={login}
         >
           <Divider orientation="center">
-            <h1 className="text-2xl font-semibold text-primary">Login</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold text-primary">
+              Login
+            </h1>
           </Divider>
           <Error error={loginError} />
           <Item

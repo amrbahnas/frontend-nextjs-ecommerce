@@ -22,7 +22,9 @@ const SignUpPage = () => {
           onFinish={signUp}
         >
           <Divider orientation="center">
-            <h1 className="text-2xl font-semibold text-primary">Register</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold text-primary">
+              Register
+            </h1>
           </Divider>
           <div className="flex flex-col gap-2">
             <Item

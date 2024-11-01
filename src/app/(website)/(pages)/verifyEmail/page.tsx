@@ -14,6 +14,7 @@ const VerifyEmail = () => {
   const [form] = Form.useForm();
   const { user, setUser } = useUserStore();
   const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
+  const [resentCount, setResentCount] = useState(0);
 
   const {
     sendVerificationEmailCode,
@@ -27,14 +28,14 @@ const VerifyEmail = () => {
     screen === SCREENS.SEND_Email_CODE
       ? "Verify Your Email"
       : SCREENS.VERIFICATION_Email_CODE
-      ? "Verify Code"
-      : "Email Verified";
+      ? "Enter Verify Code"
+      : "Congratulations! You are almost there.";
 
   const buttonTitle =
     screen === SCREENS.SEND_Email_CODE
       ? "Send Verify Code"
       : screen === SCREENS.VERIFICATION_Email_CODE
-      ? "Verify Code"
+      ? "Verify Email"
       : "Continue";
   const loading = sendVerificationEmailCodeLoading || verifyEmailLoading;
 
@@ -74,14 +75,17 @@ const VerifyEmail = () => {
           layout="vertical"
           onFinish={handleSubmit}
         >
-          <Spin spinning={verifyEmailLoading || verifyEmailLoading}>
+          <Spin spinning={loading}>
             <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
             {screen === SCREENS.SEND_Email_CODE && (
-              <div className="flex flex-col gap-2 w-full md:w-96 mb-4">
-                <span>Your email: {user?.email}</span>
-                <p>
-                  is not verified yet. Please verify your email to continue.
-                </p>
+              <div className="flex flex-col gap-2 w-full md:w-96 mb-4  text-lg">
+                <div className=" text-lg flex  items-center flex-wrap ">
+                  <span>Your email:</span>
+                  <span className="font-semibold pl-1">{user?.email}</span>
+                </div>
+                <p className=" mt-2">is not verified yet.</p>
+                <p>Please verify your email to continue.</p>
+
                 <Error error={sendVerificationEmailCodeError} />
               </div>
             )}
@@ -106,31 +110,48 @@ const VerifyEmail = () => {
                   <Input.OTP size="large" length={5} />
                 </Item>
                 {/*  resend code  */}
-                <div
-                  className="text-sm underline cursor-pointer  "
-                  onClick={() =>
-                    sendVerificationEmailCode({ email: user?.email })
-                  }
-                >
-                  Resend Code
+                <div>
+                  <Button
+                    type="link"
+                    disabled={resentCount > 3}
+                    className="text-sm underline cursor-pointer self-start !px-0 "
+                    onClick={() => {
+                      sendVerificationEmailCode({ email: user?.email });
+                      setResentCount((prev) => prev + 1);
+                    }}
+                  >
+                    Resend Code
+                  </Button>
+                  {resentCount > 3 && (
+                    <p className="text-sm text-red-500">
+                      You have reached the maximum limit of resending code.
+                      please try again later.
+                    </p>
+                  )}
                 </div>
               </div>
             )}
             {screen === SCREENS.EMAIL_VERIFIED && (
               <div className="flex flex-col gap-2 mb-4">
-                <span>Your email is verified successfully.</span>
+                <p className="text-lg ">Your email is verified successfully.</p>
               </div>
             )}
-            <Button
-              className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed mt-4"
-              disabled={loading}
-              loading={loading}
-              htmlType="submit"
-              type="primary"
-              size="large"
+            <div
+              className={`mt-2 flex justify-start  ${
+                screen === SCREENS.EMAIL_VERIFIED && " justify-end mt-8"
+              } `}
             >
-              {loading ? "Loading..." : buttonTitle}
-            </Button>
+              <Button
+                className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
+                disabled={loading}
+                loading={loading}
+                htmlType="submit"
+                type="primary"
+                size="large"
+              >
+                {loading ? "Loading..." : buttonTitle}
+              </Button>
+            </div>
           </Spin>
         </Form>
       </div>

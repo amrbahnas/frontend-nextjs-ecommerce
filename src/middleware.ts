@@ -51,13 +51,6 @@ export async function middleware(request: NextRequest) {
 
   //3) Handling protected routes section
   if (tokenData) {
-    //3.1) Handling email verification
-    if (
-      !tokenData.emailVerified &&
-      request.nextUrl.pathname !== "/verifyEmail"
-    ) {
-      return NextResponse.redirect(new URL("/verifyEmail", request.url));
-    }
     return NextResponse.next();
   } else {
     return NextResponse.redirect(new URL("/auth/login", request.url));
@@ -66,5 +59,11 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // 3) Add the protected routes to the matcher
-  matcher: ["/auth/:path*", "/admin/:path*", "/profile", "/wishlist"],
+  matcher: [
+    "/auth/:path*",
+    "/admin/:path*",
+    "/profile",
+    "/wishlist",
+    "/verifyEmail",
+  ],
 };

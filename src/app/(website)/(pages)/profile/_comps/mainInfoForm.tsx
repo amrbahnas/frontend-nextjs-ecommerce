@@ -75,6 +75,18 @@ const MainInfoForm = () => {
               required: true,
               message: "Please input your email!",
             },
+            {
+              type: "email",
+              message: "The input is not valid E-mail!",
+            },
+            {
+              validator(_, value) {
+                if (value && value.endsWith("@gmail.com")) {
+                  return Promise.resolve();
+                }
+                return Promise.reject("The email must be a Gmail address!");
+              },
+            },
           ]}
         >
           <Input

@@ -1,16 +1,16 @@
-import Cookies from "js-cookie";
-import { useEffect } from "react";
-import { useLogout } from "./useLogout";
 import useAuthStore from "@/store/useAuthStore";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const useCheckCookies = () => {
-  const { logout } = useLogout();
+  const route = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
 
   useEffect(() => {
     const token = Cookies.get("token");
     if (isLogin && !token) {
-      logout();
+      route.push("/auth/login");
     }
   }, [isLogin]);
 };

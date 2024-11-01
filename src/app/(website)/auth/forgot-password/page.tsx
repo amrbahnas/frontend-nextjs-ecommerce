@@ -59,8 +59,8 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
-      <div className="h-[calc(100dvh-80px)]   justify-center flex items-center">
+    <Container className="flex justify-center items-center h-[calc(100dvh-80px)] ">
+      <div className="  justify-center flex items-center w-full">
         <Form
           className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full "
           form={form}

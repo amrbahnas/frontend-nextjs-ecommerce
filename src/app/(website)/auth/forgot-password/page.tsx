@@ -6,6 +6,7 @@ import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import { SCREENS } from "../../../../enum/forgetPasswordScreens";
+import Container from "@/components/container";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -58,128 +59,124 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-[calc(100dvh-80px)] mx-auto w-[80%] lg:w-[30%] mt-10">
-      <Spin spinning={loading}>
-        <Form
-          className="flex flex-col gap-8"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-        >
-          <h1 className="text-2xl font-semibold">{formTitle}</h1>
-
-          {screen === SCREENS.SEND_RESET_CODE && (
-            <div className="flex flex-col gap-2">
-              <Item
-                label="E-mail"
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your email!",
-                  },
-                ]}
-              >
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className=" rounded-md p-4"
-                />
-              </Item>
-            </div>
-          )}
-
-          {screen === SCREENS.VERIFICATION_RESET_CODE && (
-            <div className="flex flex-col gap-2">
-              {/*  check your email */}
-              <div className="text-sm">
-                We have sent a code to your email: {email}
-              </div>
-              <Item
-                label="Code"
-                name="resetCode"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your code!",
-                  },
-                ]}
-              >
-                <Input
-                  placeholder="Enter your code"
-                  className=" rounded-md p-4"
-                />
-              </Item>
-              {/*  resend code  */}
-              <div
-                className="text-sm underline cursor-pointer"
-                onClick={() => sendResetCode({ email })}
-              >
-                Resend Code
-              </div>
-            </div>
-          )}
-
-          {screen === SCREENS.CREATE_NEW_PASSWORD && (
-            <div className="flex flex-col gap-2">
-              <Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input
-                  type="password"
-                  placeholder="Enter your new password"
-                  className=" rounded-md p-4"
-                />
-              </Item>
-              <Item
-                label="Password"
-                name="confirmPassword"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input  confirmPassword",
-                  },
-                ]}
-              >
-                <Input
-                  type="password"
-                  placeholder="Enter your new password"
-                  className=" rounded-md p-4"
-                />
-              </Item>
-            </div>
-          )}
-
-          <Button
-            className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
-            disabled={loading}
-            loading={loading}
-            htmlType="submit"
-            type="primary"
+    <Container>
+      <div className="h-[calc(100dvh-80px)] mx-auto   justify-center flex items-center">
+        <Spin spinning={loading}>
+          <Form
+            className="flex flex-col  border !p-8 rounded-md shadow-md !-mt-14 "
+            form={form}
+            layout="vertical"
+            onFinish={handleSubmit}
           >
-            {loading ? "Loading..." : buttonTitle}
-          </Button>
-          <Error error={error} />
-
-          {screen === SCREENS.SEND_RESET_CODE && (
-            <div
-              className="text-sm underline cursor-pointer"
-              onClick={() => router.push("/auth/login")}
+            <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
+            {screen === SCREENS.SEND_RESET_CODE && (
+              <div className="flex flex-col gap-2 w-full md:w-96 mb-4">
+                <Item
+                  label="E-mail"
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your email!",
+                    },
+                  ]}
+                >
+                  <Input
+                    type="email"
+                    name="email"
+                    size="large"
+                    placeholder="Enter your email"
+                    className=" rounded-md p-4"
+                  />
+                </Item>
+              </div>
+            )}
+            {screen === SCREENS.VERIFICATION_RESET_CODE && (
+              <div className="flex flex-col gap-4">
+                {/*  check your email */}
+                <div className="text-sm flex items-center flex-wrap">
+                  <span>We have sent a code to your email:</span>
+                  <span className="  font-semibold pl-1">{email}</span>
+                </div>
+                <Item
+                  label="Code"
+                  name="resetCode"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your code!",
+                    },
+                  ]}
+                >
+                  <Input.OTP size="large" length={4} />
+                </Item>
+                {/*  resend code  */}
+                <div
+                  className="text-sm underline cursor-pointer  "
+                  onClick={() => sendResetCode({ email })}
+                >
+                  Resend Code
+                </div>
+              </div>
+            )}
+            {screen === SCREENS.CREATE_NEW_PASSWORD && (
+              <div className="flex flex-col gap-2 mb-4">
+                <Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                  ]}
+                >
+                  <Input
+                    type="password"
+                    placeholder="Enter your new password"
+                    className=" rounded-md p-4"
+                  />
+                </Item>
+                <Item
+                  label="Password"
+                  name="confirmPassword"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input  confirmPassword",
+                    },
+                  ]}
+                >
+                  <Input
+                    type="password"
+                    placeholder="Enter your new password"
+                    className=" rounded-md p-4"
+                  />
+                </Item>
+              </div>
+            )}
+            <Button
+              className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed mt-4"
+              disabled={loading}
+              loading={loading}
+              htmlType="submit"
+              type="primary"
             >
-              Go back to Login
-            </div>
-          )}
-        </Form>
-      </Spin>
-    </div>
+              {loading ? "Loading..." : buttonTitle}
+            </Button>
+            <Error error={error} />
+            {screen === SCREENS.SEND_RESET_CODE && (
+              <div
+                className="text-sm underline cursor-pointer mt-3"
+                onClick={() => router.push("/auth/login")}
+              >
+                Go back to Login
+              </div>
+            )}
+          </Form>
+        </Spin>
+      </div>
+    </Container>
   );
 };
 

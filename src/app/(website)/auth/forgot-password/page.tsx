@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
-import { SCREENS } from "../../../../enum/forgetPasswordScreens";
+import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import Container from "@/components/container";
 
-const LoginPage = () => {
+const ForgetPasswordPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const [screen, setScreen] = useState(SCREENS.SEND_RESET_CODE);
@@ -183,4 +183,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgetPasswordPage;

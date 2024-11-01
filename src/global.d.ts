@@ -83,6 +83,7 @@ type User = {
   image: string;
   email: string;
   role: string;
+  emailVerified: boolean;
   profileImg: string;
   wishlist: string[];
 };

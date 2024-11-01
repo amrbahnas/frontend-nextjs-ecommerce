@@ -1,6 +1,6 @@
 import useUserStore from "../../../../store/useUserStore";
 import { useRouter } from "next/navigation";
-import { SCREENS } from "../../../../enum/forgetPasswordScreens";
+import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import useAuthStore from "@/store/useAuthStore";
 import useParamsService from "@/hooks/global/useParamsService";
 import useMutation from "@/hooks/apiHandler/useMutation";
@@ -55,7 +55,7 @@ export const useSignUp = () => {
         if (!data.token) return;
         setUser(data.data);
         setAuthData({ token: data.token, role: data.data.role });
-        router.push("/");
+        router.push("/verifyEmail");
       },
     });
   };

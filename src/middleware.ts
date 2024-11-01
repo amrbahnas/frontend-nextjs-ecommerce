@@ -25,7 +25,6 @@ async function verifyToken(token: string | undefined) {
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const tokenData = await verifyToken(token);
-  console.log("🚀 ~ middleware ~ tokenData:", tokenData);
 
   //1) Handling Auth routes section
   if (request.nextUrl.pathname.startsWith("/auth")) {
@@ -52,6 +51,13 @@ export async function middleware(request: NextRequest) {
 
   //3) Handling protected routes section
   if (tokenData) {
+    //3.1) Handling email verification
+    if (
+      !tokenData.emailVerified &&
+      request.nextUrl.pathname !== "/verifyEmail"
+    ) {
+      return NextResponse.redirect(new URL("/verifyEmail", request.url));
+    }
     return NextResponse.next();
   } else {
     return NextResponse.redirect(new URL("/auth/login", request.url));

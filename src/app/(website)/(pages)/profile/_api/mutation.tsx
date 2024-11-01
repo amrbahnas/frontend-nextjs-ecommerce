@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import useMutation from "../../../../../hooks/useMutation";
 import useAuthStore from "@/store/useAuthStore";
+import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useUpdateUser = () => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(

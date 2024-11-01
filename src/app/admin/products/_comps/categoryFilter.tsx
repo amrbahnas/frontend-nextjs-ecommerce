@@ -1,6 +1,6 @@
 import { Radio, RadioChangeEvent, Spin } from "antd";
 import { useGetAdminCategories } from "../_api/query";
-import useParamsService from "@/hooks/useParamsService";
+import useParamsService from "@/hooks/global/useParamsService";
 const { Group } = Radio;
 
 const CategoryFilter = () => {

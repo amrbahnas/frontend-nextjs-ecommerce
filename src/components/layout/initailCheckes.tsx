@@ -1,5 +1,5 @@
 "use client";
-import useCheckCookies from "@/hooks/useCheckCookies";
+import useCheckCookies from "@/hooks/onceProjectRun/useCheckCookies";
 
 const InitialChecks = () => {
   useCheckCookies();

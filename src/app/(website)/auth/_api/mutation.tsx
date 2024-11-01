@@ -1,9 +1,9 @@
-import useMutation from "../../../../hooks/useMutation";
 import useUserStore from "../../../../store/useUserStore";
 import { useRouter } from "next/navigation";
 import { SCREENS } from "../../../../enum/forgetPasswordScreens";
 import useAuthStore from "@/store/useAuthStore";
-import useParamsService from "@/hooks/useParamsService";
+import useParamsService from "@/hooks/global/useParamsService";
+import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();

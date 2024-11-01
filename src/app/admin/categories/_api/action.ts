@@ -1,4 +1,4 @@
-import useMutation from "@/hooks/useMutation";
+import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAdminCreateCategory = () => {
   const { mutate: createCategory, isPending: createLoading } = useMutation(

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useLogin } from "../_api/mutation";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
-import { useLogout } from "@/hooks/useLogout";
+import { useLogout } from "@/hooks/global/useLogout";
 import { useEffect } from "react";
 import useAuthStore from "@/store/useAuthStore";
 

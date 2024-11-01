@@ -1,4 +1,4 @@
-import useQuery from "@/hooks/useQuery";
+import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useGetWishlist = () => {
   const {

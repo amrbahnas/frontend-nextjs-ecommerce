@@ -1,11 +1,10 @@
-import axiosInstance from "../config/apiClient";
 import Cookies from "js-cookie";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
-import { useLogout } from "./useLogout";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/config/apiClient";
 
 const useMutation = (
   endpoint: string,

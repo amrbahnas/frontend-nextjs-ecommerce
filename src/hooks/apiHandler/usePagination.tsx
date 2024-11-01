@@ -1,4 +1,5 @@
 "use client";
+import axiosInstance from "@/config/apiClient";
 import {
   DefinedInitialDataOptions,
   QueryClient,
@@ -7,7 +8,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import axiosInstance from "../config/apiClient";
 import ms from "ms";
 import { useEffect, useMemo, useState } from "react";
 

@@ -1,4 +1,4 @@
-import useMutation from "@/hooks/useMutation";
+import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAdminDeleteProduct = (id: string) => {
   const { mutate: deleteProduct, isPending: deleteLoading } = useMutation(

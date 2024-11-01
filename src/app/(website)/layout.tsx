@@ -1,8 +1,8 @@
 "use client";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { UseCartCountHandler } from "@/hooks/useCartCountHandler";
-import useMergeCartHandler from "@/hooks/useMergeCartHandler";
+import { UseCartCountHandler } from "@/hooks/onceProjectRun/useCartCountHandler";
+import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
 
 export default function RootLayout({
   children,

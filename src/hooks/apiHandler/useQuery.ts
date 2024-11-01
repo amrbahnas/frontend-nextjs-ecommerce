@@ -1,10 +1,9 @@
 "use client";
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import axiosInstance from "../config/apiClient";
+import axiosInstance from "../../config/apiClient";
 import ms from "ms";
 import { toast } from "react-toastify";
-import { useLogout } from "./useLogout";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 

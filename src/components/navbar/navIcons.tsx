@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import { useLogout } from "@/hooks/useLogout";
+import { useLogout } from "@/hooks/global/useLogout";
 import Link from "next/link";
 import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";

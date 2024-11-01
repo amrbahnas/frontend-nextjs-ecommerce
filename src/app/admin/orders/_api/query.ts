@@ -1,5 +1,5 @@
-import usePagination from "@/hooks/usePagination";
-import useQuery from "@/hooks/useQuery";
+import usePagination from "@/hooks/apiHandler/usePagination";
+import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useAdminGetOrders = () => {
   const {

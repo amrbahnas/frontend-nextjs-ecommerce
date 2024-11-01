@@ -1,6 +1,6 @@
 "use client";
 import CategoriesSelector from "@/components/selectors/categoriesSelector";
-import useParamsService from "@/hooks/useParamsService";
+import useParamsService from "@/hooks/global/useParamsService";
 import { Button, InputNumber, Select } from "antd";
 import { useState } from "react";
 import { CiFilter } from "react-icons/ci";

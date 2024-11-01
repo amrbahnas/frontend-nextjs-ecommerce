@@ -1,4 +1,4 @@
-import useMutation from "@/hooks/useMutation";
+import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAddReview = () => {
   const { mutate, error, isError, isPending } = useMutation("/reviews", "post");

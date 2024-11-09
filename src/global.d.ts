@@ -110,3 +110,10 @@ interface CustomError extends Error {
     status: number;
   };
 }
+
+type TokenPayload = {
+  _id: string;
+  isAdmin: boolean;
+  emailVerified: boolean;
+  active: boolean;
+};

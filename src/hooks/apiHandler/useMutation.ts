@@ -43,7 +43,9 @@ const useMutation = (
     },
 
     onError: (error, variables, context) => {
-      toast.error(error?.response?.data || "Internal Server Error");
+      process.env.NEXT_PUBLIC_ENV === "development" &&
+        toast.error(error?.response?.data || "Internal Server Error");
+
       if (error.response?.status === 401 && isLogin) {
         route.push("/auth/login");
       }

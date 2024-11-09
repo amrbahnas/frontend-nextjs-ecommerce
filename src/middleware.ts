@@ -16,17 +16,21 @@ async function verifyToken(token: string | undefined) {
       }
     );
     const data = await response.json();
-    return data.data;
+    return data.data as TokenPayload;
   } catch (error) {
     return null;
   }
 }
 
-const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
+const protectedRoutes = [
+  "/profile",
+  "/wishlist",
+  "/verifyEmail",
+  "/inactiveAccount",
+];
 
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
-  console.log("🚀 ~ middleware ~ pathName:", pathName);
   const token = request.cookies.get("token")?.value;
   const tokenData = await verifyToken(token);
 
@@ -53,8 +57,17 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  //3) Handling email verification
+  //3) Handling account activation and email verification
   if (tokenData) {
+    //3.1)
+    if (!tokenData.active && pathName !== "/inactiveAccount") {
+      return NextResponse.redirect(new URL("/inactiveAccount", request.url));
+    }
+    if (tokenData.active && pathName === "/inactiveAccount") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    //3.2)
     if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
       return NextResponse.redirect(new URL("/verifyEmail", request.url));
     }

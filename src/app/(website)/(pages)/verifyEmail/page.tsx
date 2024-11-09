@@ -71,6 +71,7 @@ const VerifyEmail = () => {
         break;
       default:
         const redirect = getParams("redirect");
+        router.refresh();
         router.push(redirect || "/");
         break;
     }

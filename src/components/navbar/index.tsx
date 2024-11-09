@@ -1,20 +1,24 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
 import Container from "../container";
 import Menu from "./menu";
 import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
 import NextImage from "../ui/nextImage";
+import { usePathname } from "next/navigation";
+import Link from "../ui/link";
 
 const Navbar = () => {
+  const pathName = usePathname();
   return (
     <Container className=" shadow-sm">
       <div className="min-h-20 flex  flex-col  justify-center py-4 ">
         <div className="flex items-center justify-between h-full ">
           {/* left */}
-          <Link href={"/"} className="flex items-center gap-3 ">
+          <Link
+            disabled={pathName === "/verifyEmail"}
+            href={"/"}
+            className="flex items-center gap-3 "
+          >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
             <div className="text-2xl tracking-wide">Shope</div>
           </Link>

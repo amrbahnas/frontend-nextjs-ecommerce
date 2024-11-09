@@ -25,11 +25,21 @@ const Navbar = () => {
 
           {/* Big screen */}
           <div className="hidden xl:flex gap-4">
-            <Link href={"/"}>Home</Link>
-            <Link href={"/"}>Shop</Link>
-            <Link href={"/"}>Deals</Link>
-            <Link href={"/"}>About</Link>
-            <Link href={"/"}>Contact</Link>
+            <Link disabled href={"/"}>
+              Home
+            </Link>
+            <Link disabled href={"/"}>
+              Shop
+            </Link>
+            <Link disabled href={"/"}>
+              Deals
+            </Link>
+            <Link disabled href={"/"}>
+              About
+            </Link>
+            <Link disabled href={"/"}>
+              Contact
+            </Link>
           </div>
           {/* Big screen */}
           <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">

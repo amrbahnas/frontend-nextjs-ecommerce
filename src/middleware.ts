@@ -6,7 +6,7 @@ async function verifyToken(token: string | undefined) {
   if (!token) return null;
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/auth/verify-token",
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-token`,
       {
         method: "POST",
         headers: {
@@ -76,5 +76,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // only run on route Pages and not on static pages
-  matcher: "/((?!.*\\..*|_next).*)",
+  matcher: ["/", "/((?!.*\\..*|_next).*)"],
 };

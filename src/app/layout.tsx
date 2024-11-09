@@ -25,7 +25,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AntDLayout>
           <ReactQueryLayout>
-            <ProgressBarLayout>{children}</ProgressBarLayout>
+            {children}
+
+            {/* <ProgressBarLayout>{children}</ProgressBarLayout> */}
             <InitialChecks />
           </ReactQueryLayout>
         </AntDLayout>

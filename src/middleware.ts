@@ -26,6 +26,7 @@ const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
+  console.log("🚀 ~ middleware ~ pathName:", pathName);
   const token = request.cookies.get("token")?.value;
   const tokenData = await verifyToken(token);
 

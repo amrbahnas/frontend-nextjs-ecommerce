@@ -16,6 +16,7 @@ export const useLogout = (customRoute?: string) => {
     removeAuthData();
     setUser(null);
     setCartItemsCount(0);
+    router.refresh();
     router.push(customRoute || "/");
     mutate({});
   };

@@ -1,7 +1,7 @@
 "use client";
 import { Button, Form, Input, Spin } from "antd";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
@@ -10,22 +10,6 @@ import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import useUserStore from "@/store/useUserStore";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
-
-const getTitleAndButtonText = (screen: string) => {
-  switch (screen) {
-    case SCREENS.SEND_Email_CODE:
-      return { formTitle: "Verify Your Email", buttonTitle: "Verify Now" };
-    case SCREENS.VERIFICATION_Email_CODE:
-      return { formTitle: "Enter Verify Code", buttonTitle: "Verify Email" };
-    case SCREENS.EMAIL_VERIFIED:
-      return {
-        formTitle: "Congratulations! You are almost there.",
-        buttonTitle: "Continue",
-      };
-    default:
-      return { formTitle: "", buttonTitle: "" };
-  }
-};
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -42,6 +26,22 @@ const VerifyEmail = () => {
   } = useSendVerificationEmailCode();
   const { verifyEmail, verifyEmailLoading, verifyEmailError } =
     useVerifyEmail();
+
+  const getTitleAndButtonText = useCallback((screen: string) => {
+    switch (screen) {
+      case SCREENS.SEND_Email_CODE:
+        return { formTitle: "Verify Your Email", buttonTitle: "Verify Now" };
+      case SCREENS.VERIFICATION_Email_CODE:
+        return { formTitle: "Enter Verify Code", buttonTitle: "Verify Email" };
+      case SCREENS.EMAIL_VERIFIED:
+        return {
+          formTitle: "Congratulations! You are almost there.",
+          buttonTitle: "Continue",
+        };
+      default:
+        return { formTitle: "", buttonTitle: "" };
+    }
+  }, []);
 
   const { formTitle, buttonTitle } = getTitleAndButtonText(screen);
   const loading = sendVerificationEmailCodeLoading || verifyEmailLoading;

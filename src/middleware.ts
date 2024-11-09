@@ -22,12 +22,15 @@ async function verifyToken(token: string | undefined) {
   }
 }
 
+const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
+
 export async function middleware(request: NextRequest) {
+  const pathName = request.nextUrl.pathname;
   const token = request.cookies.get("token")?.value;
   const tokenData = await verifyToken(token);
 
   //1) Handling Auth routes section
-  if (request.nextUrl.pathname.startsWith("/auth")) {
+  if (pathName.startsWith("/auth")) {
     if (!tokenData) {
       return NextResponse.next();
     } else {
@@ -36,7 +39,7 @@ export async function middleware(request: NextRequest) {
   }
 
   //2) Handling Admin routes section
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  if (pathName.startsWith("/admin")) {
     if (!tokenData) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
@@ -49,21 +52,29 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  //3) Handling protected routes section
+  //3) Handling email verification
   if (tokenData) {
-    return NextResponse.next();
-  } else {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
+      return NextResponse.redirect(new URL("/verifyEmail", request.url));
+    }
+    if (tokenData.emailVerified && pathName === "/verifyEmail") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
+
+  //4) Handling protected routes section
+  if (protectedRoutes.includes(pathName)) {
+    if (tokenData) {
+      return NextResponse.next();
+    } else {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  // 3) Add the protected routes to the matcher
-  matcher: [
-    "/auth/:path*",
-    "/admin/:path*",
-    "/profile",
-    "/wishlist",
-    "/verifyEmail",
-  ],
+  // only run on route Pages and not on static pages
+  matcher: "/((?!.*\\..*|_next).*)",
 };

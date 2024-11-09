@@ -9,11 +9,29 @@ import Container from "@/components/container";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import useUserStore from "@/store/useUserStore";
 import useParamsService from "@/hooks/global/useParamsService";
+import useAuthStore from "@/store/useAuthStore";
+
+const getTitleAndButtonText = (screen: string) => {
+  switch (screen) {
+    case SCREENS.SEND_Email_CODE:
+      return { formTitle: "Verify Your Email", buttonTitle: "Verify Now" };
+    case SCREENS.VERIFICATION_Email_CODE:
+      return { formTitle: "Enter Verify Code", buttonTitle: "Verify Email" };
+    case SCREENS.EMAIL_VERIFIED:
+      return {
+        formTitle: "Congratulations! You are almost there.",
+        buttonTitle: "Continue",
+      };
+    default:
+      return { formTitle: "", buttonTitle: "" };
+  }
+};
 
 const VerifyEmail = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { user, setUser } = useUserStore();
+  const setToken = useAuthStore((state) => state.setToken);
   const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
   const { getParams } = useParamsService({});
@@ -25,19 +43,7 @@ const VerifyEmail = () => {
   const { verifyEmail, verifyEmailLoading, verifyEmailError } =
     useVerifyEmail();
 
-  const formTitle =
-    screen === SCREENS.SEND_Email_CODE
-      ? "Verify Your Email"
-      : SCREENS.VERIFICATION_Email_CODE
-      ? "Enter Verify Code"
-      : "Congratulations! You are almost there.";
-
-  const buttonTitle =
-    screen === SCREENS.SEND_Email_CODE
-      ? "Send Verify Code"
-      : screen === SCREENS.VERIFICATION_Email_CODE
-      ? "Verify Email"
-      : "Continue";
+  const { formTitle, buttonTitle } = getTitleAndButtonText(screen);
   const loading = sendVerificationEmailCodeLoading || verifyEmailLoading;
 
   const handleSubmit = async (values: any) => {
@@ -56,7 +62,9 @@ const VerifyEmail = () => {
         verifyEmail(values, {
           onSuccess: (res) => {
             const newUser = res.data.user;
+            const token = res.data.token;
             setUser(newUser);
+            setToken(token);
             setScreen(SCREENS.EMAIL_VERIFIED);
           },
         });

@@ -10,6 +10,7 @@ type AuthData = {
 type Store = {
   isLogin: boolean;
   setAuthData: ({ token, role }: AuthData) => void;
+  setToken: (token: string) => void;
   removeAuthData: () => void;
 };
 
@@ -20,6 +21,13 @@ const useAuthStore = create<Store>(
       setAuthData: (payload: AuthData) => {
         set({ isLogin: true });
         Cookies.set("token", payload.token, {
+          // httpOnly: true, // The cookie is not accessible via JavaScript
+          // sameSite: "strict", // The cookie is sent only to the same site
+          // secure: process.env.NEXT_PUBLIC_ENV === "production", // The cookie is sent only over HTTPS
+        });
+      },
+      setToken: (token: string) => {
+        Cookies.set("token", token, {
           // httpOnly: true, // The cookie is not accessible via JavaScript
           // sameSite: "strict", // The cookie is sent only to the same site
           // secure: process.env.NEXT_PUBLIC_ENV === "production", // The cookie is sent only over HTTPS

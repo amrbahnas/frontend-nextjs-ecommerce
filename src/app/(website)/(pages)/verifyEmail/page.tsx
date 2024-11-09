@@ -8,6 +8,7 @@ import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import Container from "@/components/container";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import useUserStore from "@/store/useUserStore";
+import useParamsService from "@/hooks/global/useParamsService";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const VerifyEmail = () => {
   const { user, setUser } = useUserStore();
   const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
-
+  const { getParams } = useParamsService({});
   const {
     sendVerificationEmailCode,
     sendVerificationEmailCodeLoading,
@@ -61,7 +62,8 @@ const VerifyEmail = () => {
         });
         break;
       default:
-        router.push("/");
+        const redirect = getParams("redirect");
+        router.push(redirect || "/");
         break;
     }
   };

@@ -19,11 +19,14 @@ export const useLogin = () => {
         setUser(data.data);
         setAuthData({ token: data.token, role: data.data.role });
         const redirect = getParams("redirect");
-        if (redirect) {
-          router.push(redirect);
-        } else {
-          router.push("/");
+        if (!data.data.verifyEmail) {
+          if (redirect) {
+            return router.push(`/verifyEmail?redirect=${redirect}`);
+          }
+          return router.push("/verifyEmail");
         }
+
+        router.push(redirect || "/");
       },
     });
   };

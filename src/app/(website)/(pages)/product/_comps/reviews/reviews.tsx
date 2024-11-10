@@ -26,8 +26,6 @@ const Reviews = ({ productId }: { productId: string }) => {
       </h1>
       <Error error={error} />
       <div className=" space-y-6 ">
-        <ReviewForm productId={productId} customOnSuccess={refetch} />
-        <Divider />
         <div className=" flex flex-col gap-4 max-h-96 overflow-scroll">
           {reviews?.length === 0 && <p>No reviews yet</p>}
           {reviews?.map((review: ReviewType) => (
@@ -39,6 +37,8 @@ const Reviews = ({ productId }: { productId: string }) => {
             />
           ))}
         </div>
+        <Divider />
+        <ReviewForm productId={productId} customOnSuccess={refetch} />
       </div>
     </>
   );

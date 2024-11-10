@@ -8,6 +8,8 @@ import Container from "@/components/container";
 import ProductImages from "../_comps/productImage";
 import ProductSkeleton from "../_comps/product.skeketon";
 import WishlistButton from "@/components/addProductToWishlist";
+import { MdLocalOffer, MdOutlineLocalOffer } from "react-icons/md";
+import { Rate } from "antd";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
@@ -30,15 +32,34 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
         {/* TEXTS */}
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
           <h1 className="text-4xl font-medium">{product?.title}</h1>
+          <div className="flex items-center gap-4 ">
+            <Rate
+              disabled
+              defaultValue={product.ratingsAverage}
+              allowHalf
+              className="!text-md"
+            />
+            <span className="text-sm text-gray-500 space-x-1">
+              <span>{product.ratingsQuantity}</span>
+              <span>reviews</span>
+            </span>
+          </div>
+
           <p className="text-gray-500">{product?.description}</p>
           <div className="h-[2px] bg-gray-100" />
           {/* price */}
 
-          <div className="flex items-center gap-4">
-            <h2 className="font-medium text-2xl">${product?.price}</h2>
-            <h3 className="text-xl text-gray-500 line-through">
-              ${product?.price + 100}
-            </h3>
+          <div>
+            <div className="flex items-center gap-4">
+              <h2 className="font-bold text-2xl">${product?.price}</h2>
+              <h3 className="text-xl text-gray-500 line-through">
+                ${product?.price + 100}
+              </h3>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-600  mt-2">
+              <MdLocalOffer />
+              <span>Save 50% right now</span>
+            </div>
           </div>
 
           <div className="h-[2px] bg-gray-100" />
@@ -58,7 +79,6 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
 
           <Add product={product} />
 
-          <div className="h-[2px] bg-gray-100" />
           {/* {product?.additionalInfoSections?.map((section: any, index) => (
             <div className="text-sm" key={section.title + index}>
               <h4 className="font-medium mb-4">{section.title}</h4>

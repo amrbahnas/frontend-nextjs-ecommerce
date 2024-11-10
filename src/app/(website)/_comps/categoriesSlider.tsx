@@ -29,17 +29,17 @@ const CategoriesSlider = () => {
           },
         }}
       >
-        {isLoading &&
-          Array.from({ length: 7 }).map((_, i) => (
-            <SwiperSlide key={i}>
-              <Skeleton.Avatar size={80} active />
-            </SwiperSlide>
-          ))}
-        {categories?.map((category) => (
-          <SwiperSlide key={category._id}>
-            <CategoryCard category={category} />
-          </SwiperSlide>
-        ))}
+        {isLoading
+          ? Array.from({ length: 7 }).map((_, i) => (
+              <SwiperSlide key={i}>
+                <Skeleton.Avatar size={80} active />
+              </SwiperSlide>
+            ))
+          : categories?.map((category) => (
+              <SwiperSlide key={category._id}>
+                <CategoryCard category={category} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );

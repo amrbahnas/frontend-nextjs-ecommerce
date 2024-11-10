@@ -1,29 +1,29 @@
 "use client";
-
 import NextImage from "@/components/ui/nextImage";
-import Image from "next/image";
+import { Image } from "antd";
+import classNames from "classnames";
 import { useState } from "react";
 
 const ProductImages = ({ images }: { images: string[] }) => {
   const [index, setIndex] = useState(0);
 
   return (
-    <div className="">
-      <div className="h-[500px] relative ">
-        <NextImage
-          // src={items[index].image?.url}
-          src={images[index]}
-          alt=""
-          fill
-          sizes="50vw"
-          className="object-cover rounded-md"
-        />
-      </div>
+    <div className=" flex gap-6 flex-col md:flex-row-reverse w-full">
+      <Image
+        src={images[index]}
+        alt="Product Image"
+        className=" !h-[300px] md:!h-[500px]   md:!flex-1   !w-full rounded-md object-cover !overflow-hidden "
+      />
       {images.length > 2 && (
-        <div className="flex justify-between gap-4 mt-8">
+        <div className="flex flex-row md:flex-col gap-4 w-full  md:w-32  flex-shrink-0">
           {images.map((item: any, i: number) => (
             <div
-              className="w-1/4 h-32 relative gap-4 mt-8 cursor-pointer"
+              className={classNames(
+                "w-full h-28 relative gap-4  cursor-pointer rounded-md overflow-hidden ",
+                {
+                  "border-2 border-primary": i === index,
+                }
+              )}
               key={item.id}
               onClick={() => setIndex(i)}
             >
@@ -31,8 +31,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                 src={item}
                 alt=""
                 fill
-                sizes="30vw"
-                className="object-cover rounded-md"
+                className="object-cover w-full h-full"
               />
             </div>
           ))}

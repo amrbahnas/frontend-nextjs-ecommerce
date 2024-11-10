@@ -6,17 +6,20 @@ import Reviews from "../_comps/reviews/reviews";
 import { useGetSpecificProduct } from "../_api/query";
 import Container from "@/components/container";
 import ProductImages from "../_comps/productImage";
+import ProductSkeleton from "../_comps/product.skeketon";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
     params.id
   );
 
+  if (isLoading) return <ProductSkeleton />;
+
   return (
     <Container className="mt-8">
       <div className=" relative flex flex-col lg:flex-row gap-16">
         {/* IMG */}
-        <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
+        <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
           <ProductImages
             images={
               product.images ? [product.imageCover, ...product.images] : []

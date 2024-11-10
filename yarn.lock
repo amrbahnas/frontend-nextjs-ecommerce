@@ -424,6 +424,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-image-magnify@^2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@types/react-image-magnify/-/react-image-magnify-2.7.4.tgz#8b85dfe1b2955797b31c39799c2d152e13918e33"
+  integrity sha512-EzKC1eNf9OIO5JwvAoE9+XHcuJXeWqV9gutvO7Ae7L2rtQVZ3zd+08AREGI9mUZT5sQ4KHydjD1D5Bzwe/sJuA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18":
   version "18.3.3"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.3.tgz#9679020895318b0915d7a3ab004d92d33375c45f"

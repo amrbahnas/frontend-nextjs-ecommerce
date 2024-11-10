@@ -7,6 +7,7 @@ import { useGetSpecificProduct } from "../_api/query";
 import Container from "@/components/container";
 import ProductImages from "../_comps/productImage";
 import ProductSkeleton from "../_comps/product.skeketon";
+import WishlistButton from "@/components/addProductToWishlist";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
@@ -34,10 +35,10 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
           {/* price */}
 
           <div className="flex items-center gap-4">
+            <h2 className="font-medium text-2xl">${product?.price}</h2>
             <h3 className="text-xl text-gray-500 line-through">
               ${product?.price + 100}
             </h3>
-            <h2 className="font-medium text-2xl">${product?.price}</h2>
           </div>
 
           <div className="h-[2px] bg-gray-100" />
@@ -54,7 +55,9 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
               stockNumber={product.quantity || 0}
             />
           )} */}
+
           <Add product={product} />
+
           <div className="h-[2px] bg-gray-100" />
           {/* {product?.additionalInfoSections?.map((section: any, index) => (
             <div className="text-sm" key={section.title + index}>
@@ -64,7 +67,6 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
           ))} */}
           <div className="h-[2px] bg-gray-100" />
           {/* REVIEWS */}
-          <h1 className="text-2xl">User Reviews</h1>
 
           <Reviews productId={product?._id!} />
         </div>

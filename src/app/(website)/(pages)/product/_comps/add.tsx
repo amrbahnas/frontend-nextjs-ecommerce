@@ -1,11 +1,13 @@
 "use client";
 
 import AddProductToCard from "@/components/addProductToCard";
+import WishlistButton from "@/components/addProductToWishlist";
 import { useState } from "react";
 
 const Add = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
-  const stockNumber = product.quantity - quantity;
+  const productQuantity = product.quantity;
+  const stockNumber = productQuantity - quantity;
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
@@ -33,13 +35,13 @@ const Add = ({ product }: { product: Product }) => {
             <button
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("i")}
-              disabled={quantity === product.quantity}
+              disabled={quantity === productQuantity}
             >
               +
             </button>
           </div>
-          {stockNumber < 1 ? (
-            <div className="text-xs">Product is out of stock</div>
+          {productQuantity === 0 ? (
+            <div className="text-lg text-red-500">Product is out of stock</div>
           ) : (
             <div className="text-xs">
               Only <span className="text-orange-500">{stockNumber} items</span>{" "}
@@ -48,16 +50,23 @@ const Add = ({ product }: { product: Product }) => {
             </div>
           )}
         </div>
-        <AddProductToCard
-          product={product}
-          options={{
-            color: product?.colors ? product.colors[0] : "black",
-            quantity: quantity,
-            buttonClassName: "!w-full",
-            buttonSize: "large",
-            buttonType: "primary",
-          }}
-        />
+        <div className=" flex items-center gap-5">
+          <AddProductToCard
+            disabled={stockNumber < 1 || productQuantity === 0}
+            product={product}
+            options={{
+              color: product?.colors ? product.colors[0] : "black",
+              quantity: quantity,
+              buttonClassName: "!w-[50%]",
+              buttonSize: "large",
+              buttonType: "primary",
+            }}
+          />
+          <WishlistButton
+            productId={product._id}
+            className=" border p-2 rounded-md  border-gray-300"
+          />
+        </div>
       </div>
     </div>
   );

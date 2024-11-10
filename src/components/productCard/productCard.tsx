@@ -8,6 +8,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import AddProductToCard from "../addProductToCard";
 import NextImage from "../ui/nextImage";
 import { CiHeart } from "react-icons/ci";
+import WishlistButton from "../addProductToWishlist";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -33,10 +34,14 @@ const ProductCard = ({ product }: { product: Product }) => {
           {product.description}
         </span>
       </Link>
-      <WishlistButton productId={product._id} />
+      <WishlistButton
+        productId={product._id}
+        className="absolute top-4 right-4 "
+      />
       <Divider className="!my-0" />
       <div className="px-3 pb-3">
         <AddProductToCard
+          disabled={product.quantity === 0}
           product={product}
           options={{ color: product.colors[0], quantity: 1 }}
         />
@@ -46,44 +51,3 @@ const ProductCard = ({ product }: { product: Product }) => {
 };
 
 export default ProductCard;
-
-const WishlistButton = ({ productId }: { productId: string }) => {
-  const user = useUserStore((state) => state.user);
-  const wishlist = user?.wishlist || [];
-  const setUser = useUserStore((state) => state.setUser);
-
-  const [isWithlisted, setIsWithlisted] = useState(
-    wishlist.includes(productId)
-  );
-
-  const { toggleWishlist, isPending } = useToggleProductWishlist(productId);
-  const handleToggleWishlist = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsWithlisted((prev) => !prev);
-    toggleWishlist(
-      {},
-      {
-        onSuccess: (res) => {
-          setUser({
-            ...user,
-            wishlist: res.data.wishlist,
-          });
-        },
-        onError: () => {
-          setIsWithlisted((prev) => !prev);
-        },
-      }
-    );
-  };
-  return (
-    <div
-      onClick={handleToggleWishlist}
-      className="absolute top-4 right-4 cursor-pointer"
-    >
-      {isWithlisted ? (
-        <FaHeart size={25} color="red" />
-      ) : (
-        <CiHeart size={25} color="black" />
-      )}
-    </div>
-  );
-};

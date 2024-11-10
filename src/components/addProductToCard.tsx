@@ -17,9 +17,11 @@ type OptionsType = {
 
 const AddProductToCard = ({
   product,
+  disabled,
   options,
 }: {
   product: Product;
+  disabled?: boolean;
   options: OptionsType;
 }) => {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -34,8 +36,15 @@ const AddProductToCard = ({
       className: `!w-32 !py-4 ${options.buttonClassName}`,
       shape: "default",
       icon: <MdAddShoppingCart />,
+      disabled: disabled || isPending,
     }),
-    [options.buttonType, options.buttonSize, options.buttonClassName]
+    [
+      options.buttonType,
+      options.buttonSize,
+      options.buttonClassName,
+      disabled,
+      isPending,
+    ]
   );
 
   if (isLogin) {
@@ -59,7 +68,6 @@ const AddProductToCard = ({
             }
           );
         }}
-        disabled={isPending}
         loading={isPending}
       >
         Add to Cart

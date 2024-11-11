@@ -14,12 +14,19 @@ export const useLogin = () => {
     useMutation("/auth/login");
   const login = (values: { email: string; password: string }) => {
     mutate(values, {
-      onSuccess: ({ data }: any) => {
+      onSuccess: ({
+        data,
+      }: {
+        data: {
+          token: string;
+          data: User;
+        };
+      }) => {
         if (!data.token) return;
         setUser(data.data);
         setAuthData({ token: data.token, role: data.data.role });
         const redirect = getParams("redirect");
-        if (!data.data.verifyEmail) {
+        if (!data.data.emailVerified) {
           if (redirect) {
             return router.push(`/verifyEmail?redirect=${redirect}`);
           }

@@ -1,18 +1,15 @@
 "use client";
-import { Button, Divider, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
-import { useLogin } from "../_api/mutation";
 import Item from "@/components/antd/item";
+import Container from "@/components/container";
 import { Error } from "@/components/ui/error";
 import { useLogout } from "@/hooks/global/useLogout";
-import { useEffect } from "react";
 import useAuthStore from "@/store/useAuthStore";
-import Container from "@/components/container";
-import DisableLink from "@/components/ui/disableLink";
+import { Button, Divider, Form, Input } from "antd";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useLogin } from "../_api/mutation";
 
 const LoginPage = ({}) => {
-  const router = useRouter();
   const [form] = Form.useForm();
   const { login, loginError, loginPending } = useLogin();
   const isLogin = useAuthStore((state) => state.isLogin);

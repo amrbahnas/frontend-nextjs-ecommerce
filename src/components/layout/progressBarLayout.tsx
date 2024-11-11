@@ -7,10 +7,11 @@ const ProgressBarLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const emailVerified = useUserStore((state) => state.user?.emailVerified);
+  const active = useUserStore((state) => state.user?.active);
   return (
     <>
       {children}
-      {emailVerified && (
+      {emailVerified && active && (
         <ProgressBar
           height="4px"
           color="#F35C7A"

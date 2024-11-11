@@ -43,6 +43,7 @@ const ReviewForm = ({
   };
 
   const handleCreateReview = (values: any) => {
+    console.log("🚀 ~ handleCreateReview ~ values:", values);
     addReview(
       { ...values, product: productId },
       {
@@ -71,8 +72,19 @@ const ReviewForm = ({
         layout="vertical"
         className="flex flex-col gap-3"
       >
-        <Item name={"rating"} initialValue={4}>
-          <Rate />
+        <Item
+          name={"rating"}
+          initialValue={4}
+          rules={[
+            {
+              type: "number",
+              min: 1,
+              max: 5,
+              message: "Minimum rating is 1",
+            },
+          ]}
+        >
+          <Rate allowHalf />
         </Item>
         <Item
           name={"title"}

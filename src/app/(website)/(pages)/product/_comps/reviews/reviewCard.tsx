@@ -49,7 +49,7 @@ const ReviewCard = ({
               )}
             </div>
           </div>
-          <Rate disabled value={review.rating} className="!text-sm" />
+          <Rate disabled value={review.rating} className="!text-sm" allowHalf />
         </div>
         <p className="font-normal">{review.title}</p>
       </div>

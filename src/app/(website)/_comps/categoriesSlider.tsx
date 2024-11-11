@@ -8,6 +8,16 @@ import { useGetCategories } from "../_api/query";
 
 const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();
+
+  if (isLoading) {
+    return (
+      <div className="mt-4 flex justify-between gap-4 overflow-scroll scrollbar-hide ">
+        {[1, 2, 3, 4, 5, 6, 7].map((value, i) => (
+          <Skeleton.Avatar size={80} active key={value} />
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="mt-4">
       <Swiper
@@ -29,17 +39,11 @@ const CategoriesSlider = () => {
           },
         }}
       >
-        {isLoading
-          ? Array.from({ length: 7 }).map((_, i) => (
-              <SwiperSlide key={i}>
-                <Skeleton.Avatar size={80} active />
-              </SwiperSlide>
-            ))
-          : categories?.map((category) => (
-              <SwiperSlide key={category._id}>
-                <CategoryCard category={category} />
-              </SwiperSlide>
-            ))}
+        {categories?.map((category) => (
+          <SwiperSlide key={category._id}>
+            <CategoryCard category={category} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

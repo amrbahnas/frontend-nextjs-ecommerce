@@ -21,7 +21,7 @@ const Reviews = ({ productId }: { productId: string }) => {
           count={reviews?.length}
           className="!ml-2"
           showZero
-          style={{ backgroundColor: "#52c41a" }}
+          color="#9ca3af"
         />
       </h1>
       <Error error={error} />

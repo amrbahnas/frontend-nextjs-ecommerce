@@ -22,12 +22,7 @@ async function verifyToken(token: string | undefined) {
   }
 }
 
-const protectedRoutes = [
-  "/profile",
-  "/wishlist",
-  "/verifyEmail",
-  "/inactiveAccount",
-];
+const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
@@ -57,17 +52,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  //3) Handling account activation and email verification
+  //3) Handling  email verification
   if (tokenData) {
-    //3.1)
-    if (!tokenData.active && pathName !== "/inactiveAccount") {
-      return NextResponse.redirect(new URL("/inactiveAccount", request.url));
-    }
-    if (tokenData.active && pathName === "/inactiveAccount") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-
-    //3.2)
     if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
       return NextResponse.redirect(new URL("/verifyEmail", request.url));
     }

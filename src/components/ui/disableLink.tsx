@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const Link = ({
+const DisableLink = ({
   className,
   href,
   children,
@@ -26,4 +26,4 @@ const Link = ({
   );
 };
 
-export default Link;
+export default DisableLink;

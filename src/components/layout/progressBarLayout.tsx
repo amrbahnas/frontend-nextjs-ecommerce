@@ -8,11 +8,10 @@ const ProgressBarLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const emailVerified = useUserStore((state) => state.user?.emailVerified);
-  const active = useUserStore((state) => state.user?.active);
   const isLogin = useAuthStore((state) => state.isLogin);
 
   const renderProgressBar = useMemo(() => {
-    if (!isLogin || (emailVerified && active)) {
+    if (!isLogin || emailVerified) {
       return (
         <ProgressBar
           height="4px"
@@ -23,7 +22,7 @@ const ProgressBarLayout: React.FC<{ children: React.ReactNode }> = ({
       );
     }
     return null;
-  }, [emailVerified, active, isLogin]);
+  }, [emailVerified, isLogin]);
 
   return (
     <>

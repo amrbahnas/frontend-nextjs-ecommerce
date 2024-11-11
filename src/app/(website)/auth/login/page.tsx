@@ -8,6 +8,8 @@ import { useLogout } from "@/hooks/global/useLogout";
 import { useEffect } from "react";
 import useAuthStore from "@/store/useAuthStore";
 import Container from "@/components/container";
+import DisableLink from "@/components/ui/disableLink";
+import Link from "next/link";
 
 const LoginPage = ({}) => {
   const router = useRouter();
@@ -34,7 +36,14 @@ const LoginPage = ({}) => {
               Login
             </h1>
           </Divider>
-          <Error error={loginError} />
+          <div className="flex items-center gap-2">
+            <Error error={loginError} />
+            {loginError && loginError.includes("not active") && (
+              <Link href="/inactiveAccount" className=" underline">
+                More Details
+              </Link>
+            )}
+          </div>
           <Item
             label="E-mail"
             name="email"
@@ -70,12 +79,12 @@ const LoginPage = ({}) => {
               className=" rounded-md p-4"
             />
           </Item>
-          <div
+          <Link
             className="text-sm underline cursor-pointer"
-            onClick={() => router.push("/auth/forgot-password")}
+            href={"/auth/forgot-password"}
           >
             Forgot Password?
-          </div>
+          </Link>
           <Button
             className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
             disabled={loginPending}
@@ -86,12 +95,12 @@ const LoginPage = ({}) => {
           >
             {loginPending ? "Loading..." : "Login"}
           </Button>
-          <div
-            className="text-sm underline cursor-pointer"
-            onClick={() => router.push("/auth/signup")}
+          <Link
+            className="text-sm underline cursor-pointer text-gray-600"
+            href={"/auth/signup"}
           >
             {"Don't"} have an account?
-          </div>
+          </Link>
         </Form>
       </div>
     </Container>

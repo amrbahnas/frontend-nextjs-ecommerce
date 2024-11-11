@@ -5,7 +5,7 @@ import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
 import NextImage from "../ui/nextImage";
 import { usePathname } from "next/navigation";
-import Link from "../ui/link";
+import DisableLink from "../ui/disableLink";
 
 const Navbar = () => {
   const pathName = usePathname();
@@ -14,32 +14,32 @@ const Navbar = () => {
       <div className="min-h-20 flex  flex-col  justify-center py-4 ">
         <div className="flex items-center justify-between h-full ">
           {/* left */}
-          <Link
+          <DisableLink
             disabled={pathName === "/verifyEmail"}
             href={"/"}
             className="flex items-center gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
             <div className="text-2xl tracking-wide">Shope</div>
-          </Link>
+          </DisableLink>
 
           {/* Big screen */}
           <div className="hidden xl:flex gap-4">
-            <Link disabled href={"/"}>
+            <DisableLink disabled href={"/"}>
               Home
-            </Link>
-            <Link disabled href={"/"}>
+            </DisableLink>
+            <DisableLink disabled href={"/"}>
               Shop
-            </Link>
-            <Link disabled href={"/"}>
+            </DisableLink>
+            <DisableLink disabled href={"/"}>
               Deals
-            </Link>
-            <Link disabled href={"/"}>
+            </DisableLink>
+            <DisableLink disabled href={"/"}>
               About
-            </Link>
-            <Link disabled href={"/"}>
+            </DisableLink>
+            <DisableLink disabled href={"/"}>
               Contact
-            </Link>
+            </DisableLink>
           </div>
           {/* Big screen */}
           <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">

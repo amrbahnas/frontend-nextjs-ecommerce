@@ -61,34 +61,33 @@ const Footer = () => {
           </div>
           {/* CENTER */}
           <div className="hidden lg:flex justify-between w-1/2">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-16">
               <h1 className="font-medium text-lg">COMPANY</h1>
-              <div className="flex flex-col gap-6">
-                <Link href="">About Us</Link>
-                <Link href="">Careers</Link>
-                <Link href="">Affiliates</Link>
-                <Link href="">Blog</Link>
-                <Link href="">Contact Us</Link>
+              <div className="flex flex-col gap-6 ">
+                <Link href="/about-us">About Us</Link>
+                <Link href="/careers">Careers</Link>
+                <Link href="/affiliates">Affiliates</Link>
+                <Link href="/blog">Blog</Link>
+                <Link href="/contact-us">Contact Us</Link>
               </div>
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-16">
               <h1 className="font-medium text-lg">SHOP</h1>
               <div className="flex flex-col gap-6">
-                <Link href="">New Arrivals</Link>
-                <Link href="">Accessories</Link>
-                <Link href="">Men</Link>
-                <Link href="">Women</Link>
-                <Link href="">All Products</Link>
+                {/* <Link href="">New Arrivals</Link>
+                <Link href="">Accessories</Link> */}
+                <Link href="/list?cat=66fc7bc1ce2284e5c7c337ae">Men</Link>
+                <Link href="?cat=66fc7f18e3bd2937a6e60771">Sport</Link>
+                <Link href="/list">All Products</Link>
               </div>
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-16">
               <h1 className="font-medium text-lg">HELP</h1>
               <div className="flex flex-col gap-6">
-                <Link href="">Customer Service</Link>
-                <Link href="">My Account</Link>
-                <Link href="">Find a Store</Link>
-                <Link href="">Legal & Privacy</Link>
-                <Link href="">Gift Card</Link>
+                <Link href="/customer-service">Customer Service</Link>
+                <Link href="/profile">My Account</Link>
+                <Link href="/find-store">Find a Store</Link>
+                <Link href="/legal-privacy">Legal & Privacy</Link>
               </div>
             </div>
           </div>

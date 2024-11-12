@@ -1,15 +1,12 @@
 "use client";
 import Add from "@/app/(website)/(pages)/product/_comps/add";
-
 import Reviews from "../_comps/reviews/reviews";
-
-import { useGetSpecificProduct } from "../_api/query";
 import Container from "@/components/container";
-import ProductImages from "../_comps/productImage";
-import ProductSkeleton from "../_comps/product.skeketon";
-import WishlistButton from "@/components/addProductToWishlist";
-import { MdLocalOffer, MdOutlineLocalOffer } from "react-icons/md";
 import { Rate } from "antd";
+import { MdLocalOffer } from "react-icons/md";
+import { useGetSpecificProduct } from "../_api/query";
+import ProductSkeleton from "../_comps/product.skeketon";
+import ProductImages from "../_comps/productImage";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
@@ -63,28 +60,9 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
           </div>
 
           <div className="h-[2px] bg-gray-100" />
-          {/* {product?.variants && product.productOptions ? (
-            <CustomizeProducts
-              productId={product._id!}
-              variants={product.variants}
-              productOptions={product.productOptions}
-            />
-          ) : (
-            <Add
-              productId={product._id!}
-              variantId="00000000-0000-0000-0000-000000000000"
-              stockNumber={product.quantity || 0}
-            />
-          )} */}
 
           <Add product={product} />
 
-          {/* {product?.additionalInfoSections?.map((section: any, index) => (
-            <div className="text-sm" key={section.title + index}>
-              <h4 className="font-medium mb-4">{section.title}</h4>
-              <p>{section.description}</p>
-            </div>
-          ))} */}
           <div className="h-[2px] bg-gray-100" />
           {/* REVIEWS */}
 

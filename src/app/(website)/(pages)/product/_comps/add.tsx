@@ -1,5 +1,4 @@
 "use client";
-
 import AddProductToCard from "@/components/addProductToCard";
 import WishlistButton from "@/components/addProductToWishlist";
 import { Divider } from "antd";
@@ -25,7 +24,7 @@ const Add = ({ product }: { product: Product }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-2/3">
+      <div className="w-1/2">
         <SizeSelector
           availableSizes={product.availableSizes}
           selectedSize={size}

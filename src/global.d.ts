@@ -27,11 +27,22 @@ type SubCategoryType = {
   completed: boolean;
 };
 
+type CouponType = {
+  _id: string;
+  code: string;
+  discount: number;
+  expireAt: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type CartType = {
   _id: string;
   cartItems: CartItemType[];
   numberOfCartsItems: number;
   totalCartPrice: number;
+  totalPriceAfterDiscount: number;
+  appliedCoupon?: CouponType;
 };
 
 type CartItemType = {

@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CartItem from "./cartItem";
+import ApplyCoupon from "./applyCoupon";
+import Pricing from "./pricing";
 
 const { Group } = Radio;
 
@@ -19,7 +21,13 @@ const CartBody = ({
   setOpen: (value: boolean) => void;
 }) => {
   const router = useRouter();
-  const { cartItems, totalCartPrice, _id: cartId } = cart;
+  const {
+    cartItems,
+    totalCartPrice,
+    _id: cartId,
+    totalPriceAfterDiscount,
+    appliedCoupon,
+  } = cart;
   const [deleting, setDeleting] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
   const {
@@ -114,12 +122,18 @@ const CartBody = ({
                 />
               ))}
             </div>
+            {/* COUPON */}
+            <ApplyCoupon
+              refetchCart={refetch}
+              hidden={!isLogin}
+              appliedCoupon={appliedCoupon}
+            />
             {/* BOTTOM */}
             <div className="">
-              <div className="flex items-center justify-between font-semibold">
-                <span className="">Subtotal</span>
-                <span className="">${totalCartPrice}</span>
-              </div>
+              <Pricing
+                totalCartPrice={totalCartPrice}
+                totalPriceAfterDiscount={totalPriceAfterDiscount}
+              />
               <p className="text-gray-500 text-sm mt-2 mb-4">
                 Shipping and taxes calculated at checkout.
               </p>

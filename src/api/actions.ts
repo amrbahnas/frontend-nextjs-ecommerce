@@ -67,3 +67,27 @@ export const useToggleProductWishlist = (productId: string) => {
     isPending,
   };
 };
+
+export const useApplyCoupon = () => {
+  const {
+    mutate: applyCoupon,
+    isPending,
+    error,
+  } = useMutation(`/cart/applyCoupon`, "put");
+  return {
+    applyCoupon,
+    isPending,
+    error,
+  };
+};
+
+export const useRemoveCoupon = () => {
+  const { mutate: removeCoupon, isPending } = useMutation(
+    `/cart/removeCoupon`,
+    "delete"
+  );
+  return {
+    removeCoupon,
+    isPending,
+  };
+};

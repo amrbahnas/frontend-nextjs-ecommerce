@@ -7,12 +7,14 @@ import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import Container from "@/components/container";
+import Link from "next/link";
 
 const ForgetPasswordPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const [screen, setScreen] = useState(SCREENS.SEND_RESET_CODE);
   const [email, setEmail] = useState("");
+  const [resendCount, setResendCount] = useState(0);
   const {
     sendResetCode,
     verifyResetCode,
@@ -22,7 +24,7 @@ const ForgetPasswordPage = () => {
     error,
     isSuccess,
     isError,
-  } = useForgetPassword(setScreen);
+  } = useForgetPassword();
 
   const formTitle =
     screen === SCREENS.SEND_RESET_CODE
@@ -42,10 +44,20 @@ const ForgetPasswordPage = () => {
     switch (screen) {
       case SCREENS.SEND_RESET_CODE:
         setEmail(values.email);
-        sendResetCode(values);
+        sendResetCode(values, {
+          onSuccess: () => {
+            setScreen(SCREENS.VERIFICATION_RESET_CODE);
+            setResendCount(resendCount + 1);
+          },
+        });
+
         break;
       case SCREENS.VERIFICATION_RESET_CODE:
-        verifyResetCode(values);
+        verifyResetCode(values, {
+          onSuccess: () => {
+            setScreen(SCREENS.CREATE_NEW_PASSWORD);
+          },
+        });
         break;
       case SCREENS.CREATE_NEW_PASSWORD:
         createNewPassword({
@@ -60,7 +72,7 @@ const ForgetPasswordPage = () => {
 
   return (
     <Container className="flex justify-center items-center h-[calc(100dvh-80px)] ">
-      <div className="  justify-center flex items-center w-full md:w-auto -mt-12">
+      <div className="  justify-center flex items-center w-full md:w-auto min-w-[500px] -mt-12">
         <Form
           className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full "
           form={form}
@@ -93,11 +105,22 @@ const ForgetPasswordPage = () => {
               </div>
             )}
             {screen === SCREENS.VERIFICATION_RESET_CODE && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 ">
                 {/*  check your email */}
-                <div className="text-sm flex items-center flex-wrap">
-                  <span>We have sent a code to your email:</span>
-                  <span className="  font-semibold pl-1">{email}</span>
+                <div>
+                  <div className="text-sm flex items-center flex-wrap">
+                    <span>We have sent a code to your email:</span>
+                    <span className="  font-semibold pl-1">{email}</span>
+                  </div>
+                  <Button
+                    type="link"
+                    className="!text-sm cursor-pointer  !p-0 self-start "
+                    onClick={() => {
+                      setScreen(SCREENS.SEND_RESET_CODE);
+                    }}
+                  >
+                    Change Email
+                  </Button>
                 </div>
                 <Error error={error} />
                 <Item
@@ -113,12 +136,30 @@ const ForgetPasswordPage = () => {
                   <Input.OTP size="large" length={5} />
                 </Item>
                 {/*  resend code  */}
-                <div
-                  className="text-sm underline cursor-pointer  "
-                  onClick={() => sendResetCode({ email })}
+                <Button
+                  type="link"
+                  className="text-sm underline cursor-pointer  !p-0 self-start"
+                  disabled={resendCount >= 5}
+                  onClick={() => {
+                    sendResetCode(
+                      { email },
+                      {
+                        onSuccess: () => {
+                          setResendCount(resendCount + 1);
+                        },
+                      }
+                    );
+                  }}
                 >
                   Resend Code
-                </div>
+                </Button>
+                <Error
+                  error={
+                    resendCount >= 5
+                      ? "You have reached the limit of resending code"
+                      : null
+                  }
+                />
               </div>
             )}
             {screen === SCREENS.CREATE_NEW_PASSWORD && (
@@ -169,12 +210,12 @@ const ForgetPasswordPage = () => {
               {loading ? "Loading..." : buttonTitle}
             </Button>
             {screen === SCREENS.SEND_RESET_CODE && (
-              <div
-                className="text-sm underline cursor-pointer mt-3"
-                onClick={() => router.push("/auth/login")}
+              <Link
+                className="text-sm underline cursor-pointer block mt-4"
+                href={"/auth/login"}
               >
                 Go back to Login
-              </div>
+              </Link>
             )}
           </Spin>
         </Form>

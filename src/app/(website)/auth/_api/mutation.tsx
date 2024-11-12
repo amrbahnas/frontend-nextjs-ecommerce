@@ -80,57 +80,33 @@ export const useSignUp = () => {
   };
 };
 
-export const useForgetPassword = (setScreen: (a: SCREENS) => void) => {
+export const useForgetPassword = () => {
   const router = useRouter();
   const {
-    mutate: mutateSendResetCode,
+    mutate: sendResetCode,
     data: sendResetCodeData,
     error: sendResetCodeError,
     isError: sendResetCodeIsError,
     isPending: sendResetCodePending,
     isSuccess: sendResetCodeIsSuccess,
   } = useMutation("/auth/forgot-password");
-  const sendResetCode = (values: { email: string }) => {
-    mutateSendResetCode(values, {
-      onSuccess: () => {
-        setScreen(SCREENS.VERIFICATION_RESET_CODE);
-      },
-    });
-  };
 
   const {
-    mutate: mutateVerifyResetCode,
+    mutate: verifyResetCode,
     data: verifyResetCodeData,
     error: verifyResetCodeError,
     isPending: verifyResetCodePending,
     isSuccess: verifyResetCodeIsSuccess,
     isError: verifyResetCodeIsError,
   } = useMutation("/auth/verify-resetCode-password");
-  const verifyResetCode = (values: { resetCode: string }) => {
-    mutateVerifyResetCode(values, {
-      onSuccess: () => {
-        setScreen(SCREENS.CREATE_NEW_PASSWORD);
-      },
-    });
-  };
 
   const {
-    mutate: mutateCreateNewPassword,
+    mutate: createNewPassword,
     data: createNewPasswordData,
     error: createNewPasswordError,
     isPending: createNewPasswordPending,
     isSuccess: createNewPasswordIsSuccess,
   } = useMutation("/auth/reset-password", "put");
-  const createNewPassword = (values: {
-    email: string;
-    newPassword: string;
-  }) => {
-    mutateCreateNewPassword(values, {
-      onSuccess: () => {
-        router.push("/auth/login");
-      },
-    });
-  };
 
   return {
     sendResetCode,

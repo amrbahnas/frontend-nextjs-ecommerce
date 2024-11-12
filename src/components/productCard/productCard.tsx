@@ -43,7 +43,11 @@ const ProductCard = ({ product }: { product: Product }) => {
         <AddProductToCard
           disabled={product.quantity === 0}
           product={product}
-          options={{ color: product.colors[0], quantity: 1 }}
+          productOptions={{
+            color: product.colors[0],
+            quantity: 1,
+            size: product.availableSizes[0],
+          }}
         />
       </div>
     </div>

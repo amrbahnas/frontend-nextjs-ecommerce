@@ -2,10 +2,15 @@
 
 import AddProductToCard from "@/components/addProductToCard";
 import WishlistButton from "@/components/addProductToWishlist";
+import { Divider } from "antd";
 import { useState } from "react";
+import ColorSelector from "./colorSelector";
+import SizeSelector from "./sizeSelector";
 
 const Add = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState(product.colors[0]);
+  const [size, setSize] = useState(product.availableSizes[0] || "");
   const productQuantity = product.quantity;
   const stockNumber = productQuantity - quantity;
 
@@ -20,8 +25,22 @@ const Add = ({ product }: { product: Product }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h4 className="font-medium">Choose a Quantity</h4>
-      <div className="flex  flex-col gap-5">
+      <div className="w-2/3">
+        <SizeSelector
+          availableSizes={product.availableSizes}
+          selectedSize={size}
+          setSelectedSize={setSize}
+        />
+      </div>
+      <Divider className="!my-2" />
+      <ColorSelector
+        availableColors={product.colors}
+        selectedColor={color}
+        setSelectedColor={setColor}
+      />
+      <Divider className="!my-2" />
+      <h4 className="font-medium">Quantity</h4>
+      <div className="flex  flex-col gap-6">
         <div className="flex items-center gap-4">
           <div className="bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
             <button
@@ -54,12 +73,15 @@ const Add = ({ product }: { product: Product }) => {
           <AddProductToCard
             disabled={stockNumber < 1 || productQuantity === 0}
             product={product}
-            options={{
-              color: product?.colors ? product.colors[0] : "black",
-              quantity: quantity,
+            buttonStyle={{
               buttonClassName: "!w-[50%]",
               buttonSize: "large",
               buttonType: "primary",
+            }}
+            productOptions={{
+              color: color || "black",
+              quantity: quantity,
+              size: size,
             }}
           />
           <WishlistButton

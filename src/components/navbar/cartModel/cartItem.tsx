@@ -42,7 +42,20 @@ const CartItem = ({
         </div>
         {/* BOTTOM */}
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">Qty. {item.quantity}</span>
+          <div className="flex flex-col gap-1 text-xs">
+            <span className="text-gray-500">Qty: {item.quantity}</span>
+            <div className="text-gray-500 flex items-center gap-1 capitalize">
+              <span>Color:</span>
+              {item.color}
+              {/* <span
+                className="inline-block w-3 h-3 rounded-full"
+                style={{ backgroundColor: item.color }}
+              /> */}
+            </div>
+            {item.size && (
+              <span className="text-gray-500">Size: {item.size}</span>
+            )}
+          </div>
           <span
             className="text-blue-500"
             style={{ cursor: isPending ? "not-allowed" : "pointer" }}

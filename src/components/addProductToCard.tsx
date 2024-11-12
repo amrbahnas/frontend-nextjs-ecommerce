@@ -6,23 +6,28 @@ import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
 
-type OptionsType = {
-  color: string;
-  size?: ProductSize;
-  quantity: number;
+type ButtonStyleType = {
   buttonClassName?: string;
   buttonSize?: "small" | "middle" | "large";
   buttonType?: "primary" | "default" | "dashed" | "link" | "text";
 };
 
+type ProductOptionsType = {
+  color: string;
+  size: ProductSize;
+  quantity: number;
+};
+
 const AddProductToCard = ({
   product,
   disabled,
-  options,
+  buttonStyle,
+  productOptions,
 }: {
   product: Product;
   disabled?: boolean;
-  options: OptionsType;
+  buttonStyle?: ButtonStyleType;
+  productOptions: ProductOptionsType;
 }) => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
@@ -31,17 +36,17 @@ const AddProductToCard = ({
 
   const commonOptions: ButtonProps = React.useMemo(
     () => ({
-      type: options.buttonType || "default",
-      size: options.buttonSize || "middle",
-      className: `!w-32 !py-4 ${options.buttonClassName}`,
+      type: buttonStyle?.buttonType || "default",
+      size: buttonStyle?.buttonSize || "middle",
+      className: `!w-32 !py-4 ${buttonStyle?.buttonClassName}`,
       shape: "default",
       icon: <MdAddShoppingCart />,
       disabled: disabled || isPending,
     }),
     [
-      options.buttonType,
-      options.buttonSize,
-      options.buttonClassName,
+      buttonStyle?.buttonType,
+      buttonStyle?.buttonSize,
+      buttonStyle?.buttonClassName,
       disabled,
       isPending,
     ]
@@ -55,8 +60,9 @@ const AddProductToCard = ({
           addProduct(
             {
               productId: product._id,
-              color: options.color,
-              quantity: options.quantity,
+              color: productOptions.color,
+              quantity: productOptions.quantity,
+              size: productOptions.size,
             },
             {
               onSuccess: (res) => {
@@ -81,9 +87,10 @@ const AddProductToCard = ({
       onClick={() => {
         const isExist = addCartItem({
           product: product,
-          quantity: options.quantity,
-          price: product.price * options.quantity,
-          color: options.color || product.colors[0],
+          quantity: productOptions.quantity,
+          price: product.price * productOptions.quantity,
+          color: productOptions.color || product.colors[0],
+          size: productOptions.size || product.availableSizes[0],
           _id: product._id,
         });
         if (!isExist) increaseCartItemsCount();

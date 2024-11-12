@@ -3,7 +3,8 @@ import useQuery from "@/hooks/apiHandler/useQuery";
 export const useGetProducts = (params?: any) => {
   const { data: products, isLoading } = useQuery<Product[]>("/products", {
     params: {
-      fields: "title,price,imageCover,images,colors,description,status",
+      fields:
+        "title,price,imageCover,images,colors,description,status,availableSizes",
       ...params,
     },
   });

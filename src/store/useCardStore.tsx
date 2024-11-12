@@ -19,7 +19,9 @@ const newCartItemsHandler = (
   item: CartItemType
 ): { newCart: CartItemType[]; isItemExist: boolean } => {
   const isItemExist = cartItems.find(
-    (current) => current._id === item._id && current.color === item.color
+    (current) =>
+      current._id === item._id &&
+      (current.color === item.color || current.size === item.size)
   );
 
   if (isItemExist) {

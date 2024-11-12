@@ -39,6 +39,7 @@ type CartItemType = {
   color: string;
   quantity: number;
   price: number;
+  size: ProductSize;
   _id: string;
 };
 
@@ -51,6 +52,7 @@ type Product = {
   sold: number;
   price: number;
   colors: any[];
+  availableSizes: ProductSize[];
   imageCover: string;
   images: string[];
   category: CategoryType;

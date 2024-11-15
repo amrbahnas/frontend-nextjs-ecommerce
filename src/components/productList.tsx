@@ -1,7 +1,7 @@
 import ProductCard from "./productCard/productCard";
 import ProductCardSkeleton from "./productCard/productCard.skeleton";
 
-const layoutClassName = `mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-4`;
+const layoutClassName = `mt-12 grid   grid-cols-autoFit-250   gap-4`;
 
 const ProductList = ({
   products,

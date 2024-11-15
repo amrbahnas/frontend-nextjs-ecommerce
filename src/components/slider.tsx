@@ -1,17 +1,13 @@
 "use client";
-
 import { Button } from "antd";
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import NextImage from "./ui/nextImage";
-
+import { Pagination, Autoplay } from "swiper/modules";
 const slides = [
   {
     id: 1,
     title: "Spring Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800",
+    // img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
     bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
   },
@@ -19,7 +15,7 @@ const slides = [
     id: 2,
     title: "Summer Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
+    // img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
     bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
   },
@@ -27,36 +23,48 @@ const slides = [
     id: 3,
     title: "Winter Sale Collections",
     description: "Sale! Up to 50% off!",
-    img: "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
+    // img: "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
     bg: "bg-gradient-to-r from-pink-50 to-blue-50",
   },
 ];
 
+import "swiper/css";
+import "swiper/css/pagination";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
 const Slider = () => {
-  const [current, setCurrent] = useState(0);
-
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  //     }, 3000);
-
-  //     return () => clearInterval(interval);
-  //   }, []);
-
   return (
-    <div className="h-[calc(100vh-80px)] overflow-hidden">
-      <div
-        className="w-max h-full flex transition-all ease-in-out duration-1000"
-        style={{ transform: `translateX(-${current * 100}vw)` }}
-      >
-        {slides.map((slide) => (
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      loop={true}
+      autoplay={{ delay: 3000 }}
+      modules={[Pagination, Autoplay]}
+      pagination={{
+        clickable: true,
+        bulletActiveClass: "!bg-primary",
+        renderBullet: function (index, className) {
+          return `<div class="!w-3 !h-3    ${className}"></div>`;
+        },
+      }}
+      className="h-screen max-h-[500px]"
+    >
+      {slides.map((slide) => (
+        <SwiperSlide key={slide.id}>
           <div
-            className={`${slide.bg} w-screen h-full flex flex-col gap-16 xl:flex-row`}
-            key={slide.id}
+            className={` w-screen h-full flex flex-col gap-16 xl:flex-row items-center justify-center  ${slide.bg}`}
+            style={
+              {
+                // backgroundImage: `url(${slide.img})`,
+                // backgroundSize: "cover",
+                // backgroundPosition: "top",
+                // backgroundRepeat: "no-repeat",
+              }
+            }
           >
-            {/* TEXT CONTAINER */}
-            <div className="h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center">
+            <div className=" flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center ">
               <h2 className="text-xl lg:text-3xl 2xl:text-5xl">
                 {slide.description}
               </h2>
@@ -73,22 +81,17 @@ const Slider = () => {
                 </Button>
               </Link>
             </div>
-            {/* IMAGE CONTAINER */}
-            <div className="h-1/2 xl:w-1/2 xl:h-full relative">
-              <NextImage
-                src={slide.img}
-                alt=""
-                fill
-                sizes="100%"
-                className="object-cover"
-              />
-            </div>
           </div>
-        ))}
-      </div>
-      <div className="absolute m-auto left-1/2 bottom-8 flex gap-4">
-        {slides.map((slide, index) => (
-          <div
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+export default Slider;
+
+{
+  /* <div
             className={`w-3 h-3  rounded-full ring-1 ring-gray-600 cursor-pointer flex items-center justify-center ${
               current === index ? "scale-150" : ""
             }`}
@@ -98,11 +101,5 @@ const Slider = () => {
             {current === index && (
               <div className="w-[6px] h-[6px] bg-gray-600 rounded-full"></div>
             )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Slider;
+          </div> */
+}

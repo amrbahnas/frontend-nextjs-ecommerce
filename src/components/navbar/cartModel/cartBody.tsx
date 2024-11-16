@@ -1,7 +1,7 @@
 import { useCardCheckout, useCashCheckout, useResetCart } from "@/api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import { Button, Radio, Spin } from "antd";
+import { Button, Popconfirm, Radio, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -102,13 +102,19 @@ const CartBody = ({
             {/* reset */}
             <div className="flex  justify-between items-center mt-2">
               <h2 className="text-xl">Shopping Cart</h2>
-              <Button
-                onClick={handleResetCart}
-                className="text-xs  text-gray-500 !p-0 underline"
-                type="link"
+              <Popconfirm
+                title="You will lose all items in your cart ?"
+                okText="Ok"
+                cancelText="Cancel"
+                onConfirm={handleResetCart}
               >
-                Reset Cart
-              </Button>
+                <Button
+                  className="text-xs  text-gray-500 !p-0 underline"
+                  type="link"
+                >
+                  Reset Cart
+                </Button>
+              </Popconfirm>
             </div>
             {/* LIST */}
             <div className="flex flex-col gap-8">

@@ -17,10 +17,10 @@ const Navbar = () => {
           <DisableLink
             disabled={pathName === "/verifyEmail"}
             href={"/"}
-            className="flex items-center gap-3 "
+            className="flex items-center gap-1 md:gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
-            <div className="text-2xl tracking-wide">Shope</div>
+            <div className=" text-lg md:text-2xl tracking-wide">Shope</div>
           </DisableLink>
 
           {/* Big screen */}

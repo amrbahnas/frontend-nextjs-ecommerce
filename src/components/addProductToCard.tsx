@@ -1,7 +1,7 @@
 import { useAddProductToCart } from "@/api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import { Button, ButtonProps } from "antd";
+import { Button, ButtonProps, Tooltip } from "antd";
 import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -41,12 +41,13 @@ const AddProductToCard = ({
       className: `!w-32 !py-4 ${buttonStyle?.buttonClassName}`,
       shape: "default",
       icon: <MdAddShoppingCart />,
-      disabled: disabled || isPending,
+      disabled: product.quantity === 0 || disabled || isPending,
     }),
     [
       buttonStyle?.buttonType,
       buttonStyle?.buttonSize,
       buttonStyle?.buttonClassName,
+      product.quantity,
       disabled,
       isPending,
     ]
@@ -54,51 +55,59 @@ const AddProductToCard = ({
 
   if (isLogin) {
     return (
-      <Button
-        {...commonOptions}
-        onClick={(e) => {
-          addProduct(
-            {
-              productId: product._id,
-              color: productOptions.color,
-              quantity: productOptions.quantity,
-              size: productOptions.size,
-            },
-            {
-              onSuccess: (res) => {
-                console.log("🚀 ~ res:", res);
-                const cartItemsCount = res.data.cartItemsCount;
-                setCartItemsCount(cartItemsCount);
-                toast.success("Product added to cart");
-              },
-            }
-          );
-        }}
-        loading={isPending}
+      <Tooltip
+        title={product.quantity === 0 && "No stock available for this product"}
       >
-        Add to Cart
-      </Button>
+        <Button
+          {...commonOptions}
+          onClick={(e) => {
+            addProduct(
+              {
+                productId: product._id,
+                color: productOptions.color,
+                quantity: productOptions.quantity,
+                size: productOptions.size,
+              },
+              {
+                onSuccess: (res) => {
+                  console.log("🚀 ~ res:", res);
+                  const cartItemsCount = res.data.cartItemsCount;
+                  setCartItemsCount(cartItemsCount);
+                  toast.success("Product added to cart");
+                },
+              }
+            );
+          }}
+          loading={isPending}
+        >
+          Add to Cart
+        </Button>
+      </Tooltip>
     );
   }
 
   return (
-    <Button
-      {...commonOptions}
-      onClick={() => {
-        const isExist = addCartItem({
-          product: product,
-          quantity: productOptions.quantity,
-          price: product.price * productOptions.quantity,
-          color: productOptions.color || product.colors[0],
-          size: productOptions.size || product.availableSizes[0],
-          _id: product._id,
-        });
-        if (!isExist) increaseCartItemsCount();
-        toast.success("Product added to cart");
-      }}
+    <Tooltip
+      title={product.quantity === 0 && "No stock available for this product"}
     >
-      Add to Cart
-    </Button>
+      <Button
+        {...commonOptions}
+        onClick={() => {
+          const isExist = addCartItem({
+            product: product,
+            quantity: productOptions.quantity,
+            price: product.price * productOptions.quantity,
+            color: productOptions.color || product.colors[0],
+            size: productOptions.size || product.availableSizes[0],
+            _id: product._id,
+          });
+          if (!isExist) increaseCartItemsCount();
+          toast.success("Product added to cart");
+        }}
+      >
+        Add to Cart
+      </Button>
+    </Tooltip>
   );
 };
 

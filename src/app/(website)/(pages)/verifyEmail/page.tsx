@@ -1,5 +1,5 @@
 "use client";
-import { Button, Form, Input, Spin } from "antd";
+import { Button, Form, Input, Result, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Error } from "@/components/ui/error";
@@ -87,7 +87,9 @@ const VerifyEmail = () => {
           onFinish={handleSubmit}
         >
           <Spin spinning={loading}>
-            <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
+            {!SCREENS.EMAIL_VERIFIED && (
+              <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
+            )}
             {screen === SCREENS.SEND_Email_CODE && (
               <div className="flex flex-col gap-2 w-full md:w-96 mb-4  text-lg">
                 <div className=" text-lg flex  items-center flex-wrap ">
@@ -143,13 +145,20 @@ const VerifyEmail = () => {
               </div>
             )}
             {screen === SCREENS.EMAIL_VERIFIED && (
-              <div className="flex flex-col gap-2 mb-4">
-                <p className="text-lg ">Your email is verified successfully.</p>
-              </div>
+              <Result
+                status="success"
+                title="Your email has been verified successfully!"
+                subTitle="Happy shopping with us."
+                extra={[
+                  <Button onClick={handleSubmit} type="primary" key="console">
+                    Continue
+                  </Button>,
+                ]}
+              />
             )}
             <div
               className={`mt-2 flex justify-start  ${
-                screen === SCREENS.EMAIL_VERIFIED && " justify-end mt-8"
+                screen === SCREENS.EMAIL_VERIFIED && " hidden"
               } `}
             >
               <Button

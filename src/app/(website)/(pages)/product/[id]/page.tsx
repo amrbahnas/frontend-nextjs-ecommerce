@@ -7,6 +7,7 @@ import { MdLocalOffer } from "react-icons/md";
 import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
+import DisplayPrice from "@/components/ui/displayPrice";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
@@ -18,7 +19,6 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
   return (
     <Container className="mt-8">
       <div className=" relative flex flex-col lg:flex-row gap-16">
-        {/* IMG */}
         <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
           <ProductImages
             images={
@@ -44,27 +44,16 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
 
           <p className="text-gray-500">{product?.description}</p>
           <div className="h-[2px] bg-gray-100" />
-          {/* price */}
 
-          <div>
-            <div className="flex items-center gap-4">
-              <h2 className="font-bold text-2xl">${product?.price}</h2>
-              <h3 className="text-xl text-gray-500 line-through">
-                ${product?.price + 100}
-              </h3>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600  mt-2">
-              <MdLocalOffer />
-              <span>Save 50% right now</span>
-            </div>
-          </div>
-
+          <DisplayPrice
+            afterPrice={product.price}
+            beforePrice={product.price + 200}
+          />
           <div className="h-[2px] bg-gray-100" />
 
           <Add product={product} />
 
           <div className="h-[2px] bg-gray-100" />
-          {/* REVIEWS */}
 
           <Reviews productId={product?._id!} />
         </div>

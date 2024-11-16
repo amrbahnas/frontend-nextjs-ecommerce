@@ -2,7 +2,7 @@
 import React from "react";
 import { useGetAdminCategories } from "../products/_api/query";
 import NextImage from "@/components/ui/nextImage";
-import { Divider, Spin } from "antd";
+import { Button, Divider, Popconfirm, Spin } from "antd";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import CategoryModal from "./_comps/categoryModal";
 import { MdEdit } from "react-icons/md";
@@ -66,7 +66,9 @@ const CategoryCard = ({
   refetch: any;
   setDeleteCategoryLoading: any;
 }) => {
-  const { deleteCategory } = useAdminDeleteCategory(category?._id);
+  const { deleteCategory, deleteLoading } = useAdminDeleteCategory(
+    category?._id
+  );
   const updateCategory = () => {
     setCategory(category);
     setVisible(true);
@@ -97,13 +99,32 @@ const CategoryCard = ({
           alt=""
           className="w-full h-full object-center object-cover absolute top-0 left-0"
         />
-        <div className="  w-full h-full  text-white bg-black/20 flex justify-end p-4 items-start gap-3 absolute z-30">
-          <button type="button" onClick={updateCategory}>
+        <div className="  w-full h-full  text-white bg-black/20 flex justify-end p-4 items-start gap-1 absolute z-30">
+          {/* <button type="button" onClick={updateCategory}>
             <MdEdit size={25} className=" hover:!text-blue-600" />
-          </button>
-          <button type="button" onClick={removeCategory}>
-            <TiDeleteOutline size={25} className=" hover:!text-primary" />
-          </button>
+          </button> */}
+          <Button
+            type="text"
+            onClick={updateCategory}
+            className=" !text-white !p-0 !m-0"
+            icon={<MdEdit size={25} className=" hover:!text-blue-300" />}
+          />
+          <Popconfirm
+            onConfirm={removeCategory}
+            title="Are you sure to delete this category?"
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button
+              disabled={deleteLoading}
+              loading={deleteLoading}
+              type="text"
+              className=" !text-white !p-0 !m-0"
+              icon={
+                <TiDeleteOutline size={25} className="  hover:!text-primary" />
+              }
+            />
+          </Popconfirm>
         </div>
       </div>
 

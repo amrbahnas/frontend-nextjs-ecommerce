@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-
+import classnames from "classnames";
 const DisableLink = ({
   className,
   href,
@@ -15,7 +15,11 @@ const DisableLink = ({
   const router = useRouter();
   return (
     <div
-      className={` cursor-pointer ${className}`}
+      className={classnames(
+        "cursor-pointer",
+        { "cursor-default": disabled },
+        className
+      )}
       onClick={() => {
         if (disabled) return;
         router.push(href);

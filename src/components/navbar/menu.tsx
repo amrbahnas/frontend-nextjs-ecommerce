@@ -1,20 +1,16 @@
 "use client";
 import { Drawer } from "antd";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import NextImage from "../ui/nextImage";
+import { IoIosMenu } from "react-icons/io";
 
 const Menu = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <div>
-      <NextImage
-        src="/menu.png"
-        width={28}
-        height={28}
-        alt="menu"
+      <IoIosMenu
+        size={28}
         className="cursor-pointer"
         onClick={() => setOpen(!open)}
       />

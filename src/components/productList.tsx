@@ -1,7 +1,6 @@
 import ProductCard from "./productCard/productCard";
 import ProductCardSkeleton from "./productCard/productCard.skeleton";
-
-const layoutClassName = `mt-12 grid   grid-cols-autoFit-250   gap-4`;
+import RenderedCardsGrid from "./ui/renderedCardsGrid";
 
 const ProductList = ({
   products,
@@ -12,11 +11,11 @@ const ProductList = ({
 }) => {
   if (isLoading)
     return (
-      <div className={layoutClassName}>
+      <RenderedCardsGrid length={5}>
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <ProductCardSkeleton key={i} />
         ))}
-      </div>
+      </RenderedCardsGrid>
     );
 
   if (products?.length === 0)
@@ -27,11 +26,11 @@ const ProductList = ({
     );
 
   return (
-    <div className={layoutClassName}>
+    <RenderedCardsGrid length={products?.length}>
       {products?.map((product: Product) => (
         <ProductCard product={product} key={product._id} />
       ))}
-    </div>
+    </RenderedCardsGrid>
   );
 };
 

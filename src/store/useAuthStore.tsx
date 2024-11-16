@@ -9,6 +9,7 @@ type AuthData = {
 
 type Store = {
   isLogin: boolean;
+  isAdmin: boolean;
   setAuthData: ({ token, role }: AuthData) => void;
   setToken: (token: string) => void;
   removeAuthData: () => void;
@@ -19,7 +20,8 @@ const useAuthStore = create<Store>(
     (set) => ({
       isLogin: false,
       setAuthData: (payload: AuthData) => {
-        set({ isLogin: true });
+        set({ isLogin: true, isAdmin: payload.role === "admin" });
+
         Cookies.set("token", payload.token, {
           // httpOnly: true, // The cookie is not accessible via JavaScript
           // sameSite: "strict", // The cookie is sent only to the same site
@@ -34,7 +36,7 @@ const useAuthStore = create<Store>(
         });
       },
       removeAuthData: () => {
-        set({ isLogin: false });
+        set({ isLogin: false, isAdmin: false });
         Cookies.remove("token");
       },
     }),

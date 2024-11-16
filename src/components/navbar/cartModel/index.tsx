@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import CartBody from "./cartBody";
 import NextImage from "@/components/ui/nextImage";
 import CartSkeleton from "./cart.skeleton";
+import { IoCartOutline } from "react-icons/io5";
+import { CiShoppingCart } from "react-icons/ci";
+import { BsCart2 } from "react-icons/bs";
+import { PiShoppingCartThin } from "react-icons/pi";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);
@@ -40,14 +44,13 @@ const CartModal = () => {
       }
       trigger="click"
     >
-      <Badge count={cartItemsCount} size="small" className=" cursor-pointer">
-        <NextImage
-          src="/cart.png"
-          width={22}
-          height={22}
-          alt="cart"
-          className="cursor-pointer"
-        />
+      <Badge
+        count={cartItemsCount}
+        size="small"
+        className=" cursor-pointer"
+        color="blue"
+      >
+        <PiShoppingCartThin size={25} />
       </Badge>
     </Popover>
   );

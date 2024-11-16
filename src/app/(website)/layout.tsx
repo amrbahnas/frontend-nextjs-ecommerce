@@ -3,6 +3,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { UseCartCountHandler } from "@/hooks/onceProjectRun/useCartCountHandler";
 import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
+import Breadcrumb from "./_comps/breadcrumb";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <div>
       <Navbar />
+      <Breadcrumb />
       {children}
       <Footer />
     </div>

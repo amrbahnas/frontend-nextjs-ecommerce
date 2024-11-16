@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { useAdminDeleteProduct } from "../products/_api/actions";
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 import { toast } from "react-toastify";
 import NextImage from "@/components/ui/nextImage";
 const AdminProductCard = ({
@@ -54,18 +54,25 @@ const AdminProductCard = ({
         <Link href={"products/" + product.id}>
           <CiEdit size={25} className="  cursor-pointer hover:scale-110" />
         </Link>
-        <Button
-          type="text"
-          className="!p-0"
+        <Popconfirm
+          title="Are you sure delete this Product?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={handleDelete}
           disabled={deleteLoading}
-          loading={deleteLoading}
-          onClick={handleDelete}
         >
-          <MdDeleteOutline
-            size={25}
-            className="text-red-600 cursor-pointer hover:scale-110 "
-          />
-        </Button>
+          <Button
+            type="text"
+            className="!p-0"
+            disabled={deleteLoading}
+            loading={deleteLoading}
+          >
+            <MdDeleteOutline
+              size={25}
+              className="text-red-600 cursor-pointer hover:scale-110 "
+            />
+          </Button>
+        </Popconfirm>
       </div>
     </div>
   );

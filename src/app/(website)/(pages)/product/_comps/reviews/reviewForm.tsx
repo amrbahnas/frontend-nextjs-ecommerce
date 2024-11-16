@@ -63,6 +63,7 @@ const ReviewForm = ({
       <Form
         form={form}
         onFinish={(values) => {
+          if (!isLogin) return router.push(`/auth/login?redirect=${pathName}`);
           if (review) {
             handleEditReview(values);
           } else {
@@ -99,9 +100,6 @@ const ReviewForm = ({
           htmlType="submit"
           disabled={addReviewIsPending || editIsPending}
           loading={addReviewIsPending || editIsPending}
-          onClick={() => {
-            if (!isLogin) router.push(`/auth/login?redirect=${pathName}`);
-          }}
         >
           {review ? "Edit Review" : "Add Review"}
         </Button>

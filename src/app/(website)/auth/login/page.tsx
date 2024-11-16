@@ -20,8 +20,11 @@ const LoginPage = ({}) => {
   }, []); // do not change dependencies
 
   return (
-    <Container className="h-[calc(100dvh-80px)] flex items-center justify-center">
-      <div className=" w-full md:w-7/12 -mt-10 ">
+    <Container className=" flex items-center justify-center gap-4 mt-5">
+      <div className="w-1/2 hidden md:block">
+        <img src="/loginBg.png" alt="login" className=" w-[80%]" />
+      </div>
+      <div className=" w-full md:w-1/2  bg-white">
         <Form
           className="flex flex-col gap-5 w-full  border !p-4 md:!p-8 rounded-md shadow-md "
           form={form}

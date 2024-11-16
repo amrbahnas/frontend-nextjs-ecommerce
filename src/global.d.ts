@@ -73,9 +73,18 @@ type Product = {
   updatedAt: string;
   __v: number;
   ratingsAverage: number;
+  status: ProductStatus;
   reviews: ReviewType[];
   id: string;
 };
+
+type ProductStatus =
+  | "trending"
+  | "featured"
+  | "popular"
+  | "normal"
+  | "most-sold"
+  | "new-arrival";
 
 type ProductSize = "S" | "M" | "L" | "XL" | "XXL";
 

@@ -59,7 +59,9 @@ const Add = ({ product }: { product: Product }) => {
             </button>
           </div>
           {productQuantity === 0 ? (
-            <div className="text-lg text-red-500">Product is out of stock</div>
+            <div className="text-lg text-red-500 font-bold">
+              Product is out of stock
+            </div>
           ) : (
             <div className="text-xs">
               Only <span className="text-orange-500">{stockNumber} items</span>{" "}

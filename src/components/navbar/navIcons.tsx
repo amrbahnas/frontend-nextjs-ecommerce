@@ -15,7 +15,7 @@ import { CiHeart } from "react-icons/ci";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
-  const { isLogin } = useAuthStore();
+  const { isLogin, isAdmin } = useAuthStore();
   const user = useUserStore((state) => state.user);
   const { logout, isPending } = useLogout();
 
@@ -61,11 +61,11 @@ const NavIcons = () => {
       >
         <div className="flex items-center gap-2 cursor-pointer">
           <Avatar src={user?.profileImg || "/profile.png"} size={30} alt="" />
-          <span>{user?.name}</span>
+          <span className={isAdmin ? "hidden" : "block"}>{user?.name}</span>
         </div>
       </Popover>
 
-      {user?.role === "admin" && (
+      {isAdmin && (
         <Link href={"/admin"} className="flex items-center gap-1 ">
           <MdDashboard />
           admin
@@ -76,8 +76,8 @@ const NavIcons = () => {
           <Badge
             count={user?.wishlist.length}
             size="small"
-            className=" cursor-pointer"
-            color="blue"
+            className=" cursor-pointer "
+            color=" text-primary"
           >
             <CiHeart size={25} />
           </Badge>

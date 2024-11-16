@@ -1,14 +1,8 @@
-import { Button, Popover, Rate } from "antd";
-
 import NextImage from "@/components/ui/nextImage";
-
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import EditReviewModal from "./editReviewModal";
-import { useState } from "react";
-import { useDeleteReview } from "../../_api/action";
-import { Error } from "@/components/ui/error";
+import { Rate } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import ReviewCardActions from "./reviewCardActions";
 dayjs.extend(relativeTime);
 
 const ReviewCard = ({
@@ -54,90 +48,13 @@ const ReviewCard = ({
         <p className="font-normal">{review.title}</p>
       </div>
 
-      <CardActions
+      <ReviewCardActions
         review={review}
         currentUser={currentUser}
         refetch={refetch}
         currentUserIsOwnThisReview={currentUserIsOwnThisReview}
       />
     </div>
-  );
-};
-
-const CardActions = ({
-  review,
-  currentUser,
-  refetch,
-  currentUserIsOwnThisReview,
-}: {
-  review: ReviewType;
-  currentUser: User | null;
-  refetch: () => void;
-  currentUserIsOwnThisReview: boolean;
-}) => {
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const [openActionsMenu, setOpenActionsMenu] = useState(false);
-  const {
-    deleteReview,
-    error,
-    isPending: deleteIsPending,
-  } = useDeleteReview(review._id);
-
-  const handleDelete = () => {
-    deleteReview(
-      {},
-      {
-        onSuccess: refetch,
-      }
-    );
-  };
-  return (
-    <>
-      <Popover
-        trigger="click"
-        placement="bottom"
-        open={openActionsMenu}
-        onOpenChange={setOpenActionsMenu}
-        content={
-          <div className="flex flex-col gap-2">
-            <Button
-              disabled={!currentUserIsOwnThisReview}
-              className="mt-2 cursor-pointer"
-              type="primary"
-              onClick={() => {
-                setOpenActionsMenu(false);
-                setOpenEditModal(true);
-              }}
-            >
-              Edit
-            </Button>
-
-            <Button
-              loading={deleteIsPending}
-              disabled={deleteIsPending}
-              onClick={handleDelete}
-              className="mt-2 cursor-pointer"
-            >
-              Delete
-            </Button>
-            <Error error={error} />
-          </div>
-        }
-      >
-        {(currentUser?.role === "admin" || currentUserIsOwnThisReview) && (
-          <HiOutlineDotsVertical className=" cursor-pointer" />
-        )}
-      </Popover>
-
-      <EditReviewModal
-        open={openEditModal}
-        review={review}
-        customOnSuccess={() => {
-          refetch();
-          setOpenEditModal(false);
-        }}
-      />
-    </>
   );
 };
 

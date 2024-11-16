@@ -74,6 +74,7 @@ const CartItem = ({
                 );
               } else {
                 deleteCartItem(item);
+                decreaseCartItemsCount();
                 setDeleting(false);
               }
             }}

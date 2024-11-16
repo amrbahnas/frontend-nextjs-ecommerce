@@ -4,20 +4,25 @@ import { Breadcrumb as BreadcrumbAntd } from "antd";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { FaHome } from "react-icons/fa";
-import { IoHomeOutline } from "react-icons/io5";
+
+const disabledList = ["auth"];
 
 const Breadcrumb: React.FC = () => {
   const pathName = usePathname();
 
   const FilteredPathNameArray = pathName
     .split("/")
-    .filter((route) => !/\d/.test(route)); // remove any route with numbers
+    .filter((route) => !/\d/.test(route)); // remove number from path
+  console.log("🚀 ~ FilteredPathNameArray:", FilteredPathNameArray);
 
   const pathNameArray = FilteredPathNameArray.map((item, index) => {
     return {
       title: (
         <DisableLink
-          disabled={index === FilteredPathNameArray.length - 1}
+          disabled={
+            index === FilteredPathNameArray.length - 1 ||
+            disabledList.includes(item)
+          }
           href={item === "" ? "/" : `/${item}`}
           className=" capitalize  "
         >

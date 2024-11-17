@@ -6,6 +6,7 @@ import React from "react";
 import { FaHome } from "react-icons/fa";
 
 const disabledList = ["auth"];
+const itemIsDisabled = (item: string) => disabledList.includes(item);
 
 const Breadcrumb: React.FC = () => {
   const pathName = usePathname();
@@ -20,8 +21,7 @@ const Breadcrumb: React.FC = () => {
       title: (
         <DisableLink
           disabled={
-            index === FilteredPathNameArray.length - 1 ||
-            disabledList.includes(item)
+            index === FilteredPathNameArray.length - 1 || itemIsDisabled(item)
           }
           href={item === "" ? "/" : `/${item}`}
           className=" capitalize  "

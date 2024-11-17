@@ -17,7 +17,7 @@ const DisableLink = ({
     <div
       className={classnames(
         "cursor-pointer",
-        { "cursor-auto": disabled },
+        { "!cursor-default": disabled },
         className
       )}
       onClick={() => {

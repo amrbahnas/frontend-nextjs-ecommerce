@@ -12,7 +12,7 @@ import OnlineStatus from "@/components/layout/onlineStatus";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "E-Commerce Application",
+  title: "Shope-Amr",
   description: "A complete e-commerce application with Next.js and Node.js",
 };
 

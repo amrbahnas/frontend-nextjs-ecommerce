@@ -18,7 +18,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
   if (isLoading) return <ProductSkeleton />;
 
   return (
-    <Container className="mt-8">
+    <Container className="mt-1 md:mt-2">
       <div className=" relative flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
           <ProductImages

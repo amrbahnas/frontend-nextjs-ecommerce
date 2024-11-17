@@ -10,6 +10,7 @@ import {
 import Cookies from "js-cookie";
 import ms from "ms";
 import { useEffect, useMemo, useState } from "react";
+import useOnlineStatus from "../global/useOnlineStatus";
 
 function usePagination<T>(
   endpoint: string,
@@ -24,6 +25,8 @@ function usePagination<T>(
 ) {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
+  const isOnline = useOnlineStatus();
+
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);
   const [paginationLoading, setPaginationLoading] = useState(false);
 
@@ -35,6 +38,7 @@ function usePagination<T>(
   }, [page, pageSize]);
 
   const queryFn = async () => {
+    if (!isOnline) return { data: [], paginator: {} };
     setPaginationLoading(true);
     const res = await axiosInstance.get(endpoint, {
       params: {
@@ -60,7 +64,7 @@ function usePagination<T>(
 
   const { isPlaceholderData, data, isLoading, ...result } = reactUseQuery({
     ...commonQuerySettings,
-    enabled: !Boolean(options?.skip),
+    enabled: !Boolean(options?.skip) && isOnline,
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });

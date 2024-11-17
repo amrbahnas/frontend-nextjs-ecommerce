@@ -1,0 +1,34 @@
+import Image from "next/image";
+import React from "react";
+import { CgClose } from "react-icons/cg";
+
+const OfflineModal = ({ onlineStatus }: { onlineStatus: boolean }) => {
+  const [visible, setVisible] = React.useState(true);
+
+  if (onlineStatus || !visible) return null;
+
+  return (
+    <div className="fixed   inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2">
+      <Image
+        src="/logo.png"
+        alt="No Internet Connection"
+        width={100}
+        height={100}
+      />
+      <h3 className="text-2xl font-semibold">
+        Your device appears to be offline.
+      </h3>
+      <p className="text-xs">
+        Please check your internet connection and try again.
+      </p>
+      <button
+        onClick={() => setVisible(false)}
+        className=" px-4 py-2 rounded-md fixed top-4 right-4 "
+      >
+        <CgClose />
+      </button>
+    </div>
+  );
+};
+
+export default OfflineModal;

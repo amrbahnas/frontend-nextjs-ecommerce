@@ -6,9 +6,11 @@ import ms from "ms";
 import { toast } from "react-toastify";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
+import useOnlineStatus from "../global/useOnlineStatus";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const route = useRouter();
+  const isOnline = useOnlineStatus();
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryFn = () =>
     axiosInstance
@@ -23,7 +25,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const { data, ...result } = reactUseQuery<any, CustomError>({
     queryKey: [endpoint, options?.params || ""],
     queryFn,
-    enabled: !Boolean(options?.skip),
+    enabled: !Boolean(options?.skip) && isOnline,
     initialData: options?.initialResults,
     retry: options?.retry || 2,
     retryDelay: (retryCount: number) => retryCount * 2000,
@@ -33,7 +35,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
 
   if (result.error) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
-      toast.error(result.error.response.data || "Internal Server Error");
+      toast.error(result.error.response?.data || "Internal Server Error");
     if (result.error.response?.status === 401 && isLogin) {
       route.push("/auth/login");
     }

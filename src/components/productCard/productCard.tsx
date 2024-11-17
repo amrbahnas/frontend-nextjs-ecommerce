@@ -11,7 +11,7 @@ import SavingPercentage from "../ui/savingPercentage";
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <ProductStatusBadge status={product.status}>
-      <div className=" flex flex-col gap-4  bg-gray-100   overflow-hidden rounded-md  hover:shadow-lg  relative">
+      <div className=" flex flex-col gap-4  bg-gray-100   overflow-hidden rounded-md  hover:shadow-lg  relative min-w-100">
         <Link href={"/product/" + product._id} key={product._id}>
           <div className="relative w-full h-40 md:h-72 overflow-hidden">
             <NextImage

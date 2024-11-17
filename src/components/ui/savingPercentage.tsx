@@ -16,7 +16,9 @@ const SavingPercentage = ({
   return (
     <div className="flex items-center gap-2 text-sm text-gray-600 ">
       <MdLocalOffer />
-      <span>Save {percentage || savedPercentage}% right now</span>
+      <span className=" truncate">
+        Save {percentage || savedPercentage}% right now
+      </span>
     </div>
   );
 };

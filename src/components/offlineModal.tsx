@@ -2,14 +2,10 @@ import React, { useEffect } from "react";
 import { CgClose } from "react-icons/cg";
 import { RiWifiOffLine } from "react-icons/ri";
 
-const OfflineModal = ({ onlineStatus }: { onlineStatus: boolean }) => {
+const OfflineModal = () => {
   const [visible, setVisible] = React.useState(true);
 
-  useEffect(() => {
-    if (!onlineStatus && !visible) setVisible(true);
-  }, [onlineStatus]);
-
-  if (onlineStatus || !visible) return null;
+  if (!visible) return null;
 
   return (
     <div className="fixed   inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2 z-50">

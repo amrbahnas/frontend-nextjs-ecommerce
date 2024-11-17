@@ -11,7 +11,7 @@ const OnlineStatus: React.FC<React.PropsWithChildren> = ({ children }) => {
       <div className={classnames({ "grayscale-[100%]": !isOnline })}>
         {children}
       </div>
-      <OfflineModal onlineStatus={isOnline} />
+      {!isOnline && <OfflineModal />}
     </div>
   );
 };

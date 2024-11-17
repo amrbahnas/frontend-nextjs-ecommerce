@@ -8,6 +8,7 @@ import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import DisplayPrice from "@/components/ui/displayPrice";
+import SavingPercentage from "@/components/ui/savingPercentage";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const { product, error, isLoading, refetch } = useGetSpecificProduct(
@@ -45,10 +46,16 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
           <p className="text-gray-500">{product?.description}</p>
           <div className="h-[2px] bg-gray-100" />
 
-          <DisplayPrice
-            afterPrice={product.price}
-            beforePrice={product.price + 200}
-          />
+          <div className=" space-y-2">
+            <DisplayPrice
+              afterPrice={product.price}
+              beforePrice={product.price + 200}
+            />
+            <SavingPercentage
+              beforePrice={product.price + 200}
+              afterPrice={product.price}
+            />
+          </div>
           <div className="h-[2px] bg-gray-100" />
 
           <Add product={product} />

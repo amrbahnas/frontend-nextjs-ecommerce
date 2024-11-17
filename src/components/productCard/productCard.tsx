@@ -6,6 +6,7 @@ import WishlistButton from "../addProductToWishlist";
 import NextImage from "../ui/nextImage";
 import ProductStatusBadge from "./productStatusBadge";
 import DisplayPrice from "../ui/displayPrice";
+import SavingPercentage from "../ui/savingPercentage";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -18,21 +19,19 @@ const ProductCard = ({ product }: { product: Product }) => {
               alt=""
               fill
               sizes="25vw"
-              className=" object-contain  md:object-cover"
+              className=" object-cover  md:object-cover"
             />
           </div>
           <div className="px-3 space-y-1 mt-2">
-            <div className="flex justify-between flex-wrap">
-              <span className="font-medium  text-lg  md:text-xl ">
+            <div className="flex justify-between flex-col md:flex-row">
+              <span className="font-medium  text-lg  md:text-xl  truncate">
                 {product.title}
-              </span>
-              <span className="font-medium  text-lg  md:text-xl md:hidden ">
-                ${product.price}
               </span>
               <DisplayPrice
                 afterPrice={product.price}
                 beforePrice={product.price + 50}
-                priceContainerClassName="hidden md:flex"
+                afterPriceClassName="text-xl md:text-2xl"
+                beforePriceClassName="!text-md md:!text-lg"
               />
             </div>
             <Rate
@@ -43,6 +42,10 @@ const ProductCard = ({ product }: { product: Product }) => {
             <span className=" text-sm text-gray-700 !block truncate">
               {product.description}
             </span>
+            <SavingPercentage
+              beforePrice={product.price + 50}
+              afterPrice={product.price}
+            />
           </div>
         </Link>
         <WishlistButton

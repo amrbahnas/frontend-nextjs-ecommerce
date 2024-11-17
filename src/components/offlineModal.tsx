@@ -8,7 +8,7 @@ const OfflineModal = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed   inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2 z-50">
+    <div className="fixed   h-[100dvh]  inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2 z-50">
       <RiWifiOffLine size={50} />
       <h3 className="text-2xl font-semibold">
         Your device appears to be offline.

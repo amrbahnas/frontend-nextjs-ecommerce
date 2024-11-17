@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
 import { CgClose } from "react-icons/cg";
+import { RiWifiOffLine } from "react-icons/ri";
 
 const OfflineModal = ({ onlineStatus }: { onlineStatus: boolean }) => {
   const [visible, setVisible] = React.useState(true);
@@ -8,13 +8,8 @@ const OfflineModal = ({ onlineStatus }: { onlineStatus: boolean }) => {
   if (onlineStatus || !visible) return null;
 
   return (
-    <div className="fixed   inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2">
-      <Image
-        src="/logo.png"
-        alt="No Internet Connection"
-        width={100}
-        height={100}
-      />
+    <div className="fixed   inset-0  text-white bg-black/80 flex justify-center items-center flex-col gap-2 z-50">
+      <RiWifiOffLine size={50} />
       <h3 className="text-2xl font-semibold">
         Your device appears to be offline.
       </h3>

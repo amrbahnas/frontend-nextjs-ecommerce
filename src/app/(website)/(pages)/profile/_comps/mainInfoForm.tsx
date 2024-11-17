@@ -31,9 +31,8 @@ const MainInfoForm = () => {
     formData.append("name", values.name);
     formData.append("email", values.email);
     formData.append("phone", values.phone || "");
-    if (image.file) {
-      formData.append("profileImg", image.file);
-    }
+    formData.append("profileImg", image?.file || image?.data_url || "");
+
     updateUser(formData, {
       onSuccess: (result) => {
         const user = result.data.data;
@@ -46,7 +45,7 @@ const MainInfoForm = () => {
 
   return (
     <Spin spinning={updateUserIsPending || isLoading}>
-      <div className="flex  items-center justify-center  *:">
+      <div className="flex  items-center justify-center">
         <UploadAvatar image={image} setImage={setImage} />
       </div>
       <Form

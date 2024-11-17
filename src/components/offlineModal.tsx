@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgClose } from "react-icons/cg";
 import { RiWifiOffLine } from "react-icons/ri";
 
 const OfflineModal = ({ onlineStatus }: { onlineStatus: boolean }) => {
   const [visible, setVisible] = React.useState(true);
+
+  useEffect(() => {
+    if (!onlineStatus && !visible) setVisible(true);
+  }, [onlineStatus]);
 
   if (onlineStatus || !visible) return null;
 

@@ -1,11 +1,10 @@
-import Cookies from "js-cookie";
+import axiosInstance from "@/config/apiClient";
+import useAuthStore from "@/store/useAuthStore";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { toast } from "react-toastify";
-import useAuthStore from "@/store/useAuthStore";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import axiosInstance from "@/config/apiClient";
-import useOnlineStatus from "../global/useOnlineStatus";
+import { toast } from "react-toastify";
 
 const useMutation = (
   endpoint: string,
@@ -16,7 +15,6 @@ const useMutation = (
   }
 ) => {
   const route = useRouter();
-  const isOnline = useOnlineStatus();
 
   const isLogin = useAuthStore((state) => state.isLogin);
   const config: AxiosRequestConfig<any> = {
@@ -32,11 +30,6 @@ const useMutation = (
     unknown
   >({
     mutationFn: (body: any) => {
-      if (!isOnline) {
-        return new Promise((resolve, reject) => {
-          reject(new Error("You are offline"));
-        });
-      }
       if (method === "delete") {
         return axiosInstance.delete(endpoint, config);
       }

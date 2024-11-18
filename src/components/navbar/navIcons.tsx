@@ -61,7 +61,9 @@ const NavIcons = () => {
       >
         <div className="flex items-center gap-2 cursor-pointer">
           <Avatar src={user?.profileImg || "/profile.png"} size={30} alt="" />
-          <span className={isAdmin ? "hidden" : "block"}>{user?.name}</span>
+          <span className={isAdmin ? "hidden" : "block truncate"}>
+            {user?.name}
+          </span>
         </div>
       </Popover>
 

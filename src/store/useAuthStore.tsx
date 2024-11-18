@@ -38,7 +38,6 @@ const useAuthStore = create<Store>(
       removeAuthData: () => {
         set({ isLogin: false, isAdmin: false });
         Cookies.remove("token");
-        Cookies.remove("googleData");
       },
     }),
     {

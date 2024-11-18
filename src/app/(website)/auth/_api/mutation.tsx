@@ -1,17 +1,15 @@
 import useUserStore from "../../../../store/useUserStore";
 
-import { useRouter } from "next/navigation";
-import useAuthStore from "@/store/useAuthStore";
-import useParamsService from "@/hooks/global/useParamsService";
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useQuery from "@/hooks/apiHandler/useQuery";
-import Cookies from "js-cookie";
-import { useLogout } from "@/hooks/global/useLogout";
+import useParamsService from "@/hooks/global/useParamsService";
+import useAuthStore from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
   const { getParams } = useParamsService({});
-  const { logout } = useLogout();
+
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
@@ -47,26 +45,15 @@ export const useLogin = () => {
     });
   };
 
-  const googleLoginHandler = async (data: {
-    token: string;
-    data: any;
-    active: boolean;
-  }) => {
-    if (!data.active) {
-      logout();
-      return router.push("/inactiveAccount");
-    }
-    onLoginSuccess(data);
-  };
-
   return {
     login,
     data,
+    onLoginSuccess,
     loginError: error,
     loginPending: isPending,
     loginIsSuccess: isSuccess,
     loginIsError: isError,
-    googleLogin: googleLoginHandler,
+
     googleData,
     googleError,
     googlePending,

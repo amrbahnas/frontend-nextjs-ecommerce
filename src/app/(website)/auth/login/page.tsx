@@ -1,19 +1,22 @@
 "use client";
-import Item from "@/components/antd/item";
-import Container from "@/components/container";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { FaGoogle } from "react-icons/fa";
+import { useLogin } from "../_api/mutation";
 import { Error } from "@/components/ui/error";
 import { useLogout } from "@/hooks/global/useLogout";
-import useAuthStore from "@/store/useAuthStore";
 import { Button, Divider, Form, Input } from "antd";
+import Item from "@/components/antd/item";
+import Container from "@/components/container";
+import useParamsService from "@/hooks/global/useParamsService";
+import useAuthStore from "@/store/useAuthStore";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useLogin } from "../_api/mutation";
-import { FaGoogle } from "react-icons/fa";
-import Cookies from "js-cookie";
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
-  const { login, googleLogin, loginError, loginPending } = useLogin();
+  const router = useRouter();
+  const { login, loginError, loginPending, onLoginSuccess } = useLogin();
+  const { getParams } = useParamsService({});
   const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout("");
 
@@ -22,10 +25,16 @@ const LoginPage = ({}) => {
   }, []); // do not change dependencies
 
   useEffect(() => {
-    const googleDataJson = Cookies.get("googleData");
-    const googleData = googleDataJson && JSON.parse(googleDataJson);
-    if (googleData) {
-      googleLogin(googleData);
+    const googleAuth = getParams("googleAuth");
+    if (googleAuth) {
+      const isActive = getParams("active");
+      const jsonUser = getParams("user") || "";
+      if (isActive) {
+        const user = JSON.parse(jsonUser);
+        onLoginSuccess(user);
+      } else {
+        router.push("/inactiveAccount");
+      }
     }
   }, []);
 

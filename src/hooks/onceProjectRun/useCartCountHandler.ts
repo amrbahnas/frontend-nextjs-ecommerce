@@ -5,21 +5,25 @@ import useCardStore from "@/store/useCardStore";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 
+//  should fix this
 export const UseCartCountHandler = () => {
   const { setCartItemsCount, storeCart } = useCardStore();
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { cartItemsCount, isLoading } = useGetCartCount({
+  const { cartItemsCount, isLoading, refetchCartCount } = useGetCartCount({
     skip: !isLogin || storeCart.cartItems.length > 0,
     // skip: !Cookies.get("token") || storeCart.cartItems.length > 0,
   });
+
   useEffect(() => {
-    // const token = Cookies.get("token");
-    const token = isLogin;
-    // if login && storeCart has items => useMergeCartHandler will handle cartItemsCount, so we add storeCart.cartItems.length === 0 condition
-    if (token && !isLoading && storeCart.cartItems.length === 0) {
+    if (cartItemsCount) {
       setCartItemsCount(cartItemsCount);
-    } else if (!token) {
-      setCartItemsCount(storeCart.cartItems.length);
     }
-  }, [isLoading]); // note => don`t edit dependencies here
+  }, [cartItemsCount]); // note => don`t edit dependencies here
+  // }, [isLoading]); // note => don`t edit dependencies here
+
+  useEffect(() => {
+    if (isLogin) {
+      refetchCartCount();
+    }
+  }, [isLogin]);
 };

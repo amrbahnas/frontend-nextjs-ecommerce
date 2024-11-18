@@ -6,6 +6,7 @@ import { useSignUp } from "../_api/mutation";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import Container from "@/components/container";
+import { FaGoogle } from "react-icons/fa";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -14,18 +15,27 @@ const SignUpPage = () => {
   console.log("🚀 ~ SignUpPage ~ signUpError:", signUpError);
   return (
     <Container className="h-[calc(100dvh-80px)] flex items-center justify-center">
-      <div className=" w-full md:w-7/12  ">
+      <div className=" w-full md:w-7/12   border p-4 md:p-8 !pt-0 rounded-md shadow-md mt-3">
+        <Divider orientation="center">
+          <h1 className="text-2xl md:text-3xl font-semibold text-primary">
+            Register
+          </h1>
+        </Divider>
+        <a
+          className="mt-8 block"
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}
+        >
+          <Button size="large" className="!w-full" icon={<FaGoogle />}>
+            Register with Google
+          </Button>
+        </a>
+        <Divider>Or</Divider>
         <Form
-          className="flex flex-col gap-3 w-full  border !p-4 md:!p-8 rounded-md shadow-md mt-3"
+          className="flex flex-col gap-3 w-full "
           form={form}
           layout="vertical"
           onFinish={signUp}
         >
-          <Divider orientation="center">
-            <h1 className="text-2xl md:text-3xl font-semibold text-primary">
-              Register
-            </h1>
-          </Divider>
           <div className="flex flex-col gap-2">
             <Item
               label="Name"

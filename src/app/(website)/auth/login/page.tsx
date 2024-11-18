@@ -8,10 +8,11 @@ import { Button, Divider, Form, Input } from "antd";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useLogin } from "../_api/mutation";
+import { FaGoogle } from "react-icons/fa";
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
-  const { login, loginError, loginPending } = useLogin();
+  const { login, googleLogin, loginError, loginPending } = useLogin();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout("");
 
@@ -24,84 +25,97 @@ const LoginPage = ({}) => {
       <div className="w-1/2 hidden md:block">
         <img src="/loginBg.png" alt="login" className=" w-[80%]" />
       </div>
-      <div className=" w-full md:w-1/2  bg-white">
-        <Form
-          className="flex flex-col gap-5 w-full  border !p-4 md:!p-8 rounded-md shadow-md "
-          form={form}
-          layout="vertical"
-          onFinish={login}
-        >
+      <div className=" w-full md:w-1/2 ">
+        <div className=" w-full bg-white border !p-4 md:!p-8 rounded-md shadow-md ">
           <Divider orientation="center">
             <h1 className="text-2xl md:text-3xl font-semibold text-primary">
               Login
             </h1>
           </Divider>
-          <div className="flex items-center gap-2">
-            <Error error={loginError} />
-            {loginError && loginError.includes("not active") && (
-              <Link href="/inactiveAccount" className=" underline">
-                More Details
-              </Link>
-            )}
-          </div>
-          <Item
-            label="E-mail"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}
-          >
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              size="large"
-              className=" rounded-md p-4"
-            />
-          </Item>
-          <Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input
-              type="password"
-              name="password"
-              size="large"
-              placeholder="Enter your password"
-              className=" rounded-md p-4"
-            />
-          </Item>
-          <Link
-            className="text-sm underline cursor-pointer"
-            href={"/auth/forgot-password"}
-          >
-            Forgot Password?
-          </Link>
           <Button
-            className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
-            disabled={loginPending}
-            loading={loginPending}
-            htmlType="submit"
-            type="primary"
             size="large"
+            className="!w-full"
+            icon={<FaGoogle />}
+            onClick={googleLogin}
           >
-            {loginPending ? "Loading..." : "Login"}
+            Login with Google
           </Button>
-          <Link
-            className="text-sm underline cursor-pointer text-gray-600"
-            href={"/auth/signup"}
+          <Divider>Or</Divider>
+          {loginError && (
+            <div className="flex items-center gap-2 mb-5">
+              <Error error={loginError} />
+              {loginError && loginError.includes("not active") && (
+                <Link href="/inactiveAccount" className=" underline">
+                  More Details
+                </Link>
+              )}
+            </div>
+          )}
+          <Form
+            className="flex flex-col gap-5 w-full  "
+            form={form}
+            layout="vertical"
+            onFinish={login}
           >
-            {"Don't"} have an account?
-          </Link>
-        </Form>
+            <Item
+              label="E-mail"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+            >
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                size="large"
+                className=" rounded-md p-4"
+              />
+            </Item>
+            <Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input
+                type="password"
+                name="password"
+                size="large"
+                placeholder="Enter your password"
+                className=" rounded-md p-4"
+              />
+            </Item>
+            <Link
+              className="text-sm underline cursor-pointer"
+              href={"/auth/forgot-password"}
+            >
+              Forgot Password?
+            </Link>
+            <Button
+              className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
+              disabled={loginPending}
+              loading={loginPending}
+              htmlType="submit"
+              type="primary"
+              size="large"
+            >
+              {loginPending ? "Loading..." : "Login"}
+            </Button>
+            <Link
+              className="text-sm underline cursor-pointer text-gray-600"
+              href={"/auth/signup"}
+            >
+              {"Don't"} have an account?
+            </Link>
+          </Form>
+        </div>
       </div>
     </Container>
   );

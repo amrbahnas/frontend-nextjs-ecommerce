@@ -21,6 +21,7 @@ const MainInfoForm = () => {
 
   useEffect(() => {
     if (user) {
+      setUser(user);
       form.setFieldsValue(user);
       setImage({ data_url: user.profileImg, file: undefined });
     }
@@ -35,8 +36,6 @@ const MainInfoForm = () => {
 
     updateUser(formData, {
       onSuccess: (result) => {
-        const user = result.data.data;
-        setUser(user);
         refetch();
         toast("Profile Updated Successfully");
       },

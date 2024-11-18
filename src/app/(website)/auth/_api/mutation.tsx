@@ -1,41 +1,63 @@
 import useUserStore from "../../../../store/useUserStore";
+
 import { useRouter } from "next/navigation";
-import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import useAuthStore from "@/store/useAuthStore";
 import useParamsService from "@/hooks/global/useParamsService";
 import useMutation from "@/hooks/apiHandler/useMutation";
+import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
+
   const { getParams } = useParamsService({});
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
+  const {
+    data: googleData,
+    error: googleError,
+    isPending: googlePending,
+    refetch: googleLogin,
+  } = useQuery("/auth/google", {
+    skip: true,
+  });
+
+  const onLoginSuccess = ({
+    data,
+  }: {
+    data: {
+      token: string;
+      data: User;
+    };
+  }) => {
+    if (!data.token) return;
+    setUser(data.data);
+    setAuthData({ token: data.token, role: data.data.role });
+    const redirect = getParams("redirect");
+    if (!data.data.emailVerified) {
+      if (redirect) {
+        return router.push(`/verifyEmail?redirect=${redirect}`);
+      }
+      return router.push("/verifyEmail");
+    }
+
+    router.push(redirect || "/");
+  };
+
   const login = (values: { email: string; password: string }) => {
     mutate(values, {
-      onSuccess: ({
-        data,
-      }: {
-        data: {
-          token: string;
-          data: User;
-        };
-      }) => {
-        if (!data.token) return;
-        setUser(data.data);
-        setAuthData({ token: data.token, role: data.data.role });
-        const redirect = getParams("redirect");
-        if (!data.data.emailVerified) {
-          if (redirect) {
-            return router.push(`/verifyEmail?redirect=${redirect}`);
-          }
-          return router.push("/verifyEmail");
-        }
-
-        router.push(redirect || "/");
-      },
+      onSuccess: onLoginSuccess,
     });
+  };
+
+  const googleLoginHandler = async () => {
+    try {
+      const result = await googleLogin();
+      console.log("🚀 ~ googleLoginHandler ~ result:", result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {
@@ -45,6 +67,10 @@ export const useLogin = () => {
     loginPending: isPending,
     loginIsSuccess: isSuccess,
     loginIsError: isError,
+    googleLogin: googleLoginHandler,
+    googleData,
+    googleError,
+    googlePending,
   };
 };
 

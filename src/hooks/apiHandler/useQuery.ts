@@ -15,9 +15,9 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     axiosInstance
       .get(endpoint, {
         params: options?.params,
-        headers: {
-          Authorization: "Bearer " + (Cookies.get("token") || ""),
-        },
+        // headers: {
+        //   Authorization: "Bearer " + (Cookies.get("token") || ""),
+        // },
       })
       .then((res) => res.data);
 

@@ -18,9 +18,9 @@ const useMutation = (
 
   const isLogin = useAuthStore((state) => state.isLogin);
   const config: AxiosRequestConfig<any> = {
-    headers: {
-      Authorization: "Bearer " + (Cookies.get("token") || ""),
-    },
+    // headers: {
+    //   Authorization: "Bearer " + (Cookies.get("token") || ""),
+    // },
   };
 
   const { error, ...result } = reactUseMutation<

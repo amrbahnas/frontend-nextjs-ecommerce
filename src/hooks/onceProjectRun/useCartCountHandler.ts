@@ -1,16 +1,20 @@
 "use client";
 import { useGetCartCount } from "@/api/query";
+import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 
 export const UseCartCountHandler = () => {
   const { setCartItemsCount, storeCart } = useCardStore();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const { cartItemsCount, isLoading } = useGetCartCount({
-    skip: !Cookies.get("token") || storeCart.cartItems.length > 0,
+    skip: !isLogin || storeCart.cartItems.length > 0,
+    // skip: !Cookies.get("token") || storeCart.cartItems.length > 0,
   });
   useEffect(() => {
-    const token = Cookies.get("token");
+    // const token = Cookies.get("token");
+    const token = isLogin;
     // if login && storeCart has items => useMergeCartHandler will handle cartItemsCount, so we add storeCart.cartItems.length === 0 condition
     if (token && !isLoading && storeCart.cartItems.length === 0) {
       setCartItemsCount(cartItemsCount);

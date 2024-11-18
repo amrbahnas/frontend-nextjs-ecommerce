@@ -31,8 +31,9 @@ const useMergeCartHandler = () => {
   };
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (isLogin && token) mergeCartHandler();
+    // const token = Cookies.get("token");
+    // if (isLogin && token) mergeCartHandler();
+    if (isLogin) mergeCartHandler();
   }, [isLogin]);
 };
 

@@ -8,10 +8,10 @@ const useCheckCookies = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (isLogin && !token) {
-      route.push("/auth/login");
-    }
+    // const token = Cookies.get("token");
+    // if (isLogin && !token) {
+    //   route.push("/auth/login");
+    // }
   }, [isLogin]);
 };
 

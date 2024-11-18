@@ -6,15 +6,17 @@ import useParamsService from "@/hooks/global/useParamsService";
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useQuery from "@/hooks/apiHandler/useQuery";
 import Cookies from "js-cookie";
+import { useLogout } from "@/hooks/global/useLogout";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
-
   const { getParams } = useParamsService({});
+  const { logout } = useLogout();
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
+
   const {
     data: googleData,
     error: googleError,
@@ -45,8 +47,15 @@ export const useLogin = () => {
     });
   };
 
-  const googleLoginHandler = async (data: { token: string; data: any }) => {
-    console.log("🚀 ~ googleLoginHandler ~ data:", data);
+  const googleLoginHandler = async (data: {
+    token: string;
+    data: any;
+    active: boolean;
+  }) => {
+    if (!data.active) {
+      logout();
+      return router.push("/inactiveAccount");
+    }
     onLoginSuccess(data);
   };
 

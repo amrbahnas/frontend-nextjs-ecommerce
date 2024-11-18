@@ -5,6 +5,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useParamsService from "@/hooks/global/useParamsService";
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useQuery from "@/hooks/apiHandler/useQuery";
+import Cookies from "js-cookie";
 
 export const useLogin = () => {
   const { setUser } = useUserStore();
@@ -23,14 +24,7 @@ export const useLogin = () => {
     skip: true,
   });
 
-  const onLoginSuccess = ({
-    data,
-  }: {
-    data: {
-      token: string;
-      data: User;
-    };
-  }) => {
+  const onLoginSuccess = (data: { token: string; data: User }) => {
     if (!data.token) return;
     setUser(data.data);
     setAuthData({ token: data.token, role: data.data.role });
@@ -47,17 +41,13 @@ export const useLogin = () => {
 
   const login = (values: { email: string; password: string }) => {
     mutate(values, {
-      onSuccess: onLoginSuccess,
+      onSuccess: ({ data }) => onLoginSuccess(data),
     });
   };
 
-  const googleLoginHandler = async () => {
-    try {
-      const result = await googleLogin();
-      console.log("🚀 ~ googleLoginHandler ~ result:", result);
-    } catch (error) {
-      console.log(error);
-    }
+  const googleLoginHandler = async (data: { token: string; data: any }) => {
+    console.log("🚀 ~ googleLoginHandler ~ data:", data);
+    onLoginSuccess(data);
   };
 
   return {

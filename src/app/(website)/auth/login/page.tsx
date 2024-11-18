@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useLogin } from "../_api/mutation";
 import { FaGoogle } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
@@ -19,6 +20,14 @@ const LoginPage = ({}) => {
   useEffect(() => {
     isLogin && logout();
   }, []); // do not change dependencies
+
+  useEffect(() => {
+    const googleDataJson = Cookies.get("googleData");
+    const googleData = googleDataJson && JSON.parse(googleDataJson);
+    if (googleData) {
+      googleLogin(googleData);
+    }
+  }, []);
 
   return (
     <Container className=" flex items-center justify-center gap-4 mt-5">
@@ -32,14 +41,11 @@ const LoginPage = ({}) => {
               Login
             </h1>
           </Divider>
-          <Button
-            size="large"
-            className="!w-full"
-            icon={<FaGoogle />}
-            onClick={googleLogin}
-          >
-            Login with Google
-          </Button>
+          <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}>
+            <Button size="large" className="!w-full" icon={<FaGoogle />}>
+              Login with Google
+            </Button>
+          </a>
           <Divider>Or</Divider>
           {loginError && (
             <div className="flex items-center gap-2 mb-5">

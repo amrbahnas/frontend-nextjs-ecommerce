@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 
 // A function to verify the token and return the token data
 async function verifyToken(token: string | undefined) {
@@ -27,7 +28,8 @@ const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   // const token = request.cookies.get("token")?.value;
-  const token = request.cookies.get("authToken")?.value;
+  // const token = request.cookies.get("authToken")?.value;
+  const token = cookies().get("authToken")?.value;
   console.log("🚀 ~ middleware ~ token:", token);
   const tokenData = await verifyToken(token);
 
@@ -78,5 +80,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // only run on route Pages and not on static pages
-  matcher: ["/", "/((?!.*\\..*|_next).*)"],
+  // matcher: ["/", "/((?!.*\\..*|_next).*)"],
+  // routes middleware should not run on
+  matcher: ["/((?!api|_next/static|_next/images).*)"],
 };

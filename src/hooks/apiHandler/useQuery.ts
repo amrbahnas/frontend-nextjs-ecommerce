@@ -35,9 +35,9 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   if (result.error) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
       toast.error(result.error.response?.data || "Internal Server Error");
-    if (result.error.response?.status === 401 && isLogin) {
-      route.push("/auth/login");
-    }
+    // if (result.error.response?.status === 401 && isLogin) {
+    //   route.push("/auth/login");
+    // }
   }
 
   return {

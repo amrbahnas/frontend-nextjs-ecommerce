@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
+import getToken from "./lib";
 
 // A function to verify the token and return the token data
 async function verifyToken(token: string | undefined) {
@@ -28,10 +29,11 @@ const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   // const token = request.cookies.get("token")?.value;
-  // const token = request.cookies.get("authToken")?.value;
-  const token = cookies().get("authToken")?.value;
-  console.log("🚀 ~ middleware ~ token:", token);
-  const tokenData = await verifyToken(token);
+  // const token = cookies().get("authToken")?.value;
+  // console.log("🚀 ~ middleware ~ token:", token);
+  const tokenData = await getToken();
+  console.log("🚀 ~ middleware ~ tokenData:", tokenData);
+  // const tokenData = await verifyToken(token);
 
   //1) Handling Auth routes section
   if (pathName.startsWith("/auth")) {

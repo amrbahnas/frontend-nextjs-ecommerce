@@ -3,6 +3,7 @@ import { useChangePassword } from "../_api/mutation";
 import { Button, Form, Input, Spin } from "antd";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
+const { Password } = Input;
 
 const ChangePasswordForm = () => {
   const { changePassword, changePasswordIsPending, changePasswordError } =
@@ -32,7 +33,7 @@ const ChangePasswordForm = () => {
             },
           ]}
         >
-          <Input
+          <Password
             type="password"
             placeholder="Enter your Current password"
             className=" rounded-md p-4"
@@ -52,7 +53,7 @@ const ChangePasswordForm = () => {
             },
           ]}
         >
-          <Input
+          <Password
             type="password"
             placeholder="Enter New password"
             className=" rounded-md p-4"

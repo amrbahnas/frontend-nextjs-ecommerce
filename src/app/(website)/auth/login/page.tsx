@@ -11,6 +11,7 @@ import Container from "@/components/container";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
 import Link from "next/link";
+const { Password } = Input;
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
@@ -99,7 +100,7 @@ const LoginPage = ({}) => {
                 },
               ]}
             >
-              <Input
+              <Password
                 type="password"
                 name="password"
                 size="large"

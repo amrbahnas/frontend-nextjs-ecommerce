@@ -7,6 +7,7 @@ import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import Container from "@/components/container";
 import { FaGoogle } from "react-icons/fa";
+const {Password} = Input;
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -97,7 +98,7 @@ const SignUpPage = () => {
                 },
               ]}
             >
-              <Input
+              <Password
                 type="password"
                 placeholder="Enter your password"
                 className=" rounded-md p-4"
@@ -127,7 +128,7 @@ const SignUpPage = () => {
                 }),
               ]}
             >
-              <Input
+              <Password
                 type="password"
                 placeholder="Enter your confirmPassword"
                 className=" rounded-md p-4"

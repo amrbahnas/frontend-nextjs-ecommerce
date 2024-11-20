@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 
-async function verifyToken() {
+async function getToken() {
   const token = cookies().get("authToken")?.value;
   console.log("🚀 ~ verifyToken ~ token:", token);
   if (!token) return null;
@@ -23,10 +23,5 @@ async function verifyToken() {
     return null;
   }
 }
-
-const getToken = async () => {
-  const tokenData = await verifyToken();
-  return tokenData;
-};
 
 export default getToken;

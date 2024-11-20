@@ -23,14 +23,14 @@ const useAuthStore = create<Store>(
         set({ isLogin: true, isAdmin: payload.role === "admin" });
 
         Cookies.set("token", payload.token, {
-          httpOnly: true, // The cookie is not accessible via JavaScript
+          // httpOnly: true, // The cookie is not accessible via JavaScript
           // sameSite: "strict", // The cookie is sent only to the same site
           secure: process.env.NEXT_PUBLIC_ENV !== "development", // The cookie is sent only over HTTPS
         });
       },
       setToken: (token: string) => {
         Cookies.set("token", token, {
-          httpOnly: true, // The cookie is not accessible via JavaScript
+          // httpOnly: true, // The cookie is not accessible via JavaScript
           // sameSite: "strict", // The cookie is sent only to the same site
           secure: process.env.NEXT_PUBLIC_ENV !== "development", // The cookie is sent only over HTTPS
         });

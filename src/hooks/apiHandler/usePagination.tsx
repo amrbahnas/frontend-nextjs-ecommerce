@@ -1,13 +1,10 @@
 "use client";
 import axiosInstance from "@/config/apiClient";
 import {
-  DefinedInitialDataOptions,
-  QueryClient,
   keepPreviousData,
   useQuery as reactUseQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import Cookies from "js-cookie";
 import ms from "ms";
 import { useEffect, useMemo, useState } from "react";
 

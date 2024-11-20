@@ -18,7 +18,6 @@ export const useUpdateUser = () => {
 
 /// change password
 export const useChangePassword = () => {
-  const setAuthData = useAuthStore((state) => state.setAuthData);
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
     "/users/change-password",
     "put"
@@ -26,8 +25,6 @@ export const useChangePassword = () => {
   const changePassword = (values: any) => {
     mutate(values, {
       onSuccess: (result) => {
-        const token = result.data.token;
-        setAuthData({ token });
         toast("Password Changed Successfully");
       },
     });

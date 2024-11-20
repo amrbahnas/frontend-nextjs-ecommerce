@@ -15,19 +15,9 @@ export const useLogin = () => {
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
-  const {
-    data: googleData,
-    error: googleError,
-    isPending: googlePending,
-    refetch: googleLogin,
-  } = useQuery("/auth/google", {
-    skip: true,
-  });
-
-  const onLoginSuccess = (data: { token: string; data: User }) => {
-    if (!data.token) return;
+  const onLoginSuccess = (data: { data: User }) => {
     setUser(data.data);
-    setAuthData({ token: data.token, role: data.data.role });
+    setAuthData({ role: data.data.role });
     const redirect = getParams("redirect");
     if (!data.data.emailVerified) {
       if (redirect) {
@@ -53,10 +43,6 @@ export const useLogin = () => {
     loginPending: isPending,
     loginIsSuccess: isSuccess,
     loginIsError: isError,
-
-    googleData,
-    googleError,
-    googlePending,
   };
 };
 
@@ -74,9 +60,8 @@ export const useSignUp = () => {
   }) => {
     mutate(values, {
       onSuccess: ({ data }: any) => {
-        if (!data.token) return;
         setUser(data.data);
-        setAuthData({ token: data.token, role: data.data.role });
+        setAuthData({ role: data.data.role });
         router.push("/verifyEmail");
       },
     });
@@ -93,7 +78,6 @@ export const useSignUp = () => {
 };
 
 export const useForgetPassword = () => {
-  const router = useRouter();
   const {
     mutate: sendResetCode,
     data: sendResetCodeData,

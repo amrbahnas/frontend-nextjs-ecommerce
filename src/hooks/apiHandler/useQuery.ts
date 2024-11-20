@@ -1,11 +1,10 @@
 "use client";
-import { useQuery as reactUseQuery } from "@tanstack/react-query";
-import Cookies from "js-cookie";
-import axiosInstance from "../../config/apiClient";
-import ms from "ms";
-import { toast } from "react-toastify";
 import useAuthStore from "@/store/useAuthStore";
+import { useQuery as reactUseQuery } from "@tanstack/react-query";
+import ms from "ms";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import axiosInstance from "../../config/apiClient";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const route = useRouter();
@@ -35,9 +34,9 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   if (result.error) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
       toast.error(result.error.response?.data || "Internal Server Error");
-    // if (result.error.response?.status === 401 && isLogin) {
-    //   route.push("/auth/login");
-    // }
+    if (result.error.response?.status === 401 && isLogin) {
+      route.push("/auth/login");
+    }
   }
 
   return {

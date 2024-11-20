@@ -1,21 +1,19 @@
 "use client";
+import Item from "@/components/antd/item";
+import Container from "@/components/container";
+import { Error } from "@/components/ui/error";
+import useParamsService from "@/hooks/global/useParamsService";
+import useUserStore from "@/store/useUserStore";
 import { Button, Form, Input, Result, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { Error } from "@/components/ui/error";
-import Item from "@/components/antd/item";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
-import Container from "@/components/container";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
-import useUserStore from "@/store/useUserStore";
-import useParamsService from "@/hooks/global/useParamsService";
-import useAuthStore from "@/store/useAuthStore";
 
 const VerifyEmail = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { user, setUser } = useUserStore();
-  const setToken = useAuthStore((state) => state.setToken);
   const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
   const { getParams } = useParamsService({});
@@ -62,9 +60,7 @@ const VerifyEmail = () => {
         verifyEmail(values, {
           onSuccess: (res) => {
             const newUser = res.data.user;
-            const token = res.data.token;
             setUser(newUser);
-            setToken(token);
             setScreen(SCREENS.EMAIL_VERIFIED);
           },
         });

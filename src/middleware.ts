@@ -27,7 +27,10 @@ async function verifyToken(token: string | undefined) {
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
-  const pathName = request.nextUrl.pathname;
+  console.log("🚀 ~ middleware ~ request:", request);
+  const cookies = request.cookies;
+  console.log("🚀 ~ middleware ~ cookies:", cookies);
+
   // const token = request.cookies.get("token")?.value;
   // const token = cookies().get("authToken")?.value;
   // console.log("🚀 ~ middleware ~ token:", token);
@@ -35,6 +38,7 @@ export async function middleware(request: NextRequest) {
   console.log("🚀 ~ middleware ~ tokenData:", tokenData);
   // const tokenData = await verifyToken(token);
 
+  const pathName = request.nextUrl.pathname;
   //1) Handling Auth routes section
   if (pathName.startsWith("/auth")) {
     if (!tokenData) {

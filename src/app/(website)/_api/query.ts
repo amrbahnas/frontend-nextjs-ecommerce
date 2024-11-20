@@ -1,4 +1,5 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
+import useAuthStore from "@/store/useAuthStore";
 
 export const useGetCategories = (params?: any) => {
   const { data: categories, isLoading } = useQuery<CategoryType[]>(
@@ -10,4 +11,16 @@ export const useGetCategories = (params?: any) => {
   );
 
   return { categories, isLoading };
+};
+
+export const useVerifyToken = () => {
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { data, isLoading, refetch, error } = useQuery<TokenPayload>(
+    "/auth/verify-token",
+    {
+      skip: !isLogin,
+    }
+  );
+
+  return { tokenData: data, isLoading, refetch, error };
 };

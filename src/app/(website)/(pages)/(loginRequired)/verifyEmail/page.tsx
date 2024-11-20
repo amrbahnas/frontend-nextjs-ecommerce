@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
-import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
+import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
 import Container from "@/components/container";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import useUserStore from "@/store/useUserStore";

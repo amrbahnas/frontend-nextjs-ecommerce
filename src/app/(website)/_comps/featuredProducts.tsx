@@ -1,4 +1,4 @@
-import { useGetProducts } from "@/api/query";
+import { useGetProducts } from "@/_api/query";
 import ProductList from "@/components/productList";
 import React from "react";
 

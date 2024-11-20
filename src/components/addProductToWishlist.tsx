@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { useToggleProductWishlist } from "@/api/actions";
+import { useToggleProductWishlist } from "@/_api/actions";
 import useUserStore from "@/store/useUserStore";
 import { Divider } from "antd";
 import { useState } from "react";

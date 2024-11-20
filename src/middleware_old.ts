@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import getToken from "./lib";
+import getToken from "./lib_old";
 
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 

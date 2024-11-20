@@ -1,4 +1,4 @@
-import { useGetCart } from "@/api/query";
+import { useGetCart } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Badge, Popover, Radio } from "antd";

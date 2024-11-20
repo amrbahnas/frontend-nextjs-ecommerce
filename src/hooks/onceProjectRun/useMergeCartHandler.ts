@@ -1,7 +1,6 @@
-import { useMergeLocalCart } from "@/api/actions";
+import { useMergeLocalCart } from "@/_api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import Cookies from "js-cookie";
 import { useEffect } from "react";
 
 const useMergeCartHandler = () => {

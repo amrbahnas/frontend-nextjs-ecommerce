@@ -1,4 +1,4 @@
-import { useRemoveItemFromCart } from "@/api/actions";
+import { useRemoveItemFromCart } from "@/_api/actions";
 import NextImage from "@/components/ui/nextImage";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";

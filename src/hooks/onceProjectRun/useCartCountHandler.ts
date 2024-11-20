@@ -1,5 +1,5 @@
 "use client";
-import { useGetCartCount } from "@/api/query";
+import { useGetCartCount } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import Cookies from "js-cookie";

@@ -2,7 +2,8 @@
 import { cookies } from "next/headers";
 
 async function getToken() {
-  const token = cookies().get("authToken")?.value;
+  // const token = cookies().get("authToken")?.value;
+  const token = cookies().get("token")?.value;
   console.log("🚀 ~ verifyToken ~ token:", token);
   if (!token) return null;
   try {

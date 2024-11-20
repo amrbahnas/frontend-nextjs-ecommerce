@@ -1,16 +1,14 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { FaGoogle } from "react-icons/fa";
-import { useLogin } from "../_api/mutation";
-import { Error } from "@/components/ui/error";
-import { useLogout } from "@/hooks/global/useLogout";
-import { Button, Divider, Form, Input } from "antd";
 import Item from "@/components/antd/item";
 import Container from "@/components/container";
+import { Error } from "@/components/ui/error";
 import useParamsService from "@/hooks/global/useParamsService";
-import useAuthStore from "@/store/useAuthStore";
+import { Button, Divider, Form, Input } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { FaGoogle } from "react-icons/fa";
+import { useLogin } from "../_api/mutation";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
@@ -18,12 +16,6 @@ const LoginPage = ({}) => {
   const router = useRouter();
   const { login, loginError, loginPending, onLoginSuccess } = useLogin();
   const { getParams } = useParamsService({});
-  const isLogin = useAuthStore((state) => state.isLogin);
-  const { logout } = useLogout("");
-
-  useEffect(() => {
-    isLogin && logout();
-  }, []); // do not change dependencies
 
   useEffect(() => {
     const googleAuth = getParams("googleAuth");

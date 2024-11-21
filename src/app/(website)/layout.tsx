@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   UseCartCountHandler();
   useMergeCartHandler();
-  useCheckUser();
+  // useCheckUser();
 
   return (
     <div>

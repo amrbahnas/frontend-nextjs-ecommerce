@@ -10,11 +10,11 @@ const useCheckUser = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { user, refetch } = useMe();
 
-  useEffect(() => {
-    if (isLogin) {
-      refetch();
-    }
-  }, [pathName]);
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     refetch();
+  //   }
+  // }, [pathName]);
 
   useEffect(() => {
     if (isLogin && user) {

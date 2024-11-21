@@ -1,23 +1,12 @@
 "use client";
 import { useLogoutApi } from "@/app/(website)/auth/_api/mutation";
-import useAuthStore from "@/store/useAuthStore";
-import useCardStore from "@/store/useCardStore";
-import useUserStore from "@/store/useUserStore";
-import { useRouter } from "next/navigation";
+import { useResetAppData } from "./useResetAppData";
 
 export const useLogout = (customRoute?: string) => {
-  const router = useRouter();
-  const removeAuthData = useAuthStore((state) => state.removeAuthData);
-  const setUser = useUserStore((state) => state.setUser);
-  const { setCartItemsCount } = useCardStore();
-
+  const resetData = useResetAppData(customRoute);
   const { mutate, isPending } = useLogoutApi();
   const logout = () => {
-    removeAuthData();
-    setUser(null);
-    setCartItemsCount(0);
-    router.refresh();
-    router.push(customRoute || "/");
+    resetData();
     mutate({});
   };
 

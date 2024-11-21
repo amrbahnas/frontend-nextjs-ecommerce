@@ -1,18 +1,6 @@
 import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 
-export const useMe = () => {
-  const { data, error, refetch, isError, isLoading } =
-    useQuery<User>("/users/me");
-  return {
-    user: data || {},
-    error,
-    refetch,
-    isError,
-    isLoading,
-  };
-};
-
 export const useGetOrders = () => {
   const { data, error, refetch, isError, isLoading, pagination } =
     usePagination<OrderType[]>("/orders", {

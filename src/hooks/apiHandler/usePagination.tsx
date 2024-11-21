@@ -39,9 +39,7 @@ function usePagination<T>(
         ...variables,
         ...options?.params,
       },
-      // headers: {
-      //   Authorization: "Bearer " + Cookies.get("token"),
-      // },
+ 
     });
     setPaginationLoading(false);
     return res.data;

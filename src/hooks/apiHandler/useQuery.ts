@@ -2,21 +2,18 @@
 import useAuthStore from "@/store/useAuthStore";
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axiosInstance from "../../config/apiClient";
 
-function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
-  const route = useRouter();
+import { useResetAppData } from "../global/useResetAppData";
 
+function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
+  const logout = useResetAppData("/auth/login");
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryFn = () =>
     axiosInstance
       .get(endpoint, {
         params: options?.params,
-        // headers: {
-        //   Authorization: "Bearer " + (Cookies.get("token") || ""),
-        // },
       })
       .then((res) => res.data);
 
@@ -35,7 +32,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
       toast.error(result.error.response?.data || "Internal Server Error");
     if (result.error.response?.status === 401 && isLogin) {
-      route.push("/auth/login");
+      logout();
     }
   }
 

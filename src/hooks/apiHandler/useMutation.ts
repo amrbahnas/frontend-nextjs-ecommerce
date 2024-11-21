@@ -1,10 +1,9 @@
 import axiosInstance from "@/config/apiClient";
 import useAuthStore from "@/store/useAuthStore";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
+import { useResetAppData } from "../global/useResetAppData";
 
 const useMutation = (
   endpoint: string,
@@ -14,14 +13,8 @@ const useMutation = (
     onError?: (a: any, b: any, c: any) => void;
   }
 ) => {
-  const route = useRouter();
-
   const isLogin = useAuthStore((state) => state.isLogin);
-  const config: AxiosRequestConfig<any> = {
-    // headers: {
-    //   Authorization: "Bearer " + (Cookies.get("token") || ""),
-    // },
-  };
+  const logout = useResetAppData("/auth/login");
 
   const { error, ...result } = reactUseMutation<
     AxiosResponse<any, any>,
@@ -31,9 +24,9 @@ const useMutation = (
   >({
     mutationFn: (body: any) => {
       if (method === "delete") {
-        return axiosInstance.delete(endpoint, config);
+        return axiosInstance.delete(endpoint);
       }
-      return axiosInstance[method](endpoint, body as any, config);
+      return axiosInstance[method](endpoint, body as any);
     },
 
     onSuccess: (result, variables, context) => {
@@ -48,7 +41,7 @@ const useMutation = (
         toast.error(error?.response?.data || "Internal Server Error");
 
       if (error.response?.status === 401 && isLogin) {
-        route.push("/auth/login");
+        logout();
       }
       options?.onError && options.onError(error, variables, context);
     },
@@ -71,10 +64,3 @@ const errorMessageHandler = (error: any) => {
   }
   return null;
 };
-
-// Replace optimistic todo in the todos list with the result
-// queryClient.setQueryData([endpoint], (old) =>
-//   old.map((todo) =>
-//     todo.id === context.optimisticTodo.id ? result : todo
-//   )
-// );

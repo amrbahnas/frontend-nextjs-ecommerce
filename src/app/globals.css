@@ -2,27 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-hide{
-    scrollbar-width: none;
-  }
+  display: none;
+}
 
+.scrollbar-hide {
+  scrollbar-width: none;
+}
 
-  ::-webkit-scrollbar {
-    width: 0px;
-    height: 5px;
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(114, 113, 113);
+  border-radius: 10px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scale-animation {
+  animation: crescendo 1.5s alternate infinite ease-in;
+}
+
+@keyframes crescendo {
+  100% {
+    transform: scale(1.5);
   }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(114, 113, 113);
-    border-radius: 10px;
-    height: 200px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }  
+}

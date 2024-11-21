@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useUpdateUser } from "../_api/mutation";
 import { Button, Form, Input, Spin } from "antd";
-import { useMe } from "../_api/query";
+
 import UploadAvatar from "@/components/ui/uploadAvatar";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "react-toastify";
+import { useMe } from "@/_api/query";
 
 const MainInfoForm = () => {
   const [image, setImage] = useState<{

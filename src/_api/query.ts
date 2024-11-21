@@ -1,4 +1,22 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
+import useAuthStore from "@/store/useAuthStore";
+
+export const useMe = () => {
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { data, error, refetch, isError, isLoading } = useQuery<User>(
+    "/users/me",
+    {
+      skip: !isLogin,
+    }
+  );
+  return {
+    user: data || {},
+    error,
+    refetch,
+    isError,
+    isLoading,
+  };
+};
 
 export const useGetProducts = (params?: any) => {
   const { data: products, isLoading } = useQuery<Product[]>("/products", {

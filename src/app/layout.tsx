@@ -6,7 +6,6 @@ import "./globals.css";
 import ProgressBarLayout from "@/components/layout/progressBarLayout";
 import AntDLayout from "@/components/layout/antDLayout";
 import ReactQueryLayout from "@/components/layout/reactQueryLayout";
-import InitialChecks from "@/components/layout/initialChecks";
 import OnlineStatus from "@/components/layout/onlineStatus";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,12 +25,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <AntDLayout>
           <ReactQueryLayout>
-            <InitialChecks>
-              <OnlineStatus>
-                <ProgressBarLayout>{children}</ProgressBarLayout>
-                <ToastContainer />
-              </OnlineStatus>
-            </InitialChecks>
+            <OnlineStatus>
+              <ProgressBarLayout>{children}</ProgressBarLayout>
+              <ToastContainer />
+            </OnlineStatus>
           </ReactQueryLayout>
         </AntDLayout>
       </body>

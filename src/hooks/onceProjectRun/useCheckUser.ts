@@ -8,21 +8,15 @@ const useCheckUser = () => {
   const route = useRouter();
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { user, refetch } = useMe();
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     refetch();
-  //   }
-  // }, [pathName]);
+  const { user } = useMe();
 
   useEffect(() => {
     if (isLogin && user) {
-      if (!user.emailVerified && pathName !== "/verifyEmail") {
-        route.push("/verifyEmail");
-      }
       if (!user.active && pathName !== "/inactiveAccount") {
-        route.push("/inactiveAccount");
+        return route.push("/inactiveAccount");
+      }
+      if (!user.emailVerified && pathName !== "/verifyEmail") {
+        return route.push("/verifyEmail");
       }
     }
   }, [user]);

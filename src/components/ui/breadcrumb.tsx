@@ -14,7 +14,6 @@ const Breadcrumb: React.FC = () => {
   const FilteredPathNameArray = pathName
     .split("/")
     .filter((route) => !/\d/.test(route)); // remove number from path
-  console.log("🚀 ~ FilteredPathNameArray:", FilteredPathNameArray);
 
   const pathNameArray = FilteredPathNameArray.map((item, index) => {
     return {

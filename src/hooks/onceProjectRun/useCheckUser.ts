@@ -9,9 +9,11 @@ const useCheckUser = () => {
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { user } = useMe();
+  console.log("🚀 ~ useCheckUser ~ user:", user);
 
   useEffect(() => {
     if (isLogin && user) {
+      console.log("🚀 ~ useEffect ~ user:", user);
       if (!user.active && pathName !== "/inactiveAccount") {
         return route.push("/inactiveAccount");
       }

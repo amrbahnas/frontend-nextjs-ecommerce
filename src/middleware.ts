@@ -1,20 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import getToken from "./lib";
+import getToken from "./app/lib/session";
 
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
-  console.log(
-    "🚀 ~ middleware ~ request:session",
-    request.cookies.get("session")
-  );
-  console.log("🚀 ~ cookies:", cookies);
-  // const tonek = Cookies
-  const pathName = request.nextUrl.pathname;
   const tokenData = await getToken();
   console.log("🚀 ~ middleware ~ tokenData:", tokenData);
+  // const pathName = request.nextUrl.pathname;
   //1) Handling Auth routes section
   // if (pathName.startsWith("/auth")) {
   //   if (!tokenData) {

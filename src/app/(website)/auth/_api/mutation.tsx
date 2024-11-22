@@ -5,7 +5,7 @@ import useQuery from "@/hooks/apiHandler/useQuery";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
-
+import Cookies from "js-cookie";
 export const useLogin = () => {
   const { setUser } = useUserStore();
   const { getParams } = useParamsService({});
@@ -16,6 +16,8 @@ export const useLogin = () => {
     useMutation("/auth/login");
 
   const onLoginSuccess = (data: { data: User }) => {
+    const session = Cookies.get("session");
+    console.log("🚀 ~ onLoginSuccess ~ session:", session);
     setUser(data.data);
     setAuthData({ role: data.data.role });
     const redirect = getParams("redirect");

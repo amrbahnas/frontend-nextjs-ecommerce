@@ -3,7 +3,7 @@ import React from "react";
 
 const LoadingPage = () => {
   return (
-    <div className="flex items-center justify-center h-screen flex-col relative">
+    <div className="flex items-center justify-center z-50 fixed inset-0 h-screen flex-col bg-white">
       <div className="animate-spin rounded-full h-40 w-40 border-t-2 border-b-2 border-l-2 border-lama absolute"></div>
       <Image src="/logo.png" alt="logo" width={100} height={100} />
     </div>

@@ -11,13 +11,13 @@ const useCheckUser = () => {
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
   const reset = useResetAppData();
-  const { user, refetch } = useCheckMe();
+  const { user, refetch, isLoading } = useCheckMe();
 
   useEffect(() => {
     if (!isLogin) return;
     const checkUser = async () => {
       await refetch();
-      if (user._id) {
+      if (user._id && !isLoading) {
         if (!user.active && pathName !== "/inactiveAccount") {
           reset("/inactiveAccount");
         }

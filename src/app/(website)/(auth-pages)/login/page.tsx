@@ -22,7 +22,7 @@ const LoginPage = ({}) => {
     if (googleAuth) {
       const isActive = getParams("active");
       const jsonUser = getParams("user") || "";
-      if (isActive) {
+      if (isActive === "true") {
         const user = JSON.parse(jsonUser);
         onLoginSuccess(user);
       } else {

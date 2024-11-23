@@ -29,7 +29,7 @@ const AddProductToCard = ({
   buttonStyle?: ButtonStyleType;
   productOptions: ProductOptionsType;
 }) => {
-  const { _id, colors, availableSizes, quantity, price } = product;
+  const { _id, colors = [], availableSizes = [], quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, increaseCartItemsCount, setCartItemsCount } =

@@ -16,8 +16,8 @@ const ProductCard = ({ product }: { product: Product }) => {
     price,
     ratingsAverage,
     quantity,
-    colors,
-    availableSizes,
+    colors = [],
+    availableSizes = [],
     imageCover,
     status,
   } = product;

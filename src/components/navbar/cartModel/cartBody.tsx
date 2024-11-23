@@ -22,7 +22,7 @@ const CartBody = ({
 }) => {
   const router = useRouter();
   const {
-    cartItems,
+    cartItems = [],
     totalCartPrice,
     _id: cartId,
     totalPriceAfterDiscount,

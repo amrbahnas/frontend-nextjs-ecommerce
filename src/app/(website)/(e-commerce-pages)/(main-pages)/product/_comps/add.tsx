@@ -7,7 +7,12 @@ import ColorSelector from "./colorSelector";
 import SizeSelector from "./sizeSelector";
 
 const Add = ({ product }: { product: Product }) => {
-  const { _id, colors, availableSizes, quantity: productQuantity } = product;
+  const {
+    _id,
+    colors = [],
+    availableSizes = [],
+    quantity: productQuantity,
+  } = product;
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState(colors[0]);
   const [size, setSize] = useState(availableSizes[0] || "");

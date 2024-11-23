@@ -1,7 +1,7 @@
 import React from "react";
 import { Segmented } from "antd";
 const SizeSelector = ({
-  availableSizes,
+  availableSizes = [],
   selectedSize,
   setSelectedSize,
 }: {

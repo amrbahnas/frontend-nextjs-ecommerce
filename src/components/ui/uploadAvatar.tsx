@@ -1,7 +1,5 @@
 import { Avatar } from "antd";
 import { CiCamera } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import ImageUploading from "react-images-uploading";
 

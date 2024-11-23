@@ -13,7 +13,6 @@ const SignUpPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { signUp, signUpError, signUpPending } = useSignUp();
-  console.log("🚀 ~ SignUpPage ~ signUpError:", signUpError);
   return (
     <Container className="h-[calc(100dvh-80px)] flex items-center justify-center">
       <div className=" w-full md:w-7/12   border p-4 md:p-8 !pt-0 rounded-md shadow-md mt-3">

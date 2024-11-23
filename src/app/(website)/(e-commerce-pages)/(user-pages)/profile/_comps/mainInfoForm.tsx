@@ -22,7 +22,6 @@ const MainInfoForm = () => {
 
   useEffect(() => {
     if (user?._id) {
-      console.log("🚀 ~ useEffect ~ user:", user);
       setUser(user);
       form.setFieldsValue(user);
       setImage({ data_url: user.profileImg, file: undefined });

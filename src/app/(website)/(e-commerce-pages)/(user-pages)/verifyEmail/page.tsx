@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
+import { MdMarkEmailUnread } from "react-icons/md";
+import Image from "next/image";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -87,22 +89,42 @@ const VerifyEmail = () => {
               <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
             )}
             {screen === SCREENS.SEND_Email_CODE && (
-              <div className="flex flex-col gap-2 w-full md:w-96 mb-4  text-lg">
-                <div className=" text-lg flex  items-center flex-wrap ">
-                  <span>Your email:</span>
-                  <span className="font-semibold pl-1">{user?.email}</span>
+              <div className="flex flex-col gap-2 w-full md:w-[500px] mb-4 ">
+                <div className=" text-lg flex  items-center justify-center">
+                  <Image
+                    src={"/Confirmed-email.svg"}
+                    width={200}
+                    height={200}
+                    alt="email"
+                  />
                 </div>
-                <p className=" mt-2">is not verified yet.</p>
-                <p>Please verify your email to continue.</p>
+                <div className=" text-center">
+                  <span className="mt-2 text-sm">YOU ARE ONE STEP AWAY</span>
+                  <h6 className="text-3xl font-semibold mt-2 capitalize">
+                    Verify your email address
+                  </h6>
+                  <p className="text-sm text-gray-500 mt-2">
+                    To complete you profile and start shopping, you`ll need to
+                    verify your email address.
+                  </p>
+                </div>
 
                 <Error error={sendVerificationEmailCodeError} />
               </div>
             )}
             {screen === SCREENS.VERIFICATION_Email_CODE && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4  justify-center items-center">
                 {/*  check your email */}
-                <div className="text-sm flex items-center flex-wrap">
-                  <span>We have sent a Verify code to your email:</span>
+                <Image
+                  src={"/email-send.svg"}
+                  width={200}
+                  height={200}
+                  alt="email"
+                />
+                <div className="text-lg flex flex-col items-center">
+                  <span>
+                    check your email, we have sent a code to your email:
+                  </span>
                   <span className="  font-semibold pl-1">{user?.email}</span>
                 </div>
                 <Error error={verifyEmailError} />
@@ -127,6 +149,7 @@ const VerifyEmail = () => {
                     onClick={() => {
                       sendVerificationEmailCode({ email: user?.email });
                       setResentCount((prev) => prev + 1);
+                      form.setFieldsValue({ code: "" });
                     }}
                   >
                     Resend Code
@@ -146,14 +169,19 @@ const VerifyEmail = () => {
                 title="Your email has been verified successfully!"
                 subTitle="Happy shopping with us."
                 extra={[
-                  <Button onClick={handleSubmit} type="primary" key="console">
+                  <Button
+                    onClick={handleSubmit}
+                    type="primary"
+                    key="console"
+                    size="large"
+                  >
                     Continue
                   </Button>,
                 ]}
               />
             )}
             <div
-              className={`mt-2 flex justify-start  ${
+              className={`mt-2 flex justify-center  ${
                 screen === SCREENS.EMAIL_VERIFIED && " hidden"
               } `}
             >

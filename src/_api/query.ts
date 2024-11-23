@@ -1,12 +1,25 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
 import useAuthStore from "@/store/useAuthStore";
 
-export const useMe = (skip = false) => {
-  const isLogin = useAuthStore((state) => state.isLogin);
+export const useMe = () => {
+  const { data, error, refetch, isError, isLoading } =
+    useQuery<User>("/users/me");
+  return {
+    user: data || {},
+    error,
+    refetch,
+    isError,
+    isLoading,
+  };
+};
+export const useCheckMe = () => {
   const { data, error, refetch, isError, isLoading } = useQuery<User>(
     "/users/me",
     {
-      skip: !isLogin || skip,
+      skip: true,
+      params: {
+        fields: "role,active,emailVerified",
+      },
     }
   );
   return {

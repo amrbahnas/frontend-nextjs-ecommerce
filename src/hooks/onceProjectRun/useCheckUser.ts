@@ -15,6 +15,7 @@ const useCheckUser = () => {
     const checkUser = async () => {
       await refetch();
       if (user) {
+        console.log("🚀 ~ checkUser ~ user:", user);
         if (!user.active && pathName !== "/inactiveAccount") {
           return route.push("/inactiveAccount");
         }

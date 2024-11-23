@@ -14,11 +14,11 @@ const AuthLayout = ({ children }: React.PropsWithChildren) => {
     }
   }, [isLogin]);
 
-  if (isLogin) {
-    return <LoadingPage />;
+  if (!isLogin) {
+    return <div>{children}</div>;
   }
 
-  return <div>{children}</div>;
+  return <LoadingPage />;
 };
 
 export default AuthLayout;

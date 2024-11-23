@@ -16,22 +16,22 @@ const Admin = ({ children }: { children?: React.ReactNode }) => {
     }
   }, [isAdmin]);
 
-  if (!isLogin || !isAdmin) {
-    return <LoadingPage />;
+  if (isLogin && isAdmin) {
+    return (
+      <div className="py-4">
+        <Container>{children}</Container>
+        <Button
+          type="text"
+          onClick={() => route.back()}
+          className="!fixed -left-8 lg:left-12 bottom-8 !w-fit"
+        >
+          <IoArrowBackCircle fontSize="large" size={50} />
+        </Button>
+      </div>
+    );
   }
 
-  return (
-    <div className="py-4">
-      <Container>{children}</Container>
-      <Button
-        type="text"
-        onClick={() => route.back()}
-        className="!fixed -left-8 lg:left-12 bottom-8 !w-fit"
-      >
-        <IoArrowBackCircle fontSize="large" size={50} />
-      </Button>
-    </div>
-  );
+  return <LoadingPage />;
 };
 
 export default Admin;

@@ -8,6 +8,7 @@ import Item from "@/components/antd/item";
 import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
 import Container from "@/components/container";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const ForgetPasswordPage = () => {
   const router = useRouter();
@@ -60,10 +61,18 @@ const ForgetPasswordPage = () => {
         });
         break;
       case SCREENS.CREATE_NEW_PASSWORD:
-        createNewPassword({
-          email,
-          ...values,
-        });
+        createNewPassword(
+          {
+            email,
+            ...values,
+          },
+          {
+            onSuccess: () => {
+              router.push("/login");
+              toast.success("Password changed successfully");
+            },
+          }
+        );
         break;
       default:
         break;

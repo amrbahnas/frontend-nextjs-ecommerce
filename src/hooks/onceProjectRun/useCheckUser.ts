@@ -8,13 +8,13 @@ const useCheckUser = () => {
   const route = useRouter();
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { user, refetch } = useMe();
+  const { user, refetch, isLoading } = useMe(true);
 
   useEffect(() => {
     if (!isLogin) return;
     const checkUser = async () => {
       await refetch();
-      if (user) {
+      if (user._id) {
         console.log("🚀 ~ checkUser ~ user:", user);
         if (!user.active && pathName !== "/inactiveAccount") {
           return route.push("/inactiveAccount");

@@ -212,7 +212,7 @@ const ForgetPasswordPage = () => {
             {screen === SCREENS.SEND_RESET_CODE && (
               <Link
                 className="text-sm underline cursor-pointer block mt-4"
-                href={"/auth/login"}
+                href={"/login"}
               >
                 Go back to Login
               </Link>

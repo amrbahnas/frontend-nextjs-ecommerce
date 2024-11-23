@@ -63,7 +63,7 @@ const CartBody = ({
 
   const handleCheckout = () => {
     if (!isLogin) {
-      router.push("/auth/login");
+      router.push("/login");
       setOpen(false);
       return;
     }

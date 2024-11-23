@@ -8,7 +8,7 @@ import axiosInstance from "../../config/apiClient";
 import { useResetAppData } from "../global/useResetAppData";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
-  const logout = useResetAppData("/auth/login");
+  const logout = useResetAppData("/login");
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryFn = () =>
     axiosInstance

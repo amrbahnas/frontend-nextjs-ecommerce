@@ -1,24 +1,23 @@
 "use client";
 import Container from "@/components/container";
+import LoadingPage from "@/components/loadingPage";
+import useAuthStore from "@/store/useAuthStore";
 import { Button } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { useVerifyToken } from "../(website)/_api/query";
-import useAuthStore from "@/store/useAuthStore";
 const Admin = ({ children }: { children?: React.ReactNode }) => {
   const route = useRouter();
-  // const { tokenData } = useVerifyToken();
   const { isAdmin, isLogin } = useAuthStore();
 
-  // useEffect(() => {
-  //   if (!tokenData?.isAdmin) {
-  //     route.push("/");
-  //   }
-  // }, [tokenData]);
+  useEffect(() => {
+    if (!isAdmin) {
+      route.push("/");
+    }
+  }, [isAdmin]);
 
   if (!isLogin || !isAdmin) {
-    return route.push("/");
+    return <LoadingPage />;
   }
 
   return (

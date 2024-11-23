@@ -102,7 +102,7 @@ const LoginPage = ({}) => {
             </Item>
             <Link
               className="text-sm underline cursor-pointer"
-              href={"/auth/forgot-password"}
+              href={"/forgot-password"}
             >
               Forgot Password?
             </Link>
@@ -118,7 +118,7 @@ const LoginPage = ({}) => {
             </Button>
             <Link
               className="text-sm underline cursor-pointer text-gray-600"
-              href={"/auth/signup"}
+              href={"/signup"}
             >
               {"Don't"} have an account?
             </Link>

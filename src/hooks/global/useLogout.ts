@@ -1,5 +1,5 @@
 "use client";
-import { useLogoutApi } from "@/app/(website)/auth/_api/mutation";
+import { useLogoutApi } from "@/app/(website)/(auth-pages)/_api/mutation";
 import { useResetAppData } from "./useResetAppData";
 
 export const useLogout = (customRoute?: string) => {

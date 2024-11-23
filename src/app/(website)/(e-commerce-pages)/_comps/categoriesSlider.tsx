@@ -3,7 +3,7 @@ import "swiper/css";
 
 import { Skeleton, Spin } from "antd";
 import Link from "next/link";
-import NextImage from "../../../components/ui/nextImage";
+import NextImage from "../../../../components/ui/nextImage";
 import { useGetCategories } from "../_api/query";
 
 const CategoriesSlider = () => {

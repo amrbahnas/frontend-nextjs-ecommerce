@@ -7,7 +7,7 @@ import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import Container from "@/components/container";
 import { FaGoogle } from "react-icons/fa";
-const {Password} = Input;
+const { Password } = Input;
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -170,7 +170,7 @@ const SignUpPage = () => {
           <div
             className="text-sm underline cursor-pointer"
             onClick={() => {
-              router.push("/auth/login");
+              router.push("/login");
             }}
           >
             Have and account?

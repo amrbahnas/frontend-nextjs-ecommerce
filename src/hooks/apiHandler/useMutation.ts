@@ -14,7 +14,7 @@ const useMutation = (
   }
 ) => {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const logout = useResetAppData("/auth/login");
+  const logout = useResetAppData("/login");
 
   const { error, ...result } = reactUseMutation<
     AxiosResponse<any, any>,

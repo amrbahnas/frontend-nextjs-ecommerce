@@ -9,7 +9,7 @@ const LoginLayout = ({ children }: React.PropsWithChildren) => {
   const isLogin = useAuthStore((state) => state.isLogin);
   useEffect(() => {
     if (!isLogin) {
-      route.push("/auth/login");
+      route.push("/login");
     }
   }, [isLogin]);
 

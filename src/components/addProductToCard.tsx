@@ -29,6 +29,7 @@ const AddProductToCard = ({
   buttonStyle?: ButtonStyleType;
   productOptions: ProductOptionsType;
 }) => {
+  const { _id, colors, availableSizes, quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, increaseCartItemsCount, setCartItemsCount } =
@@ -41,13 +42,13 @@ const AddProductToCard = ({
       className: `!w-32 !py-4 ${buttonStyle?.buttonClassName}`,
       shape: "default",
       icon: <MdAddShoppingCart />,
-      disabled: product.quantity === 0 || disabled || isPending,
+      disabled: quantity === 0 || disabled || isPending,
     }),
     [
       buttonStyle?.buttonType,
       buttonStyle?.buttonSize,
       buttonStyle?.buttonClassName,
-      product.quantity,
+      quantity,
       disabled,
       isPending,
     ]
@@ -55,15 +56,13 @@ const AddProductToCard = ({
 
   if (isLogin) {
     return (
-      <Tooltip
-        title={product.quantity === 0 && "No stock available for this product"}
-      >
+      <Tooltip title={quantity === 0 && "No stock available for this product"}>
         <Button
           {...commonOptions}
           onClick={(e) => {
             addProduct(
               {
-                productId: product._id,
+                productId: _id,
                 color: productOptions.color,
                 quantity: productOptions.quantity,
                 size: productOptions.size,
@@ -87,19 +86,17 @@ const AddProductToCard = ({
   }
 
   return (
-    <Tooltip
-      title={product.quantity === 0 && "No stock available for this product"}
-    >
+    <Tooltip title={quantity === 0 && "No stock available for this product"}>
       <Button
         {...commonOptions}
         onClick={() => {
           const isExist = addCartItem({
             product: product,
             quantity: productOptions.quantity,
-            price: product.price * productOptions.quantity,
-            color: productOptions.color || product.colors[0],
-            size: productOptions.size || product.availableSizes[0],
-            _id: product._id,
+            price: price * productOptions.quantity,
+            color: productOptions.color || colors[0],
+            size: productOptions.size || availableSizes[0],
+            _id,
           });
           if (!isExist) increaseCartItemsCount();
           toast.success("Product added to cart");

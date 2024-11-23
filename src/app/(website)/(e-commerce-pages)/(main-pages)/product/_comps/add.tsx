@@ -7,17 +7,17 @@ import ColorSelector from "./colorSelector";
 import SizeSelector from "./sizeSelector";
 
 const Add = ({ product }: { product: Product }) => {
+  const { _id, colors, availableSizes, quantity: productQuantity } = product;
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState(product.colors[0]);
-  const [size, setSize] = useState(product.availableSizes[0] || "");
-  const productQuantity = product.quantity;
+  const [color, setColor] = useState(colors[0]);
+  const [size, setSize] = useState(availableSizes[0] || "");
   const stockNumber = productQuantity - quantity;
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (type === "i" && quantity < product.quantity) {
+    if (type === "i" && quantity < productQuantity) {
       setQuantity((prev) => prev + 1);
     }
   };
@@ -26,14 +26,14 @@ const Add = ({ product }: { product: Product }) => {
     <div className="flex flex-col gap-4">
       <div className="w-1/2">
         <SizeSelector
-          availableSizes={product.availableSizes}
+          availableSizes={availableSizes}
           selectedSize={size}
           setSelectedSize={setSize}
         />
       </div>
       <Divider className="!my-2" />
       <ColorSelector
-        availableColors={product.colors}
+        availableColors={colors}
         selectedColor={color}
         setSelectedColor={setColor}
       />
@@ -86,7 +86,7 @@ const Add = ({ product }: { product: Product }) => {
             }}
           />
           <WishlistButton
-            productId={product._id}
+            productId={_id}
             className=" border p-2 rounded-md  border-gray-300"
           />
         </div>

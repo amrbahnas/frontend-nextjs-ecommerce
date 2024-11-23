@@ -1,22 +1,21 @@
 "use client";
-import React, { useEffect } from "react";
-import { useVerifyToken } from "../_api/query";
-import { useRouter } from "next/navigation";
+import LoadingPage from "@/components/loadingPage";
 import useAuthStore from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const AuthLayout = ({ children }: React.PropsWithChildren) => {
   const route = useRouter();
-  // const { tokenData } = useVerifyToken();
   const isLogin = useAuthStore((state) => state.isLogin);
 
-  // useEffect(() => {
-  //   if (tokenData) {
-  //     route.push("/");
-  //   }
-  // }, [tokenData]);
+  useEffect(() => {
+    if (isLogin) {
+      route.push("/");
+    }
+  }, [isLogin]);
 
   if (isLogin) {
-    return route.push("/");
+    return <LoadingPage />;
   }
 
   return <div>{children}</div>;

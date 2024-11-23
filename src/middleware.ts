@@ -1,13 +1,34 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import getToken from "./app/lib/session";
+import axios from "axios";
+async function getToken() {
+  // const token = (await cookies()).get("session");
+  // return token;
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-token`,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    // const data = await response.json();
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
 
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
-  const tokenData = await getToken();
-  console.log("🚀 ~ middleware ~ tokenData:", tokenData);
+  const session = await cookies().get("session");
+  console.log("🚀 ~ middleware ~ session:", session);
+  // const tokenData = await getToken();
+  // console.log("🚀 ~ middleware ~ tokenData:", tokenData);
   // const pathName = request.nextUrl.pathname;
   //1) Handling Auth routes section
   // if (pathName.startsWith("/auth")) {

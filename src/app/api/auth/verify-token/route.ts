@@ -1,9 +1,6 @@
-import "server-only";
-import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-async function getToken() {
-  // const token = (await cookies()).get("session");
-  // return token;
+export async function GET(req: Request, context: any) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-token`,
@@ -12,10 +9,9 @@ async function getToken() {
       }
     );
     const data = await response.json();
-    return response;
+
+    return NextResponse.json(data);
   } catch (error) {
-    return error;
+    return NextResponse.error();
   }
 }
-
-export default getToken;

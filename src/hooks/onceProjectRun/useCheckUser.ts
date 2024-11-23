@@ -12,20 +12,12 @@ const useCheckUser = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const reset = useResetAppData();
   const { user, refetch } = useCheckMe();
-  const { setUser, user: storedUser } = useUserStore();
 
   useEffect(() => {
     if (!isLogin) return;
-    if (!storedUser?.active && pathName !== "/inactiveAccount") {
-      reset("inactiveAccount");
-    }
-    if (!storedUser?.emailVerified && pathName !== "/verifyEmail") {
-      return route.push("/verifyEmail");
-    }
     const checkUser = async () => {
       await refetch();
       if (user._id) {
-        setUser({ ...storedUser, ...user });
         if (!user.active && pathName !== "/inactiveAccount") {
           reset("/inactiveAccount");
         }

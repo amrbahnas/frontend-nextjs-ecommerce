@@ -8,7 +8,7 @@ import axiosInstance from "../../config/apiClient";
 import { useResetAppData } from "../global/useResetAppData";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
-  const logout = useResetAppData("/login");
+  const logout = useResetAppData();
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryFn = () =>
     axiosInstance
@@ -31,8 +31,13 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   if (result.error) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
       toast.error(result.error.response?.data || "Internal Server Error");
-    if (result.error.response?.status === 401 && isLogin) {
-      logout();
+    if (isLogin) {
+      if (result.error.response?.status === 401) {
+        logout("/login");
+      }
+      if (result.error.response?.status === 403) {
+        logout("/inactiveAccount");
+      }
     }
   }
 

@@ -14,7 +14,7 @@ const useMutation = (
   }
 ) => {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const logout = useResetAppData("/login");
+  const logout = useResetAppData();
 
   const { error, ...result } = reactUseMutation<
     AxiosResponse<any, any>,
@@ -40,8 +40,13 @@ const useMutation = (
       process.env.NEXT_PUBLIC_ENV === "development" &&
         toast.error(error?.response?.data || "Internal Server Error");
 
-      if (error.response?.status === 401 && isLogin) {
-        logout();
+      if (isLogin) {
+        if (error.response?.status === 401) {
+          return logout("/login");
+        }
+        if (error.response?.status === 403) {
+          return logout("/inactiveAccount");
+        }
       }
       options?.onError && options.onError(error, variables, context);
     },

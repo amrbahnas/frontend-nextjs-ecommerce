@@ -1,5 +1,4 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
-import useAuthStore from "@/store/useAuthStore";
 
 export const useMe = () => {
   const { data, error, refetch, isError, isLoading } =

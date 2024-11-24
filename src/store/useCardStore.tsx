@@ -21,7 +21,8 @@ const newCartItemsHandler = (
   const isItemExist = cartItems.find(
     (current) =>
       current._id === item._id &&
-      (current.color === item.color || current.size === item.size)
+      current.color === item.color &&
+      current.size === item.size
   );
 
   if (isItemExist) {

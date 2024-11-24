@@ -4,12 +4,14 @@ import useAuthStore from "@/store/useAuthStore";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useResetAppData } from "../global/useResetAppData";
+import useUserStore from "@/store/useUserStore";
 
 const useCheckUser = () => {
   const route = useRouter();
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
   const reset = useResetAppData();
+  const { setUser, user: storeUser } = useUserStore();
   const { user, refetch } = useCheckMe();
 
   useEffect(() => {
@@ -18,6 +20,7 @@ const useCheckUser = () => {
       try {
         await refetch();
         if (user._id) {
+          setUser({ ...storeUser, ...user });
           if (!user.active && pathName !== "/inactiveAccount") {
             reset("/inactiveAccount");
           }

@@ -6,7 +6,7 @@ import useParamsService from "@/hooks/global/useParamsService";
 import useUserStore from "@/store/useUserStore";
 import { Button, Form, Input, Result, Spin } from "antd";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import { MdMarkEmailUnread } from "react-icons/md";
@@ -76,6 +76,12 @@ const VerifyEmail = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (status === "success" && screen !== SCREENS.EMAIL_VERIFIED) {
+      setScreen(SCREENS.EMAIL_VERIFIED);
+    }
+  }, [status]);
 
   return (
     <Container className="flex justify-center items-center h-[calc(100dvh-80px)] ">
@@ -185,7 +191,7 @@ const VerifyEmail = () => {
             )}
             <div
               className={`mt-2 flex justify-center  ${
-                status === "success" && " hidden"
+                screen === SCREENS.EMAIL_VERIFIED && " hidden"
               } `}
             >
               <Button

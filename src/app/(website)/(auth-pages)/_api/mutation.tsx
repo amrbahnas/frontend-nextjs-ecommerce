@@ -19,9 +19,11 @@ export const useLogin = () => {
     const redirect = getParams("redirect");
     if (!data.data.emailVerified) {
       if (redirect) {
-        return router.push(`/verifyEmail?redirect=${redirect}`);
+        return router.push(
+          `/verifyEmail?status=send-code&&redirect=${redirect}`
+        );
       }
-      return router.push("/verifyEmail");
+      return router.push("/verifyEmail?status=send-code");
     }
 
     router.push(redirect || "/");

@@ -1,7 +1,6 @@
 "use client";
-import { useCheckMe, useMe } from "@/_api/query";
+import { useCheckMe } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
-import useUserStore from "@/store/useUserStore";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useResetAppData } from "../global/useResetAppData";
@@ -11,19 +10,23 @@ const useCheckUser = () => {
   const pathName = usePathname();
   const isLogin = useAuthStore((state) => state.isLogin);
   const reset = useResetAppData();
-  const { user, refetch, isLoading } = useCheckMe();
+  const { user, refetch } = useCheckMe();
 
   useEffect(() => {
     if (!isLogin) return;
     const checkUser = async () => {
-      await refetch();
-      if (user._id && !isLoading) {
-        if (!user.active && pathName !== "/inactiveAccount") {
-          reset("/inactiveAccount");
+      try {
+        await refetch();
+        if (user._id) {
+          if (!user.active && pathName !== "/inactiveAccount") {
+            reset("/inactiveAccount");
+          }
+          if (!user.emailVerified && pathName !== "/verifyEmail") {
+            return route.push("/verifyEmail?status=send-code");
+          }
         }
-        if (!user.emailVerified && pathName !== "/verifyEmail") {
-          return route.push("/verifyEmail");
-        }
+      } catch (error) {
+        console.log("🚀 ~ checkUser ~ error:", error);
       }
     };
 

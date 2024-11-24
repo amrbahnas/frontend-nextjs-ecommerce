@@ -16,9 +16,10 @@ const VerifyEmail = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { user, setUser } = useUserStore();
-  const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
+  // const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
-  const { getParams } = useParamsService({});
+  const { getParams, setParams } = useParamsService({});
+  const status = getParams("status");
   const {
     sendVerificationEmailCode,
     sendVerificationEmailCodeLoading,
@@ -27,13 +28,13 @@ const VerifyEmail = () => {
   const { verifyEmail, verifyEmailLoading, verifyEmailError } =
     useVerifyEmail();
 
-  const getTitleAndButtonText = useCallback((screen: string) => {
-    switch (screen) {
-      case SCREENS.SEND_Email_CODE:
+  const getTitleAndButtonText = useCallback((status: string | null) => {
+    switch (status) {
+      case "send-code":
         return { formTitle: "Verify Your Email", buttonTitle: "Verify Now" };
-      case SCREENS.VERIFICATION_Email_CODE:
+      case "enter-code":
         return { formTitle: "Enter Verify Code", buttonTitle: "Verify Email" };
-      case SCREENS.EMAIL_VERIFIED:
+      case "success":
         return {
           formTitle: "Congratulations! You are almost there.",
           buttonTitle: "Continue",
@@ -43,33 +44,35 @@ const VerifyEmail = () => {
     }
   }, []);
 
-  const { formTitle, buttonTitle } = getTitleAndButtonText(screen);
+  const { formTitle, buttonTitle } = getTitleAndButtonText(status);
   const loading = sendVerificationEmailCodeLoading || verifyEmailLoading;
 
   const handleSubmit = async (values: any) => {
-    switch (screen) {
-      case SCREENS.SEND_Email_CODE:
+    switch (status) {
+      case "send-code":
         sendVerificationEmailCode(
           { email: user?.email },
           {
             onSuccess: () => {
-              setScreen(SCREENS.VERIFICATION_Email_CODE);
+              // setScreen(SCREENS.VERIFICATION_Email_CODE);
+              setParams("status", "enter-code");
             },
           }
         );
         break;
-      case SCREENS.VERIFICATION_Email_CODE:
+      case "enter-code":
         verifyEmail(values, {
           onSuccess: (res) => {
             const newUser = res.data.user;
             setUser(newUser);
-            setScreen(SCREENS.EMAIL_VERIFIED);
+            setParams("status", "success");
+
+            // setScreen(SCREENS.EMAIL_VERIFIED);
           },
         });
         break;
       default:
         const redirect = getParams("redirect");
-        router.refresh();
         router.push(redirect || "/");
         break;
     }
@@ -88,7 +91,7 @@ const VerifyEmail = () => {
             {!SCREENS.EMAIL_VERIFIED && (
               <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
             )}
-            {screen === SCREENS.SEND_Email_CODE && (
+            {status === "send-code" && (
               <div className="flex flex-col gap-2 w-full md:w-[500px] mb-4 ">
                 <div className=" text-lg flex  items-center justify-center">
                   <Image
@@ -112,7 +115,7 @@ const VerifyEmail = () => {
                 <Error error={sendVerificationEmailCodeError} />
               </div>
             )}
-            {screen === SCREENS.VERIFICATION_Email_CODE && (
+            {status === "enter-code" && (
               <div className="flex flex-col gap-4  justify-center items-center">
                 {/*  check your email */}
                 <Image
@@ -163,7 +166,7 @@ const VerifyEmail = () => {
                 </div>
               </div>
             )}
-            {screen === SCREENS.EMAIL_VERIFIED && (
+            {status === "success" && (
               <Result
                 status="success"
                 title="Your email has been verified successfully!"
@@ -182,7 +185,7 @@ const VerifyEmail = () => {
             )}
             <div
               className={`mt-2 flex justify-center  ${
-                screen === SCREENS.EMAIL_VERIFIED && " hidden"
+                status === "success" && " hidden"
               } `}
             >
               <Button

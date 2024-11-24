@@ -1,7 +1,7 @@
 import { useCardCheckout, useCashCheckout, useResetCart } from "@/_api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import { Button, Popconfirm, Radio, Spin } from "antd";
+import { Button, Empty, Popconfirm, Radio, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -94,9 +94,9 @@ const CartBody = ({
 
   return (
     <Spin spinning={deleting || cartLoading || resetApiCartLoading}>
-      <div className="  flex flex-col gap-6 z-20">
+      <div className="  flex flex-col gap-6 z-20  w-72">
         {!cartItems[0] ? (
-          <div className="">Cart is Empty</div>
+          <Empty />
         ) : (
           <>
             {/* reset */}
@@ -161,7 +161,7 @@ const CartBody = ({
                   loading={checkoutLoading || cashCheckoutLoading}
                   disabled={checkoutLoading || cashCheckoutLoading}
                   onClick={handleCheckout}
-                  className=" !py-5  !bg-black/90 !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
+                  className=" !py-5  !bg-black/90 hover:scale-105 !border-none !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
                 >
                   Checkout
                 </Button>

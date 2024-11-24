@@ -1,16 +1,11 @@
 import { useGetCart } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
-import { Badge, Popover, Radio } from "antd";
-import Image from "next/image";
+import { Badge, Popover } from "antd";
 import { useEffect, useState } from "react";
-import CartBody from "./cartBody";
-import NextImage from "@/components/ui/nextImage";
-import CartSkeleton from "./cart.skeleton";
-import { IoCartOutline } from "react-icons/io5";
-import { CiShoppingCart } from "react-icons/ci";
-import { BsCart2 } from "react-icons/bs";
 import { PiShoppingCartThin } from "react-icons/pi";
+import CartSkeleton from "./cart.skeleton";
+import CartBody from "./cartBody";
 
 const CartModal = () => {
   const [open, setOpen] = useState(false);

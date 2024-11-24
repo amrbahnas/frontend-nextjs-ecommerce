@@ -1,5 +1,6 @@
 import ProductCard from "./productCard/productCard";
 import ProductCardSkeleton from "./productCard/productCard.skeleton";
+import NoData from "./ui/noData";
 import RenderedCardsGrid from "./ui/renderedCardsGrid";
 
 const ProductList = ({
@@ -21,7 +22,7 @@ const ProductList = ({
   if (products?.length === 0)
     return (
       <p className="text-center text-2xl font-semibold mt-12">
-        No products found
+        <NoData />
       </p>
     );
 

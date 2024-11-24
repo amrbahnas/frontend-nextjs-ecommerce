@@ -6,8 +6,11 @@ import React, { Suspense } from "react";
 import ProductSection from "./_comps/productSection";
 import Filter from "./_comps/filter";
 import NextImage from "@/components/ui/nextImage";
+import useParamsService from "@/hooks/global/useParamsService";
 
 const ListPage = () => {
+  const { getParams } = useParamsService("okay I will");
+  const search = getParams("search");
   return (
     <Container>
       {/* CAMPAIGN */}
@@ -28,7 +31,9 @@ const ListPage = () => {
       {/* FILTER */}
       <Filter />
       {/* PRODUCTS */}
-      <h1 className="mt-12 text-xl font-semibold">For You!</h1>
+      <h1 className="mt-12 text-xl font-semibold">
+        {search ? `Search results for "${search}"` : "Our Best Picks"}
+      </h1>
       <ProductSection />
     </Container>
   );

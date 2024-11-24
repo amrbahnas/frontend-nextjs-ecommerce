@@ -35,6 +35,7 @@ const SignUpPage = () => {
           form={form}
           layout="vertical"
           onFinish={signUp}
+          validateTrigger="onBlur"
         >
           <div className="flex flex-col gap-2">
             <Item
@@ -44,6 +45,10 @@ const SignUpPage = () => {
                 {
                   required: true,
                   message: "Please input your Name!",
+                },
+                {
+                  min: 3,
+                  message: "Name must be at least 3 characters!",
                 },
               ]}
             >

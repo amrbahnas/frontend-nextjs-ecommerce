@@ -18,6 +18,7 @@ const ChangePasswordForm = () => {
   return (
     <Spin spinning={changePasswordIsPending}>
       <Form
+        validateTrigger="onBlur"
         onFinish={changePasswordHandler}
         form={form}
         layout="vertical"
@@ -80,8 +81,7 @@ const ChangePasswordForm = () => {
             }),
           ]}
         >
-          <Input
-            type="password"
+          <Password
             placeholder="Enter your confirmPassword"
             className=" rounded-md p-4"
           />

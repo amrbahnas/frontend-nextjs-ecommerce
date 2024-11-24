@@ -1,17 +1,18 @@
 "use client";
-import { Form, Input } from "antd";
 import type { GetProps } from "antd";
-import React from "react";
+import { Form, Input } from "antd";
+import { useRouter } from "next/navigation";
 import useParamsService from "../../hooks/global/useParamsService";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 const { Item } = Form;
 
 const SearchBar = () => {
-  const { setParams } = useParamsService("okay I will");
-  const pathname = usePathname();
+  const { setParams, getParams } = useParamsService("okay I will");
   const router = useRouter();
+  const search = getParams("search");
+  const [form] = Form.useForm();
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (value) {
@@ -20,11 +21,19 @@ const SearchBar = () => {
     setParams("search", value);
   };
 
+  useEffect(() => {
+    if (!search) {
+      form.resetFields();
+    }
+  }, [search]);
+
   return (
     <Form
+      validateTrigger="onBlur"
       className="flex-1"
+      form={form}
       layout="inline"
-      initialValues={{ search: "" }}
+      initialValues={{ search }}
       onFinish={(values) => onSearch(values.search)}
     >
       <Item name="search" className="!w-full">

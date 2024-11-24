@@ -103,7 +103,12 @@ const CategoryModal = ({
         tip={createLoading ? "Creating..." : "Updating..."}
       >
         <div className="text-red-500">{error}</div>
-        <Form layout="vertical" form={form} onFinish={onFinish}>
+        <Form
+          validateTrigger="onBlur"
+          layout="vertical"
+          form={form}
+          onFinish={onFinish}
+        >
           <Item
             label="Name"
             name="name"

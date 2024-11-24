@@ -9,11 +9,15 @@ const ProductImages = ({ images }: { images: string[] }) => {
 
   return (
     <div className=" flex gap-6 flex-col md:flex-row-reverse w-full">
-      <Image
-        src={images[index]}
-        alt="Product Image"
-        className=" !h-[300px] md:!h-[500px]   md:!flex-1   !w-full rounded-md object-cover !overflow-hidden "
-      />
+      <div className="flex-1 relative w-full h-[300px] md:h-[500px] rounded-md overflow-hidden">
+        <Image
+          src={images[index]}
+          alt="Product Image"
+          width={"100%"}
+          height={"100%"}
+          className=" !object-cover"
+        />
+      </div>
       {images.length > 2 && (
         <div className="flex flex-row md:flex-col gap-4 w-full  md:w-32  flex-shrink-0">
           {images.map((item: any, i: number) => (

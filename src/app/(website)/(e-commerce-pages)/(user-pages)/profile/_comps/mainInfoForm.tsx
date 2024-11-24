@@ -49,6 +49,7 @@ const MainInfoForm = () => {
         <UploadAvatar image={image} setImage={setImage} />
       </div>
       <Form
+        validateTrigger="onBlur"
         onFinish={updateUserHandler}
         form={form}
         layout="vertical"

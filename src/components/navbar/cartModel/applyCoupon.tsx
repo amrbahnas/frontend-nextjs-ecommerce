@@ -35,6 +35,7 @@ const ApplyCoupon = ({
 
   return (
     <Form
+      validateTrigger="onBlur"
       disabled={(appliedCoupon ? true : false) || isPending}
       form={form}
       onFinish={onFinish}

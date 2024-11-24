@@ -110,6 +110,7 @@ const ProductForm = ({ id }: { id?: string }) => {
         tip={createLoading ? "Creating..." : "Updating..."}
       >
         <Form
+          validateTrigger="onBlur"
           layout="vertical"
           form={form}
           className="!w-full"

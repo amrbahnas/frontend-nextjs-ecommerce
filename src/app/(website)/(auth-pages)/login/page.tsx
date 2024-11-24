@@ -60,6 +60,7 @@ const LoginPage = ({}) => {
             </div>
           )}
           <Form
+            validateTrigger="onBlur"
             className="flex flex-col gap-5 w-full  "
             form={form}
             layout="vertical"

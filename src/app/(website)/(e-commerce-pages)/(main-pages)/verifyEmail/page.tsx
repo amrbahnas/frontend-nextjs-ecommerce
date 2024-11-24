@@ -16,7 +16,7 @@ const VerifyEmail = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { user, setUser } = useUserStore();
-  // const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
+  const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
   const { getParams, setParams } = useParamsService({});
   const status = getParams("status");
@@ -28,13 +28,13 @@ const VerifyEmail = () => {
   const { verifyEmail, verifyEmailLoading, verifyEmailError } =
     useVerifyEmail();
 
-  const getTitleAndButtonText = useCallback((status: string | null) => {
-    switch (status) {
-      case "send-code":
+  const getTitleAndButtonText = useCallback((screen: SCREENS) => {
+    switch (screen) {
+      case SCREENS.EMAIL_VERIFIED:
         return { formTitle: "Verify Your Email", buttonTitle: "Verify Now" };
-      case "enter-code":
+      case SCREENS.SEND_Email_CODE:
         return { formTitle: "Enter Verify Code", buttonTitle: "Verify Email" };
-      case "success":
+      case SCREENS.VERIFICATION_Email_CODE:
         return {
           formTitle: "Congratulations! You are almost there.",
           buttonTitle: "Continue",
@@ -44,30 +44,29 @@ const VerifyEmail = () => {
     }
   }, []);
 
-  const { formTitle, buttonTitle } = getTitleAndButtonText(status);
+  const { formTitle, buttonTitle } = getTitleAndButtonText(screen);
   const loading = sendVerificationEmailCodeLoading || verifyEmailLoading;
 
   const handleSubmit = async (values: any) => {
-    switch (status) {
-      case "send-code":
+    switch (screen) {
+      case SCREENS.SEND_Email_CODE:
         sendVerificationEmailCode(
           { email: user?.email },
           {
             onSuccess: () => {
-              // setScreen(SCREENS.VERIFICATION_Email_CODE);
+              setScreen(SCREENS.VERIFICATION_Email_CODE);
               setParams("status", "enter-code");
             },
           }
         );
         break;
-      case "enter-code":
+      case SCREENS.VERIFICATION_Email_CODE:
         verifyEmail(values, {
           onSuccess: (res) => {
             const newUser = res.data.user;
             setUser(newUser);
             setParams("status", "success");
-
-            // setScreen(SCREENS.EMAIL_VERIFIED);
+            setScreen(SCREENS.EMAIL_VERIFIED);
           },
         });
         break;
@@ -91,7 +90,7 @@ const VerifyEmail = () => {
             {!SCREENS.EMAIL_VERIFIED && (
               <h1 className="text-2xl font-semibold mb-8">{formTitle}</h1>
             )}
-            {status === "send-code" && (
+            {screen === SCREENS.SEND_Email_CODE && (
               <div className="flex flex-col gap-2 w-full md:w-[500px] mb-4 ">
                 <div className=" text-lg flex  items-center justify-center">
                   <Image
@@ -115,7 +114,7 @@ const VerifyEmail = () => {
                 <Error error={sendVerificationEmailCodeError} />
               </div>
             )}
-            {status === "enter-code" && (
+            {screen === SCREENS.VERIFICATION_Email_CODE && (
               <div className="flex flex-col gap-4  justify-center items-center">
                 {/*  check your email */}
                 <Image
@@ -166,7 +165,7 @@ const VerifyEmail = () => {
                 </div>
               </div>
             )}
-            {status === "success" && (
+            {screen === SCREENS.EMAIL_VERIFIED && (
               <Result
                 status="success"
                 title="Your email has been verified successfully!"

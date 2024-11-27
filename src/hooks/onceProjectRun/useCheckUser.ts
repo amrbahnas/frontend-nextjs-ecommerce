@@ -35,6 +35,8 @@ const useCheckUser = () => {
 
     checkUser();
   }, [pathName]);
+
+  return null;
 };
 
 export default useCheckUser;

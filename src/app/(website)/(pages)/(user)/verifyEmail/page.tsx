@@ -7,7 +7,7 @@ import useUserStore from "@/store/useUserStore";
 import { Button, Form, Input, Result, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../enum/pagesScreens";
+import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
 import { MdMarkEmailUnread } from "react-icons/md";
 import Image from "next/image";

@@ -1,5 +1,5 @@
 "use client";
-import Add from "@/app/(website)/(pages)/(main-pages)/product/_comps/add";
+import Add from "@/app/(website)/(pages)/product/_comps/add";
 import Reviews from "../_comps/reviews/reviews";
 import Container from "@/components/container";
 import { Rate } from "antd";

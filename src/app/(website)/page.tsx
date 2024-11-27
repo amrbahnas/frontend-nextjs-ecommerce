@@ -1,8 +1,8 @@
 "use client";
-import CategoriesSlider from "@/app/(website)/(e-commerce-pages)/_comps/categoriesSlider";
+import CategoriesSlider from "@/app/(website)/(pages)/_comps/categoriesSlider";
 import Container from "@/components/container";
 import Slider from "@/components/slider";
-import FeaturedProducts from "./(e-commerce-pages)/_comps/featuredProducts";
+import FeaturedProducts from "./(pages)/_comps/featuredProducts";
 import Image from "next/image";
 
 const HomePage = () => {

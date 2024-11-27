@@ -10,7 +10,7 @@ import CartBody from "./cartBody";
 const CartModal = () => {
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { storeCart, cartItemsCount } = useCardStore();
+  const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
 
   const {
     cart: apiCart,
@@ -25,6 +25,15 @@ const CartModal = () => {
   useEffect(() => {
     if (open && isLogin) refetch();
   }, [open, isLogin, refetch]);
+
+  useEffect(() => {
+    if (apiCart._id && isLogin) {
+      setOnlineCart({
+        cartItems: apiCart.cartItems,
+        totalCartPrice: apiCart.totalCartPrice,
+      });
+    }
+  }, [apiCart]);
 
   return (
     <Popover

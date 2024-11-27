@@ -45,6 +45,11 @@ type CartType = {
   appliedCoupon?: CouponType;
 };
 
+type CartStoreType = {
+  cartItems: CartItemType[];
+  totalCartPrice: number;
+};
+
 type CartItemType = {
   product: Product;
   color: string;

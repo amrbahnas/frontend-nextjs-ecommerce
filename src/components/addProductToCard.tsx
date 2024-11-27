@@ -32,8 +32,12 @@ const AddProductToCard = ({
   const { _id, colors = [], availableSizes = [], quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
-  const { addCartItem, increaseCartItemsCount, setCartItemsCount } =
-    useCardStore();
+  const {
+    addCartItem,
+    increaseCartItemsCount,
+    setCartItemsCount,
+    setOnlineCart,
+  } = useCardStore();
 
   const commonOptions: ButtonProps = React.useMemo(
     () => ({
@@ -71,6 +75,11 @@ const AddProductToCard = ({
                 onSuccess: (res) => {
                   console.log("🚀 ~ res:", res);
                   const cartItemsCount = res.data.cartItemsCount;
+                  const cart = res.data.cart;
+                  setOnlineCart({
+                    cartItems: cart.cartItems,
+                    totalCartPrice: cart.totalCartPrice,
+                  });
                   setCartItemsCount(cartItemsCount);
                   toast.success("Product added to cart");
                 },

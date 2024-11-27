@@ -5,8 +5,8 @@ import { Button, Empty, Popconfirm, Radio, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import CartItem from "./cartItem";
 import ApplyCoupon from "./applyCoupon";
+import CartItem from "./cartItem";
 import Pricing from "./pricing";
 
 const { Group } = Radio;
@@ -34,7 +34,6 @@ const CartBody = ({
     cartLoading,
     resetCart: resetStoreCart,
     setCartItemsCount,
-    cartItemsCount,
   } = useCardStore();
 
   const { resetApiCart, resetApiCartLoading } = useResetCart();
@@ -51,13 +50,12 @@ const CartBody = ({
             refetch();
             toast.success("Cart reset successfully");
             setOpen(false);
-            setCartItemsCount(0);
+            resetStoreCart();
           },
         }
       );
     } else {
       resetStoreCart();
-      setCartItemsCount(0);
     }
   };
 

@@ -7,6 +7,7 @@ import NextImage from "../ui/nextImage";
 import ProductStatusBadge from "./productStatusBadge";
 import DisplayPrice from "../ui/displayPrice";
 import SavingPercentage from "../ui/savingPercentage";
+import CardBadge from "./cardBadge";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {
@@ -57,7 +58,6 @@ const ProductCard = ({ product }: { product: Product }) => {
             <SavingPercentage beforePrice={price + 50} afterPrice={price} />
           </div>
         </Link>
-        <WishlistButton productId={_id} className="absolute top-4 left-4 " />
         <Divider className="!my-0" />
         <div className="px-3 pb-3">
           {quantity === 0 ? (
@@ -78,6 +78,10 @@ const ProductCard = ({ product }: { product: Product }) => {
               }}
             />
           )}
+        </div>
+        <div className="absolute top-4 left-4 flex flex-col gap-2 ">
+          <WishlistButton productId={_id} />
+          <CardBadge productId={_id} />
         </div>
       </div>
     </ProductStatusBadge>

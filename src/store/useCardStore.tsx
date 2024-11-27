@@ -3,8 +3,10 @@ import { persist } from "zustand/middleware";
 
 type Store = {
   storeCart: CartType;
+  onlineCart: CartStoreType;
   cartItemsCount: number;
   cartLoading: boolean;
+  setOnlineCart: (cart: CartStoreType) => void;
   setCartItemsCount: (count: number) => void;
   increaseCartItemsCount: () => void;
   decreaseCartItemsCount: () => void;
@@ -48,8 +50,13 @@ const useCardStore = create<Store>(
         cartItems: [],
         totalCartPrice: 0,
       },
+      onlineCart: {
+        cartItems: [],
+        totalCartPrice: 0,
+      },
       cartItemsCount: 0,
       cartLoading: false,
+      setOnlineCart: (cart: CartType) => set({ onlineCart: cart }),
       setCartItemsCount: (count: number) => set({ cartItemsCount: count }),
       increaseCartItemsCount: () =>
         set((state: Store) => ({ cartItemsCount: state.cartItemsCount + 1 })),
@@ -87,6 +94,12 @@ const useCardStore = create<Store>(
       resetCart: () =>
         set({
           storeCart: {
+            cartItems: [],
+            totalCartPrice: 0,
+          },
+          cartItemsCount: 0,
+          cartLoading: false,
+          onlineCart: {
             cartItems: [],
             totalCartPrice: 0,
           },

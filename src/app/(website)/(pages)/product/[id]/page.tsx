@@ -1,19 +1,16 @@
 "use client";
 import Add from "@/app/(website)/(pages)/product/_comps/add";
-import Reviews from "../_comps/reviews/reviews";
 import Container from "@/components/container";
+import DisplayPrice from "@/components/ui/displayPrice";
+import SavingPercentage from "@/components/ui/savingPercentage";
 import { Rate } from "antd";
-import { MdLocalOffer } from "react-icons/md";
 import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
-import DisplayPrice from "@/components/ui/displayPrice";
-import SavingPercentage from "@/components/ui/savingPercentage";
+import Reviews from "../_comps/reviews/reviews";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
-  const { product, error, isLoading, refetch } = useGetSpecificProduct(
-    params.id
-  );
+  const { product, isLoading } = useGetSpecificProduct(params.id);
 
   if (isLoading) return <ProductSkeleton />;
 

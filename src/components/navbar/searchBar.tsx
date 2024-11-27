@@ -1,9 +1,9 @@
 "use client";
-import type { GetProps } from "antd";
+import type { GetProps, InputRef } from "antd";
 import { Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import useParamsService from "../../hooks/global/useParamsService";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 const { Item } = Form;
@@ -13,8 +13,12 @@ const SearchBar = () => {
   const router = useRouter();
   const search = getParams("search");
   const [form] = Form.useForm();
+  const inputRef = useRef<InputRef>(null);
 
   const onSearch: SearchProps["onSearch"] = (value) => {
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
     if (value) {
       return router.push(`/list?search=${value}`);
     }
@@ -38,6 +42,7 @@ const SearchBar = () => {
     >
       <Item name="search" className="!w-full">
         <Search
+          ref={inputRef}
           allowClear
           size="large"
           placeholder="input search text"

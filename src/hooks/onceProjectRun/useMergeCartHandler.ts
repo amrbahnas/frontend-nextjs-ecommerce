@@ -5,8 +5,13 @@ import { useEffect } from "react";
 
 const useMergeCartHandler = () => {
   const { mergeCart } = useMergeLocalCart();
-  const { storeCart, resetCart, setCartItemsCount, setCartLoading } =
-    useCardStore();
+  const {
+    storeCart,
+    resetCart,
+    setCartItemsCount,
+    setCartLoading,
+    setOnlineCart,
+  } = useCardStore();
   const isLogin = useAuthStore((state) => state.isLogin);
 
   const mergeCartHandler = () => {
@@ -16,7 +21,13 @@ const useMergeCartHandler = () => {
         { cart: storeCart },
         {
           onSuccess: (res) => {
+            console.log("🚀 ~ mergeCartHandler ~ res:", res);
             const newCartItemsCount = res.data.cartItemsCount;
+            const cart = res.data.cart;
+            setOnlineCart({
+              cartItems: cart.cartItems,
+              totalCartPrice: cart.totalCartPrice,
+            });
             setCartItemsCount(newCartItemsCount);
             resetCart();
             setCartLoading(false);

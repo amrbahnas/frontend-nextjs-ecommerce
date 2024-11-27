@@ -7,12 +7,17 @@ export const useResetAppData = () => {
   const router = useRouter();
   const removeAuthData = useAuthStore((state) => state.removeAuthData);
   const setUser = useUserStore((state) => state.setUser);
-  const { setCartItemsCount } = useCardStore();
+  const { setCartItemsCount, setCartLoading, setOnlineCart } = useCardStore();
 
   const reset = (customRoute = "/") => {
     removeAuthData();
     setUser(null);
     setCartItemsCount(0);
+    setCartLoading(false);
+    setOnlineCart({
+      cartItems: [],
+      totalCartPrice: 0,
+    });
     router.refresh();
     router.push(customRoute);
   };

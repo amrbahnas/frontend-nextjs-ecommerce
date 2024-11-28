@@ -9,22 +9,33 @@ import Container from "@/components/container";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
 import { Button, Empty, Spin } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartPageSkeleton from "./_comps/cartPage.skeleton";
 import Link from "next/link";
 import { GrShop } from "react-icons/gr";
+import useCardStore from "@/store/useCardStore";
 
 const Page = () => {
   const [deleting, setDeleting] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { cart, isLoading: fetchLoading, refetch } = useGetCart({});
+  const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
+  const {
+    cart: apiCart,
+    isLoading: fetchLoading,
+    refetch,
+  } = useGetCart({
+    skip: !isLogin,
+  });
+
+  const renderedCart = isLogin ? apiCart : storeCart;
+
   const {
     cartItems = [],
     totalCartPrice,
     _id: cartId,
     totalPriceAfterDiscount,
     appliedCoupon,
-  } = cart;
+  } = renderedCart;
   const {
     isLoading,
     handleResetCart,
@@ -35,6 +46,15 @@ const Page = () => {
     cartId,
     refetch,
   });
+
+  useEffect(() => {
+    if (apiCart._id && isLogin) {
+      setOnlineCart({
+        cartItems: apiCart.cartItems,
+        totalCartPrice: apiCart.totalCartPrice,
+      });
+    }
+  }, [apiCart]);
 
   if (fetchLoading) return <CartPageSkeleton />;
 
@@ -65,7 +85,7 @@ const Page = () => {
             ))}
           </div>
           <div className="w-full md:w-72 flex flex-col gap-4">
-            {cartItems.length > 0 && (
+            {cartItemsCount > 0 && (
               <ApplyCoupon
                 refetchCart={refetch}
                 hidden={!isLogin}

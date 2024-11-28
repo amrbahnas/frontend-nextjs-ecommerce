@@ -8,7 +8,7 @@ import CategoryModal from "./_comps/categoryModal";
 import { MdEdit } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useAdminDeleteCategory } from "./_api/action";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import AdminPageTile from "../_comps/adminPageTile";
 
 const Page = () => {

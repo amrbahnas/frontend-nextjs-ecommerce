@@ -4,7 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { useAdminDeleteProduct } from "../products/_api/actions";
 import { Button, Popconfirm } from "antd";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import NextImage from "@/components/ui/nextImage";
 const AdminProductCard = ({
   product,

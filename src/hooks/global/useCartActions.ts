@@ -3,7 +3,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const useCartActions = ({
   cartId,

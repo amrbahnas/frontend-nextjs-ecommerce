@@ -6,7 +6,7 @@ import UploadAvatar from "@/components/ui/uploadAvatar";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import useUserStore from "@/store/useUserStore";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useMe } from "@/_api/query";
 
 const MainInfoForm = () => {

@@ -2,7 +2,7 @@
 import useAuthStore from "@/store/useAuthStore";
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import axiosInstance from "../../config/apiClient";
 
 import { useResetAppData } from "../global/useResetAppData";

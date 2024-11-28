@@ -2,7 +2,7 @@ import axiosInstance from "@/config/apiClient";
 import useAuthStore from "@/store/useAuthStore";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
 
 const useMutation = (

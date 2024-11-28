@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import useAuthStore from "@/store/useAuthStore";
 import useMutation from "@/hooks/apiHandler/useMutation";
 

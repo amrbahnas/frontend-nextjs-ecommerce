@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useAdminCreateProduct, useAdminEditProduct } from "../_api/actions";
 import { useGetAdminProduct } from "../_api/query";
 import CategorySelector from "./selectors/categorySelector";

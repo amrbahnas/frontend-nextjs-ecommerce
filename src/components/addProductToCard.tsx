@@ -2,9 +2,10 @@ import { useAddProductToCart } from "@/_api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Button, ButtonProps, Tooltip } from "antd";
+import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
-import { toast } from "react-toastify";
 
 type ButtonStyleType = {
   buttonClassName?: string;
@@ -81,7 +82,7 @@ const AddProductToCard = ({
                     totalCartPrice: cart.totalCartPrice,
                   });
                   setCartItemsCount(cartItemsCount);
-                  toast.success("Product added to cart");
+                  successToast();
                 },
               }
             );
@@ -108,12 +109,31 @@ const AddProductToCard = ({
             _id,
           });
           if (!isExist) increaseCartItemsCount();
-          toast.success("Product added to cart");
+          successToast();
         }}
       >
         Add to Cart
       </Button>
     </Tooltip>
+  );
+};
+
+const successToast = () => {
+  toast.success(
+    <div>
+      Product added to cart
+      <Link
+        href="/cart"
+        className="!text-blue-500 !underline !ml-2 !font-semibold"
+      >
+        View Cart
+      </Link>
+    </div>,
+    {
+      position: "bottom-center",
+      className: "mb-10",
+      duration: 3000,
+    }
   );
 };
 

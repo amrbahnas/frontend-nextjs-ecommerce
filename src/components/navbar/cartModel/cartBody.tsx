@@ -1,14 +1,10 @@
-import { useCardCheckout, useCashCheckout, useResetCart } from "@/_api/actions";
+import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import useCardStore from "@/store/useCardStore";
 import { Button, Empty, Popconfirm, Radio, Spin } from "antd";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import ApplyCoupon from "../../cart/applyCoupon";
 import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
-
 const { Group } = Radio;
 
 const CartBody = ({
@@ -20,7 +16,8 @@ const CartBody = ({
   refetch: any;
   setOpen: (value: boolean) => void;
 }) => {
-  const router = useRouter();
+  const [deleting, setDeleting] = useState(false);
+  const isLogin = useAuthStore((state) => state.isLogin);
   const {
     cartItems = [],
     totalCartPrice,
@@ -28,70 +25,21 @@ const CartBody = ({
     totalPriceAfterDiscount,
     appliedCoupon,
   } = cart;
-  const [deleting, setDeleting] = useState(false);
-  const isLogin = useAuthStore((state) => state.isLogin);
+
   const {
-    cartLoading,
-    resetCart: resetStoreCart,
-    setCartItemsCount,
-  } = useCardStore();
-
-  const { resetApiCart, resetApiCartLoading } = useResetCart();
-  const [checkoutType, setCheckoutType] = useState<"card" | "cash">("card");
-  const { cardCheckout, checkoutLoading } = useCardCheckout(cartId);
-  const { cashCheckout, cashCheckoutLoading } = useCashCheckout(cartId);
-
-  const handleResetCart = async () => {
-    if (isLogin) {
-      resetApiCart(
-        {},
-        {
-          onSuccess: () => {
-            refetch();
-            toast.success("Cart reset successfully");
-            setOpen(false);
-            resetStoreCart();
-          },
-        }
-      );
-    } else {
-      resetStoreCart();
-    }
-  };
-
-  const handleCheckout = () => {
-    if (!isLogin) {
-      router.push("/login");
-      setOpen(false);
-      return;
-    }
-    if (checkoutType === "card") {
-      cardCheckout(
-        {},
-        {
-          onSuccess: (res) => {
-            window.location.href = res.data.checkoutPage;
-          },
-        }
-      );
-    } else {
-      cashCheckout(
-        {},
-        {
-          onSuccess: (res) => {
-            const orderId = res.data.orderId;
-            toast.success("Order placed successfully");
-            router.push("/orders/" + orderId);
-            setOpen(false);
-            setCartItemsCount(0);
-          },
-        }
-      );
-    }
-  };
+    isLoading,
+    handleResetCart,
+    checkoutType,
+    setCheckoutType,
+    handleCheckout,
+  } = useCartActions({
+    cartId,
+    refetch,
+    onSuccess: setOpen,
+  });
 
   return (
-    <Spin spinning={deleting || cartLoading || resetApiCartLoading}>
+    <Spin spinning={isLoading || deleting}>
       <div className="  flex flex-col gap-6 z-20  w-72">
         {!cartItems[0] ? (
           <Empty />
@@ -156,8 +104,8 @@ const CartBody = ({
               <div className="flex justify-between text-sm">
                 {/* <Button className="!py-5">View Cart</Button> */}
                 <Button
-                  loading={checkoutLoading || cashCheckoutLoading}
-                  disabled={checkoutLoading || cashCheckoutLoading}
+                  loading={isLoading}
+                  disabled={isLoading}
                   onClick={handleCheckout}
                   className=" !py-5  !bg-black/90 hover:scale-105 !border-none !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
                 >

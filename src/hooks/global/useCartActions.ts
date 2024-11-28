@@ -6,15 +6,16 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const useCartActions = ({
-  cart,
+  cartId,
   refetch,
+  onSuccess,
 }: {
-  cart: CartType;
+  cartId: string;
   refetch: any;
+  onSuccess?: any;
 }) => {
   const router = useRouter();
-  const { cartItems = [], _id: cartId } = cart;
-  const [deleting, setDeleting] = useState(false);
+
   const isLogin = useAuthStore((state) => state.isLogin);
   const {
     cartLoading,
@@ -25,7 +26,7 @@ const useCartActions = ({
   const { resetApiCart, resetApiCartLoading } = useResetCart();
   const [checkoutType, setCheckoutType] = useState<"card" | "cash">("card");
   const { cardCheckout, checkoutLoading } = useCardCheckout(cartId);
-  const { cashCheckout } = useCashCheckout(cartId);
+  const { cashCheckout, cashCheckoutLoading } = useCashCheckout(cartId);
 
   const handleResetCart = async () => {
     if (isLogin) {
@@ -35,7 +36,8 @@ const useCartActions = ({
           onSuccess: () => {
             refetch();
             toast.success("Cart reset successfully");
-            // setOpen(false);
+
+            onSuccess && onSuccess();
             resetStoreCart();
           },
         }
@@ -48,7 +50,8 @@ const useCartActions = ({
   const handleCheckout = () => {
     if (!isLogin) {
       router.push("/login");
-      //   setOpen(false);
+
+      onSuccess && onSuccess();
       return;
     }
     if (checkoutType === "card") {
@@ -68,7 +71,8 @@ const useCartActions = ({
             const orderId = res.data.orderId;
             toast.success("Order placed successfully");
             router.push("/orders/" + orderId);
-            // setOpen(false);
+
+            onSuccess && onSuccess();
             setCartItemsCount(0);
           },
         }
@@ -84,9 +88,11 @@ const useCartActions = ({
     checkoutLoading,
     cartLoading,
     resetApiCartLoading,
-    deleting,
-    setDeleting,
-    cartItems,
+    isLoading:
+      cartLoading ||
+      resetApiCartLoading ||
+      checkoutLoading ||
+      cashCheckoutLoading,
   };
 };
 

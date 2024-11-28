@@ -6,12 +6,15 @@ import SearchBar from "./searchBar";
 import NextImage from "../ui/nextImage";
 import { usePathname } from "next/navigation";
 import DisableLink from "../ui/disableLink";
+import { PageLinks } from "./pageLinks";
+import { useState } from "react";
 
 const Navbar = () => {
   const pathName = usePathname();
+
   return (
     <Container className=" shadow-sm">
-      <div className="min-h-20 flex  flex-col  justify-center py-4 ">
+      <div className="min-h-20 flex  flex-col  justify-center py-2 md:py-4 ">
         <div className="flex items-center justify-between h-full ">
           {/* left */}
           <DisableLink
@@ -20,27 +23,13 @@ const Navbar = () => {
             className="flex items-center gap-1 md:gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
-            <div className=" text-lg md:text-2xl tracking-wide">Shope</div>
+            <div className=" text-lg md:text-2xl tracking-wide hidden md:block">
+              Shope
+            </div>
           </DisableLink>
 
           {/* Big screen */}
-          <div className="hidden xl:flex gap-4">
-            <DisableLink disabled href={"/"}>
-              Home
-            </DisableLink>
-            <DisableLink disabled href={"/"}>
-              Shop
-            </DisableLink>
-            <DisableLink disabled href={"/"}>
-              Deals
-            </DisableLink>
-            <DisableLink disabled href={"/"}>
-              About
-            </DisableLink>
-            <DisableLink disabled href={"/"}>
-              Contact
-            </DisableLink>
-          </div>
+          <PageLinks />
           {/* Big screen */}
           <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
             <SearchBar />
@@ -48,15 +37,14 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-6">
             {/* Mobile */}
-            <div className="flex md:hidden items-center justify-between h-full gap-6">
+            <div className="flex md:hidden items-center justify-between h-full gap-3">
               <NavIcons />
-
               <Menu />
             </div>
           </div>
         </div>
         {/*  mobile */}
-        <div className=" mt-6 block md:hidden items-center justify-between h-full">
+        <div className=" mt-3 block md:hidden ">
           <SearchBar />
         </div>
       </div>

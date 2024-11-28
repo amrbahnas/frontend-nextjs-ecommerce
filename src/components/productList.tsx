@@ -19,12 +19,7 @@ const ProductList = ({
       </RenderedCardsGrid>
     );
 
-  if (products?.length === 0)
-    return (
-      <p className="text-center text-2xl font-semibold mt-12">
-        <NoData />
-      </p>
-    );
+  if (products?.length === 0) return <NoData />;
 
   return (
     <RenderedCardsGrid length={products?.length}>

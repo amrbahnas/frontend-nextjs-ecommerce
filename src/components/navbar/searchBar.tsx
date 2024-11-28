@@ -4,20 +4,27 @@ import { Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import useParamsService from "../../hooks/global/useParamsService";
 import { useEffect, useRef } from "react";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
 const { Item } = Form;
 
-const SearchBar = () => {
+const SearchBar = ({
+  setIsSearchOpen,
+}: {
+  setIsSearchOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { setParams, getParams } = useParamsService("okay I will");
   const router = useRouter();
   const search = getParams("search");
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef>(null);
+  const lg = useBreakPoints("lg");
 
   const onSearch: SearchProps["onSearch"] = (value) => {
     if (inputRef.current) {
       inputRef.current.blur();
+      setIsSearchOpen && setIsSearchOpen(false);
     }
     if (value) {
       return router.push(`/list?search=${value}`);
@@ -40,11 +47,11 @@ const SearchBar = () => {
       initialValues={{ search }}
       onFinish={(values) => onSearch(values.search)}
     >
-      <Item name="search" className="!w-full">
+      <Item noStyle name="search" className="!w-full">
         <Search
           ref={inputRef}
           allowClear
-          size="large"
+          size={lg ? "large" : "middle"}
           placeholder="input search text"
           onSearch={onSearch}
         />

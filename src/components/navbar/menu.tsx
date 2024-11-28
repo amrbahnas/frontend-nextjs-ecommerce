@@ -14,7 +14,7 @@ const Menu = () => {
         className="cursor-pointer"
         onClick={() => setOpen(!open)}
       />
-      <Drawer onClose={() => setOpen(false)} open={open}>
+      <Drawer width={"80%"} onClose={() => setOpen(false)} open={open}>
         <div
           className="flex flex-col items-center justify-center gap-8"
           style={{ height: "100%" }}

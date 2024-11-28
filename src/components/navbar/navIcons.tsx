@@ -1,17 +1,15 @@
 "use client";
 import useAuthStore from "@/store/useAuthStore";
 import { Avatar, Badge, Button, Popover } from "antd";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 import { useLogout } from "@/hooks/global/useLogout";
-import Link from "next/link";
-import CartModal from "./cartModel";
 import useUserStore from "@/store/useUserStore";
-import { MdDashboard } from "react-icons/md";
-import NextImage from "../ui/nextImage";
+import Link from "next/link";
 import { CiHeart } from "react-icons/ci";
+import { MdDashboard } from "react-icons/md";
+import CartModal from "./cartModel";
 const NavIcons = () => {
   const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -33,7 +31,7 @@ const NavIcons = () => {
   };
 
   return (
-    <div className="flex items-center gap-4 xl:gap-6">
+    <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
       <Popover
         open={isProfileOpen}
         onOpenChange={handleProfileIcon}
@@ -61,9 +59,7 @@ const NavIcons = () => {
       >
         <div className="flex items-center gap-2 cursor-pointer">
           <Avatar src={user?.profileImg || "/profile.png"} size={30} alt="" />
-          <span className={isAdmin ? "hidden" : "block truncate"}>
-            {user?.name}
-          </span>
+          <span className=" hidden md:block truncate">{user?.name}</span>
         </div>
       </Popover>
 
@@ -85,13 +81,6 @@ const NavIcons = () => {
           </Badge>
         </Link>
       )}
-      {/* <NextImage
-        src="/notification.png"
-        width={22}
-        height={22}
-        alt="heart"
-        className=" cursor-pointer"
-      /> */}
       <CartModal />
     </div>
   );

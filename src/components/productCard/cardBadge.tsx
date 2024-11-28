@@ -5,17 +5,16 @@ import React from "react";
 import { BsCartCheck } from "react-icons/bs";
 
 const CardBadge = ({ productId }: { productId: string }) => {
-  // const [isExist, setIsExist] = React.useState(false);
   const inLogin = useAuthStore((state) => state.isLogin);
   const cartItems = useCardStore((state) =>
     inLogin ? state.onlineCart.cartItems : state.storeCart.cartItems
   );
   console.log("🚀 ~ CardBadge ~ cartItems:", cartItems);
 
-  const isExist = cartItems.find((item) => item.product._id === productId);
-  // React.useEffect(() => {
-  //   setIsExist(isExist);
-  // }, [cartItems]);
+  const isExist = cartItems.find(
+    (item) =>
+      item.product._id === productId || String(item.product) === productId
+  );
 
   if (!isExist?._id) return null;
   return (

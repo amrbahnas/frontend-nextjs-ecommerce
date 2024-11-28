@@ -1,11 +1,13 @@
+import CheckoutType from "@/components/cart/checkoutType";
+import ResetCart from "@/components/cart/resetCart";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Empty, Popconfirm, Radio, Spin } from "antd";
+import { Button, Empty, Spin } from "antd";
+import Link from "next/link";
 import { useState } from "react";
 import ApplyCoupon from "../../cart/applyCoupon";
 import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
-const { Group } = Radio;
 
 const CartBody = ({
   cart,
@@ -45,26 +47,12 @@ const CartBody = ({
           <Empty />
         ) : (
           <>
-            {/* reset */}
             <div className="flex  justify-between items-center mt-2">
               <h2 className="text-xl">Shopping Cart</h2>
-              <Popconfirm
-                title="You will lose all items in your cart ?"
-                okText="Ok"
-                cancelText="Cancel"
-                onConfirm={handleResetCart}
-              >
-                <Button
-                  className="text-xs  text-gray-500 !p-0 underline"
-                  type="link"
-                >
-                  Reset Cart
-                </Button>
-              </Popconfirm>
+              <ResetCart handleResetCart={handleResetCart} />
             </div>
-            {/* LIST */}
+
             <div className="flex flex-col gap-8">
-              {/* ITEM */}
               {cartItems?.map((item: CartItemType) => (
                 <CartItem
                   item={item}
@@ -74,13 +62,13 @@ const CartBody = ({
                 />
               ))}
             </div>
-            {/* COUPON */}
+
             <ApplyCoupon
               refetchCart={refetch}
               hidden={!isLogin}
               appliedCoupon={appliedCoupon}
             />
-            {/* BOTTOM */}
+
             <div className="">
               <Pricing
                 totalCartPrice={totalCartPrice}
@@ -89,20 +77,11 @@ const CartBody = ({
               <p className="text-gray-500 text-sm mt-2 mb-4">
                 Shipping and taxes calculated at checkout.
               </p>
-              <div className="mb-4  space-y-2">
-                <div>
-                  <strong>Checkout Type</strong>
-                </div>
-                <Group
-                  value={checkoutType}
-                  onChange={(e) => setCheckoutType(e.target.value)}
-                >
-                  <Radio value="card">credit card</Radio>
-                  <Radio value="cash">Cash</Radio>
-                </Group>
-              </div>
-              <div className="flex justify-between text-sm">
-                {/* <Button className="!py-5">View Cart</Button> */}
+              <CheckoutType
+                checkoutType={checkoutType}
+                setCheckoutType={setCheckoutType}
+              />
+              <div className="flex  items-center gap-1 text-sm">
                 <Button
                   loading={isLoading}
                   disabled={isLoading}
@@ -111,6 +90,11 @@ const CartBody = ({
                 >
                   Checkout
                 </Button>
+                <Link href="/cart">
+                  <Button onClick={() => setOpen(false)} className="!py-5">
+                    View Cart
+                  </Button>
+                </Link>
               </div>
             </div>
           </>

@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import CartSkeleton from "./cart.skeleton";
 import CartBody from "./cartBody";
+import { useRouter } from "next/navigation";
 
 const CartModal = () => {
+  const route = useRouter();
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
@@ -38,7 +40,9 @@ const CartModal = () => {
   return (
     <Popover
       open={open}
-      onOpenChange={() => setOpen(!open)}
+      onOpenChange={() => {
+        cartItemsCount > 2 ? route.push("/cart") : setOpen(!open);
+      }}
       content={
         isLoading ? (
           <CartSkeleton />

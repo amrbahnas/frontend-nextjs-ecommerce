@@ -2,6 +2,7 @@ import { useRemoveItemFromCart } from "@/_api/actions";
 import NextImage from "@/components/ui/nextImage";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
+import Link from "next/link";
 
 const CartItem = ({
   item,
@@ -31,7 +32,10 @@ const CartItem = ({
         <div className="">
           {/* TITLE */}
           <div className="flex items-center justify-between gap-8">
-            <h3 className="font-semibold">{item.product?.title}</h3>
+            <Link href={`/product/${item.product?._id}`}>
+              <h3 className="font-semibold">{item.product?.title}</h3>
+            </Link>
+
             <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
               {item.quantity && item.quantity > 1 && (
                 <div className="text-xs text-green-500">{item.quantity} x </div>

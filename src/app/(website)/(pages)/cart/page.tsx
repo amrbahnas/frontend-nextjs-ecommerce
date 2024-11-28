@@ -61,8 +61,8 @@ const Page = () => {
   return (
     <Container>
       <Spin spinning={isLoading || deleting || fetchLoading}>
-        <div className="flex flex-col md:flex-row mt-6 gap-4 md:gap-32 items-center">
-          <div className="flex flex-col gap-8 h-80 overflow-scroll w-full md:flex-1">
+        <div className="flex flex-col md:flex-row mt-6 gap-4 md:gap-32 items-start">
+          <div className="flex flex-col gap-8 h-80 md:h-96 overflow-scroll w-full md:flex-1">
             {cartItems?.length === 0 && (
               <div className="flex justify-center items-center flex-col gap-3">
                 <Empty />

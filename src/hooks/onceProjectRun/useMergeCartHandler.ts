@@ -21,7 +21,6 @@ const useMergeCartHandler = () => {
         { cart: storeCart },
         {
           onSuccess: (res) => {
-            console.log("🚀 ~ mergeCartHandler ~ res:", res);
             const newCartItemsCount = res.data.cartItemsCount;
             const cart = res.data.cart;
             setOnlineCart({

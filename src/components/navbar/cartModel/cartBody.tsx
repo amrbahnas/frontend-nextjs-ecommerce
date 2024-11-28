@@ -5,9 +5,9 @@ import { Button, Empty, Popconfirm, Radio, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import ApplyCoupon from "./applyCoupon";
-import CartItem from "./cartItem";
-import Pricing from "./pricing";
+import ApplyCoupon from "../../cart/applyCoupon";
+import CartItem from "../../cart/cartItem";
+import Pricing from "../../cart/pricing";
 
 const { Group } = Radio;
 

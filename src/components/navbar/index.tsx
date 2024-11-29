@@ -1,13 +1,12 @@
 "use client";
+import { usePathname } from "next/navigation";
 import Container from "../container";
+import DisableLink from "../ui/disableLink";
+import NextImage from "../ui/nextImage";
 import Menu from "./menu";
 import NavIcons from "./navIcons";
-import SearchBar from "./searchBar";
-import NextImage from "../ui/nextImage";
-import { usePathname } from "next/navigation";
-import DisableLink from "../ui/disableLink";
 import { PageLinks } from "./pageLinks";
-import { useState } from "react";
+import SearchBar from "./searchBar";
 
 const Navbar = () => {
   const pathName = usePathname();
@@ -23,9 +22,7 @@ const Navbar = () => {
             className="flex items-center gap-1 md:gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
-            <div className=" text-lg md:text-2xl tracking-wide hidden md:block">
-              Shope
-            </div>
+            <div className=" text-lg md:text-2xl tracking-wide">Shope</div>
           </DisableLink>
 
           {/* Big screen */}

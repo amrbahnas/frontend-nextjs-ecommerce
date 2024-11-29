@@ -3,7 +3,6 @@ import useAuthStore from "@/store/useAuthStore";
 import { Avatar, Badge, Button, Popover } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
-
 import { useLogout } from "@/hooks/global/useLogout";
 import useUserStore from "@/store/useUserStore";
 import Link from "next/link";
@@ -59,7 +58,9 @@ const NavIcons = () => {
       >
         <div className="flex items-center gap-2 cursor-pointer">
           <Avatar src={user?.profileImg || "/profile.png"} size={30} alt="" />
-          <span className=" hidden md:block truncate">{user?.name}</span>
+          <span className=" hidden md:block truncate">
+            {user?.name || "Login"}
+          </span>
         </div>
       </Popover>
 

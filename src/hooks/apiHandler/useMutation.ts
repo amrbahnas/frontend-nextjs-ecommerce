@@ -33,7 +33,11 @@ const useMutation = (
       // variables => body sended
       // context => {queryClient, queryKey, queryVariables}
       // result => response from server
-      options?.onSuccess && options.onSuccess(result, variables, context);
+      try {
+        options?.onSuccess && options.onSuccess(result, variables, context);
+      } catch (error: any) {
+        toast.error(error);
+      }
     },
 
     onError: (error, variables, context) => {

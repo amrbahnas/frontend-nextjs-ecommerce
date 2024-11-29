@@ -84,7 +84,7 @@ const AddProductToCard = ({
                     setCartItemsCount(cartItemsCount);
                     successToast();
                   } catch (error: any) {
-                    toast.error(error);
+                    toast.error(String(error));
                   }
                 },
               }

@@ -4,6 +4,7 @@ import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
 import toast from "react-hot-toast";
 import axiosInstance from "../../config/apiClient";
+import Cookie from "js-cookie";
 
 import { useResetAppData } from "../global/useResetAppData";
 
@@ -33,6 +34,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
       toast.error(result.error.response?.data || "Internal Server Error");
     if (isLogin) {
       if (result.error.response?.status === 401) {
+        Cookie.remove("session");
         logout("/login");
       }
       if (result.error.response?.status === 403) {

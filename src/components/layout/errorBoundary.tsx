@@ -1,4 +1,5 @@
 "use client";
+import { Button, Result } from "antd";
 import React from "react";
 import { ErrorBoundary as ErrorBoundaryPkg } from "react-error-boundary";
 import toast from "react-hot-toast";
@@ -27,10 +28,14 @@ function ErrorFallback({
   resetErrorBoundary: () => void;
 }) {
   return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
+    <Result
+      status="warning"
+      title="There are some problems with your operation."
+      extra={
+        <Button type="primary" key="reset" onClick={resetErrorBoundary}>
+          Try again
+        </Button>
+      }
+    />
   );
 }

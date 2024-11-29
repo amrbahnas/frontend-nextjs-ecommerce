@@ -30,7 +30,7 @@ export const useLogin = () => {
 
       router.push(redirect || "/");
     } catch (error: any) {
-      toast.error(error);
+      toast.error(String(error));
     }
   };
 

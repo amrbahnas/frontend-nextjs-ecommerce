@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ErrorBoundary as ErrorBoundaryPkg } from "react-error-boundary";
 import toast from "react-hot-toast";

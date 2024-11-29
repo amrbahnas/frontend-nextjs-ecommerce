@@ -74,18 +74,18 @@ const AddProductToCard = ({
               },
               {
                 onSuccess: (res) => {
-                  try {
-                    const cartItemsCount = res.data.cartItemsCount;
-                    const cart = res.data?.cart;
-                    setOnlineCart({
-                      cartItems: cart?.cartItems || [],
-                      totalCartPrice: cart?.totalCartPrice || 0,
-                    });
-                    setCartItemsCount(cartItemsCount);
-                    successToast();
-                  } catch (error: any) {
-                    toast.error(String(error));
-                  }
+                  // try {
+                  const cartItemsCount = res.data.cartItemsCount;
+                  const cart = res.data?.cart.pay;
+                  setOnlineCart({
+                    cartItems: cart?.cartItems || [],
+                    totalCartPrice: cart?.totalCartPrice || 0,
+                  });
+                  setCartItemsCount(cartItemsCount);
+                  successToast();
+                  // } catch (error: any) {
+                  //   toast.error(String(error));
+                  // }
                 },
               }
             );

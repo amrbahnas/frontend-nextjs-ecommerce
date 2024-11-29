@@ -6,6 +6,7 @@ import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import ErrorBoundary from "@/components/layout/errorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <AntDLayout>
           <ReactQueryLayout>
-            <OnlineStatus>
-              <ProgressBarLayout>{children}</ProgressBarLayout>
-
-              <Toaster />
-            </OnlineStatus>
+            <ErrorBoundary>
+              <OnlineStatus>
+                <ProgressBarLayout>{children}</ProgressBarLayout>
+                <Toaster />
+              </OnlineStatus>
+            </ErrorBoundary>
           </ReactQueryLayout>
         </AntDLayout>
       </body>

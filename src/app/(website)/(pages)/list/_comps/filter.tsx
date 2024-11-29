@@ -1,7 +1,7 @@
 "use client";
 import CategoriesSelector from "@/components/selectors/categoriesSelector";
 import useParamsService from "@/hooks/global/useParamsService";
-import { Button, InputNumber, Select } from "antd";
+import { Button, InputNumber, Select, Tag } from "antd";
 import { useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import { GiSettingsKnobs } from "react-icons/gi";
@@ -37,8 +37,10 @@ const Filter = () => {
 
   return (
     <div className=" md:mt-4">
-      <div className="flex justify-end items-center md:mb-3">
+      <div className="flex justify-end items-center md:mb-3 gap-4">
+        <FilterTags setFilters={setFilters} />
         <Button
+          className=" flex-shrink-0"
           type="primary"
           icon={showFilter ? <CiFilter /> : <GiSettingsKnobs />}
           onClick={() => setShowFilter((prev) => !prev)}
@@ -124,3 +126,46 @@ const Filter = () => {
 };
 
 export default Filter;
+
+const FilterTags = ({
+  setFilters,
+}: {
+  setFilters: (filters: FilterProps) => void;
+}) => {
+  const { getCurrentParams, removeParams, resetParams } =
+    useParamsService("okay I will");
+  const params = getCurrentParams();
+
+  if (params.length === 0) return null;
+
+  return (
+    <div className="flex gap-1 w-[80%]  flex-wrap justify-end items-center">
+      {params.map((param) => (
+        <Tag
+          key={param.key}
+          closable
+          onClose={() => {
+            setFilters({}); // when clear filter state , inputs values will depend on url params
+            removeParams(param.key);
+          }}
+        >
+          <span className=" capitalize">{param.key}:</span>
+          {param.value}
+        </Tag>
+      ))}
+      {params.length > 0 && (
+        <Button
+          type="link"
+          icon={<GrPowerReset />}
+          onClick={() => {
+            resetParams();
+            setFilters({});
+          }}
+          size="small"
+        >
+          Reset
+        </Button>
+      )}
+    </div>
+  );
+};

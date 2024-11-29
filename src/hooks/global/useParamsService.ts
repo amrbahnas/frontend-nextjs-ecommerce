@@ -7,8 +7,10 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
   setParams: (key: string, value?: string) => void;
   setMultiParams: (params: { [key: string]: string }) => void;
-  resetParams: () => void;
   getParams: (key: string) => string | null;
+  getCurrentParams: () => { key: string; value: string }[];
+  removeParams: (key: string) => void;
+  resetParams: () => void;
 };
 
 const useParamsService: ParamsService = (
@@ -49,7 +51,30 @@ const useParamsService: ParamsService = (
     replace(pathname);
   };
 
-  return { setParams, resetParams, getParams, setMultiParams };
+  const getCurrentParams = () => {
+    const params = new URLSearchParams(searchParams);
+    const entries = params.entries();
+    const result = [];
+    for (const [key, value] of entries) {
+      result.push({ key, value });
+    }
+    return result;
+  };
+
+  const removeParams = (key: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(key);
+    replace(`${pathname}?${params.toString()}`);
+  };
+
+  return {
+    setParams,
+    resetParams,
+    getParams,
+    setMultiParams,
+    getCurrentParams,
+    removeParams,
+  };
 };
 
 export default useParamsService;

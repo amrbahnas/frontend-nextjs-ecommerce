@@ -8,7 +8,7 @@ import ResetCart from "@/components/cart/resetCart";
 import Container from "@/components/container";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Empty, Spin } from "antd";
+import { Button, Divider, Empty, Spin } from "antd";
 import { useEffect, useState } from "react";
 import CartPageSkeleton from "./_comps/cartPage.skeleton";
 import Link from "next/link";
@@ -63,7 +63,7 @@ const Page = () => {
     <Container>
       <Spin spinning={isLoading || deleting || fetchLoading}>
         <div className="flex flex-col md:flex-row mt-6 gap-4 md:gap-32 items-start">
-          <div className="flex flex-col gap-8 h-80 md:h-96 overflow-scroll w-full md:flex-1">
+          <div className="flex flex-col gap-8 h-96 overflow-scroll w-full md:flex-1">
             {cartItems?.length === 0 && (
               <div className="flex items-center flex-col gap-8">
                 <NoData />
@@ -97,6 +97,7 @@ const Page = () => {
                 appliedCoupon={appliedCoupon}
               />
             )}
+            <Divider />
             <Pricing
               totalCartPrice={totalCartPrice}
               totalPriceAfterDiscount={totalPriceAfterDiscount}
@@ -104,6 +105,7 @@ const Page = () => {
             <p className="text-gray-500 text-sm">
               Shipping and taxes calculated at checkout.
             </p>
+            <Divider />
             <CheckoutType
               checkoutType={checkoutType}
               setCheckoutType={setCheckoutType}

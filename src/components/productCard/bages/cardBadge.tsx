@@ -10,7 +10,6 @@ const CardBadge = ({ productId }: { productId: string }) => {
   const cartItems = useCardStore((state) =>
     inLogin ? state.onlineCart.cartItems : state.storeCart.cartItems
   );
-  console.log("🚀 ~ CardBadge ~ cartItems:", cartItems);
 
   const isExist = cartItems.find(
     (item) =>

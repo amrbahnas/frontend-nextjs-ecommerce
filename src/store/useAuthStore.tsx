@@ -17,6 +17,7 @@ const useAuthStore = create<Store>(
   persist(
     (set) => ({
       isLogin: false,
+      isAdmin: false,
       setAuthData: (payload: AuthData) => {
         set({ isLogin: true, isAdmin: payload.role === "admin" });
       },

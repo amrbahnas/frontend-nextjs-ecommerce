@@ -14,19 +14,23 @@ export const useLogin = () => {
     useMutation("/auth/login");
 
   const onLoginSuccess = (data: { data: User }) => {
-    setUser(data.data);
-    setAuthData({ role: data.data.role });
-    const redirect = getParams("redirect");
-    if (!data.data.emailVerified) {
-      if (redirect) {
-        return router.push(
-          `/verifyEmail?status=send-code&&redirect=${redirect}`
-        );
+    try {
+      setUser(data.data);
+      setAuthData({ role: data.data.role });
+      const redirect = getParams("redirect");
+      if (!data.data.emailVerified) {
+        if (redirect) {
+          return router.push(
+            `/verifyEmail?status=send-code&&redirect=${redirect}`
+          );
+        }
+        return router.push("/verifyEmail?status=send-code");
       }
-      return router.push("/verifyEmail?status=send-code");
-    }
 
-    router.push(redirect || "/");
+      router.push(redirect || "/");
+    } catch (error) {
+      console.log("🚀 ~ onLoginSuccess ~ error:", error);
+    }
   };
 
   const login = (values: { email: string; password: string }) => {

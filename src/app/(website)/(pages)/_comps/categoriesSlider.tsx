@@ -22,8 +22,8 @@ const CategoriesSlider = () => {
     <div className="mt-4">
       <Swiper
         spaceBetween={25}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log("slide change")}
+        // onSwiper={(swiper) => console.log(swiper)}
         breakpoints={{
           0: {
             slidesPerView: 4,

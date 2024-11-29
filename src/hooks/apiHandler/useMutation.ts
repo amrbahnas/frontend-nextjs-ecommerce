@@ -36,6 +36,7 @@ const useMutation = (
       try {
         options?.onSuccess && options.onSuccess(result, variables, context);
       } catch (error: any) {
+        console.log("🚀 ~ error:", error);
         toast.error(error);
       }
     },

@@ -4,6 +4,7 @@ import useMutation from "@/hooks/apiHandler/useMutation";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 export const useLogin = () => {
   const { setUser } = useUserStore();
   const { getParams } = useParamsService({});
@@ -14,23 +15,19 @@ export const useLogin = () => {
     useMutation("/auth/login");
 
   const onLoginSuccess = (data: { data: User }) => {
-    try {
-      setUser(data.data);
-      setAuthData({ role: data.data.role });
-      const redirect = getParams("redirect");
-      if (!data.data.emailVerified) {
-        if (redirect) {
-          return router.push(
-            `/verifyEmail?status=send-code&&redirect=${redirect}`
-          );
-        }
-        return router.push("/verifyEmail?status=send-code");
+    setUser(data.data);
+    setAuthData({ role: data.data.role });
+    const redirect = getParams("redirect");
+    if (!data.data.emailVerified) {
+      if (redirect) {
+        return router.push(
+          `/verifyEmail?status=send-code&&redirect=${redirect}`
+        );
       }
-
-      router.push(redirect || "/");
-    } catch (error) {
-      console.log("🚀 ~ onLoginSuccess ~ error:", error);
+      return router.push("/verifyEmail?status=send-code");
     }
+
+    router.push(redirect || "/");
   };
 
   const login = (values: { email: string; password: string }) => {

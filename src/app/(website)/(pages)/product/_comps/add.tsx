@@ -10,10 +10,9 @@ const Add = ({ product }: { product: Product }) => {
   const {
     _id,
     colors = [],
-    // availableSizes = [],
+    availableSizes = [],
     quantity: productQuantity,
   } = product;
-  const availableSizes = null;
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState(colors[0]);
   const [size, setSize] = useState(availableSizes[0] || "");

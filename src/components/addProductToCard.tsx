@@ -65,27 +65,35 @@ const AddProductToCard = ({
         <Button
           {...commonOptions}
           onClick={(e) => {
-            addProduct(
-              {
-                productId: _id,
-                color: productOptions.color,
-                quantity: productOptions.quantity,
-                size: productOptions.size,
-              },
-              {
-                onSuccess: (res) => {
-                  console.log("🚀 ~ res:", res);
-                  const cartItemsCount = res.data.cartItemsCount;
-                  const cart = res.data.cart;
-                  setOnlineCart({
-                    cartItems: cart.cartItems,
-                    totalCartPrice: cart.totalCartPrice,
-                  });
-                  setCartItemsCount(cartItemsCount);
-                  successToast();
+            try {
+              addProduct(
+                {
+                  productId: _id,
+                  color: productOptions.color,
+                  quantity: productOptions.quantity,
+                  size: productOptions.size,
                 },
-              }
-            );
+                {
+                  onSuccess: (res) => {
+                    try {
+                      console.log("🚀 ~ res:", res);
+                      const cartItemsCount = res.data.cartItemsCount;
+                      const cart = res.data.cart;
+                      setOnlineCart({
+                        cartItems: cart.cartItems,
+                        totalCartPrice: cart.totalCartPrice,
+                      });
+                      setCartItemsCount(cartItemsCount);
+                      successToast();
+                    } catch (error) {
+                      console.log("🚀 ~ error:add", error);
+                    }
+                  },
+                }
+              );
+            } catch (error) {
+              console.log("🚀 ~ error:all add", error);
+            }
           }}
           loading={isPending}
         >

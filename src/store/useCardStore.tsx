@@ -56,7 +56,7 @@ const useCardStore = create<Store>(
       },
       cartItemsCount: 0,
       cartLoading: false,
-      setOnlineCart: (cart: CartType) => set({ onlineCart: cart }),
+      setOnlineCart: (cart: CartStoreType) => set({ onlineCart: cart }),
       setCartItemsCount: (count: number) => set({ cartItemsCount: count }),
       increaseCartItemsCount: () =>
         set((state: Store) => ({ cartItemsCount: state.cartItemsCount + 1 })),

@@ -33,11 +33,7 @@ const useMutation = (
       // variables => body sended
       // context => {queryClient, queryKey, queryVariables}
       // result => response from server
-      if (options?.onSuccess) {
-        // Wrap the user-defined callback with the safeOnSuccess utility
-        const safeCallback = safeOnSuccess(options.onSuccess);
-        safeCallback(result, variables, context);
-      }
+      options?.onSuccess && options.onSuccess(result, variables, context);
     },
 
     onError: (error, variables, context) => {
@@ -73,15 +69,3 @@ const errorMessageHandler = (error: any) => {
   }
   return null;
 };
-
-function safeOnSuccess(callback: Function) {
-  return (...args: any[]) => {
-    try {
-      // Execute the original callback safely
-      callback(...args);
-    } catch (error: any) {
-      console.error("Error in onSuccess callback:", error);
-      toast.error(error);
-    }
-  };
-}

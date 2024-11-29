@@ -19,6 +19,7 @@ const MainInfoForm = () => {
   const setUser = useUserStore((state) => state.setUser);
   const [form] = Form.useForm();
   const { updateUser, updateUserIsPending, updateUserError } = useUpdateUser();
+  const [isFormChanged, setIsFormChanged] = useState(false);
 
   useEffect(() => {
     if (user?._id) {
@@ -39,14 +40,33 @@ const MainInfoForm = () => {
       onSuccess: (result) => {
         refetch();
         toast("Profile Updated Successfully");
+        setIsFormChanged(false);
       },
     });
+  };
+
+  const handleFormChange = (changedValues: any, allValues: any) => {
+    const isChanged = Object.keys(allValues).some((key) => {
+      return (
+        allValues[key as keyof typeof allValues] !==
+        user[key as keyof typeof user]
+      );
+    });
+    setIsFormChanged(isChanged);
+  };
+
+  const handleImageChange = (newImage: {
+    data_url: string;
+    file: File | undefined;
+  }) => {
+    setImage(newImage);
+    setIsFormChanged(true);
   };
 
   return (
     <Spin spinning={updateUserIsPending || isLoading}>
       <div className="flex  items-center justify-center">
-        <UploadAvatar image={image} setImage={setImage} />
+        <UploadAvatar image={image} setImage={handleImageChange} />
       </div>
       <Form
         validateTrigger="onBlur"
@@ -54,6 +74,7 @@ const MainInfoForm = () => {
         form={form}
         layout="vertical"
         className="mt-12 flex flex-col gap-4"
+        onValuesChange={handleFormChange}
       >
         <Item
           label="Name"
@@ -66,6 +87,10 @@ const MainInfoForm = () => {
           ]}
         >
           <Input placeholder="Enter your Name" className=" rounded-md p-4" />
+        </Item>
+
+        <Item label="Phone" name="phone">
+          <Input placeholder="Enter your phone" className=" rounded-md p-4" />
         </Item>
         <Item
           label="E-mail"
@@ -91,15 +116,16 @@ const MainInfoForm = () => {
         >
           <Input
             type="email"
+            disabled
             placeholder="Enter your email"
             className=" rounded-md p-4"
           />
-        </Item>
-        <Item label="Phone" name="phone">
-          <Input placeholder="Enter your phone" className=" rounded-md p-4" />
+          {/* <Button className="!p-0 !m-0" type="link">
+            Change Email
+          </Button> */}
         </Item>
         <Button
-          disabled={updateUserIsPending || isLoading}
+          disabled={!isFormChanged || updateUserIsPending || isLoading}
           loading={updateUserIsPending || isLoading}
           htmlType="submit"
           type="primary"

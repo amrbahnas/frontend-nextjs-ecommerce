@@ -22,7 +22,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   } = product;
   return (
     <ProductStatusBadge status={status}>
-      <div className=" flex flex-col gap-4  bg-gray-100   overflow-hidden rounded-md  hover:shadow-lg  relative min-w-100">
+      <div className=" flex flex-col gap-4  bg-gray-100   hover:shadow-lg  relative min-w-100">
         <Link href={"/product/" + _id} key={_id}>
           <PrImage imageCover={imageCover} />
           <PrDescription

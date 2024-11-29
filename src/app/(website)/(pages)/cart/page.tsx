@@ -77,15 +77,19 @@ const Page = () => {
               </div>
             )}
             {cartItems?.map((item: CartItemType) => (
-              <CartItem
-                item={item}
-                key={item._id}
-                refetch={refetch}
-                setDeleting={setDeleting}
-              />
+              <div key={item._id} className="border-b border-gray-200 pb-1">
+                <CartItem
+                  item={item}
+                  refetch={refetch}
+                  setDeleting={setDeleting}
+                />
+              </div>
             ))}
           </div>
           <div className="w-full md:w-72 flex flex-col gap-4">
+            <div className="flex justify-end">
+              <ResetCart handleResetCart={handleResetCart} />
+            </div>
             {cartItemsCount > 0 && (
               <ApplyCoupon
                 refetchCart={refetch}
@@ -113,7 +117,6 @@ const Page = () => {
               >
                 Checkout
               </Button>
-              <ResetCart handleResetCart={handleResetCart} />
             </div>
           </div>
         </div>

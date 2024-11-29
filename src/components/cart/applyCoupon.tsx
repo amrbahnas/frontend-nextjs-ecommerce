@@ -35,16 +35,17 @@ const ApplyCoupon = ({
 
   return (
     <Form
-      validateTrigger="onBlur"
+      validateTrigger="submit"
       disabled={(appliedCoupon ? true : false) || isPending}
       form={form}
       onFinish={onFinish}
     >
       <h3 className="text-md font-semibold text-gray-800 mb-2">Apply Coupon</h3>
-      <div className="flex justify-between items-start gap-1">
+      <div className="flex gap-2">
         <Item
           name="code"
-          rules={[{ required: true, message: "Please enter coupon code" }]}
+          className="flex-1"
+          rules={[{ required: true, message: "Enter coupon code" }]}
         >
           <Input
             allowClear

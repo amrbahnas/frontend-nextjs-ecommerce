@@ -7,6 +7,7 @@ import { PiShoppingCartThin } from "react-icons/pi";
 import CartSkeleton from "./cart.skeleton";
 import CartBody from "./cartBody";
 import { useRouter } from "next/navigation";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 const CartModal = () => {
   const route = useRouter();
@@ -50,7 +51,8 @@ const CartModal = () => {
           <CartBody refetch={refetch} cart={renderedCart} setOpen={setOpen} />
         )
       }
-      trigger="click"
+      trigger="hover"
+      mouseLeaveDelay={0.4}
     >
       <Badge
         count={cartItemsCount}

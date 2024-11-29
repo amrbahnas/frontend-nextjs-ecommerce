@@ -2,11 +2,13 @@ import Link from "next/link";
 
 import { useToggleProductWishlist } from "@/_api/actions";
 import useUserStore from "@/store/useUserStore";
-import { Divider } from "antd";
+import { Divider, Spin } from "antd";
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import useAuthStore from "@/store/useAuthStore";
+import HeartAnimation from "./ui/heartAnimation";
+import toast from "react-hot-toast";
 
 const WishlistButton = ({
   productId,
@@ -15,18 +17,19 @@ const WishlistButton = ({
   productId: string;
   className?: string;
 }) => {
+  const [showHeartAnimation, setShowHeartAnimation] = useState(false);
   const user = useUserStore((state) => state.user);
   const isLogin = useAuthStore((state) => state.isLogin);
   const wishlist = user?.wishlist || [];
   const setUser = useUserStore((state) => state.setUser);
 
-  const [isWithlisted, setIsWithlisted] = useState(
+  const [isWithListed, setIsWithListed] = useState(
     wishlist.includes(productId)
   );
 
   const { toggleWishlist, isPending } = useToggleProductWishlist(productId);
   const handleToggleWishlist = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsWithlisted((prev) => !prev);
+    setIsWithListed((prev) => !prev);
     toggleWishlist(
       {},
       {
@@ -35,25 +38,37 @@ const WishlistButton = ({
             ...user,
             wishlist: res.data.wishlist,
           });
+          if (!isWithListed) {
+            toast.success("Product Added to wishlist");
+            setShowHeartAnimation(true);
+            setTimeout(() => {
+              setShowHeartAnimation(false);
+            }, 4000);
+          } else {
+            toast.success("Product Removed from wishlist");
+          }
         },
         onError: () => {
-          setIsWithlisted((prev) => !prev);
+          setIsWithListed((prev) => !prev);
         },
       }
     );
   };
 
   if (!isLogin) return null;
+  if (isPending) return <Spin />;
   return (
     <div
       onClick={handleToggleWishlist}
-      className={"cursor-pointer " + className}
+      className={"cursor-pointer relative " + className}
     >
-      {isWithlisted ? (
+      {isWithListed ? (
         <FaHeart size={25} color="red" />
       ) : (
         <CiHeart size={25} color="black" />
       )}
+
+      <HeartAnimation play={showHeartAnimation} />
     </div>
   );
 };

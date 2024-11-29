@@ -76,10 +76,10 @@ const AddProductToCard = ({
                 onSuccess: (res) => {
                   // try {
                   const cartItemsCount = res.data.cartItemsCount;
-                  const cart = res.data?.cart.pay;
+                  const cart = res.data.cart.pay;
                   setOnlineCart({
-                    cartItems: cart?.cartItems || [],
-                    totalCartPrice: cart?.totalCartPrice || 0,
+                    cartItems: cart.cartItems,
+                    totalCartPrice: cart.totalCartPrice,
                   });
                   setCartItemsCount(cartItemsCount);
                   successToast();

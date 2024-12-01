@@ -2,12 +2,11 @@ import { useGetCart } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Badge, Popover } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import CartSkeleton from "./cart.skeleton";
 import CartBody from "./cartBody";
-import { useRouter } from "next/navigation";
-import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 const CartModal = () => {
   const route = useRouter();
@@ -15,15 +14,10 @@ const CartModal = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
 
-  const {
-    cart: apiCart,
-    isLoading,
-    refetch,
-  } = useGetCart({
-    skip: !isLogin || !open,
-  });
+  const { cart: apiCart, isLoading, refetch } = useGetCart();
 
   const renderedCart = isLogin ? apiCart : storeCart;
+  const cartCount = renderedCart.cartItems.length;
 
   useEffect(() => {
     if (open && isLogin) refetch();
@@ -42,7 +36,7 @@ const CartModal = () => {
     <Popover
       open={open}
       onOpenChange={() => {
-        cartItemsCount > 2 ? route.push("/cart") : setOpen(!open);
+        cartCount > 2 ? route.push("/cart") : setOpen(!open);
       }}
       content={
         isLoading ? (
@@ -55,7 +49,7 @@ const CartModal = () => {
       mouseLeaveDelay={0.4}
     >
       <Badge
-        count={cartItemsCount}
+        count={cartCount}
         size="small"
         className=" cursor-pointer"
         color="blue"

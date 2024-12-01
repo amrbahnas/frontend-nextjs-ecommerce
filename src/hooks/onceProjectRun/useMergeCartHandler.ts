@@ -8,7 +8,7 @@ const useMergeCartHandler = () => {
   const {
     storeCart,
     resetCart,
-    setCartItemsCount,
+
     setCartLoading,
     setOnlineCart,
   } = useCardStore();
@@ -27,7 +27,7 @@ const useMergeCartHandler = () => {
               cartItems: cart.cartItems,
               totalCartPrice: cart.totalCartPrice,
             });
-            setCartItemsCount(newCartItemsCount);
+
             resetCart();
             setCartLoading(false);
           },

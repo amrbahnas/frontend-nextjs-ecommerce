@@ -17,11 +17,7 @@ const useCartActions = ({
   const router = useRouter();
 
   const isLogin = useAuthStore((state) => state.isLogin);
-  const {
-    cartLoading,
-    resetCart: resetStoreCart,
-    setCartItemsCount,
-  } = useCardStore();
+  const { cartLoading, resetCart: resetStoreCart } = useCardStore();
 
   const { resetApiCart, resetApiCartLoading } = useResetCart();
   const [checkoutType, setCheckoutType] = useState<"card" | "cash">("card");
@@ -73,7 +69,6 @@ const useCartActions = ({
             router.push("/orders/" + orderId);
 
             onSuccess && onSuccess();
-            setCartItemsCount(0);
           },
         }
       );

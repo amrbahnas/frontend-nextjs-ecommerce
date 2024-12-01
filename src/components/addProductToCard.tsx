@@ -36,7 +36,7 @@ const AddProductToCard = ({
   const {
     addCartItem,
     increaseCartItemsCount,
-    setCartItemsCount,
+
     setOnlineCart,
   } = useCardStore();
 
@@ -81,7 +81,7 @@ const AddProductToCard = ({
                       cartItems: cart?.cartItems || [],
                       totalCartPrice: cart?.totalCartPrice || 0,
                     });
-                    setCartItemsCount(cartItemsCount);
+
                     successToast();
                   } catch (error: any) {
                     toast.error(String(error));

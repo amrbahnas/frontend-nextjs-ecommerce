@@ -19,16 +19,11 @@ import NoData from "@/components/ui/noData";
 const Page = () => {
   const [deleting, setDeleting] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
-  const {
-    cart: apiCart,
-    isLoading: fetchLoading,
-    refetch,
-  } = useGetCart({
-    skip: !isLogin,
-  });
+  const { storeCart, setOnlineCart } = useCardStore();
+  const { cart: apiCart, isLoading: fetchLoading, refetch } = useGetCart();
 
   const renderedCart = isLogin ? apiCart : storeCart;
+  const cartCount = renderedCart.cartItems.length;
 
   const {
     cartItems = [],
@@ -90,7 +85,7 @@ const Page = () => {
             <div className="flex justify-end">
               <ResetCart handleResetCart={handleResetCart} />
             </div>
-            {cartItemsCount > 0 && (
+            {cartCount > 0 && (
               <ApplyCoupon
                 refetchCart={refetch}
                 hidden={!isLogin}

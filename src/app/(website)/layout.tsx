@@ -1,8 +1,7 @@
 "use client";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { UseCartCountHandler } from "@/hooks/onceProjectRun/useCartCountHandler";
-import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
+ import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import useCheckUser from "@/hooks/onceProjectRun/useCheckUser";
 
@@ -11,7 +10,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  UseCartCountHandler();
   useMergeCartHandler();
   useCheckUser();
 

@@ -1,4 +1,5 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
+import useAuthStore from "@/store/useAuthStore";
 
 export const useMe = () => {
   const { data, error, refetch, isError, isLoading } =
@@ -42,13 +43,15 @@ export const useGetProducts = (params?: any) => {
   return { products: products || [], isLoading };
 };
 
-export const useGetCart = ({ skip }: { skip?: boolean }) => {
+export const useGetCart = () => {
+  const isLogin = useAuthStore((state) => state.isLogin);
+
   const {
     data: cart,
     isLoading,
     refetch,
   } = useQuery<CartType>("/cart", {
-    skip,
+    skip: !isLogin,
   });
 
   return {

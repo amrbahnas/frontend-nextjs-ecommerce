@@ -4,12 +4,8 @@ import { persist } from "zustand/middleware";
 type Store = {
   storeCart: CartType;
   onlineCart: CartStoreType;
-  cartItemsCount: number;
   cartLoading: boolean;
   setOnlineCart: (cart: CartStoreType) => void;
-  setCartItemsCount: (count: number) => void;
-  increaseCartItemsCount: () => void;
-  decreaseCartItemsCount: () => void;
   addCartItem: (cartItem: CartItemType) => boolean;
   deleteCartItem: (cartItem: CartItemType) => void;
   resetCart: () => void;
@@ -54,14 +50,8 @@ const useCardStore = create<Store>(
         cartItems: [],
         totalCartPrice: 0,
       },
-      cartItemsCount: 0,
       cartLoading: false,
       setOnlineCart: (cart: CartStoreType) => set({ onlineCart: cart }),
-      setCartItemsCount: (count: number) => set({ cartItemsCount: count }),
-      increaseCartItemsCount: () =>
-        set((state: Store) => ({ cartItemsCount: state.cartItemsCount + 1 })),
-      decreaseCartItemsCount: () =>
-        set((state: Store) => ({ cartItemsCount: state.cartItemsCount - 1 })),
 
       addCartItem: (item: CartItemType) => {
         let isExist = false;

@@ -25,7 +25,8 @@ async function getToken() {
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
 
 export async function middleware(request: NextRequest) {
-  const session = await cookies().get("session");
+  // const session = await cookies().get("session");
+  const session = NextResponse.next().cookies.get("session")?.value;
   console.log("🚀 ~ middleware ~ session:", session);
   // const tokenData = await getToken();
   // console.log("🚀 ~ middleware ~ tokenData:", tokenData);

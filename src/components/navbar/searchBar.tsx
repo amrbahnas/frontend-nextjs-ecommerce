@@ -11,8 +11,10 @@ const { Item } = Form;
 
 const SearchBar = ({
   setIsSearchOpen,
+  customId,
 }: {
   setIsSearchOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  customId?: string;
 }) => {
   const { setParams, getParams } = useParamsService("okay I will");
   const router = useRouter();
@@ -49,6 +51,7 @@ const SearchBar = ({
     >
       <Item noStyle name="search" className="!w-full">
         <Search
+          id={customId || "search"}
           ref={inputRef}
           allowClear
           size={lg ? "large" : "middle"}

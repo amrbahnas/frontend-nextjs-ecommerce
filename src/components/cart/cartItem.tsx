@@ -14,7 +14,7 @@ const CartItem = ({
   setDeleting: (value: boolean) => void;
 }) => {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { deleteCartItem, decreaseCartItemsCount } = useCardStore();
+  const { deleteCartItem } = useCardStore();
   const { removeItem, isPending } = useRemoveItemFromCart(item._id);
   return (
     <div className="flex gap-4" key={item._id}>
@@ -25,6 +25,7 @@ const CartItem = ({
           width={72}
           height={96}
           className="object-cover rounded-md"
+          style={{ width: "auto", height: "auto" }}
         />
       )}
       <div className="flex flex-col justify-between w-full">
@@ -71,14 +72,12 @@ const CartItem = ({
                   {
                     onSuccess: () => {
                       setDeleting(false);
-                      decreaseCartItemsCount();
                       refetch();
                     },
                   }
                 );
               } else {
                 deleteCartItem(item);
-                decreaseCartItemsCount();
                 setDeleting(false);
               }
             }}

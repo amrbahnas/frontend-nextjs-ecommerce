@@ -10,6 +10,7 @@ const PrImage = ({ imageCover }: { imageCover: string }) => {
         fill
         sizes="25vw"
         className=" object-cover  md:object-cover rounded-lg "
+        priority // for avoid Largest Contentful Paint (LCP) issue
       />
     </div>
   );

@@ -29,16 +29,12 @@ const Navbar = () => {
 
           {/* Big screen */}
           <PageLinks />
-          {/* Big screen */}
-          {/* if we use hidden class to hide the search input it cause dom error  */}
-          {/* because input with hidden still presented inside dom with class hidden so the browser see that we have two input with same id  */}
-          {/* so i used lg variable to handel the responsive */}
-          {lg && (
-            <div className="w-2/3 xl:w-1/2 flex items-center   gap-8 ">
-              <SearchBar />
-              <NavIcons />
-            </div>
-          )}
+          <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
+            {/* search input with class hidden will represent at html tree to avoid two input search with same id i added customId prop*/}
+            <SearchBar customId="largeId" />
+            <NavIcons />
+          </div>
+
           {/* Mobile */}
           <div className="flex items-center gap-6">
             {/* Mobile */}
@@ -50,7 +46,7 @@ const Navbar = () => {
         </div>
         {/*  mobile */}
         <div className=" mt-3 block md:hidden ">
-          <SearchBar />
+          <SearchBar customId="smallId" />
         </div>
       </div>
     </Container>

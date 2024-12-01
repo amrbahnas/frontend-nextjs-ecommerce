@@ -50,8 +50,9 @@ const EnterOTP = ({
           {/*  check your email */}
           <Image src={"/email-send.svg"} width={150} height={150} alt="email" />
           <div className="text-lg flex flex-col items-center text-center">
-            <span>check your email, we have sent a code to your Email: </span>
-            <div className="space-x-2">
+            <span>check your email, we have sent a code to your </span>
+            <div className="space-x-1">
+              <span>Email:</span>
               <span className="  font-semibold pl-1">{newEmail}</span>
               <span
                 onClick={() => {

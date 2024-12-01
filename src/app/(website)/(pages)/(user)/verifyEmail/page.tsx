@@ -5,12 +5,11 @@ import { Error } from "@/components/ui/error";
 import useParamsService from "@/hooks/global/useParamsService";
 import useUserStore from "@/store/useUserStore";
 import { Button, Form, Input, Result, Spin } from "antd";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
-import { MdMarkEmailUnread } from "react-icons/md";
-import Image from "next/image";
 
 const VerifyEmail = () => {
   const router = useRouter();

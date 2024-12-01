@@ -1,7 +1,7 @@
 "use client";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
- import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
+import useMergeCartHandler from "@/hooks/onceProjectRun/useMergeCartHandler";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import useCheckUser from "@/hooks/onceProjectRun/useCheckUser";
 

@@ -35,7 +35,6 @@ const AddProductToCard = ({
   const { addProduct, isPending } = useAddProductToCart();
   const {
     addCartItem,
-    increaseCartItemsCount,
 
     setOnlineCart,
   } = useCardStore();
@@ -111,7 +110,6 @@ const AddProductToCard = ({
             size: productOptions.size || availableSizes[0],
             _id,
           });
-          if (!isExist) increaseCartItemsCount();
           successToast();
         }}
       >

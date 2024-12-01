@@ -16,6 +16,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
           width={"100%"}
           height={"100%"}
           className=" !object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 50vw"
         />
       </div>
       {images.length > 2 && (
@@ -28,7 +29,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                   "border-2 border-primary": i === index,
                 }
               )}
-              key={item.id}
+              key={item}
               onClick={() => setIndex(i)}
             >
               <NextImage
@@ -36,6 +37,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                 alt=""
                 fill
                 className="object-cover w-full h-full"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 50vw"
               />
             </div>
           ))}

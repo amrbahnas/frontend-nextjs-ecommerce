@@ -12,7 +12,7 @@ const CartModal = () => {
   const route = useRouter();
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { storeCart, cartItemsCount, setOnlineCart } = useCardStore();
+  const { storeCart, setOnlineCart } = useCardStore();
 
   const { cart: apiCart, isLoading, refetch } = useGetCart();
 
@@ -45,8 +45,7 @@ const CartModal = () => {
           <CartBody refetch={refetch} cart={renderedCart} setOpen={setOpen} />
         )
       }
-      trigger="hover"
-      mouseLeaveDelay={0.4}
+      trigger="click"
     >
       <Badge
         count={cartCount}

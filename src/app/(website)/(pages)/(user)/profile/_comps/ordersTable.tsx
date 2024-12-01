@@ -1,7 +1,8 @@
-import { Table, TableProps } from "antd";
+import { TableProps } from "antd";
 import React from "react";
 import { useGetOrders } from "../_api/query";
 import Link from "next/link";
+import Table from "@/components/antd/table";
 
 const OrdersTable = () => {
   const {
@@ -12,6 +13,7 @@ const OrdersTable = () => {
     ordersRefetch,
     pagination,
   } = useGetOrders();
+
   const columns: TableProps<OrderType>["columns"] = [
     {
       title: "N",

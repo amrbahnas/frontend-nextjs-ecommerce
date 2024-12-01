@@ -8,6 +8,7 @@ import { Error } from "@/components/ui/error";
 import useUserStore from "@/store/useUserStore";
 import toast from "react-hot-toast";
 import { useMe } from "@/_api/query";
+import Link from "next/link";
 
 const MainInfoForm = () => {
   const [image, setImage] = useState<{
@@ -16,6 +17,7 @@ const MainInfoForm = () => {
   }>({ data_url: "", file: undefined });
 
   const { user, isLoading, error, refetch } = useMe();
+
   const setUser = useUserStore((state) => state.setUser);
   const [form] = Form.useForm();
   const { updateUser, updateUserIsPending, updateUserError } = useUpdateUser();
@@ -24,6 +26,7 @@ const MainInfoForm = () => {
   useEffect(() => {
     if (user?._id) {
       setUser(user);
+
       form.setFieldsValue(user);
       setImage({ data_url: user.profileImg, file: undefined });
     }
@@ -32,7 +35,7 @@ const MainInfoForm = () => {
   const updateUserHandler = (values: any) => {
     const formData = new FormData();
     formData.append("name", values.name);
-    formData.append("email", values.email);
+    // formData.append("email", values.email);
     formData.append("phone", values.phone || "");
     formData.append("profileImg", image?.file || image?.data_url || "");
 
@@ -92,38 +95,19 @@ const MainInfoForm = () => {
         <Item label="Phone" name="phone">
           <Input placeholder="Enter your phone" className=" rounded-md p-4" />
         </Item>
-        <Item
-          label="E-mail"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-            {
-              type: "email",
-              message: "The input is not valid E-mail!",
-            },
-            {
-              validator(_, value) {
-                if (value && value.endsWith("@gmail.com")) {
-                  return Promise.resolve();
-                }
-                return Promise.reject("The email must be a Gmail address!");
-              },
-            },
-          ]}
-        >
-          <Input
-            type="email"
-            disabled
-            placeholder="Enter your email"
-            className=" rounded-md p-4"
-          />
-          {/* <Button className="!p-0 !m-0" type="link">
+        <div>
+          <Item label="E-mail" name="email">
+            <Input
+              type="email"
+              disabled
+              placeholder="Enter your email"
+              className=" rounded-md p-4"
+            />
+          </Item>
+          <Link href={"/profile/change-Email"} className="text-xs">
             Change Email
-          </Button> */}
-        </Item>
+          </Link>
+        </div>
         <Button
           disabled={!isFormChanged || updateUserIsPending || isLoading}
           loading={updateUserIsPending || isLoading}

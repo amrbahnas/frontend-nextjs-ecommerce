@@ -36,3 +36,40 @@ export const useChangePassword = () => {
     changePasswordError: error,
   };
 };
+
+// change email
+export const useChangeEmailActions = () => {
+  const {
+    mutate: sendChangeEmailCode,
+    data: sendChangeEmailCodeData,
+    error: sendChangeEmailCodeError,
+    isError: sendChangeEmailCodeIsError,
+    isPending: sendChangeEmailCodeIsPending,
+    isSuccess: sendChangeEmailCodeIsSuccess,
+  } = useMutation("/auth/request-change-email-code", "post");
+
+  const {
+    mutate: changeEmail,
+    data: changeEmailData,
+    error: changeEmailError,
+    isError: changeEmailIsError,
+    isPending: changeEmailIsPending,
+    isSuccess: changeEmailIsSuccess,
+  } = useMutation("/auth/change-email", "post");
+
+  return {
+    sendChangeEmailCode,
+    sendChangeEmailCodeData,
+    sendChangeEmailCodeError,
+    sendChangeEmailCodeIsError,
+    sendChangeEmailCodeIsPending,
+    sendChangeEmailCodeIsSuccess,
+    changeEmail,
+    changeEmailData,
+    changeEmailError,
+    changeEmailIsError,
+    changeEmailIsPending,
+    changeEmailIsSuccess,
+    loading: sendChangeEmailCodeIsPending || changeEmailIsPending,
+  };
+};

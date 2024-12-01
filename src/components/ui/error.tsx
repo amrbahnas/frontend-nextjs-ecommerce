@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export const Error = ({ error }: { error: any }) => {
   const [show, setShow] = React.useState(true);
+  useEffect(() => {
+    setShow(true);
+  }, [error]);
   return (
     error &&
     show && (

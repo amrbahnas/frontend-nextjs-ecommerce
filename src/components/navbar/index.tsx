@@ -7,9 +7,11 @@ import Menu from "./menu";
 import NavIcons from "./navIcons";
 import { PageLinks } from "./pageLinks";
 import SearchBar from "./searchBar";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const lg = useBreakPoints("lg");
 
   return (
     <Container className=" shadow-sm">
@@ -28,10 +30,16 @@ const Navbar = () => {
           {/* Big screen */}
           <PageLinks />
           {/* Big screen */}
-          <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
-            <SearchBar />
-            <NavIcons />
-          </div>
+          {/* if we use hidden class to hide the search input it cause dom error  */}
+          {/* because input with hidden still presented inside dom with class hidden so the browser see that we have two input with same id  */}
+          {/* so i used lg variable to handel the responsive */}
+          {lg && (
+            <div className="w-2/3 xl:w-1/2 flex items-center   gap-8 ">
+              <SearchBar />
+              <NavIcons />
+            </div>
+          )}
+          {/* Mobile */}
           <div className="flex items-center gap-6">
             {/* Mobile */}
             <div className="flex md:hidden items-center justify-between h-full gap-3">

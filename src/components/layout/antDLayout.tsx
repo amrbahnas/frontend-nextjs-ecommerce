@@ -19,7 +19,6 @@ export default function AntDLayout({
               controlOutline: "",
               primaryShadow: "none",
             },
-
             Table: {
               // headerBg: "rgba(169, 105, 0, 0.25)",
               // headerSortActiveBg: "rgba(169, 105, 0, 0.15)",

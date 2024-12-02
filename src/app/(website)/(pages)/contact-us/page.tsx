@@ -15,7 +15,9 @@ const ContactUs = () => {
     sendContactUs(values, {
       onSuccess: () => {
         form.resetFields();
-        toast.success("Message sent successfully");
+        toast.success(
+          "Message sent successfully Check your email for Confirmation"
+        );
       },
     });
   };

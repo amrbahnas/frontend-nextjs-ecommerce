@@ -3,6 +3,7 @@ import NextImage from "@/components/ui/nextImage";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CartItem = ({
   item,
@@ -13,6 +14,7 @@ const CartItem = ({
   refetch: any;
   setDeleting: (value: boolean) => void;
 }) => {
+  const route = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { deleteCartItem } = useCardStore();
   const { removeItem, isPending } = useRemoveItemFromCart(item._id);
@@ -24,8 +26,9 @@ const CartItem = ({
           alt=""
           width={72}
           height={96}
-          className="object-cover rounded-md"
+          className="object-cover rounded-md cursor-pointer"
           style={{ width: "auto", height: "auto" }}
+          onClick={() => route.push(`/product/${item.product?._id}`)}
         />
       )}
       <div className="flex flex-col justify-between w-full">

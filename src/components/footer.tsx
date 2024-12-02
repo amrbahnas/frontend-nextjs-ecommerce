@@ -10,7 +10,7 @@ const Footer = () => {
     <div className=" py-24 bg-gray-100 text-sm mt-24">
       <Container>
         {/* TOP */}
-        <div className="flex flex-col md:flex-row justify-between gap-24">
+        <div className="flex flex-col md:flex-row justify-between gap-10 flex-wrap">
           {/* LEFT */}
           <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
             <Link href="/">
@@ -60,52 +60,33 @@ const Footer = () => {
             </div>
           </div>
           {/* CENTER */}
-          <div className="hidden lg:flex justify-between w-1/2">
-            <div className="flex flex-col gap-16">
-              <h1 className="font-medium text-lg">COMPANY</h1>
-              <div className="flex flex-col gap-6 ">
-                <Link href="/about-us">About Us</Link>
-                <Link href="/careers">Careers</Link>
-                <Link href="/affiliates">Affiliates</Link>
-                <Link href="/blog">Blog</Link>
-                <Link href="/contact-us">Contact Us</Link>
-              </div>
-            </div>
-            <div className="flex flex-col gap-16">
+          <div className="grid  grid-cols-2 md:grid-cols-3  gap-3 flex-1 shrink-0">
+            <div className="flex flex-col gap-3 md:gap-16">
               <h1 className="font-medium text-lg">SHOP</h1>
               <div className="flex flex-col gap-6">
-                {/* <Link href="">New Arrivals</Link>
-                <Link href="">Accessories</Link> */}
                 <Link href="/list?cat=66fc7bc1ce2284e5c7c337ae">Men</Link>
                 <Link href="?cat=66fc7f18e3bd2937a6e60771">Sport</Link>
                 <Link href="/list">All Products</Link>
               </div>
             </div>
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-3 md:gap-16">
               <h1 className="font-medium text-lg">HELP</h1>
               <div className="flex flex-col gap-6">
                 <Link href="/customer-service">Customer Service</Link>
                 <Link href="/profile">My Account</Link>
                 <Link href="/find-store">Find a Store</Link>
-                <Link href="/legal-privacy">Legal & Privacy</Link>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 md:gap-16">
+              <h1 className="font-medium text-lg">COMPANY</h1>
+              <div className="flex flex-col gap-6 ">
+                <Link href="/about-us">About Us</Link>
+                <Link href="/contact-us">Contact Us</Link>
               </div>
             </div>
           </div>
           {/* RIGHT */}
           <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
-            <h1 className="font-medium text-lg">SUBSCRIBE</h1>
-            <p>
-              Be the first to get the latest news about trends, promotions, and
-              much more!
-            </p>
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="Email address"
-                className="p-4 w-3/4"
-              />
-              <button className="w-1/4 bg-Elbahnsawy text-white">JOIN</button>
-            </div>
             <span className="font-semibold">Secure Payments</span>
             <div className="flex justify-between">
               <NextImage src="/discover.png" alt="" width={40} height={20} />

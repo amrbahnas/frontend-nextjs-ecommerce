@@ -40,7 +40,7 @@ const Navbar = () => {
             {/* Mobile */}
             <div className="flex md:hidden items-center justify-between h-full gap-3">
               <NavIcons />
-              <Menu />
+              {/* <Menu /> */}
             </div>
           </div>
         </div>

@@ -1,0 +1,31 @@
+{
+  "Index": {
+    "title": "مرحباً بك في متجرنا",
+    "description": "اكتشف منتجاتنا المميزة"
+  },
+  "Navigation": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "cart": "سلة التسوق",
+    "account": "حسابي"
+  },
+  "Common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "addToCart": "أضف إلى السلة",
+    "remove": "إزالة",
+    "price": "السعر",
+    "quantity": "الكمية",
+    "total": "المجموع",
+    "checkout": "إتمام الشراء"
+  },
+  "HomePage": {
+    "featuredProducts": "منتجات مميزة",
+    "categories": "تسوق حسب الفئة",
+    "viewAll": "عرض الكل",
+    "newArrivals": "وصل حديثاً",
+    "bestSellers": "الأكثر مبيعاً",
+    "specialOffers": "عروض خاصة",
+    "seeMore": "المزيد"
+  }
+}

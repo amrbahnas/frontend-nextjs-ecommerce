@@ -1,14 +1,21 @@
+"use client";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
+import { useParams } from "next/navigation";
 
 export default function AntDLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const params = useParams();
+  const locale = (params?.locale as string) || "en";
+  const direction = locale === "ar" ? "rtl" : "ltr";
+
   return (
     <AntdRegistry>
       <ConfigProvider
+        direction={direction}
         theme={{
           components: {
             Button: {

@@ -1,4 +1,4 @@
-import useUserStore from "../../../../store/useUserStore";
+import useUserStore from "../../../../../store/useUserStore";
 
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useParamsService from "@/hooks/global/useParamsService";

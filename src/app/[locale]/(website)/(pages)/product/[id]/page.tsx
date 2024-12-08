@@ -1,5 +1,5 @@
 "use client";
-import Add from "@/app/(website)/(pages)/product/_comps/add";
+import Add from "@/app/[locale]/(website)/(pages)/product/_comps/add";
 import Container from "@/components/container";
 import DisplayPrice from "@/components/ui/displayPrice";
 import SavingPercentage from "@/components/ui/savingPercentage";

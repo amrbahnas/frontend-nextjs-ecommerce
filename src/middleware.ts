@@ -1,84 +1,17 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { cookies } from "next/headers";
-import axios from "axios";
-async function getToken() {
-  // const token = (await cookies()).get("session");
-  // return token;
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-token`,
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    // const data = await response.json();
-    return response;
-  } catch (error) {
-    return error;
-  }
-}
+import createMiddleware from 'next-intl/middleware';
+import { locales } from '../i18n.config';
 
-const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail"];
-
-export async function middleware(request: NextRequest) {
-  // const session = await cookies().get("session");
-  const session = NextResponse.next().cookies.get("session")?.value;
-  console.log("🚀 ~ middleware ~ session:", session);
-  // const tokenData = await getToken();
-  // console.log("🚀 ~ middleware ~ tokenData:", tokenData);
-  // const pathName = request.nextUrl.pathname;
-  //1) Handling Auth routes section
-  // if (pathName.startsWith("/auth")) {
-  //   if (!tokenData) {
-  //     return NextResponse.next();
-  //   } else {
-  //     return NextResponse.redirect(new URL("/", request.url));
-  //   }
-  // }
-
-  // //2) Handling Admin routes section
-  // if (pathName.startsWith("/admin")) {
-  //   if (!tokenData) {
-  //     return NextResponse.redirect(new URL("/auth/login", request.url));
-  //   }
-  //   if (tokenData?.isAdmin) {
-  //     return NextResponse.next();
-  //   } else {
-  //     return NextResponse.redirect(
-  //       new URL("/notAllowed?page=admin", request.url)
-  //     );
-  //   }
-  // }
-
-  // //3) Handling  email verification
-  // if (tokenData) {
-  //   if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
-  //     return NextResponse.redirect(new URL("/verifyEmail", request.url));
-  //   }
-  //   if (tokenData.emailVerified && pathName === "/verifyEmail") {
-  //     return NextResponse.redirect(new URL("/", request.url));
-  //   }
-  // }
-
-  // //4) Handling protected routes section
-  // if (protectedRoutes.includes(pathName)) {
-  //   if (tokenData) {
-  //     return NextResponse.next();
-  //   } else {
-  //     return NextResponse.redirect(new URL("/auth/login", request.url));
-  //   }
-  // }
-
-  return NextResponse.next();
-}
+export default createMiddleware({
+  // A list of all locales that are supported
+  locales: locales,
+  // If this locale is matched, pathnames work without a prefix (e.g. `/about`)
+  defaultLocale: 'en',
+  // Whether to add locale prefix for default locale
+  localePrefix: 'always'
+});
 
 export const config = {
-  // only run on route Pages and not on static pages
-  // matcher: ["/", "/((?!.*\\..*|_next).*)"],
-  // routes middleware should not run on
-  matcher: ["/((?!api|_next/static|_next/images).*)"],
+  // Skip all paths that should not be internationalized. This example skips the
+  // folders "api", "_next" and all files with an extension (e.g. favicon.ico)
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };

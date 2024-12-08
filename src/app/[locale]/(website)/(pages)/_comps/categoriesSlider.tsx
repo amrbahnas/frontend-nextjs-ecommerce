@@ -1,13 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
 import { Skeleton, Spin } from "antd";
 import Link from "next/link";
-import NextImage from "../../../../components/ui/nextImage";
+import NextImage from "../../../../../components/ui/nextImage";
 import { useGetCategories } from "../_api/query";
+import { useTranslations } from 'next-intl';
 
 const CategoriesSlider = () => {
   const { categories, isLoading } = useGetCategories();
+  const t = useTranslations('HomePage');
 
   if (isLoading) {
     return (
@@ -20,6 +21,7 @@ const CategoriesSlider = () => {
   }
   return (
     <div className="mt-4">
+      <h2 className="text-xl mb-4">{t('categories')}</h2>
       <Swiper
         spaceBetween={25}
         // onSlideChange={() => console.log("slide change")}

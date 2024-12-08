@@ -4,6 +4,7 @@ import ProgressBarLayout from "@/components/layout/progressBarLayout";
 import AntDLayout from "@/components/layout/antDLayout";
 import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
+import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
@@ -14,25 +15,40 @@ export const metadata: Metadata = {
   description: "A complete e-commerce application with Next.js and Node.js",
 };
 
-export default function RootLayout({
+async function getMessages(locale: string) {
+  try {
+    return (await import(`../../messages/${locale}.json`)).default;
+  } catch (error) {
+    return (await import(`../../messages/en.json`)).default;
+  }
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params: { locale },
+}: {
   children: React.ReactNode;
-}>) {
+  params: { locale: string };
+}) {
+  const messages = await getMessages(locale);
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={dir}>
       <head>
         <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
       </head>
       <body className={inter.className}>
-        <AntDLayout>
-          <ReactQueryLayout>
-            <OnlineStatus>
-              <ProgressBarLayout>{children}</ProgressBarLayout>
-              <Toaster />
-            </OnlineStatus>
-          </ReactQueryLayout>
-        </AntDLayout>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AntDLayout>
+            <ReactQueryLayout>
+              <OnlineStatus>
+                <ProgressBarLayout>{children}</ProgressBarLayout>
+              </OnlineStatus>
+            </ReactQueryLayout>
+          </AntDLayout>
+          <Toaster />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

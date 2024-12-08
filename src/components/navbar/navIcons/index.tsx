@@ -8,12 +8,15 @@ import { CiHeart } from "react-icons/ci";
 import { MdDashboard } from "react-icons/md";
 import CartModal from "../cartModel";
 import ProfileIcon from "./profileIcon";
+import ChangeLanguage from "./changeLanguage";
+
 const NavIcons = () => {
   const { isLogin, isAdmin } = useAuthStore();
   const user = useUserStore((state) => state.user);
 
   return (
     <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
+      <ChangeLanguage />
       <ProfileIcon />
       {isAdmin && (
         <Link href={"/admin"} className="flex items-center gap-1 ">

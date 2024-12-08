@@ -1,6 +1,6 @@
 import AddProductToCard from "@/components/addProductToCard";
 import { Tag, Tooltip } from "antd";
-import React from "react";
+import React, { memo } from "react";
 
 const PrAddToCart = ({
   product,
@@ -37,4 +37,4 @@ const PrAddToCart = ({
   );
 };
 
-export default PrAddToCart;
+export default memo(PrAddToCart);

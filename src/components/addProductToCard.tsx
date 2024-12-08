@@ -33,11 +33,7 @@ const AddProductToCard = ({
   const { _id, colors = [], availableSizes = [], quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
-  const {
-    addCartItem,
-
-    setOnlineCart,
-  } = useCardStore();
+  const { addCartItem, setOnlineCart } = useCardStore();
 
   const commonOptions: ButtonProps = React.useMemo(
     () => ({

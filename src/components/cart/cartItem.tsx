@@ -4,6 +4,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { memo } from "react";
 
 const CartItem = ({
   item,
@@ -93,4 +94,4 @@ const CartItem = ({
   );
 };
 
-export default CartItem;
+export default memo(CartItem);

@@ -8,6 +8,7 @@ import NavIcons from "./navIcons";
 import { PageLinks } from "./pageLinks";
 import SearchBar from "./searchBar";
 import useBreakPoints from "@/hooks/global/userBreakPoints";
+import { memo } from "react";
 
 const Navbar = () => {
   const pathName = usePathname();
@@ -53,4 +54,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

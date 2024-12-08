@@ -4,6 +4,7 @@ import Container from "./container";
 import NextImage from "./ui/nextImage";
 import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";
+import { memo } from "react";
 
 const Footer = () => {
   return (
@@ -116,4 +117,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

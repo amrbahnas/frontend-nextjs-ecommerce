@@ -4,10 +4,11 @@ import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
 import { Button, Empty, Spin } from "antd";
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useState } from "react";
 import ApplyCoupon from "../../cart/applyCoupon";
 import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
+import CartActionsBTN from "./cartActionsBTN";
 
 const CartBody = ({
   cart,
@@ -81,21 +82,11 @@ const CartBody = ({
                 checkoutType={checkoutType}
                 setCheckoutType={setCheckoutType}
               />
-              <div className="flex  items-center gap-1 text-sm">
-                <Button
-                  loading={isLoading}
-                  disabled={isLoading}
-                  onClick={handleCheckout}
-                  className=" !py-5  !bg-black/90 hover:scale-105 !border-none !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
-                >
-                  Checkout
-                </Button>
-                <Link href="/cart">
-                  <Button onClick={() => setOpen(false)} className="!py-5">
-                    View Cart
-                  </Button>
-                </Link>
-              </div>
+              <CartActionsBTN
+                isLoading={isLoading}
+                handleCheckout={handleCheckout}
+                setOpen={setOpen}
+              />
             </div>
           </>
         )}
@@ -104,4 +95,4 @@ const CartBody = ({
   );
 };
 
-export default CartBody;
+export default memo(CartBody);

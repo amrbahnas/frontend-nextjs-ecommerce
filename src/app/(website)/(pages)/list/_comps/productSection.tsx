@@ -1,7 +1,7 @@
 import { useGetProducts } from "@/_api/query";
 import ProductList from "@/components/productList";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { memo } from "react";
 
 const ProductSection = () => {
   const searchParams = useSearchParams();
@@ -17,4 +17,4 @@ const ProductSection = () => {
   return <ProductList products={products} isLoading={isLoading} />;
 };
 
-export default ProductSection;
+export default memo(ProductSection);

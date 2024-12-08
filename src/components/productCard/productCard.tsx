@@ -6,6 +6,7 @@ import ProductStatusBadge from "./bages/productStatusBadge";
 import PrAddToCart from "./sections/prAddToCart";
 import PrDescription from "./sections/prDescription";
 import PrImage from "./sections/prImage";
+import { memo } from "react";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {
@@ -52,4 +53,4 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

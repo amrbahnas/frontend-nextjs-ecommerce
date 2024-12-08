@@ -3,7 +3,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Badge, Popover } from "antd";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import CartSkeleton from "./cart.skeleton";
 import CartBody from "./cartBody";
@@ -59,4 +59,4 @@ const CartModal = () => {
   );
 };
 
-export default CartModal;
+export default memo(CartModal);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ProductCard from "./productCard/productCard";
 import ProductCardSkeleton from "./productCard/productCard.skeleton";
 import NoData from "./ui/noData";
@@ -30,4 +31,4 @@ const ProductList = ({
   );
 };
 
-export default ProductList;
+export default memo(ProductList);

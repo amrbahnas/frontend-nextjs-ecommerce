@@ -2,7 +2,7 @@
 import CategoriesSelector from "@/components/selectors/categoriesSelector";
 import useParamsService from "@/hooks/global/useParamsService";
 import { Button, InputNumber, Select, Tag } from "antd";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { GrPowerReset } from "react-icons/gr";
@@ -125,7 +125,7 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default memo(Filter);
 
 const FilterTags = ({
   setFilters,

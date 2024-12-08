@@ -2,7 +2,7 @@
 import NextImage from "@/components/ui/nextImage";
 import { Image } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const ProductImages = ({ images }: { images: string[] }) => {
   const [index, setIndex] = useState(0);
@@ -47,4 +47,4 @@ const ProductImages = ({ images }: { images: string[] }) => {
   );
 };
 
-export default ProductImages;
+export default memo(ProductImages);

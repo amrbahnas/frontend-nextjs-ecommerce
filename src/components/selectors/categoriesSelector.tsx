@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useGetCategories } from "./query";
 import { Select } from "antd";
 
@@ -26,4 +26,4 @@ const CategoriesSelector = ({
   );
 };
 
-export default CategoriesSelector;
+export default memo(CategoriesSelector);

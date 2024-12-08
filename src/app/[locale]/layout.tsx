@@ -6,7 +6,7 @@ import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 async function getMessages(locale: string) {
   try {
-    return (await import(`../../messages/${locale}.json`)).default;
+    return (await import(`../../../messages/${locale}.json`)).default;
   } catch (error) {
-    return (await import(`../../messages/en.json`)).default;
+    return (await import(`../../../messages/en.json`)).default;
   }
 }
 

@@ -4,10 +4,10 @@ import Container from "@/components/container";
 import Slider from "@/components/slider";
 import FeaturedProducts from "./(pages)/_comps/featuredProducts";
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const HomePage = () => {
-  const t = useTranslations('HomePage');
+  const t = useTranslations("HomePage");
 
   return (
     <div>

@@ -8,9 +8,10 @@ import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
+import React, { Usable } from "react";
 
-const SinglePage = ({ params }: { params: { id: string } }) => {
-  const { product, isLoading } = useGetSpecificProduct(params.id);
+const SinglePage = ({ params }: { params: { id: Usable<string> } }) => {
+  const { product, isLoading } = useGetSpecificProduct(React.use(params.id));
 
   if (isLoading) return <ProductSkeleton />;
 

@@ -7,7 +7,7 @@ const NoData = () => {
   return (
     <div className="flex items-center justify-center w-full h-80">
       <Image
-        src="No-data.svg"
+        src="/No-data.svg"
         alt="No Data"
         className=" opacity-80"
         width={lg ? 400 : 300}

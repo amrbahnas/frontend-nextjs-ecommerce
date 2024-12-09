@@ -1,7 +1,7 @@
 import useQuery from "@/hooks/apiHandler/useQuery";
 import { Sora } from "next/font/google";
 
-export const useGetSpecificProduct = (id: string) => {
+export const useGetSpecificProduct = (id: any) => {
   const { data, error, refetch, isError, isLoading } = useQuery<Product>(
     `/products/${id}`,
     {

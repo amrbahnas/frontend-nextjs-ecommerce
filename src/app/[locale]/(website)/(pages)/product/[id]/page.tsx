@@ -11,8 +11,8 @@ import Reviews from "../_comps/reviews";
 import React, { Usable, use } from "react";
 
 const SinglePage = (props: { params: Promise<{ id: Usable<string> }> }) => {
-  const params = use(props.params);
-  const { product, isLoading } = useGetSpecificProduct(params.id);
+  const { id } = use(props.params);
+  const { product, isLoading } = useGetSpecificProduct(id);
 
   if (isLoading) return <ProductSkeleton />;
 

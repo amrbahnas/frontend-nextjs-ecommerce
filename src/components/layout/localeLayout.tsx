@@ -1,17 +1,16 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from "next-intl";
 
-const locales = ['en', 'ar'];
+const locales = ["en", "ar"];
 
 export default async function LocaleLayout({
   children,
-  locale = 'en' // default to English if no locale provided
+  locale = "en", // default to English if no locale provided
 }: {
   children: React.ReactNode;
   locale?: string;
 }) {
   if (!locales.includes(locale as any)) {
-    locale = 'en'; // fallback to English if invalid locale
+    locale = "en"; // fallback to English if invalid locale
   }
 
   let messages;

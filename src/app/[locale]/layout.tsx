@@ -6,7 +6,7 @@ import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
-import "../globals.css";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

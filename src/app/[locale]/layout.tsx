@@ -35,7 +35,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir}>
-      {process.env.NODE_ENV === "development" && (
+      {process.env.NEXT_PUBLIC_ENV === "development" && (
         <head>
           <script
             src="https://unpkg.com/react-scan/dist/auto.global.js"

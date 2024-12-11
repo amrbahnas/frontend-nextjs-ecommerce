@@ -1,13 +1,12 @@
-"use client";;
-import { use } from "react";
+"use client";
+
 import Link from "next/link";
 import { useGetSpecificOrder } from "../_api/query";
 import { Spin } from "antd";
 import Container from "@/components/container";
 
-const OrderPage = (props: { params: Promise<{ id: string }> }) => {
-  const params = use(props.params);
-  const id = params.id;
+const OrderPage = (props: { params: { id: string } }) => {
+  const id = props.params.id;
   const { error, isLoading, isError, order } = useGetSpecificOrder(id);
 
   return (

@@ -1,6 +1,7 @@
 import axios from "axios";
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: "/api/proxy",
+  // baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   withCredentials: true,
 });
 

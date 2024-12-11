@@ -16,7 +16,7 @@ const NavIcons = () => {
 
   return (
     <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
-      {process.env.NEXT_PUBLIC_ENV === "development" && <ChangeLanguage />}
+      <ChangeLanguage />
       <ProfileIcon />
       {isAdmin && (
         <Link href={"/admin"} className="flex items-center gap-1 ">

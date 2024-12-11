@@ -1,4 +1,5 @@
-import { Button } from "antd";
+import CheckButton from "@/components/cart/checkButton";
+import { Button, Tooltip } from "antd";
 import Link from "next/link";
 import React, { memo } from "react";
 
@@ -6,21 +7,20 @@ const CartActionsBTN = ({
   isLoading,
   handleCheckout,
   setOpen,
+  invalidCart,
 }: {
   isLoading: boolean;
   handleCheckout: () => void;
   setOpen: (value: boolean) => void;
+  invalidCart: null | { status: string; message: string };
 }) => {
   return (
     <div className="flex  items-center gap-1 text-sm">
-      <Button
-        loading={isLoading}
-        disabled={isLoading}
-        onClick={handleCheckout}
-        className=" !py-5  !bg-black/90 hover:scale-105 !border-none !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
-      >
-        Checkout
-      </Button>
+      <CheckButton
+        isLoading={isLoading}
+        handleCheckout={handleCheckout}
+        invalidCart={invalidCart}
+      />
       <Link href="/cart">
         <Button onClick={() => setOpen(false)} className="!py-5">
           View Cart

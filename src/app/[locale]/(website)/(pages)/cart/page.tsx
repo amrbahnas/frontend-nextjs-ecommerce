@@ -8,13 +8,14 @@ import ResetCart from "@/components/cart/resetCart";
 import Container from "@/components/container";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Divider, Empty, Spin } from "antd";
+import { Button, Divider, Empty, Spin, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import CartPageSkeleton from "./_comps/cartPage.skeleton";
 import Link from "next/link";
 import { GrShop } from "react-icons/gr";
 import useCardStore from "@/store/useCardStore";
 import NoData from "@/components/ui/noData";
+import CheckButton from "@/components/cart/checkButton";
 
 const Page = () => {
   const [deleting, setDeleting] = useState(false);
@@ -107,14 +108,11 @@ const Page = () => {
               setCheckoutType={setCheckoutType}
             />
             <div className="flex flex-col items-end text-sm">
-              <Button
-                loading={isLoading}
-                disabled={isLoading}
-                onClick={handleCheckout}
-                className=" !py-5  !bg-black/90 hover:scale-105 !border-none !text-white disabled:cursor-not-allowed disabled:opacity-75 w-full"
-              >
-                Checkout
-              </Button>
+              <CheckButton
+                isLoading={isLoading}
+                handleCheckout={handleCheckout}
+                invalidCart={renderedCart.invalidCart}
+              />
             </div>
           </div>
         </div>

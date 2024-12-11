@@ -43,7 +43,7 @@ const CartBody = ({
 
   return (
     <Spin spinning={isLoading || deleting}>
-      <div className="  flex flex-col gap-6 z-20  w-72">
+      <div className="  flex flex-col gap-6 z-20  min-w-72">
         {!cartItems[0] ? (
           <Empty />
         ) : (
@@ -83,6 +83,7 @@ const CartBody = ({
                 setCheckoutType={setCheckoutType}
               />
               <CartActionsBTN
+                invalidCart={cart.invalidCart}
                 isLoading={isLoading}
                 handleCheckout={handleCheckout}
                 setOpen={setOpen}

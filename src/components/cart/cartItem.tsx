@@ -5,7 +5,18 @@ import useCardStore from "@/store/useCardStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { memo } from "react";
-
+// const ItemQuantity = ({ item }: { item: CartItemType }) => {
+//   const productQuantity = item?.product?.quantity || 0;
+//   return (
+//     <div className="">
+//       { ? (
+//         <span className="text-red-500">Out of Stock</span>
+//       ) : (
+//         item.quantity + "x"
+//       )}
+//     </div>
+//   );
+// };
 const CartItem = ({
   item,
   refetch,
@@ -19,6 +30,9 @@ const CartItem = ({
   const isLogin = useAuthStore((state) => state.isLogin);
   const { deleteCartItem } = useCardStore();
   const { removeItem, isPending } = useRemoveItemFromCart(item._id);
+  const productQuantity = item?.product?.quantity || 0;
+  const isOutOfStock = item.quantity > productQuantity;
+
   return (
     <div className="flex gap-2" key={item._id}>
       {item?.product?.imageCover && (
@@ -40,21 +54,29 @@ const CartItem = ({
             <Link href={`/product/${item.product?._id}`}>
               <h3 className="font-semibold">{item.product?.title}</h3>
             </Link>
-
-            <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
-              {item.quantity && item.quantity > 1 && (
-                <div className="text-xs text-green-500 truncate">
-                  {item.quantity} x{" "}
-                </div>
-              )}
-              ${item.price}
-            </div>
+            {!isOutOfStock && (
+              <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
+                {item.quantity && item.quantity > 1 && (
+                  <div className="text-xs text-green-500 truncate flex">
+                    {item.quantity}
+                  </div>
+                )}
+                ${item.price}
+              </div>
+            )}
           </div>
         </div>
         {/* BOTTOM */}
         <div className="flex justify-between text-sm">
           <div className="flex flex-col gap-1 text-xs">
-            <span className="text-gray-500">Qty: {item.quantity}</span>
+            <div className="flex items-center gap-1">
+              <span className="text-gray-500">Qty:{item.quantity}</span>
+              {isOutOfStock && (
+                <span className="text-red-500 font-bold">
+                  No longer available
+                </span>
+              )}
+            </div>
             <div className="text-gray-500 flex items-center gap-1 capitalize">
               <span>Color:</span>
               {item.color}

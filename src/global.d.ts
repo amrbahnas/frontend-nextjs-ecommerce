@@ -43,6 +43,10 @@ type CartType = {
   totalCartPrice: number;
   totalPriceAfterDiscount: number;
   appliedCoupon?: CouponType;
+  invalidCart: null | {
+    status: string;
+    message: string;
+  }
 };
 
 type CartStoreType = {

@@ -43,19 +43,19 @@ const SearchBar = ({
   return (
     <Form
       validateTrigger="onBlur"
-      className="flex-1"
+      className="flex-1 md:!min-w-96"
       form={form}
       layout="inline"
       initialValues={{ search }}
       onFinish={(values) => onSearch(values.search)}
     >
-      <Item noStyle name="search" className="!w-full">
+      <Item noStyle name="search" className="!w-full ">
         <Search
           id={customId || "search"}
           ref={inputRef}
           allowClear
           size={lg ? "large" : "middle"}
-          placeholder="input search text"
+          placeholder="search ..."
           onSearch={onSearch}
         />
       </Item>

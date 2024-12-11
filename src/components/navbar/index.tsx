@@ -29,25 +29,26 @@ const Navbar = () => {
           </DisableLink>
 
           {/* Big screen */}
-          <PageLinks />
-          <div className="w-2/3 xl:w-1/2 hidden md:flex items-center   gap-8 ">
-            {/* search input with class hidden will represent at html tree to avoid two input search with same id i added customId prop*/}
-            <SearchBar customId="largeId" />
-            <NavIcons />
-          </div>
-
-          {/* Mobile */}
-          <div className="flex items-center gap-6">
-            {/* Mobile */}
-            <div className="flex md:hidden items-center justify-between h-full gap-3">
+          {/* <PageLinks /> */}
+          <div>
+            <div className=" hidden md:flex items-center   gap-8 ">
+              {/* search input with class hidden will represent at html tree to avoid two input search with same id i added customId prop*/}
+              <SearchBar customId="largeId" />
               <NavIcons />
-              {/* <Menu /> */}
+            </div>
+            {/* Mobile */}
+            <div className="flex items-center gap-6">
+              {/* Mobile */}
+              <div className="flex md:hidden items-center justify-between h-full gap-3">
+                <NavIcons />
+                {/* <Menu /> */}
+              </div>
             </div>
           </div>
-        </div>
-        {/*  mobile */}
-        <div className=" mt-3 block md:hidden ">
-          <SearchBar customId="smallId" />
+          {/*  mobile */}
+          <div className=" mt-3 block md:hidden ">
+            <SearchBar customId="smallId" />
+          </div>
         </div>
       </div>
     </Container>

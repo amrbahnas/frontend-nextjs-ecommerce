@@ -17,8 +17,8 @@ const ReviewCard = ({
   currentUser: User | null;
   refetch: () => void;
 }) => {
-  if (!review.user) return null;
   const t = useTranslations("Reviews");
+  if (!review.user) return null;
   const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
   const displayedDate =
     review.updatedAt !== review.createdAt ? review.updatedAt : review.createdAt;

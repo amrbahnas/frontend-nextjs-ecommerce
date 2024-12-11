@@ -35,9 +35,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir}>
-      <head>
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
-      </head>
+      {process.env.NODE_ENV === "development" && (
+        <head>
+          <script
+            src="https://unpkg.com/react-scan/dist/auto.global.js"
+            async
+          />
+        </head>
+      )}
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AntDLayout>

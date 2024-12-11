@@ -45,10 +45,10 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          {/*  mobile */}
-          <div className=" mt-3 block md:hidden ">
-            <SearchBar customId="smallId" />
-          </div>
+        </div>
+        {/*  mobile */}
+        <div className=" mt-3 block md:hidden ">
+          <SearchBar customId="smallId" />
         </div>
       </div>
     </Container>

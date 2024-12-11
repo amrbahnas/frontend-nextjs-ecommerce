@@ -7,6 +7,7 @@ import { useAddReview, useEditReview } from "../../_api/action";
 import { useEffect } from "react";
 import useAuthStore from "@/store/useAuthStore";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const ReviewForm = ({
   productId,
@@ -22,7 +23,7 @@ const ReviewForm = ({
   const pathName = usePathname();
   const { addReview, error, isPending: addReviewIsPending } = useAddReview();
   const isLogin = useAuthStore((state) => state.isLogin);
-
+  const t = useTranslations("Reviews");
   const {
     editReview,
     error: editError,
@@ -43,7 +44,6 @@ const ReviewForm = ({
   };
 
   const handleCreateReview = (values: any) => {
-    console.log("🚀 ~ handleCreateReview ~ values:", values);
     addReview(
       { ...values, product: productId },
       {
@@ -92,7 +92,7 @@ const ReviewForm = ({
           name={"title"}
           rules={[{ required: true, message: "Title is required" }]}
         >
-          <TextArea rows={3} placeholder="Title" />
+          <TextArea rows={3} placeholder={t("title")} />
         </Item>
 
         <Button
@@ -102,7 +102,7 @@ const ReviewForm = ({
           disabled={addReviewIsPending || editIsPending}
           loading={addReviewIsPending || editIsPending}
         >
-          {review ? "Edit Review" : "Add Review"}
+          {review ? t("editReview") : t("addReview")}
         </Button>
       </Form>
       <Error error={error || editError} />

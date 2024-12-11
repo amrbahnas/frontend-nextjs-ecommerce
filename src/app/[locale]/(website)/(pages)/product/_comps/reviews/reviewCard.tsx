@@ -2,8 +2,11 @@ import NextImage from "@/components/ui/nextImage";
 import { Rate } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ar";
 import ReviewCardActions from "./reviewCardActions";
+import { useTranslations } from "next-intl";
 dayjs.extend(relativeTime);
+dayjs.locale("ar");
 
 const ReviewCard = ({
   review,
@@ -15,6 +18,7 @@ const ReviewCard = ({
   refetch: () => void;
 }) => {
   if (!review.user) return null;
+  const t = useTranslations("Reviews");
   const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
   const displayedDate =
     review.updatedAt !== review.createdAt ? review.updatedAt : review.createdAt;
@@ -33,7 +37,7 @@ const ReviewCard = ({
             <div className="flex items-center gap-1 text-gray-700">
               <span>{review.user?.name}</span>
               {currentUserIsOwnThisReview && (
-                <span className="text-xs text-gray-500"> (You)</span>
+                <span className="text-xs text-gray-500"> ({t("you")})</span>
               )}
             </div>
             <div className="text-xs text-gray-500">

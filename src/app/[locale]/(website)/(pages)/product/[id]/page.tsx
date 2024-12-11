@@ -9,10 +9,12 @@ import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
 import React, { Usable, use } from "react";
+import { useTranslations } from "next-intl";
 
 const SinglePage = (props: { params: Promise<{ id: Usable<string> }> }) => {
   const { id } = use(props.params);
   const { product, isLoading } = useGetSpecificProduct(id);
+  const t = useTranslations('ProductDetails');
 
   if (isLoading) return <ProductSkeleton />;
 
@@ -38,7 +40,7 @@ const SinglePage = (props: { params: Promise<{ id: Usable<string> }> }) => {
             />
             <span className="text-sm text-gray-500 space-x-1">
               <span>{product.ratingsQuantity}</span>
-              <span>reviews</span>
+              <span>{t('reviews')}</span>
             </span>
           </div>
 

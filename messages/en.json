@@ -17,7 +17,12 @@
     "price": "Price",
     "quantity": "Quantity",
     "total": "Total",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "add": "Add",
+    "delete": "Delete"
   },
   "HomePage": {
     "featuredProducts": "Featured Products",
@@ -27,5 +32,74 @@
     "bestSellers": "Best Sellers",
     "specialOffers": "Special Offers",
     "seeMore": "See More"
+  },
+  "Footer": {
+    "brand": "Elbahnsawy",
+    "description": "Elbahnsawy is a global online fashion retail company.",
+    "shop": "SHOP",
+    "men": "Men",
+    "sport": "Sport",
+    "allProducts": "All Products",
+    "help": "HELP",
+    "customerService": "Customer Service",
+    "myAccount": "My Account",
+    "findStore": "Find a Store",
+    "company": "COMPANY",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "securePayments": "Secure Payments",
+    "copyright": "",
+    "language": "Language",
+    "unitedStates": "United States",
+    "english": "English",
+    "currency": "Currency",
+    "egp": "EGP"
+  },
+  "Product": {
+    "title": "{title}",
+    "description": "{description}",
+    "terrible": "Terrible",
+    "bad": "Bad",
+    "normal": "Normal",
+    "good": "Good",
+    "wonderful": "Wonderful",
+    "addToCart": "Add to Cart",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "colors": "Colors",
+    "sizes": "Sizes",
+    "quantity": "Quantity",
+    "price": "Price",
+    "save": "Save {percentage}%",
+    "originalPrice": "Original Price",
+    "rating": "Rating"
+  },
+  "Menu": {},
+  "ProductDetails": {
+    "reviews": "reviews"
+  },
+  "AddProduct": {
+    "quantity": "Quantity",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "outOfStock": "Product is out of stock",
+    "colors": "Colors"
+  },
+  "SavingPercentage": {
+    "saveNow": "Save {percentage}% right now"
+  },
+  "AddToCart": {
+    "buttonLabel": "Add to Cart",
+    "successMessage": "Product added to cart",
+    "errorMessage": "Failed to add product to cart"
+  },
+  "Reviews": {
+    "userReviews": "User Reviews",
+    "noReviews": "No reviews yet",
+    "you": "You",
+    "editReview": "Edit Review",
+    "deleteReview": "Delete Review",
+    "addReview": "Add Review",
+    "title": "Title" 
   }
 }

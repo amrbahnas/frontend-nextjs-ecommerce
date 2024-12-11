@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 type ButtonStyleType = {
   buttonClassName?: string;
@@ -34,6 +35,8 @@ const AddProductToCard = ({
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, setOnlineCart, storeCart, onlineCart } = useCardStore();
+
+  const t = useTranslations('AddToCart');
 
   const cartItemCount = useMemo(() => {
     return (
@@ -66,85 +69,59 @@ const AddProductToCard = ({
     ]
   );
 
-  if (isLogin) {
-    return (
-      <Tooltip
-        title={noAvailableStock && "No stock available for this product"}
-      >
-        <Button
-          {...commonOptions}
-          onClick={(e) => {
-            addProduct(
-              {
-                productId: _id,
-                color: productOptions.color,
-                quantity: productOptions.quantity,
-                size: productOptions.size,
-              },
-              {
-                onSuccess: (res) => {
-                  try {
-                    const cart = res.data?.cart;
-                    setOnlineCart({
-                      cartItems: cart?.cartItems || [],
-                      totalCartPrice: cart?.totalCartPrice || 0,
-                    });
+  const handleAddToCart = async () => {
+    try {
+      if (isLogin) {
+        await addProduct(
+          {
+            productId: _id,
+            color: productOptions.color,
+            quantity: productOptions.quantity,
+            size: productOptions.size,
+          },
+          {
+            onSuccess: (res) => {
+              try {
+                const cart = res.data?.cart;
+                setOnlineCart({
+                  cartItems: cart?.cartItems || [],
+                  totalCartPrice: cart?.totalCartPrice || 0,
+                });
 
-                    successToast();
-                  } catch (error: any) {
-                    toast.error(String(error));
-                  }
-                },
+                toast.success(t('successMessage'));
+              } catch (error: any) {
+                toast.error(t('errorMessage'));
               }
-            );
-          }}
-          loading={isPending}
-        >
-          Add to Cart
-        </Button>
-      </Tooltip>
-    );
-  }
+            },
+          }
+        );
+      } else {
+        addCartItem({
+          product: product,
+          quantity: productOptions.quantity,
+          price: price * productOptions.quantity,
+          color: productOptions.color || colors[0],
+          size: productOptions.size || availableSizes[0],
+          _id,
+        });
+
+        toast.success(t('successMessage'));
+      }
+    } catch (error) {
+      toast.error(t('errorMessage'));
+    }
+  };
 
   return (
     <Tooltip title={noAvailableStock && "No stock available for this product"}>
       <Button
         {...commonOptions}
-        onClick={() => {
-          addCartItem({
-            product: product,
-            quantity: productOptions.quantity,
-            price: price * productOptions.quantity,
-            color: productOptions.color || colors[0],
-            size: productOptions.size || availableSizes[0],
-            _id,
-          });
-
-          successToast();
-        }}
+        onClick={handleAddToCart}
+        loading={isPending}
       >
-        Add to Cart
+        {t('buttonLabel')}
       </Button>
     </Tooltip>
-  );
-};
-
-const successToast = () => {
-  toast.success(
-    <div>
-      Product added to cart
-      <Link
-        href="/cart"
-        className="!text-blue-500 !underline !ml-2 !font-semibold"
-      >
-        View Cart
-      </Link>
-    </div>,
-    {
-      position: "bottom-center",
-      className: "mb-10",
-      duration: 3000,
-    }
   );
 };
 

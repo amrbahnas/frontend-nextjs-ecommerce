@@ -1,5 +1,6 @@
 import React from "react";
 import { MdLocalOffer } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 const SavingPercentage = ({
   percentage,
@@ -13,11 +14,12 @@ const SavingPercentage = ({
   const savedPercentage = Math.floor(
     ((beforePrice - afterPrice) / beforePrice) * 100
   );
+  const t = useTranslations('SavingPercentage');
   return (
     <div className="flex items-center gap-2 text-sm text-gray-600 ">
       <MdLocalOffer />
       <span className=" truncate">
-        Save {percentage || savedPercentage}% right now
+        {t('saveNow', { percentage: percentage || savedPercentage })}
       </span>
     </div>
   );

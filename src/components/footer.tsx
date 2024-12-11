@@ -5,8 +5,11 @@ import NextImage from "./ui/nextImage";
 import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";
 import { memo } from "react";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations('Footer');
+
   return (
     <div className=" py-24 bg-gray-100 text-sm mt-24">
       <Container>
@@ -15,9 +18,9 @@ const Footer = () => {
           {/* LEFT */}
           <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
             <Link href="/">
-              <div className="text-2xl tracking-wide">Elbahnsawy</div>
+              <div className="text-2xl tracking-wide">{t('brand')}</div>
             </Link>
-            <p>Elbahnsawy is a global online fashion retail company. We sell</p>
+            <p>{t('description')}</p>
             <a
               className="font-semibold"
               href="mailto:elbahnsawy.work@gmail.com"
@@ -63,32 +66,32 @@ const Footer = () => {
           {/* CENTER */}
           <div className="grid  grid-cols-2 md:grid-cols-3  gap-3 flex-1 shrink-0">
             <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">SHOP</h1>
+              <h1 className="font-medium text-lg">{t('shop')}</h1>
               <div className="flex flex-col gap-6">
-                <Link href="/list?cat=66fc7bc1ce2284e5c7c337ae">Men</Link>
-                <Link href="?cat=66fc7f18e3bd2937a6e60771">Sport</Link>
-                <Link href="/list">All Products</Link>
+                <Link href="/list?cat=66fc7bc1ce2284e5c7c337ae">{t('men')}</Link>
+                <Link href="?cat=66fc7f18e3bd2937a6e60771">{t('sport')}</Link>
+                <Link href="/list">{t('allProducts')}</Link>
               </div>
             </div>
             <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">HELP</h1>
+              <h1 className="font-medium text-lg">{t('help')}</h1>
               <div className="flex flex-col gap-6">
-                <Link href="/customer-service">Customer Service</Link>
-                <Link href="/profile">My Account</Link>
-                <Link href="/find-store">Find a Store</Link>
+                <Link href="/customer-service">{t('customerService')}</Link>
+                <Link href="/profile">{t('myAccount')}</Link>
+                <Link href="/find-store">{t('findStore')}</Link>
               </div>
             </div>
             <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">COMPANY</h1>
+              <h1 className="font-medium text-lg">{t('company')}</h1>
               <div className="flex flex-col gap-6 ">
-                <Link href="/about-us">About Us</Link>
-                <Link href="/contact-us">Contact Us</Link>
+                <Link href="/about-us">{t('aboutUs')}</Link>
+                <Link href="/contact-us">{t('contactUs')}</Link>
               </div>
             </div>
           </div>
           {/* RIGHT */}
           <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
-            <span className="font-semibold">Secure Payments</span>
+            <span className="font-semibold">{t('securePayments')}</span>
             <div className="flex justify-between">
               <NextImage src="/discover.png" alt="" width={40} height={20} />
               <NextImage src="/skrill.png" alt="" width={40} height={20} />
@@ -100,15 +103,15 @@ const Footer = () => {
         </div>
         {/* BOTTOM */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mt-16">
-          <div className="">© 2024 Elbahnsawy Shop</div>
+          <div className="">{t('copyright')} 2024 {t('brand')}</div>
           <div className="flex flex-col gap-8 md:flex-row">
             <div className="">
-              <span className="text-gray-500 mr-4">Language</span>
-              <span className="font-medium">United States | English</span>
+              <span className="text-gray-500 mr-4">{t('language')}</span>
+              <span className="font-medium">{t('unitedStates')} | {t('english')}</span>
             </div>
             <div className="">
-              <span className="text-gray-500 mr-4">Currency</span>
-              <span className="font-medium">$ EGP</span>
+              <span className="text-gray-500 mr-4">{t('currency')}</span>
+              <span className="font-medium">$ {t('egp')}</span>
             </div>
           </div>
         </div>

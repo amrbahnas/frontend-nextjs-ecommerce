@@ -2,6 +2,7 @@ import DisplayPrice from "@/components/ui/displayPrice";
 import SavingPercentage from "@/components/ui/savingPercentage";
 import { Rate } from "antd";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const PrDescription = ({
   title,
@@ -14,11 +15,13 @@ const PrDescription = ({
   ratingsAverage: number;
   description: string;
 }) => {
+  const t = useTranslations('Product');
+  
   return (
     <div className="px-3 space-y-1 mt-2">
       <div className="flex justify-between flex-col md:flex-row">
         <span className="font-medium  text-lg  md:text-xl  truncate">
-          {title}
+          {t('title', { title })}
         </span>
         <DisplayPrice
           afterPrice={price}
@@ -30,11 +33,16 @@ const PrDescription = ({
       <Rate
         defaultValue={ratingsAverage}
         disabled
-        className=" !text-sm !block"
+        className="!text-sm"
+        tooltips={[
+          t('terrible'),
+          t('bad'),
+          t('normal'),
+          t('good'),
+          t('wonderful')
+        ]}
       />
-      <span className=" text-sm text-gray-700 !block truncate">
-        {description}
-      </span>
+      <p className="text-gray-500 text-sm line-clamp-2">{t('description', { description })}</p>
       <SavingPercentage beforePrice={price + 50} afterPrice={price} />
     </div>
   );

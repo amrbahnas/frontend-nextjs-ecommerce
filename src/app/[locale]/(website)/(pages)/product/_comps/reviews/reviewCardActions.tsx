@@ -5,6 +5,7 @@ import EditReviewModal from "./editReviewModal";
 import { useState } from "react";
 import { useDeleteReview } from "../../_api/action";
 import { Error } from "@/components/ui/error";
+import { useTranslations } from "next-intl";
 
 const ReviewCardActions = ({
   review,
@@ -17,6 +18,7 @@ const ReviewCardActions = ({
   refetch: () => void;
   currentUserIsOwnThisReview: boolean;
 }) => {
+  const t = useTranslations("Common");
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openActionsMenu, setOpenActionsMenu] = useState(false);
   const {
@@ -51,13 +53,13 @@ const ReviewCardActions = ({
                 setOpenEditModal(true);
               }}
             >
-              Edit
+              {t("edit")}
             </Button>
 
             <Popconfirm
-              title="Are you sure delete this Review ?"
-              okText="Delete"
-              cancelText="Cancel"
+              title={t("areYouSureDeleteThisReview")}
+              okText={t("delete")}
+              cancelText={t("cancel")}
               onConfirm={handleDelete}
               disabled={deleteIsPending}
             >
@@ -66,7 +68,7 @@ const ReviewCardActions = ({
                 disabled={deleteIsPending}
                 className="mt-2 cursor-pointer"
               >
-                Delete
+                {t("delete")}
               </Button>
             </Popconfirm>
 

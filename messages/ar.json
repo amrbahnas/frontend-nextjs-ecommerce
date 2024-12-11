@@ -17,7 +17,12 @@
     "price": "السعر",
     "quantity": "الكمية",
     "total": "المجموع",
-    "checkout": "إتمام الشراء"
+    "checkout": "إتمام الشراء",
+    "edit": "تعديل",
+    "save": "حفظ",
+    "cancel": "الغاء",
+    "add": "أضف",
+    "delete": "إزالة"
   },
   "HomePage": {
     "featuredProducts": "منتجات مميزة",
@@ -27,5 +32,74 @@
     "bestSellers": "الأكثر مبيعاً",
     "specialOffers": "عروض خاصة",
     "seeMore": "المزيد"
+  },
+  "Footer": {
+    "brand": "البهنساوي",
+    "description": "البهنساوي هي شركة عالمية للبيع بالتجزئة للأزياء عبر الإنترنت",
+    "shop": "تسوق",
+    "men": "رجال",
+    "sport": "رياضة",
+    "allProducts": "جميع المنتجات",
+    "help": "المساعدة",
+    "customerService": "خدمة العملاء",
+    "myAccount": "حسابي",
+    "findStore": "ابحث عن متجر",
+    "company": "الشركة",
+    "aboutUs": "من نحن",
+    "contactUs": "اتصل بنا",
+    "securePayments": "مدفوعات آمنة",
+    "copyright": " ",
+    "language": "اللغة",
+    "unitedStates": "الولايات المتحدة",
+    "english": "الإنجليزية",
+    "currency": "العملة",
+    "egp": "جنيه مصري"
+  },
+  "Product": {
+    "title": "{title}",
+    "description": "{description}",
+    "terrible": "سيء جداً",
+    "bad": "سيء",
+    "normal": "عادي",
+    "good": "جيد",
+    "wonderful": "ممتاز",
+    "addToCart": "أضف إلى السلة",
+    "outOfStock": "غير متوفر",
+    "inStock": "متوفر",
+    "colors": "الألوان",
+    "sizes": "المقاسات",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "save": "وفر {percentage}%",
+    "originalPrice": "السعر الأصلي",
+    "rating": "التقييم"
+  },
+  "Menu": {},
+  "ProductDetails": {
+    "reviews": "تقييمات"
+  },
+  "AddProduct": {
+    "quantity": "الكمية",
+    "decreaseQuantity": "تقليل الكمية",
+    "increaseQuantity": "زيادة الكمية",
+    "outOfStock": "المنتج غير متوفر",
+    "colors": "الألوان"
+  },
+  "SavingPercentage": {
+    "saveNow": "وفر {percentage}% الآن"
+  },
+  "AddToCart": {
+    "buttonLabel": "أضف إلى السلة",
+    "successMessage": "تمت إضافة المنتج إلى السلة",
+    "errorMessage": "فشل في إضافة المنتج إلى السلة"
+  },
+  "Reviews": {
+    "userReviews": "مراجعات المستخدمين",
+    "noReviews": "لا توجد مراجعات بعد",
+    "you": "انت",
+    "editReview": "تعديل المراجعة",
+    "deleteReview": "حذف المراجعة",
+    "addReview": "أضف مراجعة",
+    "title": "العنوان" 
   }
 }

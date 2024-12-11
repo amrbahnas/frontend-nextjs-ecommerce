@@ -169,9 +169,12 @@ const intlMiddleware = createMiddleware({
 
 
 export async function middleware(request: NextRequest) {
-  const cookies123 = request.cookies.getAll();
-  console.log("🚀 ~ file: middleware.ts:173 ~ cookies:", cookies123)
-  console.log("🚀 ~ file: middleware.ts:159 ~ cookies:", cookies)
+  const session1 = request.cookies.get("session")?.value;
+  const session2 = await cookies().get("session");
+
+  console.log("🚀 ~ middleware ~ session1:", session1);
+  console.log("🚀 ~ middleware ~ session2:", session2);
+
   // First, handle internationalization
   const intlResponse = await intlMiddleware(request);
 

@@ -15,13 +15,13 @@ const PrDescription = ({
   ratingsAverage: number;
   description: string;
 }) => {
-  const t = useTranslations('Product');
-  
+  const t = useTranslations("Product");
+
   return (
     <div className="px-3 space-y-1 mt-2">
       <div className="flex justify-between flex-col md:flex-row">
         <span className="font-medium  text-lg  md:text-xl  truncate">
-          {t('title', { title })}
+          {t("title", { title })}
         </span>
         <DisplayPrice
           afterPrice={price}
@@ -35,14 +35,16 @@ const PrDescription = ({
         disabled
         className="!text-sm"
         tooltips={[
-          t('terrible'),
-          t('bad'),
-          t('normal'),
-          t('good'),
-          t('wonderful')
+          t("terrible"),
+          t("bad"),
+          t("normal"),
+          t("good"),
+          t("wonderful"),
         ]}
       />
-      <p className="text-gray-500 text-sm line-clamp-2">{t('description', { description })}</p>
+      <p className="text-gray-500 text-sm line-clamp-2 truncate">
+        {t("description", { description })}
+      </p>
       <SavingPercentage beforePrice={price + 50} afterPrice={price} />
     </div>
   );

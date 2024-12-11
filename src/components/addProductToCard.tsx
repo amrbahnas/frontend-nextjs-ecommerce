@@ -3,7 +3,7 @@ import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Button, ButtonProps, Tooltip } from "antd";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
 
@@ -33,22 +33,34 @@ const AddProductToCard = ({
   const { _id, colors = [], availableSizes = [], quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
-  const { addCartItem, setOnlineCart } = useCardStore();
+  const { addCartItem, setOnlineCart, storeCart, onlineCart } = useCardStore();
 
-  const commonOptions: ButtonProps = React.useMemo(
+  const cartItemCount = useMemo(() => {
+    return (
+      (isLogin ? onlineCart.cartItems : storeCart.cartItems).find(
+        (item) => item.product._id === _id
+      )?.quantity || -1
+    );
+  }, [isLogin, onlineCart, storeCart]);
+
+  const noAvailableStock = useMemo(() => {
+    return quantity === 0 || cartItemCount === quantity - 1;
+  }, [quantity, cartItemCount]);
+
+  const commonOptions: ButtonProps = useMemo(
     () => ({
       type: buttonStyle?.buttonType || "default",
       size: buttonStyle?.buttonSize || "middle",
       className: `!w-32 !py-4 ${buttonStyle?.buttonClassName}`,
       shape: "default",
       icon: <MdAddShoppingCart />,
-      disabled: quantity === 0 || disabled || isPending,
+      disabled: noAvailableStock || disabled || isPending,
     }),
     [
       buttonStyle?.buttonType,
       buttonStyle?.buttonSize,
       buttonStyle?.buttonClassName,
-      quantity,
+      cartItemCount,
       disabled,
       isPending,
     ]
@@ -56,7 +68,9 @@ const AddProductToCard = ({
 
   if (isLogin) {
     return (
-      <Tooltip title={quantity === 0 && "No stock available for this product"}>
+      <Tooltip
+        title={noAvailableStock && "No stock available for this product"}
+      >
         <Button
           {...commonOptions}
           onClick={(e) => {
@@ -70,7 +84,6 @@ const AddProductToCard = ({
               {
                 onSuccess: (res) => {
                   try {
-                    const cartItemsCount = res.data.cartItemsCount;
                     const cart = res.data?.cart;
                     setOnlineCart({
                       cartItems: cart?.cartItems || [],
@@ -94,11 +107,11 @@ const AddProductToCard = ({
   }
 
   return (
-    <Tooltip title={quantity === 0 && "No stock available for this product"}>
+    <Tooltip title={noAvailableStock && "No stock available for this product"}>
       <Button
         {...commonOptions}
         onClick={() => {
-          const isExist = addCartItem({
+          addCartItem({
             product: product,
             quantity: productOptions.quantity,
             price: price * productOptions.quantity,
@@ -106,6 +119,7 @@ const AddProductToCard = ({
             size: productOptions.size || availableSizes[0],
             _id,
           });
+
           successToast();
         }}
       >

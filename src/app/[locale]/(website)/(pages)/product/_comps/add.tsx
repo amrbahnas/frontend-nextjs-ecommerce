@@ -5,6 +5,7 @@ import { Divider } from "antd";
 import { useState } from "react";
 import ColorSelector from "./colorSelector";
 import SizeSelector from "./sizeSelector";
+import CardBadge from "@/components/productCard/bages/cardBadge";
 
 const Add = ({ product }: { product: Product }) => {
   const {
@@ -74,6 +75,7 @@ const Add = ({ product }: { product: Product }) => {
               <br /> {"Don't"} miss it
             </div>
           )}
+          <CardBadge productId={_id} />
         </div>
         <div className=" flex items-center gap-5">
           <AddProductToCard

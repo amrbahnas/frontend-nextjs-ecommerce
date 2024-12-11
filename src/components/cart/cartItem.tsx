@@ -20,7 +20,7 @@ const CartItem = ({
   const { deleteCartItem } = useCardStore();
   const { removeItem, isPending } = useRemoveItemFromCart(item._id);
   return (
-    <div className="flex gap-4" key={item._id}>
+    <div className="flex gap-2" key={item._id}>
       {item?.product?.imageCover && (
         <NextImage
           src={item.product?.imageCover}
@@ -43,7 +43,9 @@ const CartItem = ({
 
             <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
               {item.quantity && item.quantity > 1 && (
-                <div className="text-xs text-green-500">{item.quantity} x </div>
+                <div className="text-xs text-green-500 truncate">
+                  {item.quantity} x{" "}
+                </div>
               )}
               ${item.price}
             </div>

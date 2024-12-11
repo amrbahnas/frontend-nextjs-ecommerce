@@ -170,7 +170,7 @@ const intlMiddleware = createMiddleware({
 
 export async function middleware(request: NextRequest) {
   const session1 = request.cookies.get("session")?.value;
-  const session2 = await cookies().get("session");
+  const session2 = await cookies().get("session")?.value;
 
   console.log("🚀 ~ middleware ~ session1:", session1);
   console.log("🚀 ~ middleware ~ session2:", session2);

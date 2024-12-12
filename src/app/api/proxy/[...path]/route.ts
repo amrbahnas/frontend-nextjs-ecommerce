@@ -113,3 +113,52 @@ export async function POST(
     return NextResponse.json("Internal server error", { status: 500 });
   }
 }
+
+// delete
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { path: string[] } }
+) {
+  try {
+    const path = "/" + params.path.join("/");
+
+    const config: RetryConfig = {
+      headers: {
+        Cookie: request.headers.get("cookie") || "",
+      },
+    };
+
+    const response = await axiosInstance.delete(path, config);
+
+    const newResponse = NextResponse.json(response.data);
+
+    const cookies = response.headers["set-cookie"];
+    if (cookies) {
+      cookies.forEach((cookie) => {
+        newResponse.headers.append("Set-Cookie", cookie);
+      });
+    }
+
+    return newResponse;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // If backend is not available
+      if (
+        error.code === "ECONNREFUSED" ||
+        error.code === "ECONNRESET" ||
+        error.code === "ETIMEDOUT"
+      ) {
+        return NextResponse.json(
+          { error: "Backend service is temporarily unavailable" },
+          { status: 503 }
+        );
+      }
+      // Return the error from the backend if available
+      return NextResponse.json(
+        error.response?.data || "Failed to process request",
+        { status: error.response?.status || 500 }
+      );
+    }
+    return NextResponse.json("Internal server error", { status: 500 });
+  }
+}

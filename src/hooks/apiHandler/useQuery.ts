@@ -31,10 +31,12 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
 
   if (result.error) {
     process.env.NEXT_PUBLIC_ENV === "development" &&
-      toast.error(result.error.response?.data || "Internal Server Error");
+      toast.error(
+        JSON.stringify(result.error.response?.data || "Internal Server Error")
+      );
+
     if (isLogin) {
       if (result.error.response?.status === 401) {
-        Cookie.remove("session");
         logout("/auth/login");
       }
       if (result.error.response?.status === 403) {

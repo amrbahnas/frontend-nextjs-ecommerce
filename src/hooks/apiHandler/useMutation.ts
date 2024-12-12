@@ -38,7 +38,9 @@ const useMutation = (
 
     onError: (error, variables, context) => {
       process.env.NEXT_PUBLIC_ENV === "development" &&
-        toast.error(String(error?.response?.data) || "Internal Server Error");
+        toast.error(
+          JSON.stringify(error?.response?.data || "Internal Server Error")
+        );
 
       if (isLogin) {
         if (error.response?.status === 401) {

@@ -17,8 +17,8 @@ const VerifyEmail = () => {
   const { user, setUser } = useUserStore();
   const [screen, setScreen] = useState(SCREENS.SEND_Email_CODE);
   const [resentCount, setResentCount] = useState(0);
-  const { getParams, setParams } = useParamsService({});
-  const status = getParams("status");
+  const { getParams } = useParamsService({});
+
   const {
     sendVerificationEmailCode,
     sendVerificationEmailCodeLoading,
@@ -54,7 +54,6 @@ const VerifyEmail = () => {
           {
             onSuccess: () => {
               setScreen(SCREENS.VERIFICATION_Email_CODE);
-              setParams("status", "enter-code");
             },
           }
         );
@@ -64,7 +63,7 @@ const VerifyEmail = () => {
           onSuccess: (res) => {
             const newUser = res.data.user;
             setUser(newUser);
-            setParams("status", "success");
+
             setScreen(SCREENS.EMAIL_VERIFIED);
           },
         });
@@ -75,12 +74,6 @@ const VerifyEmail = () => {
         break;
     }
   };
-
-  useEffect(() => {
-    if (status === "success" && screen !== SCREENS.EMAIL_VERIFIED) {
-      setScreen(SCREENS.EMAIL_VERIFIED);
-    }
-  }, [status]);
 
   return (
     <Container className="flex justify-center items-center h-[calc(100dvh-80px)] ">

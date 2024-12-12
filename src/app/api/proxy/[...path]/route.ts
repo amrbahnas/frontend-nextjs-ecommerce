@@ -20,9 +20,7 @@ export async function GET(
   { params }: { params: { path: string[] } }
 ) {
   try {
-    // Join the path segments with '/'
     const path = "/" + params.path.join("/");
-    console.log("🚀 ~ Forwarding to path:", path);
 
     const config: RetryConfig = {
       headers: {
@@ -31,11 +29,9 @@ export async function GET(
     };
 
     const response = await axiosInstance.get(path, config);
-    console.log("🚀 ~ Got backend response:", response.status);
 
     const newResponse = NextResponse.json(response.data);
 
-    // Forward cookies from backend response
     const cookies = response.headers["set-cookie"];
     if (cookies) {
       cookies.forEach((cookie) => {

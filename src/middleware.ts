@@ -1,20 +1,20 @@
-import createMiddleware from 'next-intl/middleware';
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import createMiddleware from "next-intl/middleware";
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import axios from "axios";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
-  locales: ['en', 'ar'],
+  locales: ["en", "ar"],
   // If this locale is matched, pathnames work without a prefix (e.g. `/about`)
-  defaultLocale: 'en',
+  defaultLocale: "en",
   // Whether to add locale prefix for default locale
-  localePrefix: 'never'
+  localePrefix: "never",
 });
 
 async function verifyToken() {
   const session = cookies().get("session")?.value;
-  
+
   if (!session) {
     return null;
   }
@@ -31,22 +31,20 @@ async function verifyToken() {
         },
       }
     );
-     
-    
+
     return response.data.data;
   } catch (error) {
     return null;
   }
 }
 
-const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail","/orders"];
+const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail", "/orders"];
 
 export async function middleware(request: NextRequest) {
   // First, get the intl response
   const intlResponse = await intlMiddleware(request);
   const tokenData = await verifyToken();
   const pathName = request.nextUrl.pathname;
-  console.log("🚀 ~ file: middleware.ts:48 ~ tokenData:", tokenData)
 
   // Helper function to create redirects that preserve intl headers
   const createRedirectResponse = (url: string) => {
@@ -107,6 +105,6 @@ export const config = {
     // - api (API routes)
     // - _next (Next.js internals)
     // - .*\\..*$ (files with an extension, e.g. favicon.ico)
-    '/((?!api|_next|.*\\.[^/]*$).*)',
-  ]
+    "/((?!api|_next|.*\\.[^/]*$).*)",
+  ],
 };

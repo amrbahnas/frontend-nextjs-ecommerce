@@ -8,9 +8,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { useLogin } from "../_api/mutation";
+
 import useAuthStore from "@/store/useAuthStore";
 import { useLogout } from "@/hooks/global/useLogout";
+import { useLogin } from "../_api/mutation";
 const { Password } = Input;
 
 const LoginPage = ({}) => {

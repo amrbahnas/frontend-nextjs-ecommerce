@@ -18,7 +18,7 @@ export const ProfileIcon = () => {
   };
 
   const handleLogout = () => {
-    logout();
+    logout("/");
     setIsProfileOpen(false);
   };
   return (

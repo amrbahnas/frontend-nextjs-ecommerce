@@ -138,3 +138,13 @@ export const useLogoutApi = () => {
     isPending,
   };
 };
+
+// googleAuth
+export const useGoogleAuth = () => {
+  const { mutate: googleAuth, isPending: googleAuthPending } =
+    useMutation("/auth/googlse");
+  return {
+    googleAuth,
+    isPending: googleAuthPending,
+  };
+};

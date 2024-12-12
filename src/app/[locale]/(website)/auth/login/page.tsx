@@ -53,11 +53,11 @@ const LoginPage = ({}) => {
               Login
             </h1>
           </Divider>
-          <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}>
+          {/* <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}>
             <Button size="large" className="!w-full" icon={<FaGoogle />}>
               Login with Google
             </Button>
-          </a>
+          </a> */}
           <Divider>Or</Divider>
           {loginError && (
             <div className="flex items-center gap-2 mb-5">

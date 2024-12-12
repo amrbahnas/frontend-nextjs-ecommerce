@@ -68,7 +68,7 @@ const ForgetPasswordPage = () => {
           },
           {
             onSuccess: () => {
-              router.push("/login");
+              router.push("/auth/login");
               toast.success("Password changed successfully");
             },
           }
@@ -222,7 +222,7 @@ const ForgetPasswordPage = () => {
             {screen === SCREENS.SEND_RESET_CODE && (
               <Link
                 className="text-sm underline cursor-pointer block mt-4"
-                href={"/login"}
+                href={"/auth/login"}
               >
                 Go back to Login
               </Link>

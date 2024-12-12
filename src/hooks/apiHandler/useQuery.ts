@@ -35,7 +35,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     if (isLogin) {
       if (result.error.response?.status === 401) {
         Cookie.remove("session");
-        logout("/login");
+        logout("/auth/login");
       }
       if (result.error.response?.status === 403) {
         logout("/inactiveAccount");

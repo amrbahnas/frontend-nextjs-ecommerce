@@ -14,7 +14,7 @@ export const ProfileIcon = () => {
   const { logout, isPending } = useLogout();
 
   const handleProfileIcon = () => {
-    isLogin ? setIsProfileOpen(!isProfileOpen) : router.push("/login");
+    isLogin ? setIsProfileOpen(!isProfileOpen) : router.push("/auth/login");
   };
 
   const handleLogout = () => {

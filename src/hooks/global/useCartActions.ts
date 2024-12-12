@@ -45,7 +45,7 @@ const useCartActions = ({
 
   const handleCheckout = () => {
     if (!isLogin) {
-      router.push("/login");
+      router.push("/auth/login");
 
       onSuccess && onSuccess();
       return;

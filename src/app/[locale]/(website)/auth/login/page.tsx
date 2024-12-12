@@ -9,11 +9,15 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLogin } from "../_api/mutation";
+import useAuthStore from "@/store/useAuthStore";
+import { useLogout } from "@/hooks/global/useLogout";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
   const router = useRouter();
+  const isLoagin = useAuthStore((state) => state.isLogin);
+  const { logout } = useLogout();
   const { login, loginError, loginPending, onLoginSuccess } = useLogin();
   const { getParams } = useParamsService({});
 
@@ -28,6 +32,12 @@ const LoginPage = ({}) => {
       } else {
         router.push("/inactiveAccount");
       }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoagin) {
+      logout();
     }
   }, []);
 
@@ -103,7 +113,7 @@ const LoginPage = ({}) => {
             </Item>
             <Link
               className="text-sm underline cursor-pointer"
-              href={"/forgot-password"}
+              href={"/auth/forgot-password"}
             >
               Forgot Password?
             </Link>
@@ -119,7 +129,7 @@ const LoginPage = ({}) => {
             </Button>
             <Link
               className="text-sm underline cursor-pointer text-gray-600"
-              href={"/signup"}
+              href={"/auth/signup"}
             >
               {"Don't"} have an account?
             </Link>

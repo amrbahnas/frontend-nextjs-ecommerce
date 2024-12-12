@@ -42,7 +42,7 @@ const useMutation = (
 
       if (isLogin) {
         if (error.response?.status === 401) {
-          return logout("/login");
+          return logout("/auth/login");
         }
         if (error.response?.status === 403) {
           return logout("/inactiveAccount");

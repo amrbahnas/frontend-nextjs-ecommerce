@@ -170,7 +170,7 @@ const SignUpPage = () => {
           <div
             className="text-sm underline cursor-pointer"
             onClick={() => {
-              router.push("/login");
+              router.push("/auth/login");
             }}
           >
             Have and account?

@@ -1,8 +1,18 @@
 import Container from "@/components/container";
-import React from "react";
+import React, { useEffect } from "react";
 import { ImBlocked } from "react-icons/im";
+import useAuthStore from "@/store/useAuthStore";
+import { useLogout } from "@/hooks/global/useLogout";
 
 const InactiveAccount = () => {
+  const { logout } = useLogout();
+
+  const { isLogin } = useAuthStore();
+  useEffect(() => {
+    if (isLogin) {
+      logout();
+    }
+  }, []);
   return (
     <Container className="flex flex-col items-center justify-center h-80 mt-6">
       <ImBlocked className="text-9xl text-red-500 mb-4" />

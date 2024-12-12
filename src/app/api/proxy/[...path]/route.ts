@@ -41,8 +41,6 @@ export async function GET(
 
     return newResponse;
   } catch (error) {
-    console.error("Proxy error:", error);
-
     if (axios.isAxiosError(error)) {
       // If backend is not available
       if (
@@ -57,14 +55,11 @@ export async function GET(
       }
       // Return the error from the backend if available
       return NextResponse.json(
-        { error: error.response?.data || "Failed to process request" },
+        error.response?.data || "Failed to process request",
         { status: error.response?.status || 500 }
       );
     }
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal server error", { status: 500 });
   }
 }
 
@@ -99,8 +94,6 @@ export async function POST(
 
     return newResponse;
   } catch (error) {
-    console.error("Proxy error:", error);
-
     if (axios.isAxiosError(error)) {
       // If backend is not available
       if (
@@ -108,19 +101,15 @@ export async function POST(
         error.code === "ECONNRESET" ||
         error.code === "ETIMEDOUT"
       ) {
-        return NextResponse.json(
-          { error: "Backend service is temporarily unavailable" },
-          { status: 503 }
-        );
+        return NextResponse.json("Backend service is temporarily unavailable", {
+          status: 503,
+        });
       }
       return NextResponse.json(
-        { error: error.response?.data || "Failed to process request" },
+        error.response?.data || "Failed to process request",
         { status: error.response?.status || 500 }
       );
     }
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal server error", { status: 500 });
   }
 }

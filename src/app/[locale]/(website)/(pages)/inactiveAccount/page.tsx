@@ -9,8 +9,10 @@ const InactiveAccount = () => {
   const { logout } = useLogout();
 
   const { isLogin } = useAuthStore();
+  console.log("🚀 ~ file: page.tsx:12 ~ isLogin:", isLogin);
   useEffect(() => {
     if (isLogin) {
+      console.log("🚀 ~ file: page.tsx:15 ~ isLogin:", isLogin);
       logout();
     }
   }, []);

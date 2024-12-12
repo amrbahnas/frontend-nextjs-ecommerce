@@ -44,6 +44,7 @@ export async function middleware(request: NextRequest) {
   // First, get the intl response
   const intlResponse = await intlMiddleware(request);
   const tokenData = await verifyToken();
+
   const pathName = request.nextUrl.pathname;
 
   // Helper function to create redirects that preserve intl headers

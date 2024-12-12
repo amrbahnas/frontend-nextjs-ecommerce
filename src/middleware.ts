@@ -80,17 +80,16 @@ export async function middleware(request: NextRequest) {
 
   // 3) Handling email verification and InActive users
   if (tokenData) {
-    if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
-      return createRedirectResponse("/verifyEmail");
-    }
-    if (tokenData.emailVerified && pathName === "/verifyEmail") {
-      return createRedirectResponse("/");
-    }
-
     if (!tokenData.active && pathName !== "/inactiveAccount") {
       return createRedirectResponse("/inactiveAccount");
     }
     if (tokenData.active && pathName === "/inactiveAccount") {
+      return createRedirectResponse("/");
+    }
+    if (!tokenData.emailVerified && pathName !== "/verifyEmail") {
+      return createRedirectResponse("/verifyEmail");
+    }
+    if (tokenData.emailVerified && pathName === "/verifyEmail") {
       return createRedirectResponse("/");
     }
   }

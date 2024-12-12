@@ -62,7 +62,7 @@ const LoginPage = ({}) => {
           <Divider>Or</Divider>
           {loginError && (
             <div className="flex items-center gap-2 mb-5">
-              <Error error={loginError} />
+              <Error error={loginError} hideOkButton={true} />
               {loginError && loginError.includes("not active") && (
                 <Link href="/inactiveAccount" className=" underline">
                   More Details

@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/components/container";
 import React, { useEffect } from "react";
 import { ImBlocked } from "react-icons/im";

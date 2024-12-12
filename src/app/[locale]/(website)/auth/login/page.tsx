@@ -16,7 +16,7 @@ const { Password } = Input;
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const isLoagin = useAuthStore((state) => state.isLogin);
+  const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout();
   const { login, loginError, loginPending, onLoginSuccess } = useLogin();
   const { getParams } = useParamsService({});
@@ -36,7 +36,7 @@ const LoginPage = ({}) => {
   }, []);
 
   useEffect(() => {
-    if (isLoagin) {
+    if (isLogin) {
       logout();
     }
   }, []);

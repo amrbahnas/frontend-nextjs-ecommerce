@@ -101,5 +101,12 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/images).*)"],
+  // Skip all paths that should not be internationalized
+  matcher: [
+    // Match all pathnames except those starting with:
+    // - api (API routes)
+    // - _next (Next.js internals)
+    // - .*\\..*$ (files with an extension, e.g. favicon.ico)
+    '/((?!api|_next|.*\\.[^/]*$).*)',
+  ]
 };

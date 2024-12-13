@@ -54,7 +54,7 @@ const CartModal = () => {
         className=" cursor-pointer"
         color="blue"
       >
-        <PiShoppingCartThin size={25} />
+        <PiShoppingCartThin size={25} className="hover:scale-105" />
       </Badge>
     </Popover>
   );

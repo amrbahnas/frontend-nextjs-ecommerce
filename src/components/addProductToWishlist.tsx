@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 import { useToggleProductWishlist } from "@/_api/actions";
-import useUserStore from "@/store/useUserStore";
-import { Divider, Spin } from "antd";
-import { useState } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
 import useAuthStore from "@/store/useAuthStore";
-import HeartAnimation from "./ui/heartAnimation";
+import useUserStore from "@/store/useUserStore";
+import { Spin } from "antd";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
+import HeartAnimation from "./ui/heartAnimation";
 
 const WishlistButton = ({
   productId,
@@ -39,7 +39,7 @@ const WishlistButton = ({
             wishlist: res.data.wishlist,
           });
           if (!isWithListed) {
-            toast.success("Product Added to wishlist");
+            successToast();
             setShowHeartAnimation(true);
             setTimeout(() => {
               setShowHeartAnimation(false);
@@ -69,6 +69,25 @@ const WishlistButton = ({
 
       <HeartAnimation play={showHeartAnimation} />
     </div>
+  );
+};
+
+const successToast = () => {
+  toast.success(
+    <div>
+      Product added to wishlist
+      <Link
+        href="/withlist"
+        className="!text-blue-500 !underline !ml-2 !font-semibold"
+      >
+        View wishlist
+      </Link>
+    </div>,
+    {
+      position: "bottom-center",
+      className: "mb-10",
+      duration: 3000,
+    }
   );
 };
 

@@ -29,10 +29,13 @@ const NavIcons = () => {
           <Badge
             count={user?.wishlist.length}
             size="small"
-            className=" cursor-pointer "
-            color=" text-primary"
+            className=" cursor-pointer  "
+            color="text-primary"
           >
-            <CiHeart size={25} />
+            <CiHeart
+              size={25}
+              className="hover:!text-primary hover:scale-105"
+            />
           </Badge>
         </Link>
       )}

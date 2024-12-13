@@ -18,9 +18,7 @@ export const useVerifyEmail = () => {
     mutate: verifyEmail,
     isPending: verifyEmailLoading,
     error,
-  } = useMutation("/auth/verify-email", {
-    useProxy: true,
-  });
+  } = useMutation("/auth/verify-email");
   return {
     verifyEmail,
     verifyEmailLoading,

@@ -5,12 +5,24 @@ import ms from "ms";
 import toast from "react-hot-toast";
 import proxyAxiosInstance from "@/config/proxyClient";
 import { useResetAppData } from "../global/useResetAppData";
+import axiosInstance from "@/config/apiClient";
+
+type UseQueryOptionsType = {
+  params?: ParamsType;
+  skip?: boolean;
+  retry?: number;
+  staleTime?: string;
+  refetchOnWindowFocus?: boolean;
+  initialResults?: any;
+  disableProxy?: boolean;
+};
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const logout = useResetAppData();
   const isLogin = useAuthStore((state) => state.isLogin);
+  const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
   const queryFn = () =>
-    proxyAxiosInstance
+    instance
       .get(endpoint, {
         params: options?.params,
       })

@@ -3,14 +3,6 @@ interface BaseParamsType {
 }
 
 type ParamsType = Omit<BaseParamsType, "skip">;
-type UseQueryOptionsType = {
-  params?: ParamsType;
-  skip?: boolean;
-  retry?: number;
-  staleTime?: string;
-  refetchOnWindowFocus?: boolean;
-  initialResults?: any;
-};
 
 type CategoryType = {
   _id: string;
@@ -46,7 +38,7 @@ type CartType = {
   invalidCart: null | {
     status: string;
     message: string;
-  }
+  };
 };
 
 type CartStoreType = {

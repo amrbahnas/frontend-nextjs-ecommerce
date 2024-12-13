@@ -1,5 +1,6 @@
 "use client";
 
+import axiosInstance from "@/config/apiClient";
 import proxyAxiosInstance from "@/config/proxyClient";
 import {
   keepPreviousData,
@@ -18,6 +19,7 @@ function usePagination<T>(
     retry?: number;
     refetchOnWindowFocus?: boolean;
     pageSize?: number;
+    disableProxy?: boolean;
   }
 ) {
   const queryClient = useQueryClient();
@@ -34,8 +36,9 @@ function usePagination<T>(
   }, [page, pageSize]);
 
   const queryFn = async () => {
+    const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
     setPaginationLoading(true);
-    const res = await proxyAxiosInstance.get(endpoint, {
+    const res = await instance.get(endpoint, {
       params: {
         ...variables,
         ...options?.params,

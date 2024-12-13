@@ -55,7 +55,7 @@ export const useChangeEmailActions = () => {
     isError: changeEmailIsError,
     isPending: changeEmailIsPending,
     isSuccess: changeEmailIsSuccess,
-  } = useMutation("/auth/change-email", { useProxy: true });
+  } = useMutation("/auth/change-email");
 
   return {
     sendChangeEmailCode,

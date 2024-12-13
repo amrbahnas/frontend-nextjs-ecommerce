@@ -4,6 +4,7 @@ import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
+import axiosInstance from "@/config/apiClient";
 
 const useMutation = (
   endpoint: string,
@@ -11,7 +12,7 @@ const useMutation = (
     method?: "post" | "put" | "delete";
     onSuccess?: (a: any, b: any, c: any) => void;
     onError?: (a: any, b: any, c: any) => void;
-    useProxy?: boolean;
+    disableProxy?: boolean;
   }
 ) => {
   const method = options?.method || "post";
@@ -25,10 +26,13 @@ const useMutation = (
     unknown
   >({
     mutationFn: (body: any) => {
+      const instance = options?.disableProxy
+        ? axiosInstance
+        : proxyAxiosInstance;
       if (options?.method === "delete") {
-        return proxyAxiosInstance.delete(endpoint);
+        return instance.delete(endpoint);
       }
-      return proxyAxiosInstance[method](endpoint, body as any);
+      return instance[method](endpoint, body as any);
     },
 
     onSuccess: (result, variables, context) => {

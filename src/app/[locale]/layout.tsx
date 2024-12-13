@@ -7,13 +7,102 @@ import OnlineStatus from "@/components/layout/onlineStatus";
 import DayjsConfig from "@/components/layout/dayjsConfig";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
+
 import "./globals.css";
+import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
+import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Shope-Amr",
-  description: "A complete e-commerce application with Next.js and Node.js",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
+  title: {
+    template: "%s | Shope-Amr",
+    default: "Shope-Amr | Your Premier E-commerce Destination",
+  },
+  description:
+    "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+  keywords: [
+    "e-commerce",
+    "online shopping",
+    "fashion",
+    "electronics",
+    "home goods",
+    "accessories",
+    "best deals",
+    "secure shopping",
+    "fast delivery",
+    "Shope-Amr",
+  ],
+  authors: [
+    {
+      name: "Amr Elbahnsawy",
+      url: "https://www.linkedin.com/in/amr-elbahnsawy/",
+    },
+  ],
+  creator: "Amr Elbahnsawy",
+  publisher: "Shope-Amr",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en",
+      "ar-EG": "/ar",
+    },
+  },
+  openGraph: {
+    title: "Shope-Amr | Your Premier E-commerce Destination",
+    description:
+      "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    siteName: "Shope-Amr",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/social/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Shope-Amr - Your Premier E-commerce Destination",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shope-Amr | Your Premier E-commerce Destination",
+    description:
+      "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/social/twitter-image.jpg`],
+    creator: "@amr_elbahnsawy",
+    site: "@amr_elbahnsawy",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "E-commerce",
 };
 
 async function getMessages(locale: string) {
@@ -36,15 +125,31 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir}>
-      {/* {process.env.NEXT_PUBLIC_ENV === "development" && (
-        <head>
-          <script
-            src="https://unpkg.com/react-scan/dist/auto.global.js"
-            async
-          />
-        </head>
-      )} */}
+      <head>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/icons/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/icons/favicon-16x16.png"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Shope-Amr" />
+      </head>
       <body className={inter.className}>
+        <WebsiteStructuredData />
+        <LocalBusinessStructuredData />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ReactQueryLayout>
             <AntDLayout>

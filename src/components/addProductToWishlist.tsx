@@ -74,7 +74,7 @@ const WishlistButton = ({
 
 const successToast = () => {
   toast.success(
-    <div>
+    <div className={"flex items-center gap-1 flex-wrap"}>
       Product added to wishlist
       <Link
         href="/withlist"

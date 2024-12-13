@@ -9,63 +9,116 @@ import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
+import { Metadata } from "next";
+import { useEffect } from "react";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
+import ProductStructuredData from "@/components/structured-data/productStructuredData";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const { product, isLoading } = useGetSpecificProduct(id);
   const t = useTranslations("ProductDetails");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Dynamically update meta tags since this is a client component
+    if (product) {
+      document.title = `${product.title} | Shope-Amr`;
+      const metaDescription = document.querySelector(
+        'meta[name="description"]'
+      );
+      if (metaDescription) {
+        metaDescription.setAttribute("content", product.description || "");
+      }
+
+      // Update Open Graph tags
+      let ogTitle = document.querySelector('meta[property="og:title"]');
+      let ogDesc = document.querySelector('meta[property="og:description"]');
+      let ogImage = document.querySelector('meta[property="og:image"]');
+
+      if (!ogTitle) {
+        ogTitle = document.createElement("meta");
+        ogTitle.setAttribute("property", "og:title");
+        document.head.appendChild(ogTitle);
+      }
+      if (!ogDesc) {
+        ogDesc = document.createElement("meta");
+        ogDesc.setAttribute("property", "og:description");
+        document.head.appendChild(ogDesc);
+      }
+      if (!ogImage) {
+        ogImage = document.createElement("meta");
+        ogImage.setAttribute("property", "og:image");
+        document.head.appendChild(ogImage);
+      }
+
+      ogTitle.setAttribute("content", product.title);
+      ogDesc.setAttribute("content", product.description || "");
+      ogImage.setAttribute("content", product.imageCover);
+    }
+  }, [product]);
 
   if (isLoading) return <ProductSkeleton />;
 
   return (
-    <Container className="mt-1 md:mt-2">
-      <div className=" relative flex flex-col lg:flex-row gap-16">
-        <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
-          <ProductImages
-            images={
-              product.images ? [product.imageCover, ...product.images] : []
-            }
-          />
-        </div>
-        {/* TEXTS */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-6">
-          <h1 className="text-4xl font-medium">{product?.title}</h1>
-          <div className="flex items-center gap-4 ">
-            <Rate
-              disabled
-              defaultValue={product.ratingsAverage}
-              allowHalf
-              className="!text-md"
-            />
-            <span className="text-sm text-gray-500 space-x-1">
-              <span>{product.ratingsQuantity}</span>
-              <span>{t("reviews")}</span>
-            </span>
-          </div>
-
-          <p className="text-gray-500">{product?.description}</p>
-          <div className="h-[2px] bg-gray-100" />
-
-          <div className=" space-y-2">
-            <DisplayPrice
-              afterPrice={product.price}
-              beforePrice={product.price + 200}
-            />
-            <SavingPercentage
-              beforePrice={product.price + 200}
-              afterPrice={product.price}
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`}
+        />
+      </Head>
+      {product && <ProductStructuredData product={product} />}
+      <Container className="mt-1 md:mt-2">
+        <div className=" relative flex flex-col lg:flex-row gap-16">
+          <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
+            <ProductImages
+              images={
+                product.images ? [product.imageCover, ...product.images] : []
+              }
             />
           </div>
-          <div className="h-[2px] bg-gray-100" />
+          {/* TEXTS */}
+          <div className="w-full lg:w-1/2 flex flex-col gap-6">
+            <h1 className="text-4xl font-medium">{product?.title}</h1>
+            <div className="flex items-center gap-4 ">
+              <Rate
+                disabled
+                defaultValue={product.ratingsAverage}
+                allowHalf
+                className="!text-md"
+              />
+              <span className="text-sm text-gray-500 space-x-1">
+                <span>{product.ratingsQuantity}</span>
+                <span>{t("reviews")}</span>
+              </span>
+            </div>
 
-          <Add product={product} />
+            <p className="text-gray-500">{product?.description}</p>
+            <div className="h-[2px] bg-gray-100" />
 
-          <div className="h-[2px] bg-gray-100" />
+            <div className=" space-y-2">
+              <DisplayPrice
+                afterPrice={product.price}
+                beforePrice={product.price + 200}
+              />
+              <SavingPercentage
+                beforePrice={product.price + 200}
+                afterPrice={product.price}
+              />
+            </div>
+            <div className="h-[2px] bg-gray-100" />
 
-          <Reviews productId={product?._id!} />
+            <Add product={product} />
+
+            <div className="h-[2px] bg-gray-100" />
+
+            <Reviews productId={product?._id!} />
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

@@ -3,17 +3,14 @@ import useAuthStore from "@/store/useAuthStore";
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
 import toast from "react-hot-toast";
-
-import Cookie from "js-cookie";
-
+import proxyAxiosInstance from "@/config/proxyClient";
 import { useResetAppData } from "../global/useResetAppData";
-import axiosInstance from "@/config/apiClient";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const logout = useResetAppData();
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryFn = () =>
-    axiosInstance
+    proxyAxiosInstance
       .get(endpoint, {
         params: options?.params,
       })

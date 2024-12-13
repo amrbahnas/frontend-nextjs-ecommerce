@@ -1,10 +1,9 @@
+import proxyAxiosInstance from "@/config/proxyClient";
 import useAuthStore from "@/store/useAuthStore";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
-import axiosInstance from "@/config/apiClient";
-import proxyAxiosInstance from "@/config/proxyClient";
 
 const useMutation = (
   endpoint: string,
@@ -26,11 +25,10 @@ const useMutation = (
     unknown
   >({
     mutationFn: (body: any) => {
-      const instance = options?.useProxy ? proxyAxiosInstance : axiosInstance;
       if (options?.method === "delete") {
-        return instance.delete(endpoint);
+        return proxyAxiosInstance.delete(endpoint);
       }
-      return instance[method](endpoint, body as any);
+      return proxyAxiosInstance[method](endpoint, body as any);
     },
 
     onSuccess: (result, variables, context) => {

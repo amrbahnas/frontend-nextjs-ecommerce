@@ -7,6 +7,7 @@ import OnlineStatus from "@/components/layout/onlineStatus";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { configureDayjs } from "@/config/dayjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages(locale);
+  configureDayjs(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (

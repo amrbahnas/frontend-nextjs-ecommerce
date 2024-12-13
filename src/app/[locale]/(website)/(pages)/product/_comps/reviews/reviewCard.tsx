@@ -1,12 +1,9 @@
 import NextImage from "@/components/ui/nextImage";
+import dayjs from "@/config/dayjs";
 import { Rate } from "antd";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ar";
-import ReviewCardActions from "./reviewCardActions";
 import { useTranslations } from "next-intl";
-dayjs.extend(relativeTime);
-dayjs.locale("ar");
+import ReviewCardActions from "./reviewCardActions";
 
 const ReviewCard = ({
   review,

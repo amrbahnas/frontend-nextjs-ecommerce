@@ -1,7 +1,6 @@
 import NextImage from "@/components/ui/nextImage";
 import dayjs from "@/config/dayjs";
 import { Rate } from "antd";
-import "dayjs/locale/ar";
 import { useTranslations } from "next-intl";
 import ReviewCardActions from "./reviewCardActions";
 

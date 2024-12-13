@@ -4,10 +4,10 @@ import ProgressBarLayout from "@/components/layout/progressBarLayout";
 import AntDLayout from "@/components/layout/antDLayout";
 import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
+import DayjsConfig from "@/components/layout/dayjsConfig";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { configureDayjs } from "@/config/dayjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +32,6 @@ export default async function LocaleLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages(locale);
-  configureDayjs(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
@@ -47,13 +46,14 @@ export default async function LocaleLayout({
       )} */}
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <AntDLayout>
-            <ReactQueryLayout>
-              <OnlineStatus>
-                <ProgressBarLayout>{children}</ProgressBarLayout>
-              </OnlineStatus>
-            </ReactQueryLayout>
-          </AntDLayout>
+          <ReactQueryLayout>
+            <AntDLayout>
+              <ProgressBarLayout>
+                <DayjsConfig />
+                <OnlineStatus>{children}</OnlineStatus>
+              </ProgressBarLayout>
+            </AntDLayout>
+          </ReactQueryLayout>
           <Toaster />
         </NextIntlClientProvider>
       </body>

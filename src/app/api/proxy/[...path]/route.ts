@@ -1,137 +1,88 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import axios, { AxiosRequestConfig } from "axios";
+import { NextRequest, NextResponse } from "next/server";
+import axios from "axios";
+import proxyAxiosInstance from "@/config/proxyApiClient";
 
-// Extend AxiosRequestConfig to include retry properties
-interface RetryConfig extends AxiosRequestConfig {
-  retry?: number;
-  retryDelay?: number;
-}
-
-// Create axios instance with retry logic
-const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  withCredentials: true,
-  timeout: 10000, // 10 second timeout
-});
+type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { path: string[] } }
 ) {
-  try {
-    const path = "/" + params.path.join("/");
-
-    const config: RetryConfig = {
-      headers: {
-        Cookie: request.headers.get("cookie") || "",
-      },
-    };
-
-    const response = await axiosInstance.get(path, config);
-
-    const newResponse = NextResponse.json(response.data);
-
-    const cookies = response.headers["set-cookie"];
-    if (cookies) {
-      cookies.forEach((cookie) => {
-        newResponse.headers.append("Set-Cookie", cookie);
-      });
-    }
-
-    return newResponse;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      // If backend is not available
-      if (
-        error.code === "ECONNREFUSED" ||
-        error.code === "ECONNRESET" ||
-        error.code === "ETIMEDOUT"
-      ) {
-        return NextResponse.json(
-          { error: "Backend service is temporarily unavailable" },
-          { status: 503 }
-        );
-      }
-      // Return the error from the backend if available
-      return NextResponse.json(
-        error.response?.data || "Failed to process request",
-        { status: error.response?.status || 500 }
-      );
-    }
-    return NextResponse.json("Internal server error", { status: 500 });
-  }
+  const path = "/" + params.path.join("/");
+  return handleRequest(request, path, "GET");
 }
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { path: string[] } }
 ) {
-  try {
-    // Join the path segments with '/'
-    const path = "/" + params.path.join("/");
-    console.log("🚀 ~ Forwarding to path:", path);
-
-    const body = await request.json();
-
-    const config: RetryConfig = {
-      headers: {
-        Cookie: request.headers.get("cookie") || "",
-      },
-    };
-
-    const response = await axiosInstance.post(path, body, config);
-
-    const newResponse = NextResponse.json(response.data);
-
-    // Forward cookies from backend response
-    const cookies = response.headers["set-cookie"];
-    if (cookies) {
-      cookies.forEach((cookie) => {
-        newResponse.headers.append("Set-Cookie", cookie);
-      });
-    }
-
-    return newResponse;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      // If backend is not available
-      if (
-        error.code === "ECONNREFUSED" ||
-        error.code === "ECONNRESET" ||
-        error.code === "ETIMEDOUT"
-      ) {
-        return NextResponse.json("Backend service is temporarily unavailable", {
-          status: 503,
-        });
-      }
-      return NextResponse.json(
-        error.response?.data || "Failed to process request",
-        { status: error.response?.status || 500 }
-      );
-    }
-    return NextResponse.json("Internal server error", { status: 500 });
-  }
+  const path = "/" + params.path.join("/");
+  return handleRequest(request, path, "POST");
 }
 
-// delete
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { path: string[] } }
+) {
+  const path = "/" + params.path.join("/");
+  console.log("🚀 ~ file: route.ts:28 ~ path:", path);
+  return handleRequest(request, path, "PUT");
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { path: string[] } }
 ) {
-  try {
-    const path = "/" + params.path.join("/");
+  const path = "/" + params.path.join("/");
+  return handleRequest(request, path, "DELETE");
+}
 
-    const config: RetryConfig = {
+async function handleRequest(
+  request: NextRequest,
+  path: string,
+  method: RequestMethod
+) {
+  try {
+    const url = process.env.NEXT_PUBLIC_BASE_URL + path;
+    let requestData: any;
+    const contentType = request.headers.get("content-type");
+
+    // Handle different content types
+    if (contentType?.includes("multipart/form-data")) {
+      requestData = await request.formData();
+      console.log("🚀 ~ file: route.ts:53 ~ requestData:", requestData);
+    } else if (contentType?.includes("application/json")) {
+      requestData = await request.json().catch(() => ({}));
+    }
+
+    const config = {
       headers: {
         Cookie: request.headers.get("cookie") || "",
       },
     };
 
-    const response = await axiosInstance.delete(path, config);
+    let response;
+
+    switch (method) {
+      case "GET":
+        response = await proxyAxiosInstance.get(url, config);
+        break;
+      case "POST":
+        response = await proxyAxiosInstance.post(url, requestData, config);
+        break;
+      case "PUT":
+        response = await proxyAxiosInstance.put(url, requestData, config);
+        break;
+      case "DELETE":
+        response = await proxyAxiosInstance.delete(url, config);
+        break;
+      default:
+        throw new Error(`Unsupported method: ${method}`);
+    }
 
     const newResponse = NextResponse.json(response.data);
 
+    // Handle cookies
     const cookies = response.headers["set-cookie"];
     if (cookies) {
       cookies.forEach((cookie) => {

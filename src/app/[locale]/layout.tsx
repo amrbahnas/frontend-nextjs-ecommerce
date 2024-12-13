@@ -146,6 +146,10 @@ export default async function LocaleLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="Shope-Amr" />
+        <meta
+          name="google-site-verification"
+          content="QKdQNht25W1XB9fhKkw-nTPR6mQruPIQ2katXOb6pj0"
+        />
       </head>
       <body className={inter.className}>
         <WebsiteStructuredData />

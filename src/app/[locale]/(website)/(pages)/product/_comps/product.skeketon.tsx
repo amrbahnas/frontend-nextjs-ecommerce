@@ -1,14 +1,15 @@
 "use client";
 
 import Container from "@/components/container";
+import ImageSkeleton from "@/components/ui/imageSkeleton";
 import { Skeleton } from "antd";
 
 const ProductSkeleton = () => {
   return (
     <Container className="mt-8">
       <div className=" relative flex flex-col lg:flex-row gap-16">
-        <div className="w-full lg:w-1/2 lg:sticky top-20 h-[300px] md:h-[500px] ">
-          <Skeleton.Image className="!w-full !h-80" active />
+        <div className="w-full lg:w-1/2 lg:sticky top-20 h-80 md:h-[500px] ">
+          <ImageSkeleton />
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-6">

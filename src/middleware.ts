@@ -1,7 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import axios from "axios";
+import { verifyToken } from "./lib";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -11,32 +10,6 @@ const intlMiddleware = createMiddleware({
   // Whether to add locale prefix for default locale
   localePrefix: "never",
 });
-
-async function verifyToken() {
-  const session = cookies().get("session")?.value;
-
-  if (!session) {
-    return null;
-  }
-  try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-token`,
-      {
-        session,
-      },
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response.data.data;
-  } catch (error) {
-    return null;
-  }
-}
 
 const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail", "/orders"];
 

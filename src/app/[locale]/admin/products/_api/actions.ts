@@ -3,7 +3,7 @@ import useMutation from "@/hooks/apiHandler/useMutation";
 export const useAdminDeleteProduct = (id: string) => {
   const { mutate: deleteProduct, isPending: deleteLoading } = useMutation(
     `/products/${id}`,
-    "delete"
+    { method: "delete" }
   );
   return {
     deleteProduct,
@@ -15,7 +15,7 @@ export const useAdminDeleteProduct = (id: string) => {
 export const useAdminCreateProduct = () => {
   const { mutate: createProduct, isPending: createLoading } = useMutation(
     "/products",
-    "post"
+    { method: "post" }
   );
   return {
     createProduct,
@@ -27,7 +27,7 @@ export const useAdminCreateProduct = () => {
 export const useAdminEditProduct = (id: string | undefined) => {
   const { mutate: editProduct, isPending: editLoading } = useMutation(
     "/products/" + id,
-    "put"
+    { method: "put" }
   );
   return {
     editProduct,

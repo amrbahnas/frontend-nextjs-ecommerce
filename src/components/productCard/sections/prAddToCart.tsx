@@ -14,7 +14,7 @@ const PrAddToCart = ({
   quantity: number;
 }) => {
   return (
-    <div className="px-3 pb-3">
+    <div className="">
       {quantity === 0 ? (
         <div className=" h-8 flex items-center">
           <Tooltip

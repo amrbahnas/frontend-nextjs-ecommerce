@@ -34,16 +34,18 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
         <Divider className="!my-0" />
-        <PrAddToCart
-          product={product}
-          availableSizes={availableSizes}
-          colors={colors}
-          quantity={quantity}
-        />
+        <div className="flex items-center px-3 pb-3 gap-4 justify-between ">
+          <PrAddToCart
+            product={product}
+            availableSizes={availableSizes}
+            colors={colors}
+            quantity={quantity}
+          />
+          <WishlistButton productId={_id} />
+        </div>
 
         {/* left badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 ">
-          <WishlistButton productId={_id} />
           <CardBadge productId={_id} />
         </div>
         {/* Right Badges */}

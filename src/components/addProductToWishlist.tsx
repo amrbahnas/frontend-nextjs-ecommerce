@@ -60,13 +60,12 @@ const WishlistButton = ({
   return (
     <div
       onClick={handleToggleWishlist}
-      className={"cursor-pointer relative " + className}
+      className={
+        "cursor-pointer relative  border border-gray-300 rounded-lg p-2 hover:border-primary  hover:text-primary " +
+        className
+      }
     >
-      {isWithListed ? (
-        <FaHeart size={25} color="red" />
-      ) : (
-        <CiHeart size={25} color="black" />
-      )}
+      {isWithListed ? <FaHeart size={25} color="red" /> : <CiHeart size={25} />}
 
       <HeartAnimation play={showHeartAnimation} />
     </div>

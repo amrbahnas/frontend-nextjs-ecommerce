@@ -61,7 +61,7 @@ const WishlistButton = ({
     <div
       onClick={handleToggleWishlist}
       className={
-        "cursor-pointer relative  border border-gray-300 rounded-lg p-2 hover:border-primary  hover:text-primary " +
+        "cursor-pointer relative border border-gray-300 rounded-lg p-1 md:p-2 hover:border-primary  hover:text-primary " +
         className
       }
     >

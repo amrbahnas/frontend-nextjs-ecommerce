@@ -31,6 +31,9 @@ const PrAddToCart = ({
             quantity: 1,
             size: availableSizes[0],
           }}
+          buttonStyle={{
+            buttonClassName: " !w-26",
+          }}
         />
       )}
     </div>

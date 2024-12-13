@@ -34,7 +34,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
         <Divider className="!my-0" />
-        <div className="flex items-center px-3 pb-3 gap-4 justify-between ">
+        <div className="flex items-center px-3 pb-3 gap-1  justify-between ">
           <PrAddToCart
             product={product}
             availableSizes={availableSizes}

@@ -36,7 +36,7 @@ const AddProductToCard = ({
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, setOnlineCart, storeCart, onlineCart } = useCardStore();
 
-  const t = useTranslations('AddToCart');
+  const t = useTranslations("AddToCart");
 
   const cartItemCount = useMemo(() => {
     return (
@@ -88,9 +88,9 @@ const AddProductToCard = ({
                   totalCartPrice: cart?.totalCartPrice || 0,
                 });
 
-                toast.success(t('successMessage'));
+                successToast();
               } catch (error: any) {
-                toast.error(t('errorMessage'));
+                toast.error(t("errorMessage"));
               }
             },
           }
@@ -105,24 +105,38 @@ const AddProductToCard = ({
           _id,
         });
 
-        toast.success(t('successMessage'));
+        successToast();
       }
     } catch (error) {
-      toast.error(t('errorMessage'));
+      toast.error(t("errorMessage"));
     }
   };
 
   return (
     <Tooltip title={noAvailableStock && "No stock available for this product"}>
-      <Button
-        {...commonOptions}
-        onClick={handleAddToCart}
-        loading={isPending}
-      >
-        {t('buttonLabel')}
+      <Button {...commonOptions} onClick={handleAddToCart} loading={isPending}>
+        {t("buttonLabel")}
       </Button>
     </Tooltip>
   );
 };
 
 export default AddProductToCard;
+const successToast = () => {
+  toast.success(
+    <div>
+      Product added to cart
+      <Link
+        href="/cart"
+        className="!text-blue-500 !underline !ml-2 !font-semibold"
+      >
+        View Cart
+      </Link>
+    </div>,
+    {
+      position: "bottom-center",
+      className: "mb-10",
+      duration: 3000,
+    }
+  );
+};

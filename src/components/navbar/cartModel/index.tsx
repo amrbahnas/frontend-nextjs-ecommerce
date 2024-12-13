@@ -12,12 +12,13 @@ const CartModal = () => {
   const route = useRouter();
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { storeCart, setOnlineCart } = useCardStore();
-
+  const { storeCart, setOnlineCart, onlineCart } = useCardStore();
   const { cart: apiCart, isLoading, refetch } = useGetCart();
 
   const renderedCart = isLogin ? apiCart : storeCart;
-  const cartCount = renderedCart.cartItems.length;
+  const cartCount = isLogin
+    ? onlineCart.cartItems.length
+    : storeCart.cartItems.length;
 
   useEffect(() => {
     if (open && isLogin) refetch();

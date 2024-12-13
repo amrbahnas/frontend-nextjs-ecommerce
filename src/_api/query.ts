@@ -54,6 +54,7 @@ export const useGetCart = () => {
     skip: !isLogin,
   });
 
+  console.log("🚀 ~ file: query.ts:51 ~ cart:", cart);
   return {
     cart: cart || { cartItems: [], totalCartPrice: 0 },
     isLoading,

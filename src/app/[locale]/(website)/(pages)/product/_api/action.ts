@@ -1,7 +1,7 @@
 import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAddReview = () => {
-  const { mutate, error, isError, isPending } = useMutation("/reviews", "post");
+  const { mutate, error, isError, isPending } = useMutation("/reviews");
   return {
     addReview: mutate,
     error,
@@ -13,7 +13,7 @@ export const useAddReview = () => {
 export const useEditReview = (reviewId: string) => {
   const { mutate, error, isError, isPending } = useMutation(
     "/reviews/" + reviewId,
-    "put"
+    { method: "put" }
   );
   return {
     editReview: mutate,
@@ -28,7 +28,7 @@ export const useEditReview = (reviewId: string) => {
 export const useDeleteReview = (reviewId: string) => {
   const { mutate, error, isError, isPending } = useMutation(
     "/reviews/" + reviewId,
-    "delete"
+    { method: "delete" }
   );
   return {
     deleteReview: mutate,

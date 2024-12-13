@@ -5,7 +5,7 @@ export const useSendVerificationEmailCode = () => {
     mutate: sendVerificationEmailCode,
     isPending: sendVerificationEmailCodeLoading,
     error,
-  } = useMutation("/auth/request-verify-email-code", "post");
+  } = useMutation("/auth/request-verify-email-code");
   return {
     sendVerificationEmailCode,
     sendVerificationEmailCodeLoading,
@@ -18,7 +18,9 @@ export const useVerifyEmail = () => {
     mutate: verifyEmail,
     isPending: verifyEmailLoading,
     error,
-  } = useMutation("/auth/verify-email", "post");
+  } = useMutation("/auth/verify-email", {
+    useProxy: true,
+  });
   return {
     verifyEmail,
     verifyEmailLoading,

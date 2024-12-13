@@ -3,10 +3,11 @@ import useAuthStore from "@/store/useAuthStore";
 import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
 import toast from "react-hot-toast";
-import axiosInstance from "../../config/apiClient";
+
 import Cookie from "js-cookie";
 
 import { useResetAppData } from "../global/useResetAppData";
+import axiosInstance from "@/config/apiClient";
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const logout = useResetAppData();

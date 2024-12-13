@@ -1,4 +1,5 @@
 "use client";
+
 import axiosInstance from "@/config/apiClient";
 import {
   keepPreviousData,
@@ -39,7 +40,6 @@ function usePagination<T>(
         ...variables,
         ...options?.params,
       },
- 
     });
     setPaginationLoading(false);
     return res.data;

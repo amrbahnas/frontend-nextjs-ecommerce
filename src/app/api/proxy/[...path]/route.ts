@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import proxyAxiosInstance from "@/config/proxyApiClient";
+import axiosInstance from "@/config/apiClient";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -50,7 +50,6 @@ async function handleRequest(
     // Handle different content types
     if (contentType?.includes("multipart/form-data")) {
       requestData = await request.formData();
-      console.log("🚀 ~ file: route.ts:53 ~ requestData:", requestData);
     } else if (contentType?.includes("application/json")) {
       requestData = await request.json().catch(() => ({}));
     }
@@ -65,16 +64,16 @@ async function handleRequest(
 
     switch (method) {
       case "GET":
-        response = await proxyAxiosInstance.get(url, config);
+        response = await axiosInstance.get(url, config);
         break;
       case "POST":
-        response = await proxyAxiosInstance.post(url, requestData, config);
+        response = await axiosInstance.post(url, requestData, config);
         break;
       case "PUT":
-        response = await proxyAxiosInstance.put(url, requestData, config);
+        response = await axiosInstance.put(url, requestData, config);
         break;
       case "DELETE":
-        response = await proxyAxiosInstance.delete(url, config);
+        response = await axiosInstance.delete(url, config);
         break;
       default:
         throw new Error(`Unsupported method: ${method}`);

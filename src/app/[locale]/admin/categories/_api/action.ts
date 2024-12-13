@@ -1,10 +1,8 @@
 import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAdminCreateCategory = () => {
-  const { mutate: createCategory, isPending: createLoading } = useMutation(
-    "/categories",
-    "post"
-  );
+  const { mutate: createCategory, isPending: createLoading } =
+    useMutation("/categories");
   return {
     createCategory,
     createLoading,
@@ -14,7 +12,7 @@ export const useAdminCreateCategory = () => {
 export const useAdminEditCategory = (id: string | undefined) => {
   const { mutate: editCategory, isPending: editLoading } = useMutation(
     "/categories/" + id,
-    "put"
+    { method: "put" }
   );
   return {
     editCategory,
@@ -26,7 +24,7 @@ export const useAdminEditCategory = (id: string | undefined) => {
 export const useAdminDeleteCategory = (id: string) => {
   const { mutate: deleteCategory, isPending: deleteLoading } = useMutation(
     `/categories/${id}`,
-    "delete"
+    { method: "delete" }
   );
   return {
     deleteCategory,

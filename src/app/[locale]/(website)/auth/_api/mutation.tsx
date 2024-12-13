@@ -11,8 +11,12 @@ export const useLogin = () => {
 
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
-  const { data, error, isPending, isSuccess, isError, mutate } =
-    useMutation("/auth/login");
+  const { data, error, isPending, isSuccess, isError, mutate } = useMutation(
+    "/auth/login",
+    {
+      useProxy: true,
+    }
+  );
 
   const onLoginSuccess = (data: { data: User }) => {
     try {
@@ -55,8 +59,12 @@ export const useSignUp = () => {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const setAuthData = useAuthStore((state) => state.setAuthData);
-  const { data, error, isPending, isSuccess, isError, mutate } =
-    useMutation("/auth/signup");
+  const { data, error, isPending, isSuccess, isError, mutate } = useMutation(
+    "/auth/signup",
+    {
+      useProxy: true,
+    }
+  );
   const signUp = (values: {
     email: string;
     name: string;
@@ -107,7 +115,7 @@ export const useForgetPassword = () => {
     error: createNewPasswordError,
     isPending: createNewPasswordPending,
     isSuccess: createNewPasswordIsSuccess,
-  } = useMutation("/auth/reset-password", "put");
+  } = useMutation("/auth/reset-password", { method: "put", useProxy: true });
 
   return {
     sendResetCode,
@@ -132,7 +140,7 @@ export const useForgetPassword = () => {
 
 // logout
 export const useLogoutApi = () => {
-  const { mutate, isPending } = useMutation("/auth/logout");
+  const { mutate, isPending } = useMutation("/auth/logout", { useProxy: true });
   return {
     mutate,
     isPending,
@@ -141,8 +149,10 @@ export const useLogoutApi = () => {
 
 // googleAuth
 export const useGoogleAuth = () => {
-  const { mutate: googleAuth, isPending: googleAuthPending } =
-    useMutation("/auth/googlse");
+  const { mutate: googleAuth, isPending: googleAuthPending } = useMutation(
+    "/auth/googlse",
+    { useProxy: true }
+  );
   return {
     googleAuth,
     isPending: googleAuthPending,

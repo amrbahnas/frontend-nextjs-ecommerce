@@ -1,18 +1,21 @@
-import axiosInstance from "@/config/apiClient";
 import useAuthStore from "@/store/useAuthStore";
 import { useMutation as reactUseMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
+import axiosInstance from "@/config/apiClient";
+import proxyAxiosInstance from "@/config/proxyClient";
 
 const useMutation = (
   endpoint: string,
-  method: "post" | "put" | "delete" = "post",
   options?: {
+    method?: "post" | "put" | "delete";
     onSuccess?: (a: any, b: any, c: any) => void;
     onError?: (a: any, b: any, c: any) => void;
+    useProxy?: boolean;
   }
 ) => {
+  const method = options?.method || "post";
   const isLogin = useAuthStore((state) => state.isLogin);
   const logout = useResetAppData();
 
@@ -23,10 +26,11 @@ const useMutation = (
     unknown
   >({
     mutationFn: (body: any) => {
-      if (method === "delete") {
-        return axiosInstance.delete(endpoint);
+      const instance = options?.useProxy ? proxyAxiosInstance : axiosInstance;
+      if (options?.method === "delete") {
+        return instance.delete(endpoint);
       }
-      return axiosInstance[method](endpoint, body as any);
+      return instance[method](endpoint, body as any);
     },
 
     onSuccess: (result, variables, context) => {

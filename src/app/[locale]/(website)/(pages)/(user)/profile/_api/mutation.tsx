@@ -5,7 +5,7 @@ import useMutation from "@/hooks/apiHandler/useMutation";
 export const useUpdateUser = () => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
     "/users/update-me",
-    "put"
+    { method: "put" }
   );
 
   return {
@@ -20,7 +20,7 @@ export const useUpdateUser = () => {
 export const useChangePassword = () => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
     "/users/change-password",
-    "put"
+    { method: "put" }
   );
   const changePassword = (values: any) => {
     mutate(values, {
@@ -46,7 +46,7 @@ export const useChangeEmailActions = () => {
     isError: sendChangeEmailCodeIsError,
     isPending: sendChangeEmailCodeIsPending,
     isSuccess: sendChangeEmailCodeIsSuccess,
-  } = useMutation("/auth/request-change-email-code", "post");
+  } = useMutation("/auth/request-change-email-code");
 
   const {
     mutate: changeEmail,
@@ -55,7 +55,7 @@ export const useChangeEmailActions = () => {
     isError: changeEmailIsError,
     isPending: changeEmailIsPending,
     isSuccess: changeEmailIsSuccess,
-  } = useMutation("/auth/change-email", "post");
+  } = useMutation("/auth/change-email", { useProxy: true });
 
   return {
     sendChangeEmailCode,

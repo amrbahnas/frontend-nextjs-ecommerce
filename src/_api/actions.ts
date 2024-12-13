@@ -9,10 +9,9 @@ export const useAddProductToCart = () => {
 };
 
 export const useRemoveItemFromCart = (id: string) => {
-  const { mutate: removeItem, isPending } = useMutation(
-    `/cart/${id}`,
-    "delete"
-  );
+  const { mutate: removeItem, isPending } = useMutation(`/cart/${id}`, {
+    method: "delete",
+  });
   return {
     removeItem,
     isPending,
@@ -73,7 +72,7 @@ export const useApplyCoupon = () => {
     mutate: applyCoupon,
     isPending,
     error,
-  } = useMutation(`/cart/applyCoupon`, "put");
+  } = useMutation(`/cart/applyCoupon`, { method: "put" });
   return {
     applyCoupon,
     isPending,
@@ -84,7 +83,7 @@ export const useApplyCoupon = () => {
 export const useRemoveCoupon = () => {
   const { mutate: removeCoupon, isPending } = useMutation(
     `/cart/removeCoupon`,
-    "delete"
+    { method: "delete" }
   );
   return {
     removeCoupon,

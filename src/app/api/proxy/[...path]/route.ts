@@ -43,7 +43,6 @@ async function handleRequest(
   method: RequestMethod
 ) {
   try {
-    const url = process.env.NEXT_PUBLIC_BASE_URL + path;
     let requestData: any;
     const contentType = request.headers.get("content-type");
 
@@ -64,16 +63,16 @@ async function handleRequest(
 
     switch (method) {
       case "GET":
-        response = await axiosInstance.get(url, config);
+        response = await axiosInstance.get(path, config);
         break;
       case "POST":
-        response = await axiosInstance.post(url, requestData, config);
+        response = await axiosInstance.post(path, requestData, config);
         break;
       case "PUT":
-        response = await axiosInstance.put(url, requestData, config);
+        response = await axiosInstance.put(path, requestData, config);
         break;
       case "DELETE":
-        response = await axiosInstance.delete(url, config);
+        response = await axiosInstance.delete(path, config);
         break;
       default:
         throw new Error(`Unsupported method: ${method}`);

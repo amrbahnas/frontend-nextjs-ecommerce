@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const baseUrl = 'https://shop-amr.vercel.app';
 
   // Static routes - These will always be available
-  const routes = [
+  const staticRoutes = [
     '',
     '/list',
     '/about-us',
@@ -22,49 +22,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // Get all products
-    const productsResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
-      { next: { revalidate: 3600 } } // Revalidate every hour
-    );
-    
-    if (!productsResponse.ok) {
-      throw new Error(`Failed to fetch products: ${productsResponse.statusText}`);
-    }
-
-    const products = await productsResponse.json();
+    const products = await fetch(
+      `${baseUrl}/api/products`
+    ).then(res => res.json()).catch(() => []);
 
     // Get all categories
-    const categoriesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-      { next: { revalidate: 3600 } } // Revalidate every hour
-    );
-
-    if (!categoriesResponse.ok) {
-      throw new Error(`Failed to fetch categories: ${categoriesResponse.statusText}`);
-    }
-
-    const categories = await categoriesResponse.json();
+    const categories = await fetch(
+      `${baseUrl}/api/categories`
+    ).then(res => res.json()).catch(() => []);
 
     // Product routes
-    const productRoutes = Array.isArray(products) ? products.map((product: any) => ({
+    const productRoutes = (Array.isArray(products) ? products : []).map((product: any) => ({
       url: `${baseUrl}/product/${product._id}`,
-      lastModified: new Date(product.updatedAt || new Date()).toISOString(),
+      lastModified: new Date().toISOString(),
       changeFrequency: 'daily' as const,
       priority: 0.8,
-    })) : [];
+    }));
 
     // Category routes
-    const categoryRoutes = Array.isArray(categories) ? categories.map((category: any) => ({
+    const categoryRoutes = (Array.isArray(categories) ? categories : []).map((category: any) => ({
       url: `${baseUrl}/list?category=${category._id}`,
-      lastModified: new Date(category.updatedAt || new Date()).toISOString(),
+      lastModified: new Date().toISOString(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
-    })) : [];
+    }));
 
-    return [...routes, ...productRoutes, ...categoryRoutes];
+    return [...staticRoutes, ...productRoutes, ...categoryRoutes];
   } catch (error) {
     console.error('Error generating sitemap:', error);
-    // Return only static routes if there's an error
-    return routes;
+    return staticRoutes;
   }
 }

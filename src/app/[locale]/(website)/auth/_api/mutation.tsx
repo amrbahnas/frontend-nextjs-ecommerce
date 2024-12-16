@@ -3,6 +3,7 @@ import useUserStore from "../../../../../store/useUserStore";
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
+import sanatizeApiRes from "@/utils/sanatizeApiRes";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 export const useLogin = () => {
@@ -14,12 +15,12 @@ export const useLogin = () => {
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
-  const onLoginSuccess = (data: { data: User }) => {
+  const onLoginSuccess = (data: { user: User }) => {
     try {
-      setUser(data.data);
-      setAuthData({ role: data.data.role });
+      setUser(data.user);
+      setAuthData({ role: data.user.role });
       const redirect = getParams("redirect");
-      if (!data.data.emailVerified) {
+      if (!data.user.emailVerified) {
         if (redirect) {
           return router.push(
             `/verifyEmail?status=send-code&&redirect=${redirect}`
@@ -36,7 +37,7 @@ export const useLogin = () => {
 
   const login = (values: { email: string; password: string }) => {
     mutate(values, {
-      onSuccess: ({ data }) => onLoginSuccess(data),
+      onSuccess: (res) => onLoginSuccess(sanatizeApiRes(res)),
     });
   };
 
@@ -64,9 +65,10 @@ export const useSignUp = () => {
     confirmPassword: string;
   }) => {
     mutate(values, {
-      onSuccess: ({ data }: any) => {
-        setUser(data.data);
-        setAuthData({ role: data.data.role });
+      onSuccess: (res: any) => {
+        const data = sanatizeApiRes(res);
+        setUser(data.user);
+        setAuthData({ role: data.user.role });
         router.push("/verifyEmail");
       },
     });

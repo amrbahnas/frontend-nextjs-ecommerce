@@ -1,14 +1,10 @@
-import useQuery from "@/hooks/apiHandler/useQuery";
+import usePagination from "@/hooks/apiHandler/usePagination";
 
 export const useGetWishlist = () => {
-  const {
-    data: wishlist,
-    isLoading,
-    refetch,
-  } = useQuery<Product[]>("/wishlist");
+  const { data, isLoading, refetch } = usePagination<Product[]>("/wishlist");
 
   return {
-    wishlist: wishlist || [],
+    wishlist: data || [],
     isLoading,
     refetch,
   };

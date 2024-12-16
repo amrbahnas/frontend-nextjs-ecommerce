@@ -5,6 +5,7 @@ import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
 import axiosInstance from "@/config/apiClient";
+import sanatizeApiRes from "@/utils/sanatizeApiRes";
 
 const useMutation = (
   endpoint: string,
@@ -39,13 +40,17 @@ const useMutation = (
       // variables => body sended
       // context => {queryClient, queryKey, queryVariables}
       // result => response from server
-      options?.onSuccess && options.onSuccess(result, variables, context);
+      options?.onSuccess &&
+        options.onSuccess(sanatizeApiRes(result), variables, context);
     },
 
     onError: (error, variables, context) => {
+      console.log("🚀 ~ file: useMutation.ts:46 ~ error:", error);
       process.env.NEXT_PUBLIC_ENV === "development" &&
         toast.error(
-          JSON.stringify(error?.response?.data || "Internal Server Error")
+          JSON.stringify(
+            error?.response?.data?.message || "Internal Server Error"
+          )
         );
 
       if (isLogin) {
@@ -72,7 +77,8 @@ export default useMutation;
 
 const errorMessageHandler = (error: any) => {
   if (error) {
-    if (typeof error?.response?.data === "string") return error?.response?.data;
+    if (typeof error?.response?.data?.message === "string")
+      return error?.response?.data?.message;
     else return "Something went wrong";
   }
   return null;

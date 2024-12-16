@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { VERIFY_EMAIL_SCREENS as SCREENS } from "../../../../../../enum/pagesScreens";
 import { useSendVerificationEmailCode, useVerifyEmail } from "./_api/action";
+import sanatizeApiRes from "@/utils/sanatizeApiRes";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -61,7 +62,7 @@ const VerifyEmail = () => {
       case SCREENS.VERIFICATION_Email_CODE:
         verifyEmail(values, {
           onSuccess: (res) => {
-            const newUser = res.data.user;
+            const newUser = sanatizeApiRes(res).user;
             setUser(newUser);
 
             setScreen(SCREENS.EMAIL_VERIFIED);

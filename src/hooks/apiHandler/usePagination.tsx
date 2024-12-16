@@ -65,16 +65,16 @@ function usePagination<T>(
   });
 
   useEffect(() => {
-    if (!isPlaceholderData && data?.paginator.hasMore) {
+    if (!isPlaceholderData && data?.data?.paginator?.hasMore) {
       queryClient.prefetchQuery(commonQuerySettings);
     }
   }, [data, isPlaceholderData, variables, queryClient]);
 
   return {
     pagination: {
-      current: data?.paginator.currentPage,
-      pageSize: data?.paginator.pageSize,
-      total: data?.paginator.total,
+      current: data?.data?.paginator?.currentPage,
+      pageSize: data?.data?.paginator?.pageSize,
+      total: data?.data?.paginator?.total,
       showTotal: (total: number) => (
         <span className="font-medium">{`Total ${total} items`}</span>
       ),
@@ -83,7 +83,7 @@ function usePagination<T>(
         pageSize && setPageSize(pageSize);
       },
     },
-    data: (data?.data as T) || [],
+    data: (data?.data?.list as T) || [],
     isLoading: isLoading || paginationLoading,
     ...result,
   };

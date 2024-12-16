@@ -1,7 +1,7 @@
 import useMutation from "@/hooks/apiHandler/useMutation";
 
 export const useAddProductToCart = () => {
-  const { mutate: addProduct, isPending } = useMutation(`/cart`);
+  const { mutate: addProduct, isPending } = useMutation(`/carts`);
   return {
     addProduct,
     isPending,
@@ -9,7 +9,7 @@ export const useAddProductToCart = () => {
 };
 
 export const useRemoveItemFromCart = (id: string) => {
-  const { mutate: removeItem, isPending } = useMutation(`/cart/${id}`, {
+  const { mutate: removeItem, isPending } = useMutation(`/carts/${id}`, {
     method: "delete",
   });
   return {
@@ -22,7 +22,7 @@ export const useRemoveItemFromCart = (id: string) => {
 
 export const useResetCart = () => {
   const { mutate: resetApiCart, isPending: resetApiCartLoading } =
-    useMutation(`/cart/reset`);
+    useMutation(`/carts/reset`);
   return {
     resetApiCart,
     resetApiCartLoading,
@@ -30,7 +30,7 @@ export const useResetCart = () => {
 };
 
 export const useMergeLocalCart = () => {
-  const { mutate: mergeCart, isPending } = useMutation(`/cart/mergeLocalCart`);
+  const { mutate: mergeCart, isPending } = useMutation(`/carts/mergeLocalCart`);
   return {
     mergeCart,
     isPending,
@@ -72,7 +72,7 @@ export const useApplyCoupon = () => {
     mutate: applyCoupon,
     isPending,
     error,
-  } = useMutation(`/cart/applyCoupon`, { method: "put" });
+  } = useMutation(`/carts/applyCoupon`, { method: "put" });
   return {
     applyCoupon,
     isPending,

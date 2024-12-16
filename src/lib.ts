@@ -13,7 +13,7 @@ export async function verifyToken() {
       session,
     });
 
-    return response.data.data;
+    return response?.data?.data?.user;
   } catch (error) {
     return null;
   }

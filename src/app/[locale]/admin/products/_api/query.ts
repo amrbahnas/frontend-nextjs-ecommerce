@@ -1,11 +1,8 @@
+import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useGetAdminCategories = (params?: any) => {
-  const {
-    data: categories,
-    isLoading,
-    refetch,
-  } = useQuery<CategoryType[]>("/categories", {
+  const { data, isLoading, refetch } = useQuery("/categories", {
     params: {
       fields: "name,image",
       ...params,
@@ -13,14 +10,18 @@ export const useGetAdminCategories = (params?: any) => {
     staleTime: "1d",
   });
 
-  return { categories: categories || [], isLoading, refetch };
+  return {
+    categories: (data?.categories || []) as CategoryType[],
+    isLoading,
+    refetch,
+  };
 };
 
 export const useGetAdminSubCategories = (
   categoryId: string | "",
   params?: any
 ) => {
-  const { data: Subcategories, isLoading } = useQuery<SubCategoryType[]>(
+  const { data, isLoading } = useQuery(
     `/categories/${categoryId}/subCategories`,
     {
       params: {
@@ -32,7 +33,10 @@ export const useGetAdminSubCategories = (
     }
   );
 
-  return { Subcategories: Subcategories || [], isLoading };
+  return {
+    Subcategories: (data.Subcategories || []) as SubCategoryType[],
+    isLoading,
+  };
 };
 
 export const useGetAdminProducts = (params?: any) => {
@@ -40,7 +44,7 @@ export const useGetAdminProducts = (params?: any) => {
     data: products,
     isLoading,
     refetch: refetchProduct,
-  } = useQuery<Product[]>("/products", {
+  } = usePagination<Product[]>("/products", {
     params: {
       fields: "title,imageCover,description,price",
       ...params,
@@ -55,12 +59,12 @@ export const useGetAdminProduct = (productId: string | undefined) => {
     data: product,
     isLoading,
     refetch: refetchProduct,
-  } = useQuery<Product>(`/products/${productId}`, {
+  } = useQuery(`/products/${productId}`, {
     params: {
       fields: "title,imageCover,description,price",
     },
     skip: !productId,
   });
 
-  return { product, isLoading, refetchProduct };
+  return { product: product as Product, isLoading, refetchProduct };
 };

@@ -2,10 +2,9 @@ import useQuery from "@/hooks/apiHandler/useQuery";
 import useAuthStore from "@/store/useAuthStore";
 
 export const useMe = () => {
-  const { data, error, refetch, isError, isLoading } =
-    useQuery<User>("/users/me");
+  const { data, error, refetch, isError, isLoading } = useQuery("/users/me");
   return {
-    user: data || {},
+    user: (data || {}) as User,
     error,
     refetch,
     isError,
@@ -13,17 +12,14 @@ export const useMe = () => {
   };
 };
 export const useCheckMe = () => {
-  const { data, error, refetch, isError, isLoading } = useQuery<User>(
-    "/users/me",
-    {
-      skip: true,
-      params: {
-        fields: "role,active,emailVerified",
-      },
-    }
-  );
+  const { data, error, refetch, isError, isLoading } = useQuery("/users/me", {
+    skip: true,
+    params: {
+      fields: "role,active,emailVerified",
+    },
+  });
   return {
-    user: data || {},
+    user: (data.user || {}) as User,
     error,
     refetch,
     isError,
@@ -32,7 +28,7 @@ export const useCheckMe = () => {
 };
 
 export const useGetProducts = (params?: any) => {
-  const { data: products, isLoading } = useQuery<Product[]>("/products", {
+  const { data, isLoading } = useQuery("/products", {
     params: {
       fields:
         "title,price,imageCover,images,colors,description,status,availableSizes,quantity,ratingsAverage,status",
@@ -40,40 +36,30 @@ export const useGetProducts = (params?: any) => {
     },
   });
 
-  return { products: products || [], isLoading };
+  return { products: (data?.products || []) as Product[], isLoading };
 };
 
 export const useGetCart = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
 
-  const {
-    data: cart,
-    isLoading,
-    refetch,
-  } = useQuery<CartType>("/cart", {
+  const { data, isLoading, refetch } = useQuery("/carts", {
     skip: !isLogin,
   });
 
-  console.log("🚀 ~ file: query.ts:51 ~ cart:", cart);
   return {
-    cart: cart || { cartItems: [], totalCartPrice: 0 },
+    cart: (data?.cart || { cartItems: [], totalCartPrice: 0 }) as CartType,
     isLoading,
     refetch,
   };
 };
 
-///api/cart/count
-
 export const useGetCartCount = ({ skip }: { skip?: boolean }) => {
-  const { data, isLoading, refetch } = useQuery<{ cartItemsCount: number }>(
-    "/cart/count",
-    {
-      skip,
-    }
-  );
+  const { data, isLoading, refetch } = useQuery("/carts/count", {
+    skip,
+  });
 
   return {
-    cartItemsCount: data?.cartItemsCount || 0,
+    cartItemsCount: (data?.cartItemsCount || 0) as number,
     refetchCartCount: refetch,
     isLoading,
   };

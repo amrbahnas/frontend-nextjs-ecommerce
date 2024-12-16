@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest) {
     if (!tokenData) {
       return createRedirectResponse("/auth/login");
     }
-    if (tokenData?.isAdmin) {
+    if (tokenData?.role === "admin") {
       return intlResponse;
     } else {
       return createRedirectResponse("/notAllowed?page=admin");

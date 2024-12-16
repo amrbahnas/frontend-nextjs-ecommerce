@@ -130,7 +130,11 @@ type OrderType = {
 
 interface CustomError extends Error {
   response: {
-    data: string;
+    data: {
+      message: string;
+      error: string;
+      statusCode: number;
+    };
     status: number;
   };
 }

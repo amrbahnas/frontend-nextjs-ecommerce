@@ -18,14 +18,14 @@ const newCartItemsHandler = (
 ): { newCart: CartItemType[]; isItemExist: boolean } => {
   const isItemExist = cartItems.find(
     (current) =>
-      current._id === item._id &&
+      current.id === item.id &&
       current.color === item.color &&
       current.size === item.size
   );
 
   if (isItemExist) {
     const newCart = cartItems.map((current) =>
-      current._id === item._id
+      current.id === item.id
         ? {
             ...current,
             quantity: current.quantity + item.quantity,
@@ -75,7 +75,7 @@ const useCardStore = create<Store>(
         set((state: Store) => ({
           storeCart: {
             cartItems: state.storeCart.cartItems.filter(
-              (current) => current._id !== item._id
+              (current) => current.id !== item.id
             ),
             totalCartPrice: state.storeCart.totalCartPrice - item.price,
           },

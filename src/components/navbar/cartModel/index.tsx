@@ -25,7 +25,7 @@ const CartModal = () => {
   }, [open, isLogin, refetch]);
 
   useEffect(() => {
-    if (apiCart._id && isLogin) {
+    if (apiCart.id && isLogin) {
       setOnlineCart({
         cartItems: apiCart.cartItems,
         totalCartPrice: apiCart.totalCartPrice,

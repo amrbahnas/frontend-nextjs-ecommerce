@@ -13,10 +13,10 @@ const CardBadge = ({ productId }: { productId: string }) => {
 
   const isExist = cartItems.find(
     (item) =>
-      item.product._id === productId || String(item.product) === productId
+      item.product.id === productId || String(item.product) === productId
   );
 
-  if (!isExist?._id) return null;
+  if (!isExist?.id) return null;
   return (
     <Tooltip title="Product is in Your cart">
       <Link href={"/cart"}>

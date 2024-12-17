@@ -15,12 +15,12 @@ export const useLogin = () => {
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
-  const onLoginSuccess = (data: { user: User }) => {
+  const onLoginSuccess = (user: User) => {
     try {
-      setUser(data.user);
-      setAuthData({ role: data.user.role });
+      setUser(user);
+      setAuthData({ role: user.role });
       const redirect = getParams("redirect");
-      if (!data.user.emailVerified) {
+      if (!user.emailVerified) {
         if (redirect) {
           return router.push(
             `/verifyEmail?status=send-code&&redirect=${redirect}`
@@ -66,9 +66,9 @@ export const useSignUp = () => {
   }) => {
     mutate(values, {
       onSuccess: (res: any) => {
-        const data = sanatizeApiRes(res);
-        setUser(data.user);
-        setAuthData({ role: data.user.role });
+        const user = sanatizeApiRes(res);
+        setUser(user);
+        setAuthData({ role: user.role });
         router.push("/verifyEmail");
       },
     });

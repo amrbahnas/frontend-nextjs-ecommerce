@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Error } from "@/components/ui/error";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import useUserStore from "@/store/useUserStore";
+import sanatizeApiRes from "@/utils/sanatizeApiRes";
+import toast from "react-hot-toast";
 const { OTP } = Input;
 const EnterOTP = ({
   currentScreen,
@@ -27,14 +30,23 @@ const EnterOTP = ({
     sendChangeEmailCodeError,
   } = useChangeEmailActions();
   const [resentCount, setResentCount] = useState(0);
+  const setUser = useUserStore((state) => state.setUser);
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
-    changeEmail(values, {
-      onSuccess: (result) => {
-        setCurrentScreen("enterEmail");
-        route.push("/profile");
+    changeEmail(
+      {
+        code: values.code,
+        email: newEmail,
       },
-    });
+      {
+        onSuccess: (result) => {
+          setUser(sanatizeApiRes(result));
+          setCurrentScreen("enterEmail");
+          toast.success("Email changed successfully");
+          route.push("/profile");
+        },
+      }
+    );
   };
   if (currentScreen !== "enterOTP") return null;
   return (

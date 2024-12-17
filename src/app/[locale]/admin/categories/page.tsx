@@ -31,7 +31,7 @@ const Page = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {categories?.map((category) => (
             <CategoryCard
-              key={category._id}
+              key={category.id}
               category={category}
               setCategory={setCategory}
               setVisible={setVisible}
@@ -67,7 +67,7 @@ const CategoryCard = ({
   setDeleteCategoryLoading: any;
 }) => {
   const { deleteCategory, deleteLoading } = useAdminDeleteCategory(
-    category?._id
+    category?.id
   );
   const updateCategory = () => {
     setCategory(category);

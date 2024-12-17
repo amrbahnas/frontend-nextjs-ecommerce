@@ -25,7 +25,7 @@ const ReviewCardActions = ({
     deleteReview,
     error,
     isPending: deleteIsPending,
-  } = useDeleteReview(review._id);
+  } = useDeleteReview(review.id);
 
   const handleDelete = () => {
     deleteReview(

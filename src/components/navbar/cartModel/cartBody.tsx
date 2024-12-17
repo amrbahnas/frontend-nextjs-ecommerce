@@ -57,7 +57,7 @@ const CartBody = ({
               {cartItems?.map((item: CartItemType) => (
                 <CartItem
                   item={item}
-                  key={item._id}
+                  key={item.id}
                   refetch={refetch}
                   setDeleting={setDeleting}
                 />

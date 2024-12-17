@@ -25,7 +25,7 @@ const ProductList = ({
   return (
     <RenderedCardsGrid length={products?.length}>
       {products?.map((product: Product) => (
-        <ProductCard product={product} key={product._id} />
+        <ProductCard product={product} key={product.id} />
       ))}
     </RenderedCardsGrid>
   );

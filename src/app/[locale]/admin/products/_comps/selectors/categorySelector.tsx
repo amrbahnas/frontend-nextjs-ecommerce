@@ -13,7 +13,7 @@ const CategorySelector = ({ name, label }: { name: string; label: string }) => {
         filterOption={false}
         options={categories.map((category) => ({
           label: category.name,
-          value: category._id,
+          value: category.id,
         }))}
       />
     </Item>

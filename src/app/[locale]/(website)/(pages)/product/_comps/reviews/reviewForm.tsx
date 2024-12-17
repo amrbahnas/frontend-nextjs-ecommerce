@@ -28,7 +28,7 @@ const ReviewForm = ({
     editReview,
     error: editError,
     isPending: editIsPending,
-  } = useEditReview(review?._id || "");
+  } = useEditReview(review?.id || "");
 
   const [form] = useForm();
 

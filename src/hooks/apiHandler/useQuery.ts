@@ -17,7 +17,7 @@ type UseQueryOptionsType = {
   disableProxy?: boolean;
 };
 
-function useQuery(endpoint: string, options?: UseQueryOptionsType) {
+function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const logout = useResetAppData();
   const isLogin = useAuthStore((state) => state.isLogin);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
@@ -55,8 +55,9 @@ function useQuery(endpoint: string, options?: UseQueryOptionsType) {
     }
   }
 
+  console.log("🚀 ~ file: useQuery.ts:60 ~ data?.data:", data?.data);
   return {
-    data: data?.data || {},
+    data: data?.data as T | undefined,
     ...result,
   };
 }

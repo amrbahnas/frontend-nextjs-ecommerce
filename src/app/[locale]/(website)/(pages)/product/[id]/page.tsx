@@ -114,7 +114,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
 
             <div className="h-[2px] bg-gray-100" />
 
-            <Reviews productId={product?._id!} />
+            <Reviews productId={product?.id!} />
           </div>
         </div>
       </Container>

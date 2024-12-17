@@ -12,7 +12,7 @@ const Table = (props: TableProps) => {
   return (
     <AntdTable
       style={{ marginBottom: 0 }}
-      rowKey={(record) => record._id || record.id}
+      rowKey={(record) => record.id || record.id}
       {...props}
     />
   );

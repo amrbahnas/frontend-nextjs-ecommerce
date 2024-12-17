@@ -2,16 +2,19 @@ import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useGetAdminCategories = (params?: any) => {
-  const { data, isLoading, refetch } = useQuery("/categories", {
-    params: {
-      fields: "name,image",
-      ...params,
-    },
-    staleTime: "1d",
-  });
+  const { data, isLoading, refetch } = usePagination<CategoryType[]>(
+    "/categories",
+    {
+      params: {
+        fields: "name,image",
+        ...params,
+      },
+      staleTime: "1d",
+    }
+  );
 
   return {
-    categories: (data?.categories || []) as CategoryType[],
+    categories: data || [],
     isLoading,
     refetch,
   };
@@ -21,7 +24,7 @@ export const useGetAdminSubCategories = (
   categoryId: string | "",
   params?: any
 ) => {
-  const { data, isLoading } = useQuery(
+  const { data, isLoading } = useQuery<SubCategoryType[]>(
     `/categories/${categoryId}/subCategories`,
     {
       params: {
@@ -34,7 +37,7 @@ export const useGetAdminSubCategories = (
   );
 
   return {
-    Subcategories: (data.Subcategories || []) as SubCategoryType[],
+    Subcategories: data || [],
     isLoading,
   };
 };
@@ -59,12 +62,12 @@ export const useGetAdminProduct = (productId: string | undefined) => {
     data: product,
     isLoading,
     refetch: refetchProduct,
-  } = useQuery(`/products/${productId}`, {
+  } = useQuery<Product>(`/products/${productId}`, {
     params: {
       fields: "title,imageCover,description,price",
     },
     skip: !productId,
   });
 
-  return { product: product as Product, isLoading, refetchProduct };
+  return { product, isLoading, refetchProduct };
 };

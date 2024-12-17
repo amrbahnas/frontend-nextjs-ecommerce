@@ -1,7 +1,7 @@
-import useQuery from "@/hooks/apiHandler/useQuery";
+import usePagination from "@/hooks/apiHandler/usePagination";
 
 export const useGetCategories = (params?: any) => {
-  const { data: categories, isLoading } = useQuery<CategoryType[]>(
+  const { data: categories, isLoading } = usePagination<CategoryType[]>(
     "/categories",
     {
       params,

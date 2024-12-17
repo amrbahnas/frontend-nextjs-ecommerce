@@ -21,7 +21,7 @@ const SubCategorySelector = ({
         allowClear
         options={Subcategories.map((subCategory) => ({
           label: subCategory.title,
-          value: subCategory._id,
+          value: subCategory.id,
         }))}
       />
     </Item>

@@ -26,16 +26,19 @@ This guide covers all SEO implementations in the Shope-Amr e-commerce platform.
 ### Recently Added Features
 
 1. **Video Structured Data**
+
    - Product video metadata
    - Tutorial video information
    - Video thumbnails and descriptions
 
 2. **How-To Structured Data**
+
    - Step-by-step product guides
    - Assembly instructions
    - Usage tutorials
 
 3. **Product Comparison**
+
    - Feature comparison tables
    - Price comparisons
    - Specification details
@@ -50,6 +53,7 @@ This guide covers all SEO implementations in the Shope-Amr e-commerce platform.
 ### 1. Structured Data Components
 
 #### ProductStructuredData
+
 ```typescript
 <ProductStructuredData
   name="Product Name"
@@ -61,6 +65,7 @@ This guide covers all SEO implementations in the Shope-Amr e-commerce platform.
 ```
 
 #### VideoStructuredData
+
 ```typescript
 // src/components/structured-data/VideoStructuredData.tsx
 interface VideoStructuredDataProps {
@@ -80,10 +85,11 @@ interface VideoStructuredDataProps {
   uploadDate="2024-12-13"
   contentUrl="/videos/product-x.mp4"
   duration="PT2M30S"
-/>
+/>;
 ```
 
 #### HowToStructuredData
+
 ```typescript
 // src/components/structured-data/HowToStructuredData.tsx
 interface HowToStructuredDataProps {
@@ -108,17 +114,18 @@ interface HowToStructuredDataProps {
   description="Easy assembly guide"
   steps={[
     { name: "Step 1", text: "Unbox all parts" },
-    { name: "Step 2", text: "Connect A to B" }
+    { name: "Step 2", text: "Connect A to B" },
   ]}
   totalTime="PT30M"
   estimatedCost={{ value: 0, currency: "USD" }}
   tools={["Screwdriver", "Wrench"]}
-/>
+/>;
 ```
 
 ### 2. UI Components
 
 #### SEOHeading
+
 ```typescript
 // src/components/ui/SEOHeading.tsx
 interface SEOHeadingProps {
@@ -129,15 +136,13 @@ interface SEOHeadingProps {
   id?: string;
 }
 
-<SEOHeading
-  level={1}
-  highlight={["sale", "discount"]}
->
+<SEOHeading level={1} highlight={["sale", "discount"]}>
   Special Sale: 20% Discount
-</SEOHeading>
+</SEOHeading>;
 ```
 
 #### SEOImage
+
 ```typescript
 <SEOImage
   src="/path/to/image.jpg"
@@ -149,6 +154,7 @@ interface SEOHeadingProps {
 ```
 
 #### ProductComparison
+
 ```typescript
 // src/components/ui/ProductComparison.tsx
 interface ProductComparisonProps {
@@ -172,21 +178,22 @@ interface ProductComparisonProps {
       currency: "USD",
       features: {
         "Battery Life": "24h",
-        "Waterproof": true
-      }
+        Waterproof: true,
+      },
     },
     // ... more products
   ]}
-/>
+/>;
 ```
 
 ### 3. SEO Components
 
 #### SEOMetaDescription
+
 ```typescript
 // src/components/ui/SEOMetaDescription.tsx
 interface MetaDescriptionProps {
-  type: 'product' | 'category' | 'article';
+  type: "product" | "category" | "article";
   data: {
     name?: string;
     price?: number;
@@ -207,7 +214,7 @@ const productDescription = generateProductDescription({
   price: 999,
   currency: "USD",
   category: "Smartphones",
-  brand: "Apple"
+  brand: "Apple",
 });
 
 // Usage for Category
@@ -216,7 +223,7 @@ const categoryDescription = generateCategoryDescription({
   productCount: 50,
   minPrice: 199,
   maxPrice: 1299,
-  currency: "USD"
+  currency: "USD",
 });
 ```
 
@@ -250,15 +257,15 @@ export default function ProductPage({ product }) {
 export const metadata = {
   title: {
     default: "Shope-Amr | Your Premier E-commerce Destination",
-    template: "%s | Shope-Amr"
+    template: "%s | Shope-Amr",
   },
   description: "Your premier destination for online shopping",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://your-site.com",
-    siteName: "Shope-Amr"
-  }
+    siteName: "Shope-Amr",
+  },
 };
 ```
 
@@ -267,18 +274,18 @@ export const metadata = {
 ```typescript
 // app/sitemap.ts
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com";
 
   // Static routes
   const routes = [
-    '',
-    '/list',
-    '/about-us',
+    "",
+    "/list",
+    "/about-us",
     // ... more routes
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'daily' as const,
+    changeFrequency: "daily" as const,
     priority: 1,
   }));
 
@@ -287,10 +294,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const products = await fetchProducts();
     const categories = await fetchCategories();
 
-    const productRoutes = products.map(product => ({
-      url: `${baseUrl}/product/${product._id}`,
+    const productRoutes = products.map((product) => ({
+      url: `${baseUrl}/product/${product.id}`,
       lastModified: new Date(product.updatedAt).toISOString(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "daily" as const,
       priority: 0.8,
     }));
 
@@ -298,7 +305,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [...routes, ...productRoutes];
   } catch (error) {
-    console.error('Error generating sitemap:', error);
+    console.error("Error generating sitemap:", error);
     return routes;
   }
 }
@@ -312,20 +319,16 @@ export default function ProductPage({ product, videos, howTo }) {
   return (
     <>
       <ProductStructuredData {...product} />
-      
-      {videos.map(video => (
+
+      {videos.map((video) => (
         <VideoStructuredData key={video.id} {...video} />
       ))}
-      
-      {howTo && (
-        <HowToStructuredData {...howTo} />
-      )}
-      
+
+      {howTo && <HowToStructuredData {...howTo} />}
+
       <SEOHeading level={1}>{product.name}</SEOHeading>
-      
-      <ProductComparison
-        products={[product, ...similarProducts]}
-      />
+
+      <ProductComparison products={[product, ...similarProducts]} />
     </>
   );
 }
@@ -334,18 +337,21 @@ export default function ProductPage({ product, videos, howTo }) {
 ## Best Practices
 
 1. **Structured Data**
+
    - Use the most specific type possible
    - Include all required properties
    - Test using Google's Rich Results Test
    - Keep data up to date
 
 2. **Meta Descriptions**
+
    - Keep within 150-160 characters
    - Include primary keywords
    - Make them actionable
    - Be specific and relevant
 
 3. **Sitemaps**
+
    - Update frequently
    - Include all important pages
    - Set correct priorities
@@ -360,6 +366,7 @@ export default function ProductPage({ product, videos, howTo }) {
 ## Testing
 
 1. **Tools**
+
    - Google Search Console
    - Rich Results Test
    - Mobile-Friendly Test
@@ -381,11 +388,13 @@ export default function ProductPage({ product, videos, howTo }) {
 ## Regular Maintenance
 
 1. **Weekly Tasks**
+
    - Check Search Console for issues
    - Update content as needed
    - Monitor performance
 
 2. **Monthly Tasks**
+
    - Review analytics
    - Update sitemaps
    - Check competitor SEO

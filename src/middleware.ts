@@ -11,7 +11,13 @@ const intlMiddleware = createMiddleware({
   localePrefix: "never",
 });
 
-const protectedRoutes = ["/profile", "/wishlist", "/verifyEmail", "/orders"];
+const protectedRoutes = [
+  "/profile",
+  "/wishlist",
+  "/verifyEmail",
+  "/orders",
+  "/profile/change-Email",
+];
 
 export async function middleware(request: NextRequest) {
   // First, get the intl response

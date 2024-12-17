@@ -13,29 +13,29 @@ interface ProductStructuredDataProps {
 
 const ProductStructuredData = ({ product }: ProductStructuredDataProps) => {
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
+    "@context": "https://schema.org",
+    "@type": "Product",
     name: product.title,
     description: product.description,
     image: [product.imageCover, ...product.images],
-    sku: product._id,
-    mpn: product._id,
+    sku: product.id,
+    mpn: product.id,
     brand: {
-      '@type': 'Brand',
-      name: 'Shope-Amr',
+      "@type": "Brand",
+      name: "Shope-Amr",
     },
     aggregateRating: {
-      '@type': 'AggregateRating',
+      "@type": "AggregateRating",
       ratingValue: product.ratingsAverage,
       reviewCount: product.ratingsQuantity,
     },
     offers: {
-      '@type': 'Offer',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/product/${product._id}`,
-      priceCurrency: 'USD',
+      "@type": "Offer",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/product/${product.id}`,
+      priceCurrency: "USD",
       price: product.price,
-      itemCondition: 'https://schema.org/NewCondition',
-      availability: 'https://schema.org/InStock',
+      itemCondition: "https://schema.org/NewCondition",
+      availability: "https://schema.org/InStock",
     },
   };
 

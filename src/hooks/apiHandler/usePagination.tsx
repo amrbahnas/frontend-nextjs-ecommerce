@@ -20,6 +20,7 @@ function usePagination<T>(
     refetchOnWindowFocus?: boolean;
     pageSize?: number;
     disableProxy?: boolean;
+    staleTime?: string;
   }
 ) {
   const queryClient = useQueryClient();
@@ -51,7 +52,7 @@ function usePagination<T>(
   const commonQuerySettings = {
     queryKey: [endpoint, page],
     queryFn,
-    staleTime: ms("5m"),
+    staleTime: ms(options?.staleTime || "5m"),
     retryDelay: (retryCount: number) => retryCount * 2000,
     retry: options?.retry || 3,
     initialData: options?.initialData,

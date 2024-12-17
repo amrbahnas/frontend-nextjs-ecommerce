@@ -20,7 +20,7 @@ const CategoriesSelector = ({
       onChange={onChange}
       options={categories.map((el) => ({
         label: el.name,
-        value: el._id,
+        value: el.id,
       }))}
     />
   );

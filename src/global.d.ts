@@ -101,7 +101,7 @@ type ReviewType = {
 };
 
 type User = {
-  _id: string;
+  id: string;
   name: string;
   image: string;
   email: string;

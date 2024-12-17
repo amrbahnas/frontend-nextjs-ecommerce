@@ -17,6 +17,7 @@ const MainInfoForm = () => {
   }>({ data_url: "", file: undefined });
 
   const { user, isLoading, error, refetch } = useMe();
+  console.log("🚀 ~ file: mainInfoForm.tsx:20 ~ user:", user);
 
   const setUser = useUserStore((state) => state.setUser);
   const [form] = Form.useForm();
@@ -24,9 +25,8 @@ const MainInfoForm = () => {
   const [isFormChanged, setIsFormChanged] = useState(false);
 
   useEffect(() => {
-    if (user?._id) {
+    if (user?.id) {
       setUser(user);
-
       form.setFieldsValue(user);
       setImage({ data_url: user.profileImg, file: undefined });
     }
@@ -35,14 +35,14 @@ const MainInfoForm = () => {
   const updateUserHandler = (values: any) => {
     const formData = new FormData();
     formData.append("name", values.name);
-    // formData.append("email", values.email);
+    // formData.append("email", values.email); // email has separate endpoint
     formData.append("phone", values.phone || "");
     formData.append("profileImg", image?.file || image?.data_url || "");
 
     updateUser(formData, {
       onSuccess: (result) => {
         refetch();
-        toast("Profile Updated Successfully");
+        toast.success("Profile Updated Successfully");
         setIsFormChanged(false);
       },
     });
@@ -89,11 +89,19 @@ const MainInfoForm = () => {
             },
           ]}
         >
-          <Input placeholder="Enter your Name" className=" rounded-md p-4" />
+          <Input
+            placeholder="Enter your Name"
+            className=" rounded-md p-4"
+            size="large"
+          />
         </Item>
 
         <Item label="Phone" name="phone">
-          <Input placeholder="Enter your phone" className=" rounded-md p-4" />
+          <Input
+            placeholder="Enter your phone"
+            className=" rounded-md p-4"
+            size="large"
+          />
         </Item>
         <div>
           <Item label="E-mail" name="email">
@@ -102,6 +110,7 @@ const MainInfoForm = () => {
               disabled
               placeholder="Enter your email"
               className=" rounded-md p-4"
+              size="large"
             />
           </Item>
           <Link href={"/profile/change-Email"} className="text-xs">

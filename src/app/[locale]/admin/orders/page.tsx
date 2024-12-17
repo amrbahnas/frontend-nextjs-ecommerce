@@ -12,7 +12,7 @@ const Page = () => {
       title: "N",
       key: "number",
       render: (text, record, index) => (
-        <Link href={`/orders/${record._id}`} key={record._id}>
+        <Link href={`/orders/${record.id}`} key={record.id}>
           {index + 1}
         </Link>
       ),

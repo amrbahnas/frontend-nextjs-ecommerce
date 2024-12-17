@@ -41,7 +41,7 @@ const AddProductToCard = ({
   const cartItemCount = useMemo(() => {
     return (
       (isLogin ? onlineCart.cartItems : storeCart.cartItems).find(
-        (item) => item.product._id === _id
+        (item) => item.product.id === _id
       )?.quantity || -1
     );
   }, [isLogin, onlineCart, storeCart]);

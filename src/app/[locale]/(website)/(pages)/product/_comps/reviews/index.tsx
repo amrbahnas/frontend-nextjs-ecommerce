@@ -11,14 +11,14 @@ const Reviews = ({ productId }: { productId: string }) => {
   const { error, isLoading, refetch, reviews } =
     useGetProductReviews(productId);
   const user = useUserStore((state) => state.user);
-  const t = useTranslations('Reviews');
+  const t = useTranslations("Reviews");
 
   if (isLoading) return <ReviewsSkeleton />;
 
   return (
     <>
       <h1 className="text-2xl">
-        {t('userReviews')}
+        {t("userReviews")}
         <Badge
           count={reviews?.length}
           className="!ml-2"
@@ -29,11 +29,11 @@ const Reviews = ({ productId }: { productId: string }) => {
       <Error error={error} />
       <div className=" space-y-6 ">
         <div className=" flex flex-col gap-4 max-h-96 overflow-scroll">
-          {reviews?.length === 0 && <p>{t('noReviews')}</p>}
+          {reviews?.length === 0 && <p>{t("noReviews")}</p>}
           {reviews?.map((review: ReviewType) => (
             <ReviewCard
               review={review}
-              key={review._id}
+              key={review.id}
               currentUser={user}
               refetch={refetch}
             />

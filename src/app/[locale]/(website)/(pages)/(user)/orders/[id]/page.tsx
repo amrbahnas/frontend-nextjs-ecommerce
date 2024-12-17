@@ -17,7 +17,7 @@ const OrderPage = (props: { params: { id: string } }) => {
           <div className="mt-6 flex flex-col gap-4">
             <div className="flex justify-between">
               <span className="font-medium">Order Id:</span>
-              <span>{order._id}</span>
+              <span>{order.id}</span>
             </div>
             <div className="flex justify-between">
               <span className="font-medium">Created At:</span>

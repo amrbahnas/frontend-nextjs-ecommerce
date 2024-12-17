@@ -35,6 +35,7 @@ const ChangePasswordForm = () => {
           ]}
         >
           <Password
+            size="large"
             type="password"
             placeholder="Enter your Current password"
             className=" rounded-md p-4"
@@ -55,6 +56,7 @@ const ChangePasswordForm = () => {
           ]}
         >
           <Password
+            size="large"
             type="password"
             placeholder="Enter New password"
             className=" rounded-md p-4"
@@ -82,6 +84,7 @@ const ChangePasswordForm = () => {
           ]}
         >
           <Password
+            size="large"
             placeholder="Enter your confirmPassword"
             className=" rounded-md p-4"
           />

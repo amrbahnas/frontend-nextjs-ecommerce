@@ -19,7 +19,7 @@
 //     const checkUser = async () => {
 //       try {
 //         await refetch();
-//         if (user._id) {
+//         if (user.id) {
 //           setUser({ ...storeUser, ...user });
 //           if (!user.active && pathName !== "/inactiveAccount") {
 //             reset("/inactiveAccount");

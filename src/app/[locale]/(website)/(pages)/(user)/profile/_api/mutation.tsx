@@ -19,13 +19,13 @@ export const useUpdateUser = () => {
 /// change password
 export const useChangePassword = () => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
-    "/users/change-password",
+    "/auth/change-password",
     { method: "put" }
   );
   const changePassword = (values: any) => {
     mutate(values, {
       onSuccess: (result) => {
-        toast("Password Changed Successfully");
+        toast.success("Password Changed Successfully");
       },
     });
   };

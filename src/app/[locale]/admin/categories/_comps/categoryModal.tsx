@@ -22,7 +22,7 @@ const CategoryModal = ({
   console.log("🚀 ~ image:", image);
   const [form] = Form.useForm();
   const { createCategory, createLoading } = useAdminCreateCategory();
-  const { editCategory, editLoading } = useAdminEditCategory(category?._id);
+  const { editCategory, editLoading } = useAdminEditCategory(category?.id);
 
   useEffect(() => {
     if (category) {

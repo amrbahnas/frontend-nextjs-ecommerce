@@ -45,7 +45,7 @@ const Page = () => {
   });
 
   useEffect(() => {
-    if (apiCart._id && isLogin) {
+    if (apiCart.id && isLogin) {
       setOnlineCart({
         cartItems: apiCart.cartItems,
         totalCartPrice: apiCart.totalCartPrice,
@@ -73,7 +73,7 @@ const Page = () => {
               </div>
             )}
             {cartItems?.map((item: CartItemType) => (
-              <div key={item._id} className="border-b border-gray-200 pb-1">
+              <div key={item.id} className="border-b border-gray-200 pb-1">
                 <CartItem
                   item={item}
                   refetch={refetch}

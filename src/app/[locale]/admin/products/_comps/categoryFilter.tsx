@@ -21,10 +21,10 @@ const CategoryFilter = () => {
         </Radio>
         {categories?.map((el) => (
           <Radio
-            value={el._id}
-            key={el._id}
+            value={el.id}
+            key={el.id}
             className="!capitalize "
-            checked={selectedCategory === el._id}
+            checked={selectedCategory === el.id}
           >
             {el.name}
           </Radio>

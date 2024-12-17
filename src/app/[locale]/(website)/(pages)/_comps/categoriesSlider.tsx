@@ -42,7 +42,7 @@ const CategoriesSlider = () => {
         }}
       >
         {categories?.map((category) => (
-          <SwiperSlide key={category._id}>
+          <SwiperSlide key={category.id}>
             <CategoryCard category={category} />
           </SwiperSlide>
         ))}
@@ -56,8 +56,8 @@ export default CategoriesSlider;
 const CategoryCard = ({ category }: { category: CategoryType }) => {
   return (
     <Link
-      href={`/list?cat=${category._id}`}
-      key={category._id}
+      href={`/list?cat=${category.id}`}
+      key={category.id}
       className="flex flex-col justify-center items-center hover:scale-105 transform transition-transform  "
     >
       <NextImage

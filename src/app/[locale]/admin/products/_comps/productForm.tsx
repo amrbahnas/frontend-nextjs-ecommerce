@@ -35,7 +35,7 @@ const ProductForm = ({ id }: { id?: string }) => {
 
   useEffect(() => {
     if (product) {
-      form.setFieldsValue({ ...product, category: product.category?._id });
+      form.setFieldsValue({ ...product, category: product.category?.id });
 
       setImageCover([{ data_url: product?.imageCover, file: null }]);
       setImages(

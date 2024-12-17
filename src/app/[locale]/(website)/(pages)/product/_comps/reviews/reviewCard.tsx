@@ -15,7 +15,7 @@ const ReviewCard = ({
 }) => {
   const t = useTranslations("Reviews");
   if (!review.user) return null;
-  const currentUserIsOwnThisReview = currentUser?._id === review.user?._id;
+  const currentUserIsOwnThisReview = currentUser?.id === review.user?.id;
   const displayedDate =
     review.updatedAt !== review.createdAt ? review.updatedAt : review.createdAt;
   return (

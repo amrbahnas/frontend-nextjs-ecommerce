@@ -5,7 +5,7 @@ interface BaseParamsType {
 type ParamsType = Omit<BaseParamsType, "skip">;
 
 type CategoryType = {
-  _id: string;
+  id: string;
   name: string;
   slug: string;
   image: string;
@@ -14,13 +14,13 @@ type CategoryType = {
 };
 type SubCategoryType = {
   userId: number;
-  _id: string;
+  id: string;
   title: string;
   completed: boolean;
 };
 
 type CouponType = {
-  _id: string;
+  id: string;
   code: string;
   discount: number;
   expireAt: string;
@@ -29,7 +29,7 @@ type CouponType = {
 };
 
 type CartType = {
-  _id: string;
+  id: string;
   cartItems: CartItemType[];
   numberOfCartsItems: number;
   totalCartPrice: number;
@@ -52,11 +52,11 @@ type CartItemType = {
   quantity: number;
   price: number;
   size: ProductSize;
-  _id: string;
+  id: string;
 };
 
 type Product = {
-  _id: string;
+  id: string;
   title: string;
   slug: string;
   description: string;
@@ -90,7 +90,7 @@ type ProductStatus =
 type ProductSize = "S" | "M" | "L" | "XL" | "XXL";
 
 type ReviewType = {
-  _id: string;
+  id: string;
   title: string;
   rating: number;
   user: User;
@@ -113,7 +113,7 @@ type User = {
 };
 
 type OrderType = {
-  _id: string;
+  id: string;
   user: User;
   orderItems: CartItemType[];
   taxPrice: number;
@@ -140,7 +140,7 @@ interface CustomError extends Error {
 }
 
 type TokenPayload = {
-  _id: string;
+  id: string;
   isAdmin: boolean;
   emailVerified: boolean;
   active: boolean;

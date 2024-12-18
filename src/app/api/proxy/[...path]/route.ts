@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import axiosInstance from "@/config/apiClient";
 
-type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
+type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export async function GET(
   request: NextRequest,
@@ -27,6 +27,14 @@ export async function PUT(
   const path = "/" + params.path.join("/");
   console.log("🚀 ~ file: route.ts:28 ~ path:", path);
   return handleRequest(request, path, "PUT");
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { path: string[] } }
+) {
+  const path = "/" + params.path.join("/");
+  return handleRequest(request, path, "PATCH");
 }
 
 export async function DELETE(
@@ -70,6 +78,9 @@ async function handleRequest(
         break;
       case "PUT":
         response = await axiosInstance.put(path, requestData, config);
+        break;
+      case "PATCH":
+        response = await axiosInstance.patch(path, requestData, config);
         break;
       case "DELETE":
         response = await axiosInstance.delete(path, config);

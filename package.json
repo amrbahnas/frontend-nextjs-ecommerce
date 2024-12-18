@@ -27,6 +27,7 @@
     "next-intl": "^3.26.0",
     "next-nprogress-bar": "^2.3.13",
     "next-sitemap": "^4.2.3",
+    "object-to-formdata": "^4.5.1",
     "react": "^18",
     "react-confetti": "^6.1.0",
     "react-dom": "^18",

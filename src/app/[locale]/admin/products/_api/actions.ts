@@ -27,7 +27,7 @@ export const useAdminCreateProduct = () => {
 export const useAdminEditProduct = (id: string | undefined) => {
   const { mutate: editProduct, isPending: editLoading } = useMutation(
     "/products/" + id,
-    { method: "put" }
+    { method: "patch" }
   );
   return {
     editProduct,

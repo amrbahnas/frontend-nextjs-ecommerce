@@ -10,7 +10,7 @@ import sanatizeApiRes from "@/utils/sanatizeApiRes";
 const useMutation = (
   endpoint: string,
   options?: {
-    method?: "post" | "put" | "delete";
+    method?: "post" | "put" | "delete" | "patch";
     onSuccess?: (a: any, b: any, c: any) => void;
     onError?: (a: any, b: any, c: any) => void;
     disableProxy?: boolean;

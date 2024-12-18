@@ -12,7 +12,7 @@ export const useAdminCreateCategory = () => {
 export const useAdminEditCategory = (id: string | undefined) => {
   const { mutate: editCategory, isPending: editLoading } = useMutation(
     "/categories/" + id,
-    { method: "put" }
+    { method: "patch" }
   );
   return {
     editCategory,

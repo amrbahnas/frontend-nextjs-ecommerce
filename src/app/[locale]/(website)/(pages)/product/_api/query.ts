@@ -1,3 +1,4 @@
+import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 import { Sora } from "next/font/google";
 
@@ -18,20 +19,19 @@ export const useGetSpecificProduct = (id: any) => {
 };
 
 export const useGetProductReviews = (id: string) => {
-  const { data, error, refetch, isError, isLoading } = useQuery<ReviewType[]>(
-    `/products/${id}/reviews`,
-    {
+  const { data, error, refetch, isError, isLoading, pagination } =
+    usePagination<ReviewType[]>(`/products/${id}/reviews`, {
       skip: !id,
       params: {
         sort: "-createdAt",
       },
-    }
-  );
+    });
   return {
     reviews: data || [],
     error,
     refetch,
     isError,
     isLoading,
+    pagination,
   };
 };

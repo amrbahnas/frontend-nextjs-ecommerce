@@ -20,13 +20,13 @@ const Admin = ({ children }: { children?: React.ReactNode }) => {
     return (
       <div className="py-4">
         <Container>{children}</Container>
-        <Button
+        {/* <Button
           type="text"
           onClick={() => route.back()}
           className="!fixed -left-8 lg:left-12 bottom-8 !w-fit"
         >
           <IoArrowBackCircle fontSize="large" size={50} />
-        </Button>
+        </Button> */}
       </div>
     );
   }

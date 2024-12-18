@@ -32,7 +32,11 @@ const ProductForm = ({ id }: { id?: string }) => {
   const selectedCategory = Form.useWatch("category", form);
   const { createLoading, createProduct } = useAdminCreateProduct();
   const { editLoading, editProduct } = useAdminEditProduct(id);
-  const { product, isLoading: productIsLoading } = useGetAdminProduct(id);
+  const {
+    product,
+    isLoading: productIsLoading,
+    refetchProduct,
+  } = useGetAdminProduct(id);
 
   useEffect(() => {
     if (product) {
@@ -48,72 +52,35 @@ const ProductForm = ({ id }: { id?: string }) => {
     }
   }, [product]);
 
-  const handleImages = (formData: FormData) => {
-    const imageCoverFile = imageCover[0].file;
-    const uploadCoverImage = imageCoverFile
-      ? imageCoverFile
-      : imageCover[0].data_url;
-
-    formData.append("imageCover", uploadCoverImage);
-
-    if (images.length > 0) {
-      const uploadImages = images.map((image: any) =>
-        image.file ? image.file : image.data_url
-      );
-      // cant send array of files as  JSON.stringify so we append each file, if images.length = 1 it send to formData as single file ,note: backend accept array of files or single file
-      uploadImages.forEach((image: any) => {
-        formData.append("images[]", image);
-      });
-    }
-  };
-
-  const onFinish = (values: any) => {
+  const handleImages = (values: any) => {
     if (!imageCover.length) {
       return toast.error("Please upload a cover image");
     }
-
     values.imageCover = imageCover[0]?.file || imageCover[0]?.data_url;
+    values.images = images.map((image: any) =>
+      image.file ? image.file : image.data_url
+    );
+  };
 
-    if (images.length > 0) {
-      values.images = images.map((image: any) =>
-        image.file ? image.file : image.data_url
-      );
-    }
-
-    const formData = serialize(values);
-
-    // const formData = new FormData();
-
-    // handleImages(formData);
-
-    // for (const key in values) {
-    //   if (!values[key]) continue;
-    //   if (Array.isArray(values[key])) {
-    //     values[key].forEach((color: any) => {
-    //       formData.append(`${key}[]`, color);
-    //     });
-    //     continue;
-    //   }
-    //   // if Object
-    //   if (typeof values[key] === "object") {
-    //     formData.append(key, JSON.stringify(values[key]));
-    //     continue;
-    //   }
-    //   formData.append(key, values[key]);
-    // }
-
+  const onFinish = (values: any) => {
+    handleImages(values);
+    console.log("🚀 ~ file: productForm.tsx:71 ~ values:", values);
+    const formData = serialize(values, {
+      allowEmptyArrays: true,
+      indices: true,
+    });
     if (id) {
       editProduct(formData, {
         onSuccess: () => {
           toast.success("Product updated successfully");
-          // router.push("/product/" + id);
+          // router.push("/admin/products");
         },
       });
     } else {
       createProduct(formData, {
         onSuccess: () => {
           toast.success("Product created successfully");
-          // router.push("/admin/products");
+          router.push("/admin/products");
         },
       });
     }

@@ -52,7 +52,7 @@ function usePagination<T>(
   const commonQuerySettings = {
     queryKey: [endpoint, page],
     queryFn,
-    staleTime: ms(options?.staleTime || "5m"),
+    staleTime: ms(options?.staleTime || "5s"),
     retryDelay: (retryCount: number) => retryCount * 2000,
     retry: options?.retry || 3,
     initialData: options?.initialData,

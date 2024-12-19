@@ -6,8 +6,8 @@ const CategoriesSelector = ({
   value,
   onChange,
 }: {
-  value: string | null;
-  onChange: (value: string) => void;
+  value?: string | null;
+  onChange?: (value: string) => void;
 }) => {
   const { categories, isLoading } = useGetCategories();
   return (

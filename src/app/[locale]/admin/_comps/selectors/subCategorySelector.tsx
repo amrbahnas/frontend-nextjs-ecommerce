@@ -1,6 +1,7 @@
 import { Form, Select } from "antd";
 import React from "react";
-import { useGetAdminSubCategories } from "../../_api/query";
+import { useGetAdminSubCategoriesById } from "../../_api/query";
+
 const { Item } = Form;
 
 const SubCategorySelector = ({
@@ -12,7 +13,7 @@ const SubCategorySelector = ({
   name: string;
   label: string;
 }) => {
-  const { Subcategories, isLoading } = useGetAdminSubCategories(categoryId);
+  const { Subcategories, isLoading } = useGetAdminSubCategoriesById(categoryId);
   return (
     <Item name={name} label={label} className={"!w-full"}>
       <Select

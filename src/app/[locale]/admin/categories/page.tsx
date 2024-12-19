@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useGetAdminCategories } from "../products/_api/query";
+
 import NextImage from "@/components/ui/nextImage";
 import { Button, Divider, Popconfirm, Spin } from "antd";
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -10,6 +10,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { useAdminDeleteCategory } from "./_api/action";
 import toast from "react-hot-toast";
 import AdminPageTile from "../_comps/adminPageTile";
+import { useGetAdminCategories } from "../_api/query";
 
 const Page = () => {
   const { categories, isLoading, refetch } = useGetAdminCategories();

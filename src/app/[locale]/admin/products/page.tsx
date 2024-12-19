@@ -2,7 +2,7 @@
 import { Spin } from "antd";
 import Link from "next/link";
 import { Suspense } from "react";
-import CategoryFilter from "./_comps/categoryFilter";
+import CategoryFilter from "../_comps/categoryFilter";
 import ProductsList from "./_comps/productsList";
 import AdminPageTile from "../_comps/adminPageTile";
 

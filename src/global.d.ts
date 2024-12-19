@@ -15,7 +15,8 @@ type CategoryType = {
 type SubCategoryType = {
   userId: number;
   id: string;
-  title: string;
+  name: string;
+  categoryId: string;
   completed: boolean;
 };
 

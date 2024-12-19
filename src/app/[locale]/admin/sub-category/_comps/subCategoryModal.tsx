@@ -1,65 +1,57 @@
-import { Form, Modal, Input, Button, Spin } from "antd";
+import { Form, Input, Modal, Spin } from "antd";
 import React, { useEffect } from "react";
-import { useAdminCreateCategory, useAdminEditCategory } from "../_api/action";
-import ImageUploader from "@/components/ui/uploadImage";
-import toast from "react-hot-toast";
-import { serialize } from "object-to-formdata";
+import {
+  useAdminCreateSubCategory,
+  useAdminEditSubCategory,
+} from "../_api/action";
+import CategoriesSelector from "@/components/selectors/categoriesSelector";
+import useParamsService from "@/hooks/global/useParamsService";
 const { Item } = Form;
-const CategoryModal = ({
+const SubCategoryModal = ({
   refetch,
   visible,
-  category,
+  subCategory,
   setVisible,
-  setCategory,
+  setSubCategory,
 }: {
   refetch: () => void;
   visible: boolean;
   setVisible: (value: boolean) => void;
-  category: any;
-  setCategory: any;
+  subCategory: SubCategoryType | null;
+  setSubCategory: any;
 }) => {
   const [error, setError] = React.useState("");
-  const [image, setImage] = React.useState<any[]>([]);
+  const { getParams } = useParamsService("okay I will");
+  const categoryId = getParams("category");
+
   const [form] = Form.useForm();
-  const { createCategory, createLoading } = useAdminCreateCategory();
-  const { editCategory, editLoading } = useAdminEditCategory(category?.id);
+  const { createSubCategory, createLoading } = useAdminCreateSubCategory();
+  const { editSubCategory, editLoading } = useAdminEditSubCategory(
+    subCategory?.id
+  );
 
   useEffect(() => {
-    if (category) {
-      form.setFieldsValue(category);
-      setImage(
-        category.image
-          ? [
-              {
-                data_url: category.image,
-                file: null,
-              },
-            ]
-          : []
-      );
+    if (subCategory) {
+      form.setFieldsValue(subCategory);
     }
-  }, [category]);
+  }, [subCategory]);
+
+  useEffect(() => {
+    if (categoryId) {
+      form.setFieldValue("categoryId", categoryId);
+    }
+  }, [categoryId]);
 
   const onclose = () => {
     setVisible(false);
-    setCategory(null);
-    setImage([]);
+    setSubCategory(null);
     setError("");
     form.resetFields();
   };
 
   const onFinish = (values: any) => {
-    if (!image[0]) {
-      toast.error("Please upload image");
-      return;
-    }
-    values.image = image[0]?.file || image[0]?.data_url;
-
-    const formData = serialize(values, {
-      allowEmptyArrays: true,
-    });
-    if (category) {
-      editCategory(formData, {
+    if (subCategory) {
+      editSubCategory(values, {
         onSuccess: () => {
           refetch();
           onclose();
@@ -69,7 +61,7 @@ const CategoryModal = ({
         },
       });
     } else {
-      createCategory(formData, {
+      createSubCategory(values, {
         onSuccess: () => {
           refetch();
           onclose();
@@ -85,8 +77,9 @@ const CategoryModal = ({
     <Modal
       onClose={onclose}
       open={visible}
-      title={category ? "Edit Category" : "Create Category"}
-      okText={category ? "Update" : "Create"}
+      destroyOnClose
+      title={subCategory ? "Edit Sub Category" : "Create Sub Category"}
+      okText={subCategory ? "Update" : "Create"}
       okButtonProps={{
         loading: createLoading || editLoading,
         disabled: createLoading || editLoading,
@@ -106,16 +99,18 @@ const CategoryModal = ({
           onFinish={onFinish}
         >
           <Item
+            label="Category"
+            name="categoryId"
+            rules={[{ required: true, message: "Please input the name!" }]}
+          >
+            <CategoriesSelector />
+          </Item>
+          <Item
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input the name!" }]}
           >
             <Input />
-          </Item>
-          <Item label="Image">
-            <div className="flex justify-center">
-              <ImageUploader images={image} setImages={setImage} />
-            </div>
           </Item>
         </Form>
       </Spin>
@@ -123,4 +118,4 @@ const CategoryModal = ({
   );
 };
 
-export default CategoryModal;
+export default SubCategoryModal;

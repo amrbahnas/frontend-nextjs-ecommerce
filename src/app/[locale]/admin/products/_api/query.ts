@@ -1,47 +1,6 @@
 import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 
-export const useGetAdminCategories = (params?: any) => {
-  const { data, isLoading, refetch } = usePagination<CategoryType[]>(
-    "/categories",
-    {
-      params: {
-        fields: "name,image",
-        ...params,
-      },
-      staleTime: "1d",
-    }
-  );
-
-  return {
-    categories: data || [],
-    isLoading,
-    refetch,
-  };
-};
-
-export const useGetAdminSubCategories = (
-  categoryId: string | "",
-  params?: any
-) => {
-  const { data, isLoading } = useQuery<SubCategoryType[]>(
-    `/categories/${categoryId}/subCategories`,
-    {
-      params: {
-        fields: "name",
-        ...params,
-      },
-      skip: !categoryId,
-      staleTime: "1d",
-    }
-  );
-
-  return {
-    Subcategories: data || [],
-    isLoading,
-  };
-};
-
 export const useGetAdminProducts = (params?: any) => {
   const {
     data: products,

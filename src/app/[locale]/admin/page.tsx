@@ -1,27 +1,11 @@
 "use client";
-import { useState } from "react";
 
-import { Radio, RadioChangeEvent, Spin } from "antd";
-import {
-  useGetAdminCategories,
-  useGetAdminProducts,
-} from "./products/_api/query";
-import AdminProductCard from "./_comps/adminProductCard";
+import Container from "@/components/container";
 import Link from "next/link";
-const { Group } = Radio;
-const Admin = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const { categories, isLoading } = useGetAdminCategories();
-  const {
-    products,
-    isLoading: ProductsLoading,
-    refetchProduct,
-  } = useGetAdminProducts({
-    category: selectedCategory,
-  });
 
+const Admin = () => {
   return (
-    <div className="">
+    <div className=" mb-10">
       <div className="flex flex-col gap-3 p-4  text-white items-center justify-center  mb-20">
         <h1 className=" text-3xl  truncate sm:text-4xl font-bold text-primary">
           Welcome to Admin Page
@@ -30,6 +14,7 @@ const Admin = () => {
       <div className="  flex flex-col gap-4  w-full sm:w-[60%] mx-auto ">
         <ActionBox title="All Products" href="/admin/products" />
         <ActionBox title="Categories" href="/admin/categories" />
+        <ActionBox title="Sub-Category" href="/admin/sub-category" />
         <ActionBox title="Orders" href="/admin/orders" />
         <ActionBox title="Create New Product" href="/admin/products/create" />
       </div>

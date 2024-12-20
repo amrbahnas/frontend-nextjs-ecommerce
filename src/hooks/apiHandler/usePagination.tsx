@@ -5,10 +5,9 @@ import proxyAxiosInstance from "@/config/proxyClient";
 import {
   keepPreviousData,
   useQuery as reactUseQuery,
-  useQueryClient,
 } from "@tanstack/react-query";
 import ms from "ms";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function usePagination<T>(
   endpoint: string,
@@ -23,63 +22,47 @@ function usePagination<T>(
     staleTime?: string;
   }
 ) {
-  const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
-
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);
-  const [paginationLoading, setPaginationLoading] = useState(false);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
+  const prevParamsRef = useRef(options?.params);
 
-  const variables = useMemo(() => {
-    return {
-      pageSize,
-      page,
-      ...options?.params,
-    };
-  }, [page, pageSize, options?.params]);
+  useEffect(() => {
+    if (JSON.stringify(prevParamsRef.current) !== JSON.stringify(options?.params)) {
+      setPage(1);
+      prevParamsRef.current = options?.params;
+    }
+  }, [options?.params]);
 
   const queryFn = async () => {
-    setPaginationLoading(true);
     const res = await instance.get(endpoint, {
       params: {
-        ...variables,
+        pageSize,
+        page,
+        ...options?.params,
       },
     });
-    setPaginationLoading(false);
     return res.data;
   };
 
-  const commonQuerySettings = {
-    queryKey: [endpoint, page, options?.params || ""],
+  const { data, isLoading, ...result } = reactUseQuery({
+    queryKey: [endpoint, page, options?.params || "", pageSize],
     queryFn,
     staleTime: ms(options?.staleTime || "5s"),
     retryDelay: (retryCount: number) => retryCount * 2000,
     retry: options?.retry || 3,
     initialData: options?.initialData,
-  };
-
-  const { isPlaceholderData, data, isLoading, ...result } = reactUseQuery({
-    ...commonQuerySettings,
     enabled: !Boolean(options?.skip),
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
-  useEffect(() => {
-    setPage(1);
-  }, [options?.params]);
-
-  useEffect(() => {
-    if (!isPlaceholderData && data?.data?.paginator?.hasMore) {
-      queryClient.prefetchQuery(commonQuerySettings);
-    }
-  }, [data, isPlaceholderData, variables, queryClient]);
-
   return {
     pagination: {
-      current: data?.data?.paginator?.currentPage,
-      pageSize: data?.data?.paginator?.pageSize,
-      total: data?.data?.paginator?.total,
+      current: data?.data?.pagination?.currentPage,
+      pageSize: data?.data?.pagination?.pageSize,
+      total: data?.data?.pagination?.total,
+      showSizeChanger: true,
       showTotal: (total: number) => (
         <span className="font-medium">{`Total ${total} items`}</span>
       ),
@@ -87,9 +70,13 @@ function usePagination<T>(
         setPage(page);
         pageSize && setPageSize(pageSize);
       },
+      onShowSizeChange: (current: number, size: number) => {
+        setPage(1);
+        setPageSize(size);
+      },
     },
     data: (data?.data?.list as T) || [],
-    isLoading: isLoading || paginationLoading,
+    isLoading,
     ...result,
   };
 }

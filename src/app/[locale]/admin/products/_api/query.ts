@@ -6,6 +6,7 @@ export const useGetAdminProducts = (params?: any) => {
     data: products,
     isLoading,
     refetch: refetchProduct,
+    pagination,
   } = usePagination<Product[]>("/products", {
     params: {
       fields: "title,imageCover,description,price",
@@ -13,7 +14,7 @@ export const useGetAdminProducts = (params?: any) => {
     },
   });
 
-  return { products: products || [], isLoading, refetchProduct };
+  return { products: products || [], isLoading, refetchProduct, pagination };
 };
 
 export const useGetAdminProduct = (productId: string | undefined) => {

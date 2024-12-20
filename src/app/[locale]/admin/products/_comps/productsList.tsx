@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { useGetAdminProducts } from "../_api/query";
-import { Spin } from "antd";
+import { Pagination, Spin } from "antd";
 import AdminProductCard from "../../_comps/adminProductCard";
 import NoData from "@/components/ui/noData";
 
@@ -13,9 +13,11 @@ const ProductsList = () => {
     products,
     isLoading: ProductsLoading,
     refetchProduct,
+    pagination,
   } = useGetAdminProducts({
     categoryId,
   });
+  console.log("🚀 ~ file: productsList.tsx:17 ~ pagination:", pagination);
 
   return (
     <div>
@@ -35,6 +37,7 @@ const ProductsList = () => {
                 />
               );
             })}
+            <Pagination {...pagination} />
           </div>
         </Spin>
       </div>

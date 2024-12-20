@@ -31,6 +31,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const { data, ...result } = reactUseQuery<any, CustomError>({
     queryKey: [endpoint, options?.params || ""],
     queryFn,
+
     enabled: !Boolean(options?.skip),
     initialData: options?.initialResults,
     retry: options?.retry || 2,

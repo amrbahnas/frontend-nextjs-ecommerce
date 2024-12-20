@@ -14,6 +14,10 @@ const SubCategorySelector = ({
   label: string;
 }) => {
   const { Subcategories, isLoading } = useGetAdminSubCategoriesById(categoryId);
+  console.log(
+    "🚀 ~ file: subCategorySelector.tsx:17 ~ Subcategories:",
+    Subcategories
+  );
   return (
     <Item name={name} label={label} className={"!w-full"}>
       <Select
@@ -21,7 +25,7 @@ const SubCategorySelector = ({
         placeholder="Select a subCategory"
         allowClear
         options={Subcategories.map((subCategory) => ({
-          label: subCategory.title,
+          label: subCategory.name,
           value: subCategory.id,
         }))}
       />

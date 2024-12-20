@@ -23,6 +23,7 @@ export const useGetAdminSubCategoriesById = (
   categoryId: string | "",
   params?: any
 ) => {
+  console.log("🚀 ~ file: query.ts:24 ~ categoryId:", categoryId);
   const { data, isLoading, refetch } = usePagination<SubCategoryType[]>(
     `/categories/${categoryId}/subCategories`,
     {
@@ -31,7 +32,6 @@ export const useGetAdminSubCategoriesById = (
         ...params,
       },
       skip: !categoryId,
-      staleTime: "1d",
     }
   );
 

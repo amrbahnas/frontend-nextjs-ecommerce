@@ -29,7 +29,7 @@ const ProductForm = ({ id }: { id?: string }) => {
   const [images, setImages] = useState<any>([]);
   const router = useRouter();
   const [form] = Form.useForm();
-  const selectedCategory = Form.useWatch("category", form);
+  const selectedCategory = Form.useWatch("categoryId", form);
   const { createLoading, createProduct } = useAdminCreateProduct();
   const { editLoading, editProduct } = useAdminEditProduct(id);
   const {

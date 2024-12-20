@@ -28,21 +28,21 @@ function usePagination<T>(
 
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);
   const [paginationLoading, setPaginationLoading] = useState(false);
+  const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
 
   const variables = useMemo(() => {
     return {
       pageSize,
       page,
+      ...options?.params,
     };
-  }, [page, pageSize]);
+  }, [page, pageSize, options?.params]);
 
   const queryFn = async () => {
-    const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
     setPaginationLoading(true);
     const res = await instance.get(endpoint, {
       params: {
         ...variables,
-        ...options?.params,
       },
     });
     setPaginationLoading(false);
@@ -50,7 +50,7 @@ function usePagination<T>(
   };
 
   const commonQuerySettings = {
-    queryKey: [endpoint, page],
+    queryKey: [endpoint, page, options?.params || ""],
     queryFn,
     staleTime: ms(options?.staleTime || "5s"),
     retryDelay: (retryCount: number) => retryCount * 2000,
@@ -64,6 +64,10 @@ function usePagination<T>(
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [options?.params]);
 
   useEffect(() => {
     if (!isPlaceholderData && data?.data?.paginator?.hasMore) {

@@ -7,14 +7,14 @@ import NoData from "@/components/ui/noData";
 
 const ProductsList = () => {
   const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "";
+  const categoryId = searchParams.get("category") || "";
 
   const {
     products,
     isLoading: ProductsLoading,
     refetchProduct,
   } = useGetAdminProducts({
-    category,
+    categoryId,
   });
 
   return (

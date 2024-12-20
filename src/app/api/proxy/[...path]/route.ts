@@ -4,52 +4,29 @@ import axiosInstance from "@/config/apiClient";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { path: string[] } }
-) {
-  const path = "/" + params.path.join("/");
-  return handleRequest(request, path, "GET");
+export async function GET(request: NextRequest) {
+  return handleRequest(request, "GET");
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { path: string[] } }
-) {
-  const path = "/" + params.path.join("/");
-  return handleRequest(request, path, "POST");
+export async function POST(request: NextRequest) {
+  return handleRequest(request, "POST");
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { path: string[] } }
-) {
-  const path = "/" + params.path.join("/");
-  console.log("🚀 ~ file: route.ts:28 ~ path:", path);
-  return handleRequest(request, path, "PUT");
+export async function PUT(request: NextRequest) {
+  return handleRequest(request, "PUT");
 }
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { path: string[] } }
-) {
-  const path = "/" + params.path.join("/");
-  return handleRequest(request, path, "PATCH");
+export async function PATCH(request: NextRequest) {
+  return handleRequest(request, "PATCH");
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { path: string[] } }
-) {
-  const path = "/" + params.path.join("/");
-  return handleRequest(request, path, "DELETE");
+export async function DELETE(request: NextRequest) {
+  return handleRequest(request, "DELETE");
 }
 
-async function handleRequest(
-  request: NextRequest,
-  path: string,
-  method: RequestMethod
-) {
+async function handleRequest(request: NextRequest, method: RequestMethod) {
+  const endpoint = request.url.split("proxy")[1];
+
   try {
     let requestData: any;
     const contentType = request.headers.get("content-type");
@@ -71,19 +48,19 @@ async function handleRequest(
 
     switch (method) {
       case "GET":
-        response = await axiosInstance.get(path, config);
+        response = await axiosInstance.get(endpoint, config);
         break;
       case "POST":
-        response = await axiosInstance.post(path, requestData, config);
+        response = await axiosInstance.post(endpoint, requestData, config);
         break;
       case "PUT":
-        response = await axiosInstance.put(path, requestData, config);
+        response = await axiosInstance.put(endpoint, requestData, config);
         break;
       case "PATCH":
-        response = await axiosInstance.patch(path, requestData, config);
+        response = await axiosInstance.patch(endpoint, requestData, config);
         break;
       case "DELETE":
-        response = await axiosInstance.delete(path, config);
+        response = await axiosInstance.delete(endpoint, config);
         break;
       default:
         throw new Error(`Unsupported method: ${method}`);

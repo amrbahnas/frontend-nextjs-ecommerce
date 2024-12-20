@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 const Reviews = ({ productId }: { productId: string }) => {
   const { error, isLoading, refetch, reviews } =
     useGetProductReviews(productId);
+  console.log("🚀 ~ file: index.tsx:12 ~ reviews:", reviews);
   const user = useUserStore((state) => state.user);
   const t = useTranslations("Reviews");
 

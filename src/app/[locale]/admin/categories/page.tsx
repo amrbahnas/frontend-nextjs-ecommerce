@@ -1,35 +1,33 @@
 "use client";
 import React from "react";
 
-import NextImage from "@/components/ui/nextImage";
-import { Button, Divider, Popconfirm, Spin } from "antd";
+import { Button, Divider, Pagination, Popconfirm, Spin } from "antd";
+import toast from "react-hot-toast";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import CategoryModal from "./_comps/categoryModal";
 import { MdEdit } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
-import { useAdminDeleteCategory } from "./_api/action";
-import toast from "react-hot-toast";
-import AdminPageTile from "../_comps/adminPageTile";
 import { useGetAdminCategories } from "../_api/query";
+import AdminPageTile from "../_comps/adminPageTile";
+import { useAdminDeleteCategory } from "./_api/action";
+import CategoryModal from "./_comps/categoryModal";
 
 const Page = () => {
-  const { categories, isLoading, refetch } = useGetAdminCategories();
+  const { categories, isLoading, refetch, pagination } =
+    useGetAdminCategories();
   const [visible, setVisible] = React.useState(false);
   const [category, setCategory] = React.useState(null);
   const [deleteCategoryLoading, setDeleteCategoryLoading] =
     React.useState(false);
   return (
-    <div>
+    <div className=" flex flex-col gap-10 h-full">
       <AdminPageTile>Categories</AdminPageTile>
-      <span className=" capitalize text-sm text-black my-4 block w-full text-right">
-        {categories.length} items found
-      </span>
+
       <Spin
         spinning={isLoading || deleteCategoryLoading}
         tip="Loading..."
         size="large"
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {categories?.map((category) => (
             <CategoryCard
               key={category.id}
@@ -43,6 +41,7 @@ const Page = () => {
           <AddCategoryCard setVisible={setVisible} />
         </div>
       </Spin>
+      <Pagination {...pagination} />
       <CategoryModal
         category={category}
         refetch={refetch}

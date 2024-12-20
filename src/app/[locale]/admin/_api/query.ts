@@ -1,21 +1,21 @@
 import usePagination from "@/hooks/apiHandler/usePagination";
 
 export const useGetAdminCategories = (params?: any) => {
-  const { data, isLoading, refetch } = usePagination<CategoryType[]>(
-    "/categories",
-    {
-      params: {
-        fields: "name,image",
-        ...params,
-      },
-      staleTime: "1d",
-    }
-  );
+  const { data, isLoading, refetch, pagination } = usePagination<
+    CategoryType[]
+  >("/categories", {
+    params: {
+      fields: "name,image",
+      ...params,
+    },
+    staleTime: "1d",
+  });
 
   return {
     categories: data || [],
     isLoading,
     refetch,
+    pagination,
   };
 };
 

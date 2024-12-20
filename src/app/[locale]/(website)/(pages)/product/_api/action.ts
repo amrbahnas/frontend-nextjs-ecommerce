@@ -13,7 +13,7 @@ export const useAddReview = () => {
 export const useEditReview = (reviewId: string) => {
   const { mutate, error, isError, isPending } = useMutation(
     "/reviews/" + reviewId,
-    { method: "put" }
+    { method: "patch" }
   );
   return {
     editReview: mutate,

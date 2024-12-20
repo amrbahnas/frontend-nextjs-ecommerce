@@ -1,17 +1,4 @@
-interface ProductStructuredDataProps {
-  product: {
-    _id: string;
-    title: string;
-    description: string;
-    price: number;
-    imageCover: string;
-    ratingsAverage: number;
-    ratingsQuantity: number;
-    images: string[];
-  };
-}
-
-const ProductStructuredData = ({ product }: ProductStructuredDataProps) => {
+const ProductStructuredData = ({ product }: { product: Product }) => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Product",

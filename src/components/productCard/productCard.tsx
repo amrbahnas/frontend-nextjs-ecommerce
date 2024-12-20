@@ -10,7 +10,7 @@ import { memo } from "react";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {
-    _id,
+    id,
     title,
     description,
     price,
@@ -24,7 +24,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <ProductStatusBadge status={status}>
       <div className=" flex flex-col gap-4  bg-gray-100   hover:shadow-lg  relative min-w-100">
-        <Link href={"/product/" + _id} key={_id}>
+        <Link href={"/product/" + id} key={id}>
           <PrImage imageCover={imageCover} />
           <PrDescription
             title={title}
@@ -41,12 +41,12 @@ const ProductCard = ({ product }: { product: Product }) => {
             colors={colors}
             quantity={quantity}
           />
-          <WishlistButton productId={_id} />
+          <WishlistButton productId={id} />
         </div>
 
         {/* left badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 ">
-          <CardBadge productId={_id} />
+          <CardBadge productId={id} />
         </div>
         {/* Right Badges */}
         <div className="absolute top-4 right-4 flex flex-col gap-2 "></div>

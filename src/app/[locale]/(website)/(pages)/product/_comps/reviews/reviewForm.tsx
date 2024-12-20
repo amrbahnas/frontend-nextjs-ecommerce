@@ -45,7 +45,7 @@ const ReviewForm = ({
 
   const handleCreateReview = (values: any) => {
     addReview(
-      { ...values, product: productId },
+      { ...values, productId },
       {
         onSuccess,
       }

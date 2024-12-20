@@ -10,7 +10,7 @@ export const useGetSpecificProduct = (id: any) => {
     }
   );
   return {
-    product: data || {},
+    product: (data || {}) as Product,
     error,
     refetch,
     isError,
@@ -27,7 +27,7 @@ export const useGetProductReviews = (id: string) => {
       },
     });
   return {
-    reviews: data || [],
+    reviews: (data || []) as ReviewType[],
     error,
     refetch,
     isError,

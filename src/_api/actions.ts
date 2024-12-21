@@ -39,7 +39,7 @@ export const useMergeLocalCart = () => {
 
 export const useCardCheckout = (cartId: string) => {
   const { mutate: cardCheckout, isPending: checkoutLoading } = useMutation(
-    `/orders/payment-page-url/${cartId}`
+    `/payments/credit-order/${cartId}`
   );
   return {
     cardCheckout,
@@ -49,7 +49,7 @@ export const useCardCheckout = (cartId: string) => {
 
 export const useCashCheckout = (cartId: string) => {
   const { mutate: cashCheckout, isPending: cashCheckoutLoading } = useMutation(
-    `/orders/${cartId}`
+    `/payments/cash-order/${cartId}`
   );
   return {
     cashCheckout,

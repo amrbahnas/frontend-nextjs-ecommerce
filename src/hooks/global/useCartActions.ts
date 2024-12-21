@@ -1,4 +1,5 @@
 import { useCardCheckout, useCashCheckout, useResetCart } from "@/_api/actions";
+import resSanatize from "@/services/sanatizeApiRes";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { useRouter } from "next/navigation";
@@ -52,22 +53,26 @@ const useCartActions = ({
     }
     if (checkoutType === "card") {
       cardCheckout(
-        {},
+        {
+          address: "egypt cairo",
+        },
         {
           onSuccess: (res) => {
-            window.location.href = res.data.checkoutPage;
+            window.location.href = resSanatize(res);
           },
         }
       );
     } else {
       cashCheckout(
-        {},
+        {
+          address: "egypt cairo",
+        },
         {
           onSuccess: (res) => {
-            const orderId = res.data.orderId;
+            resetStoreCart();
+            const orderId = resSanatize(res)?.orderId;
             toast.success("Order placed successfully");
             router.push("/orders/" + orderId);
-
             onSuccess && onSuccess();
           },
         }

@@ -24,7 +24,7 @@ const CartBody = ({
   const {
     cartItems = [],
     totalCartPrice,
-    _id: cartId,
+    id: cartId,
     totalPriceAfterDiscount,
     appliedCoupon,
   } = cart;

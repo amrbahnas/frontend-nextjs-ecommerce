@@ -18,7 +18,7 @@ const CustomizeProducts = ({
 
   const [selectedVariant, setSelectedVariant] = useState<
     | {
-        _id: string;
+        id: string;
         choices: { [key: string]: string };
         stock: { inStock: boolean; quantity: number };
       }

@@ -13,7 +13,7 @@ const Pricing = ({
         <span className="">Total Price:</span>
         <span className="">${totalCartPrice}</span>
       </div>
-      {totalPriceAfterDiscount >= 0 && (
+      {totalPriceAfterDiscount < totalCartPrice && (
         <>
           <div className="flex items-center justify-between font-semibold text-gray-500">
             <span className="">

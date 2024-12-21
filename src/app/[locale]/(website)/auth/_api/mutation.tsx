@@ -3,7 +3,7 @@ import useUserStore from "../../../../../store/useUserStore";
 import useMutation from "@/hooks/apiHandler/useMutation";
 import useParamsService from "@/hooks/global/useParamsService";
 import useAuthStore from "@/store/useAuthStore";
-import sanatizeApiRes from "@/utils/sanatizeApiRes";
+import resSanatize from "@/services/sanatizeApiRes";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 export const useLogin = () => {
@@ -37,7 +37,7 @@ export const useLogin = () => {
 
   const login = (values: { email: string; password: string }) => {
     mutate(values, {
-      onSuccess: (res) => onLoginSuccess(sanatizeApiRes(res)),
+      onSuccess: (res) => onLoginSuccess(resSanatize(res)),
     });
   };
 
@@ -66,7 +66,7 @@ export const useSignUp = () => {
   }) => {
     mutate(values, {
       onSuccess: (res: any) => {
-        const user = sanatizeApiRes(res);
+        const user = resSanatize(res);
         setUser(user);
         setAuthData({ role: user.role });
         router.push("/verifyEmail");

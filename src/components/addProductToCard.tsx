@@ -7,6 +7,7 @@ import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useTranslations } from "next-intl";
+import resSanatize from "@/services/sanatizeApiRes";
 
 type ButtonStyleType = {
   buttonClassName?: string;
@@ -31,7 +32,7 @@ const AddProductToCard = ({
   buttonStyle?: ButtonStyleType;
   productOptions: ProductOptionsType;
 }) => {
-  const { _id, colors = [], availableSizes = [], quantity, price } = product;
+  const { id, colors = [], availableSizes = [], quantity, price } = product;
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, setOnlineCart, storeCart, onlineCart } = useCardStore();
@@ -41,7 +42,7 @@ const AddProductToCard = ({
   const cartItemCount = useMemo(() => {
     return (
       (isLogin ? onlineCart.cartItems : storeCart.cartItems).find(
-        (item) => item.product.id === _id
+        (item) => item.productId === id
       )?.quantity || -1
     );
   }, [isLogin, onlineCart, storeCart]);
@@ -74,7 +75,7 @@ const AddProductToCard = ({
       if (isLogin) {
         await addProduct(
           {
-            productId: _id,
+            productId: id,
             color: productOptions.color,
             quantity: productOptions.quantity,
             size: productOptions.size,
@@ -82,7 +83,7 @@ const AddProductToCard = ({
           {
             onSuccess: (res) => {
               try {
-                const cart = res.data?.cart;
+                const cart = resSanatize(res);
                 setOnlineCart({
                   cartItems: cart?.cartItems || [],
                   totalCartPrice: cart?.totalCartPrice || 0,
@@ -97,12 +98,13 @@ const AddProductToCard = ({
         );
       } else {
         addCartItem({
-          product: product,
+          productId: id,
+          availableQuantity: quantity,
           quantity: productOptions.quantity,
           price: price * productOptions.quantity,
           color: productOptions.color || colors[0],
           size: productOptions.size || availableSizes[0],
-          _id,
+          id: id,
         });
 
         successToast();

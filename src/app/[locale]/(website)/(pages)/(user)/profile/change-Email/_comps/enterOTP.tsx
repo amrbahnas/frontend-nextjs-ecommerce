@@ -7,7 +7,7 @@ import { Error } from "@/components/ui/error";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/store/useUserStore";
-import sanatizeApiRes from "@/utils/sanatizeApiRes";
+import resSanatize from "@/services/sanatizeApiRes";
 import toast from "react-hot-toast";
 const { OTP } = Input;
 const EnterOTP = ({
@@ -40,7 +40,7 @@ const EnterOTP = ({
       },
       {
         onSuccess: (result) => {
-          setUser(sanatizeApiRes(result));
+          setUser(resSanatize(result));
           setCurrentScreen("enterEmail");
           toast.success("Email changed successfully");
           route.push("/profile");

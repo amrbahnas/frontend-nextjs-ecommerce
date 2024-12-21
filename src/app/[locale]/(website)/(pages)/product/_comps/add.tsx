@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 
 const Add = ({ product }: { product: Product }) => {
   const {
-    _id,
+    id,
     colors = [],
     availableSizes = [],
     quantity: productQuantity,
@@ -19,7 +19,7 @@ const Add = ({ product }: { product: Product }) => {
   const [color, setColor] = useState(colors[0]);
   const [size, setSize] = useState(availableSizes[0] || "");
   const stockNumber = productQuantity - quantity;
-  const t = useTranslations('AddProduct');
+  const t = useTranslations("AddProduct");
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
@@ -46,7 +46,7 @@ const Add = ({ product }: { product: Product }) => {
         setSelectedColor={setColor}
       />
       <Divider className="!my-2" />
-      <h4 className="font-medium">{t('quantity')}</h4>
+      <h4 className="font-medium">{t("quantity")}</h4>
       <div className="flex  flex-col gap-6">
         <div className="flex items-center gap-4">
           <div className="bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
@@ -54,7 +54,7 @@ const Add = ({ product }: { product: Product }) => {
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("d")}
               disabled={quantity === 1}
-              aria-label={t('decreaseQuantity')}
+              aria-label={t("decreaseQuantity")}
             >
               -
             </button>
@@ -63,14 +63,14 @@ const Add = ({ product }: { product: Product }) => {
               className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
               onClick={() => handleQuantity("i")}
               disabled={quantity === productQuantity}
-              aria-label={t('increaseQuantity')}
+              aria-label={t("increaseQuantity")}
             >
               +
             </button>
           </div>
           {productQuantity === 0 ? (
             <div className="text-lg text-red-500 font-bold">
-              {t('outOfStock')}
+              {t("outOfStock")}
             </div>
           ) : (
             <div className="text-xs">
@@ -79,7 +79,7 @@ const Add = ({ product }: { product: Product }) => {
               <br /> {"Don't"} miss it
             </div>
           )}
-          <CardBadge productId={_id} />
+          <CardBadge productId={id} />
         </div>
         <div className=" flex items-center gap-5">
           <AddProductToCard
@@ -97,7 +97,7 @@ const Add = ({ product }: { product: Product }) => {
             }}
           />
           <WishlistButton
-            productId={_id}
+            productId={id}
             className=" border p-2 rounded-md  border-gray-300"
           />
         </div>

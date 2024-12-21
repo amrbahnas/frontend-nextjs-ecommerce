@@ -13,8 +13,8 @@ const AdminProductCard = ({
   product: Product;
   refetchProduct: any;
 }) => {
-  const { imageCover, _id, description } = product;
-  const { deleteProduct, deleteLoading } = useAdminDeleteProduct(_id);
+  const { imageCover, id, description } = product;
+  const { deleteProduct, deleteLoading } = useAdminDeleteProduct(id);
 
   const handleDelete = async () => {
     deleteProduct(
@@ -41,7 +41,7 @@ const AdminProductCard = ({
         className=" bg-white basis-1/6"
       />
       <div className="flex-1 info">
-        <Link href={"/product/" + _id} target="_blank">
+        <Link href={"/product/" + id} target="_blank">
           <h3 className="mb-3 underline capitalize cursor-pointer decoration-1 underline-offset-4 hover:text-buttonBg">
             {product.title}
           </h3>

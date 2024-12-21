@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import HeartAnimation from "./ui/heartAnimation";
+import resSanatize from "@/services/sanatizeApiRes";
 
 const WishlistButton = ({
   productId,
@@ -34,10 +35,8 @@ const WishlistButton = ({
       {},
       {
         onSuccess: (res) => {
-          setUser({
-            ...user,
-            wishlist: res.data.wishlist,
-          });
+          const newUser = resSanatize(res);
+          setUser(newUser);
           if (!isWithListed) {
             successToast();
             setShowHeartAnimation(true);

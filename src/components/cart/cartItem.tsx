@@ -30,20 +30,20 @@ const CartItem = ({
   const isLogin = useAuthStore((state) => state.isLogin);
   const { deleteCartItem } = useCardStore();
   const { removeItem, isPending } = useRemoveItemFromCart(item.id);
-  const productQuantity = item?.product?.quantity || 0;
+  const productQuantity = item?.availableQuantity || 0;
   const isOutOfStock = item.quantity > productQuantity;
 
   return (
     <div className="flex gap-2" key={item.id}>
-      {item?.product?.imageCover && (
+      {item?.imageCover && (
         <NextImage
-          src={item.product?.imageCover}
+          src={item.imageCover}
           alt=""
           width={72}
           height={96}
           className="object-cover rounded-md cursor-pointer"
           style={{ width: "auto", height: "auto" }}
-          onClick={() => route.push(`/product/${item.product?.id}`)}
+          onClick={() => route.push(`/product/${item.productId}`)}
         />
       )}
       <div className="flex flex-col justify-between w-full">
@@ -51,8 +51,8 @@ const CartItem = ({
         <div className="">
           {/* TITLE */}
           <div className="flex items-center justify-between gap-8">
-            <Link href={`/product/${item.product?.id}`}>
-              <h3 className="font-semibold">{item.product?.title}</h3>
+            <Link href={`/product/${item.productId}`}>
+              <h3 className="font-semibold">{item.title}</h3>
             </Link>
             {!isOutOfStock && (
               <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">

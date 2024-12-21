@@ -5,7 +5,7 @@ import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
 import axiosInstance from "@/config/apiClient";
-import sanatizeApiRes from "@/utils/sanatizeApiRes";
+import resSanatize from "@/services/sanatizeApiRes";
 
 const useMutation = (
   endpoint: string,
@@ -41,7 +41,7 @@ const useMutation = (
       // context => {queryClient, queryKey, queryVariables}
       // result => response from server
       options?.onSuccess &&
-        options.onSuccess(sanatizeApiRes(result), variables, context);
+        options.onSuccess(resSanatize(result), variables, context);
     },
 
     onError: (error, variables, context) => {

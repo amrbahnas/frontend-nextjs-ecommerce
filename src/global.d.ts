@@ -48,12 +48,15 @@ type CartStoreType = {
 };
 
 type CartItemType = {
-  product: Product;
-  color: string;
+  id: string;
+  productId: string;
+  availableQuantity: number;
+  color?: string | null;
+  size?: string | null;
   quantity: number;
   price: number;
-  size: ProductSize;
-  id: string;
+  title?: string;
+  imageCover?: string;
 };
 
 type Product = {

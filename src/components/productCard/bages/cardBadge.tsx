@@ -13,7 +13,7 @@ const CardBadge = ({ productId }: { productId: string }) => {
 
   const isExist = cartItems.find(
     (item) =>
-      item.product.id === productId || String(item.product) === productId
+      item.productId === productId || String(item.productId) === productId
   );
 
   if (!isExist?.id) return null;

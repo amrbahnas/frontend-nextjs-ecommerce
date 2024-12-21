@@ -11,7 +11,7 @@ const ApplyCoupon = ({
 }: {
   refetchCart: any;
   hidden?: boolean;
-  appliedCoupon?: CouponType;
+  appliedCoupon?: CouponType | null;
 }) => {
   const { applyCoupon, isPending, error } = useApplyCoupon();
   const { isPending: removeCouponLoading, removeCoupon } = useRemoveCoupon();

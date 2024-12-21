@@ -1,6 +1,7 @@
 import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 import useAuthStore from "@/store/useAuthStore";
+import { cartDataPlaceholder } from "@/utils/responsePlaceholder";
 
 export const useMe = () => {
   const { data, error, refetch, isError, isLoading } =
@@ -29,19 +30,19 @@ export const useGetProducts = (params?: any) => {
 export const useGetCart = () => {
   const isLogin = useAuthStore((state) => state.isLogin);
 
-  const { data, isLoading, refetch } = useQuery<CartType>("/carts", {
+  const { data, isLoading, refetch } = useQuery<CartType>("/cart", {
     skip: !isLogin,
   });
 
   return {
-    cart: data || { cartItems: [], totalCartPrice: 0 },
+    cart: data || cartDataPlaceholder,
     isLoading,
     refetch,
   };
 };
 
 export const useGetCartCount = ({ skip }: { skip?: boolean }) => {
-  const { data, isLoading, refetch } = useQuery<number>("/carts/count", {
+  const { data, isLoading, refetch } = useQuery<number>("/cart/count", {
     skip,
   });
 

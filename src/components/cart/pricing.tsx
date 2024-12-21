@@ -25,7 +25,7 @@ const Pricing = ({
               %
             </span>
             <span className="">
-              ${Math.floor(totalCartPrice - totalPriceAfterDiscount)} -
+              $ - {Math.floor(totalCartPrice - totalPriceAfterDiscount)}
             </span>
           </div>
           <div className="flex items-center justify-between font-bold">

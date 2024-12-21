@@ -9,7 +9,7 @@ export const useAddProductToCart = () => {
 };
 
 export const useRemoveItemFromCart = (id: string) => {
-  const { mutate: removeItem, isPending } = useMutation(`/cart/${id}`, {
+  const { mutate: removeItem, isPending } = useMutation(`/cart/items/${id}`, {
     method: "delete",
   });
   return {

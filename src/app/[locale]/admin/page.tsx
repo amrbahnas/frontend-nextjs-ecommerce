@@ -16,6 +16,7 @@ const Admin = () => {
         <ActionBox title="Categories" href="/admin/categories" />
         <ActionBox title="Sub-Category" href="/admin/sub-category" />
         <ActionBox title="Orders" href="/admin/orders" />
+        <ActionBox title="Coupons" href="/admin/coupons" />
         <ActionBox title="Create New Product" href="/admin/products/create" />
       </div>
     </div>

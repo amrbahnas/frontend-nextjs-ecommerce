@@ -24,7 +24,7 @@ type CouponType = {
   id: string;
   code: string;
   discount: number;
-  expireAt: string;
+  expiredAt: Date;
   createdAt: string;
   updatedAt: string;
 };

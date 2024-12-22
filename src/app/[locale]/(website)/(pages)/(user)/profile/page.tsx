@@ -8,10 +8,18 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import { FiPackage, FiMapPin, FiChevronRight } from "react-icons/fi";
 import Addresses from "./_comps/addresses";
+import { useMe } from "@/_api/query";
+import ProfileSkeleton from "./_comps/profile.skeleton";
 
 const ProfilePage = () => {
-  const { orders, isLoading } = useGetAllOrders();
+  const { user, isLoading: userLoading, error, refetch } = useMe();
+
+  const { orders, isLoading: ordersLoading } = useGetAllOrders();
   const lastThreeOrders = orders.slice(0, 3);
+
+  if (userLoading || ordersLoading) {
+    return <ProfileSkeleton />;
+  }
 
   return (
     <Container>
@@ -25,12 +33,17 @@ const ProfilePage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Info Section */}
         <Card className="lg:col-span-2 shadow-sm">
-          <MainInfoForm />
+          <MainInfoForm
+            user={user}
+            refetch={refetch}
+            isLoading={userLoading}
+            error={error}
+          />
         </Card>
 
         {/* Recent Orders Section */}
         <div className="space-y-6">
-          <Spin spinning={isLoading}>
+          <Spin spinning={ordersLoading}>
             <Card
               title={
                 <div className="flex items-center justify-between">

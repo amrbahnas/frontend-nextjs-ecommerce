@@ -12,9 +12,18 @@ import Link from "next/link";
 import { Error } from "@/components/ui/error";
 const { Item } = Form;
 
-const MainInfoForm = () => {
+const MainInfoForm = ({
+  user,
+  refetch,
+  isLoading,
+  error,
+}: {
+  user: User;
+  refetch: () => void;
+  isLoading: boolean;
+  error: any;
+}) => {
   const { setUser } = useUserStore();
-  const { user, isLoading, error, refetch } = useMe();
   const [form] = Form.useForm();
   const { updateProfile, updateProfileIsPending, updateProfileError } =
     useUpdateProfile();
@@ -102,6 +111,7 @@ const MainInfoForm = () => {
             { required: true, message: "Please input your email!" },
             { type: "email", message: "Please enter a valid email!" },
           ]}
+          className="!mb-1"
         >
           <Input
             prefix={<FiMail className="text-gray-400" />}
@@ -110,7 +120,10 @@ const MainInfoForm = () => {
             disabled
           />
         </Item>
-        <Link href={"/profile/change-Email"} className="text-xs">
+        <Link
+          href={"/profile/change-Email"}
+          className="text-xs block pl-1 !mb-4"
+        >
           Change Email
         </Link>
 

@@ -30,7 +30,7 @@ const Addresses = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg  ">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 flex-wrap gap-3">
         <h2 className="text-xl font-semibold">My Addresses</h2>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           Add Address

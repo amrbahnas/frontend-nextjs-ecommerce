@@ -2,17 +2,17 @@ import toast from "react-hot-toast";
 import useAuthStore from "@/store/useAuthStore";
 import useMutation from "@/hooks/apiHandler/useMutation";
 
-export const useUpdateUser = () => {
+export const useUpdateProfile = () => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
     "/users/update-me",
     { method: "put" }
   );
 
   return {
-    updateUser: mutate,
-    updateUserIsPending: isPending,
-    updateUserIsSuccess: isSuccess,
-    updateUserError: error,
+    updateProfile: mutate,
+    updateProfileIsPending: isPending,
+    updateProfileIsSuccess: isSuccess,
+    updateProfileError: error,
   };
 };
 

@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useUpdateUser } from "../_api/mutation";
-import { Button, Form, Input, Spin } from "antd";
+"use client";
 
-import UploadAvatar from "@/components/ui/uploadAvatar";
-import Item from "@/components/antd/item";
-import { Error } from "@/components/ui/error";
+import { Form, Input, Button, Avatar, Upload } from "antd";
+import { FiUser, FiMail, FiPhone, FiCamera } from "react-icons/fi";
 import useUserStore from "@/store/useUserStore";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { useUpdateProfile } from "../_api/mutation";
 import { useMe } from "@/_api/query";
+import toast from "react-hot-toast";
+import UploadAvatar from "@/components/ui/uploadAvatar";
 import Link from "next/link";
+import { Error } from "@/components/ui/error";
+const { Item } = Form;
 
 const MainInfoForm = () => {
+  const { setUser } = useUserStore();
+  const { user, isLoading, error, refetch } = useMe();
+  const [form] = Form.useForm();
+  const { updateProfile, updateProfileIsPending, updateProfileError } =
+    useUpdateProfile();
   const [image, setImage] = useState<{
     data_url: string;
     file: File | undefined;
   }>({ data_url: "", file: undefined });
-
-  const { user, isLoading, error, refetch } = useMe();
-  console.log("🚀 ~ file: mainInfoForm.tsx:20 ~ user:", user);
-
-  const setUser = useUserStore((state) => state.setUser);
-  const [form] = Form.useForm();
-  const { updateUser, updateUserIsPending, updateUserError } = useUpdateUser();
   const [isFormChanged, setIsFormChanged] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const MainInfoForm = () => {
     formData.append("phone", values.phone || "");
     formData.append("profileImg", image?.file || image?.data_url || "");
 
-    updateUser(formData, {
+    updateProfile(formData, {
       onSuccess: (result) => {
         refetch();
         toast.success("Profile Updated Successfully");
@@ -67,69 +67,81 @@ const MainInfoForm = () => {
   };
 
   return (
-    <Spin spinning={updateUserIsPending || isLoading}>
-      <div className="flex  items-center justify-center">
-        <UploadAvatar image={image} setImage={handleImageChange} />
+    <div className="max-w-2xl mx-auto">
+      <div className="flex flex-col items-center mb-8">
+        <div className="relative">
+          <UploadAvatar image={image} setImage={handleImageChange} />
+        </div>
+        <h2 className="text-xl font-semibold mt-4">{user?.name}</h2>
+        <p className="text-gray-500">{user?.email}</p>
       </div>
+
       <Form
-        validateTrigger="onBlur"
-        onFinish={updateUserHandler}
         form={form}
         layout="vertical"
-        className="mt-12 flex flex-col gap-4"
+        onFinish={updateUserHandler}
         onValuesChange={handleFormChange}
+        validateTrigger="onBlur"
       >
         <Item
-          label="Name"
           name="name"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Name!",
-            },
-          ]}
+          label="Full Name"
+          rules={[{ required: true, message: "Please input your name!" }]}
         >
           <Input
-            placeholder="Enter your Name"
-            className=" rounded-md p-4"
+            prefix={<FiUser className="text-gray-400" />}
+            placeholder="Enter your full name"
             size="large"
           />
         </Item>
 
-        <Item label="Phone" name="phone">
+        <Item
+          name="email"
+          label="Email"
+          rules={[
+            { required: true, message: "Please input your email!" },
+            { type: "email", message: "Please enter a valid email!" },
+          ]}
+        >
           <Input
-            placeholder="Enter your phone"
-            className=" rounded-md p-4"
+            prefix={<FiMail className="text-gray-400" />}
+            placeholder="Enter your email"
+            size="large"
+            disabled
+          />
+        </Item>
+        <Link href={"/profile/change-Email"} className="text-xs">
+          Change Email
+        </Link>
+
+        <Item
+          name="phone"
+          label="Phone Number"
+          rules={[
+            { required: true, message: "Please input your phone number!" },
+          ]}
+        >
+          <Input
+            prefix={<FiPhone className="text-gray-400" />}
+            placeholder="Enter your phone number"
             size="large"
           />
         </Item>
-        <div>
-          <Item label="E-mail" name="email">
-            <Input
-              type="email"
-              disabled
-              placeholder="Enter your email"
-              className=" rounded-md p-4"
-              size="large"
-            />
-          </Item>
-          <Link href={"/profile/change-Email"} className="text-xs">
-            Change Email
-          </Link>
-        </div>
-        <Button
-          disabled={!isFormChanged || updateUserIsPending || isLoading}
-          loading={updateUserIsPending || isLoading}
-          htmlType="submit"
-          type="primary"
-          size="large"
-          className="bg-lama text-white p-2 rounded-md cursor-pointer disabled:bg-pink-200 disabled:cursor-not-allowed "
-        >
-          {updateUserIsPending ? "Updating..." : "Update"}
-        </Button>
-        <Error error={updateUserError || error} />
+        <Error error={updateProfileError || error} />
+        <Item className="mb-0">
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={!isFormChanged || updateProfileIsPending || isLoading}
+            loading={updateProfileIsPending || isLoading}
+            size="large"
+            className="w-full"
+          >
+            Update Profile
+          </Button>
+        </Item>
       </Form>
-    </Spin>
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ const AddressCard = ({
       key={address.id}
       className="flex justify-between items-center p-4 border rounded-lg"
     >
-      <span className="flex-1">{formatAddress(address)}</span>
+      <span className="flex-1 truncate">{formatAddress(address)}</span>
       <div className="flex gap-2">
         <Button
           type="text"

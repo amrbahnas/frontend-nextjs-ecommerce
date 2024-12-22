@@ -73,3 +73,45 @@ export const useChangeEmailActions = () => {
     loading: sendChangeEmailCodeIsPending || changeEmailIsPending,
   };
 };
+
+export const useCreateAddress = () => {
+  const { data, error, isError, isPending, isSuccess, mutate } =
+    useMutation("/addresses");
+
+  return {
+    createAddress: mutate,
+    createAddressIsPending: isPending,
+    createAddressIsSuccess: isSuccess,
+    createAddressError: error,
+  };
+};
+
+export const useUpdateAddress = (id: string | undefined) => {
+  const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
+    `/addresses/${id}`,
+    { method: "patch" }
+  );
+
+  return {
+    updateAddress: mutate,
+    updateAddressIsPending: isPending,
+    updateAddressIsSuccess: isSuccess,
+    updateAddressError: error,
+  };
+};
+
+//useDeleteAddress
+
+export const useDeleteAddress = (id: string | undefined) => {
+  const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
+    `/addresses/${id}`,
+    { method: "delete" }
+  );
+
+  return {
+    deleteAddress: mutate,
+    deleteAddressIsPending: isPending,
+    deleteAddressIsSuccess: isSuccess,
+    deleteAddressError: error,
+  };
+};

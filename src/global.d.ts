@@ -149,3 +149,14 @@ type TokenPayload = {
   emailVerified: boolean;
   active: boolean;
 };
+
+type AddressType = {
+  id: string;
+  userId: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+};

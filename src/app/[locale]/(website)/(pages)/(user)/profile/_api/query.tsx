@@ -15,3 +15,17 @@ export const useGetOrders = () => {
     pagination,
   };
 };
+export const useGetAddresses = () => {
+  const { data, error, refetch, isError, isLoading, pagination } =
+    usePagination<AddressType[]>("/addresses", {
+      pageSize: 5,
+    });
+  return {
+    addresses: isLoading ? [] : data,
+    addressesError: error,
+    addressesRefetch: refetch,
+    addressesIsError: isError,
+    addressesIsLoading: isLoading,
+    pagination,
+  };
+};

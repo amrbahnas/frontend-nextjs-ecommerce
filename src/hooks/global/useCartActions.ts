@@ -1,5 +1,4 @@
-import { useCardCheckout, useCashCheckout, useResetCart } from "@/_api/actions";
-import resSanatize from "@/services/sanatizeApiRes";
+import { useResetCart } from "@/_api/actions";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { useRouter } from "next/navigation";
@@ -22,8 +21,6 @@ const useCartActions = ({
 
   const { resetApiCart, resetApiCartLoading } = useResetCart();
   const [checkoutType, setCheckoutType] = useState<"card" | "cash">("card");
-  const { cardCheckout, checkoutLoading } = useCardCheckout(cartId);
-  const { cashCheckout, cashCheckoutLoading } = useCashCheckout(cartId);
 
   const handleResetCart = async () => {
     if (isLogin) {
@@ -44,55 +41,15 @@ const useCartActions = ({
     }
   };
 
-  const handleCheckout = () => {
-    if (!isLogin) {
-      router.push("/auth/login");
-
-      onSuccess && onSuccess();
-      return;
-    }
-    if (checkoutType === "card") {
-      cardCheckout(
-        {
-          address: "egypt cairo",
-        },
-        {
-          onSuccess: (res) => {
-            window.location.href = resSanatize(res);
-          },
-        }
-      );
-    } else {
-      cashCheckout(
-        {
-          address: "egypt cairo",
-        },
-        {
-          onSuccess: (res) => {
-            resetStoreCart();
-            const orderId = resSanatize(res)?.orderId;
-            toast.success("Order placed successfully");
-            router.push("/orders/" + orderId);
-            onSuccess && onSuccess();
-          },
-        }
-      );
-    }
-  };
-
   return {
     handleResetCart,
-    handleCheckout,
+
     checkoutType,
     setCheckoutType,
-    checkoutLoading,
+
     cartLoading,
     resetApiCartLoading,
-    isLoading:
-      cartLoading ||
-      resetApiCartLoading ||
-      checkoutLoading ||
-      cashCheckoutLoading,
+    isLoading: cartLoading || resetApiCartLoading,
   };
 };
 

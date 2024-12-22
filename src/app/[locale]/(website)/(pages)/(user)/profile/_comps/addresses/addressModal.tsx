@@ -85,13 +85,11 @@ const AddressModal = ({
           </Item>
 
           <Item
-            label="Postal Code"
-            name="postalCode"
-            rules={[
-              { required: true, message: "Please enter your postal code" },
-            ]}
+            label="Zip Code"
+            name="zipCode"
+            rules={[{ required: true, message: "Please enter your Zip code" }]}
           >
-            <Input placeholder="Enter your postal code" />
+            <Input placeholder="Enter your Zip code" />
           </Item>
 
           <Item

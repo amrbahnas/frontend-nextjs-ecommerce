@@ -85,6 +85,7 @@ const AddProductToCard = ({
               try {
                 const cart = resSanatize(res);
                 setOnlineCart({
+                  id: cart?.id || "",
                   cartItems: cart?.cartItems || [],
                   totalCartPrice: cart?.totalCartPrice || 0,
                 });

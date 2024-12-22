@@ -15,7 +15,7 @@ const CartModal = () => {
   const { storeCart, setOnlineCart, onlineCart } = useCardStore();
   const { cart: apiCart, isLoading, refetch } = useGetCart();
 
-  const renderedCart = isLogin ? apiCart : storeCart;
+  const renderedCart = (isLogin ? apiCart : storeCart) as CartType;
   const cartCount = isLogin
     ? onlineCart.cartItems.length
     : storeCart.cartItems.length;
@@ -27,6 +27,7 @@ const CartModal = () => {
   useEffect(() => {
     if (apiCart.id && isLogin) {
       setOnlineCart({
+        id: apiCart.id,
         cartItems: apiCart.cartItems,
         totalCartPrice: apiCart.totalCartPrice,
       });

@@ -9,17 +9,18 @@ export const useResetAppData = () => {
   const setUser = useUserStore((state) => state.setUser);
   const { setCartLoading, setOnlineCart } = useCardStore();
 
-  const reset = (pushTo? :string  ) => {
+  const reset = (pushTo?: string) => {
     removeAuthData();
     setUser(null);
 
     setCartLoading(false);
     setOnlineCart({
+      id: "",
       cartItems: [],
       totalCartPrice: 0,
     });
     router.refresh();
-    pushTo &&router.push(pushTo);
+    pushTo && router.push(pushTo);
   };
 
   return reset;

@@ -24,6 +24,7 @@ const useMergeCartHandler = () => {
             const newCartItemsCount = res.data.cartItemsCount;
             const cart = res.data.cart;
             setOnlineCart({
+              id: cart.id,
               cartItems: cart.cartItems,
               totalCartPrice: cart.totalCartPrice,
             });

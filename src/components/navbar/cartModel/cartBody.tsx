@@ -9,6 +9,7 @@ import ApplyCoupon from "../../cart/applyCoupon";
 import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
 import CartActionsBTN from "./cartActionsBTN";
+import { useRouter } from "next/navigation";
 
 const CartBody = ({
   cart,
@@ -21,6 +22,7 @@ const CartBody = ({
 }) => {
   const [deleting, setDeleting] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
+  const route = useRouter();
   const {
     cartItems = [],
     totalCartPrice,
@@ -29,17 +31,20 @@ const CartBody = ({
     appliedCoupon,
   } = cart;
 
-  const {
-    isLoading,
-    handleResetCart,
-    checkoutType,
-    setCheckoutType,
-    handleCheckout,
-  } = useCartActions({
+  const { isLoading, handleResetCart } = useCartActions({
     cartId,
     refetch,
     onSuccess: setOpen,
   });
+
+  const handleCheckout = () => {
+    if (!isLogin) {
+      route.push("/auth/login");
+      return;
+    }
+    route.push("/checkout");
+    setOpen(false);
+  };
 
   return (
     <Spin spinning={isLoading || deleting}>
@@ -78,10 +83,10 @@ const CartBody = ({
               <p className="text-gray-500 text-sm mt-2 mb-4">
                 Shipping and taxes calculated at checkout.
               </p>
-              <CheckoutType
+              {/* <CheckoutType
                 checkoutType={checkoutType}
                 setCheckoutType={setCheckoutType}
-              />
+              /> */}
               <CartActionsBTN
                 invalidCart={cart.invalidCart}
                 isLoading={isLoading}

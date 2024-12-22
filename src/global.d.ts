@@ -43,6 +43,7 @@ type CartType = {
 };
 
 type CartStoreType = {
+  id: string;
   cartItems: CartItemType[];
   totalCartPrice: number;
 };
@@ -118,18 +119,20 @@ type User = {
 
 type OrderType = {
   id: string;
-  user: User;
   orderItems: CartItemType[];
-  taxPrice: number;
-  shippingPrice: number;
   totalOrderPrice: number;
+  addressId: string;
   paymentMethod: string;
-  address: string;
   isPaid: boolean;
-  paidAt: string;
+  paidAt: any;
   isDelivered: boolean;
+  deliveredAt: any;
+  status: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
+  user: User;
+  address: AddressType;
 };
 
 interface CustomError extends Error {
@@ -156,7 +159,7 @@ type AddressType = {
   address: string;
   city: string;
   state: string;
-  postalCode: string;
+  zipCode: string;
   country: string;
   phone: string;
 };

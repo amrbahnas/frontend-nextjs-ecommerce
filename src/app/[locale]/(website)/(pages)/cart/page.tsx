@@ -2,23 +2,24 @@
 import { useGetCart } from "@/_api/query";
 import ApplyCoupon from "@/components/cart/applyCoupon";
 import CartItem from "@/components/cart/cartItem";
-import CheckoutType from "@/components/cart/checkoutType";
+import CheckButton from "@/components/cart/checkButton";
 import Pricing from "@/components/cart/pricing";
 import ResetCart from "@/components/cart/resetCart";
 import Container from "@/components/container";
+import NoData from "@/components/ui/noData";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Divider, Empty, Spin, Tooltip } from "antd";
-import { useEffect, useState } from "react";
-import CartPageSkeleton from "./_comps/cartPage.skeleton";
-import Link from "next/link";
-import { GrShop } from "react-icons/gr";
 import useCardStore from "@/store/useCardStore";
-import NoData from "@/components/ui/noData";
-import CheckButton from "@/components/cart/checkButton";
+import { Divider, Spin } from "antd";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { GrShop } from "react-icons/gr";
+import CartPageSkeleton from "./_comps/cartPage.skeleton";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [deleting, setDeleting] = useState(false);
+  const route = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, setOnlineCart } = useCardStore();
   const { cart: apiCart, isLoading: fetchLoading, refetch } = useGetCart();
@@ -33,13 +34,7 @@ const Page = () => {
     totalPriceAfterDiscount,
     appliedCoupon,
   } = renderedCart;
-  const {
-    isLoading,
-    handleResetCart,
-    checkoutType,
-    setCheckoutType,
-    handleCheckout,
-  } = useCartActions({
+  const { isLoading, handleResetCart } = useCartActions({
     cartId,
     refetch,
   });
@@ -47,11 +42,20 @@ const Page = () => {
   useEffect(() => {
     if (apiCart.id && isLogin) {
       setOnlineCart({
+        id: apiCart.id,
         cartItems: apiCart.cartItems,
         totalCartPrice: apiCart.totalCartPrice,
       });
     }
   }, [apiCart]);
+
+  const handleCheckout = () => {
+    if (isLogin) {
+      route.push("/checkout");
+    } else {
+      route.push("/auth/login");
+    }
+  };
 
   if (fetchLoading) return <CartPageSkeleton />;
 
@@ -103,10 +107,6 @@ const Page = () => {
             </p>
             <Divider className="!my-3" />
 
-            <CheckoutType
-              checkoutType={checkoutType}
-              setCheckoutType={setCheckoutType}
-            />
             <div className="flex flex-col items-end text-sm">
               <CheckButton
                 isLoading={isLoading}

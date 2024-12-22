@@ -16,27 +16,6 @@ export const useUpdateUser = () => {
   };
 };
 
-/// change password
-export const useChangePassword = () => {
-  const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
-    "/auth/change-password",
-    { method: "put" }
-  );
-  const changePassword = (values: any) => {
-    mutate(values, {
-      onSuccess: (result) => {
-        toast.success("Password Changed Successfully");
-      },
-    });
-  };
-  return {
-    changePassword,
-    changePasswordIsPending: isPending,
-    changePasswordIsSuccess: isSuccess,
-    changePasswordError: error,
-  };
-};
-
 // change email
 export const useChangeEmailActions = () => {
   const {

@@ -1,8 +1,9 @@
 import React from "react";
-import { useChangePassword } from "../_api/mutation";
+
 import { Button, Form, Input, Spin } from "antd";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
+import { useChangePassword } from "../_api/mutation";
 const { Password } = Input;
 
 const ChangePasswordForm = () => {

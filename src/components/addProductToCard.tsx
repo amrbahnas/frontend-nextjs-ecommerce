@@ -106,6 +106,7 @@ const AddProductToCard = ({
           color: productOptions.color || colors[0],
           size: productOptions.size || availableSizes[0],
           id: id,
+          imageCover: product.imageCover,
         });
 
         successToast();

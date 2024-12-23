@@ -18,17 +18,9 @@ const useMergeCartHandler = () => {
     if (storeCart.cartItems.length > 0) {
       setCartLoading(true);
       mergeCart(
-        { cart: storeCart },
+        { items: storeCart.cartItems },
         {
           onSuccess: (res) => {
-            const newCartItemsCount = res.data.cartItemsCount;
-            const cart = res.data.cart;
-            setOnlineCart({
-              id: cart.id,
-              cartItems: cart.cartItems,
-              totalCartPrice: cart.totalCartPrice,
-            });
-
             resetCart();
             setCartLoading(false);
           },

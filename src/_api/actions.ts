@@ -30,7 +30,7 @@ export const useResetCart = () => {
 };
 
 export const useMergeLocalCart = () => {
-  const { mutate: mergeCart, isPending } = useMutation(`/cart/mergeLocalCart`);
+  const { mutate: mergeCart, isPending } = useMutation(`/cart/merge`);
   return {
     mergeCart,
     isPending,

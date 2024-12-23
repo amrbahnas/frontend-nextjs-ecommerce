@@ -68,8 +68,10 @@ const ProfilePage = () => {
                         <FiPackage className="text-gray-600 text-lg" />
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium">#{order.id}</span>
+                        <div className="flex  flex-col w-full ">
+                          <span className="font-medium truncate block w-[80%]">
+                            #{order.id}
+                          </span>
                           <span className="text-sm text-gray-500">
                             {dayjs(order.createdAt).format("DD/MM/YYYY")}
                           </span>

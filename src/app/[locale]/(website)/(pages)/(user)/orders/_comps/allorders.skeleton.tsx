@@ -1,7 +1,7 @@
 import { Card, Skeleton, Table } from "antd";
 import Container from "@/components/container";
 
-const OrdersSkeleton = () => {
+const AllOrdersSkeleton = () => {
   const columns = [
     { title: "Order ID", dataIndex: "id" },
     { title: "Date", dataIndex: "date" },
@@ -44,4 +44,4 @@ const OrdersSkeleton = () => {
   );
 };
 
-export default OrdersSkeleton;
+export default AllOrdersSkeleton;

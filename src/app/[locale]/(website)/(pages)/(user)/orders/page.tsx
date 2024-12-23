@@ -1,18 +1,18 @@
 "use client";
 
 import { useGetAllOrders } from "./_api/query";
-import { Card, Table, Tag, Button } from "antd";
+import { Card, Table, Tag, Button, TableProps } from "antd";
 import Container from "@/components/container";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { EyeOutlined } from "@ant-design/icons";
-import OrdersSkeleton from "./_comps/Orders.skeleton";
+import AllOrdersSkeleton from "./_comps/allorders.skeleton";
 
 const OrdersPage = () => {
   const { orders, isLoading } = useGetAllOrders();
   const router = useRouter();
 
-  const columns = [
+  const columns: TableProps<OrderType>["columns"] = [
     {
       title: "Order ID",
       dataIndex: "id",
@@ -27,10 +27,10 @@ const OrdersPage = () => {
     },
     {
       title: "Total",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
+      dataIndex: "totalOrderPrice",
+      key: "totalOrderPrice",
       render: (price: number) => (
-        <span className="font-medium">${price.toFixed(2)}</span>
+        <span className="font-medium">${price?.toFixed(2)}</span>
       ),
     },
     {
@@ -69,7 +69,7 @@ const OrdersPage = () => {
   ];
 
   if (isLoading) {
-    return <OrdersSkeleton />;
+    return <AllOrdersSkeleton />;
   }
 
   return (

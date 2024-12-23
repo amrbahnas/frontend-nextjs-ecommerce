@@ -18,6 +18,7 @@ const Page = () => {
   const [coupon, setCoupon] = React.useState<CouponType | null>(null);
   const [deleteCouponLoading, setDeleteCouponLoading] = React.useState(false);
 
+  console.log("🚀 ~ file: page.tsx:17 ~ coupons:", coupons);
   return (
     <div className="flex flex-col gap-10 h-full">
       <AdminPageTile>Coupons</AdminPageTile>
@@ -99,7 +100,7 @@ const CouponCard = ({
           Discount: {coupon.discount}%
         </div>
         <div className="text-sm text-gray-600">
-          Expires: {dayjs(coupon.expiredAt).format("YYYY-MM-DD")}
+          Expires: {dayjs(coupon.expireAt).format("YYYY-MM-DD")}
         </div>
       </div>
       <Divider />

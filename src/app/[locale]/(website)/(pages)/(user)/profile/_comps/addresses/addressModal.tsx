@@ -1,7 +1,9 @@
 "use client";
-import { Button, Form, Input, Modal, Spin } from "antd";
+import { Button, Form, Input, Modal, Spin, message } from "antd";
 import { useCreateAddress, useUpdateAddress } from "../../_api/mutation";
 import { useEffect } from "react";
+import { AimOutlined } from "@ant-design/icons";
+
 const { Item } = Form;
 
 interface AddressModalProps {
@@ -60,6 +62,14 @@ const AddressModal = ({
           onFinish={onFinish}
           autoComplete="off"
         >
+          {/* <Button
+            onClick={() => {}}
+            style={{ marginBottom: 16 }}
+            loading={false}
+            icon={<AimOutlined />}
+          >
+            Get Current Location
+          </Button> */}
           <Item
             label="Address"
             name="address"

@@ -39,6 +39,7 @@ const AddressSelection = () => {
           <Radio.Group
             onChange={(e) => setParams("address", e.target.value)}
             value={getParams("address")}
+            defaultValue={addresses[0]?.id}
           >
             <Space direction="vertical" className="w-full">
               {addresses?.map((address) => (

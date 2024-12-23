@@ -4,8 +4,9 @@ import { Form, Modal, Input, Button, DatePicker, InputNumber } from "antd";
 import React, { useEffect } from "react";
 import { useAdminCreateCoupon, useAdminEditCoupon } from "../_api/action";
 import toast from "react-hot-toast";
-import dayjs from "dayjs";
+
 import { Error } from "@/components/ui/error";
+import dayjs from "dayjs";
 
 const { Item } = Form;
 
@@ -31,7 +32,7 @@ const CouponModal = ({
     if (coupon) {
       form.setFieldsValue({
         ...coupon,
-        expiredAt: dayjs(coupon.expiredAt),
+        expireAt: dayjs(coupon.expireAt),
       });
     }
   }, [coupon]);
@@ -44,13 +45,8 @@ const CouponModal = ({
   };
 
   const onFinish = (values: any) => {
-    const formData = {
-      ...values,
-      discount: Number(values.discount),
-    };
-
     if (coupon) {
-      editCoupon(formData, {
+      editCoupon(values, {
         onSuccess: () => {
           toast.success("Coupon Updated");
           onClose();
@@ -62,7 +58,7 @@ const CouponModal = ({
         },
       });
     } else {
-      createCoupon(formData, {
+      createCoupon(values, {
         onSuccess: () => {
           toast.success("Coupon Created");
           onClose();
@@ -109,10 +105,10 @@ const CouponModal = ({
 
         <Item
           label="Expiry Date"
-          name="expiredAt"
+          name="expireAt"
           rules={[{ required: true, message: "Please select expiry date!" }]}
         >
-          <DatePicker type="date" size="large" className="w-full" />
+          <DatePicker size="large" className="w-full" />
         </Item>
 
         <Error error={error} />

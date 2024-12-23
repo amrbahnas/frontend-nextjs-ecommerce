@@ -17,6 +17,8 @@ const protectedRoutes = [
   "/verifyEmail",
   "/orders",
   "/profile/change-Email",
+  "/checkout",
+  "/settings",
 ];
 
 export async function middleware(request: NextRequest) {

@@ -69,7 +69,13 @@ const ContactUs = () => {
         </Item>
         <Item
           name="message"
-          rules={[{ required: true, message: "Please input your message!" }]}
+          rules={[
+            { required: true, message: "Please input your message!" },
+            {
+              min: 10,
+              message: "Message must be at least 10 characters long",
+            },
+          ]}
         >
           <TextArea
             size={compSize}

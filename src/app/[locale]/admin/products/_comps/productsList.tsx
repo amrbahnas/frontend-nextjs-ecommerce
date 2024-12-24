@@ -18,10 +18,10 @@ const ProductsList = ({
       <span className=" capitalize text-sm text-black">
         {products.length} items found
       </span>
-      <div className="mt-2 h-[calc(100vh-230px)] overflow-scroll flex flex-col gap-3  text-white ">
+      <div className="mt-2 h-[calc(100vh-230px)] overflow-scroll flex flex-col gap-3  text-white mb-4 ">
         {!ProductsLoading && products.length === 0 && <NoData />}
         <Spin spinning={ProductsLoading}>
-          <div className=" !space-y-4 ">
+          <div className=" !space-y-4 flex- flex-col items-center justify-center">
             {products?.map((item) => {
               return (
                 <AdminProductCard
@@ -31,10 +31,10 @@ const ProductsList = ({
                 />
               );
             })}
-            <Pagination {...pagination} />
           </div>
         </Spin>
       </div>
+      <Pagination {...pagination} />
     </div>
   );
 };

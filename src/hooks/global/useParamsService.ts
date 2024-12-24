@@ -5,9 +5,9 @@
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 type ParamsService = (currentComponent_Must_WrappedWith_Suspense: any) => {
-  setParams: (key: string, value?: string) => void;
+  setParams: (key: string, value?: string | null) => void;
   setMultiParams: (params: { [key: string]: string }) => void;
-  getParams: (key: string) => string | null;
+  getParams: (key: string) => string | null | undefined;
   getCurrentParams: () => { key: string; value: string }[];
   removeParams: (key: string) => void;
   resetParams: () => void;
@@ -24,7 +24,7 @@ const useParamsService: ParamsService = (
     return searchParams.get(key);
   };
 
-  const setParams = (key: string, value?: string) => {
+  const setParams = (key: string, value?: string | null) => {
     const params = new URLSearchParams(searchParams);
     if (!value) {
       params.delete(key);

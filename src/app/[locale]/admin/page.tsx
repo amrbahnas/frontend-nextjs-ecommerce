@@ -1,9 +1,16 @@
 "use client";
 
-import Container from "@/components/container";
 import Link from "next/link";
+import {
+  useGetAdminRevenue,
+  useGetAdminStats,
+  useGetStatsProduct,
+} from "./_api/query";
 
 const Admin = () => {
+  const { stats, isLoading } = useGetAdminStats();
+  const { revenue, isLoading: revenueLoading } = useGetAdminRevenue();
+  const { productStats } = useGetStatsProduct("676313c8611ff75300c14ec6");
   return (
     <div className=" mb-10">
       <div className="flex flex-col gap-3 p-4  text-white items-center justify-center  mb-20">

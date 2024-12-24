@@ -163,3 +163,30 @@ type AddressType = {
   country: string;
   phone: string;
 };
+
+type DashboardStatsType = {
+  totalRevenue: number;
+  totalOrders: number;
+  totalProducts: number;
+  totalUsers: number;
+  recentOrders: OrderType[];
+  topSellingProducts: Product[];
+  salesByCategory: any[];
+};
+
+type RevenueStatsType = {
+  date: string;
+  revenue: number;
+};
+
+type ProoductStatsType = {
+  product: Product;
+  stats: {
+    totalOrders: number;
+    totalRevenue: number;
+    totalSold: number;
+    averageRating: number;
+    reviewsCount: number;
+  };
+  reviews: ReviewType[];
+};

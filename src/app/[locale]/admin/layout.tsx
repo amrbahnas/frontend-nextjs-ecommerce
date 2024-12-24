@@ -1,100 +1,139 @@
 "use client";
-import React, { useState } from 'react';
-import { Layout, Menu, theme } from 'antd';
+import { useLogout } from "@/hooks/global/useLogout";
+import useUserStore from "@/store/useUserStore";
 import {
   DashboardOutlined,
-  ShoppingOutlined,
-  UserOutlined,
-  ShoppingCartOutlined,
-  TagOutlined,
-  SettingOutlined,
+  GiftOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  SettingOutlined,
+  ShoppingCartOutlined,
+  ShoppingOutlined,
+  TagOutlined,
   TagsOutlined,
-  GiftOutlined,
-} from '@ant-design/icons';
-import { useRouter, usePathname } from "next/navigation";
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Layout, Menu, Popconfirm, theme } from "antd";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const { Header, Content, Sider } = Layout;
 
-const menuItems = [
-  { 
-    key: '/admin', 
-    icon: <DashboardOutlined />, 
-    label: 'Dashboard',
-  },
-  { 
-    key: '/admin/products', 
-    icon: <ShoppingOutlined />, 
-    label: 'All Products',
-  },
-  { 
-    key: '/admin/categories', 
-    icon: <TagOutlined />, 
-    label: 'Categories',
-  },
-  { 
-    key: '/admin/sub-category', 
-    icon: <TagsOutlined />, 
-    label: 'Sub-Category',
-  },
-  { 
-    key: '/admin/orders', 
-    icon: <ShoppingCartOutlined />, 
-    label: 'Orders',
-  },
-  { 
-    key: '/admin/customers', 
-    icon: <UserOutlined />, 
-    label: 'Customers',
-  },
-  { 
-    key: '/admin/coupons', 
-    icon: <GiftOutlined />, 
-    label: 'Coupons',
-  },
-  { 
-    key: '/admin/settings', 
-    icon: <SettingOutlined />, 
-    label: 'Settings',
-  },
-];
+type MenuItem = Required<MenuProps>["items"][number];
 
 const Admin = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const user = useUserStore((state) => state.user);
   const router = useRouter();
   const pathname = usePathname();
-  
+  const { isPending, logout } = useLogout();
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
+    if (key !== "logout") {
+      router.push(key);
+    }
+  };
+
+  const handleLogout = (e: React.MouseEvent<HTMLElement> | undefined) => {
+    if (e) {
+      e.preventDefault();
+    }
+    logout("/auth/login");
+  };
+
+  const LogoutLabel = () => (
+    <Popconfirm
+      title="Logout"
+      description="Are you sure you want to logout?"
+      okText="Yes"
+      cancelText="No"
+      onConfirm={handleLogout}
+      okButtonProps={{ loading: isPending }}
+    >
+      <div className="flex items-center gap-2 hover:text-white">
+        <LogoutOutlined />
+        <span>Logout</span>
+      </div>
+    </Popconfirm>
+  );
+
+  const mainMenuItems: MenuItem[] = [
+    {
+      key: "/admin",
+      icon: <DashboardOutlined />,
+      label: "Dashboard",
+    },
+    {
+      key: "/admin/products",
+      icon: <ShoppingOutlined />,
+      label: "All Products",
+    },
+    {
+      key: "/admin/categories",
+      icon: <TagOutlined />,
+      label: "Categories",
+    },
+    {
+      key: "/admin/sub-category",
+      icon: <TagsOutlined />,
+      label: "Sub-Category",
+    },
+    {
+      key: "/admin/orders",
+      icon: <ShoppingCartOutlined />,
+      label: "Orders",
+    },
+
+    {
+      key: "/admin/coupons",
+      icon: <GiftOutlined />,
+      label: "Coupons",
+    },
+    {
+      key: "/admin/settings",
+      icon: <SettingOutlined />,
+      label: "Settings",
+    },
+    { type: "divider" },
+    {
+      key: "logout",
+      label: <LogoutLabel />,
+      danger: true,
+      className: "mt-auto",
+    },
+  ];
+
   return (
     <Layout className="min-h-screen">
-      <Sider 
-        trigger={null} 
-        collapsible 
+      <Sider
+        trigger={null}
+        collapsible
         collapsed={collapsed}
-        className="min-h-screen shadow-lg"
+        className="min-h-screen shadow-lg flex flex-col"
       >
-        <div className="h-16 flex items-center justify-center">
+        <div className="p-4 flex items-center justify-center">
           <h1 className="text-white text-xl font-bold">
-            {collapsed ? 'AP' : 'Admin Panel'}
+            {collapsed ? "AP" : "Admin Panel"}
           </h1>
         </div>
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[pathname]}
-          items={menuItems}
-          onClick={({ key }) => router.push(key)}
-          className="border-r-0"
+          selectedKeys={[pathname || ""]}
+          items={mainMenuItems}
+          className="flex-1 border-r-0"
+          onClick={handleMenuClick}
         />
       </Sider>
       <Layout>
-        <Header 
-          style={{ 
-            padding: 0, 
+        <Header
+          style={{
+            padding: 0,
             background: colorBgContainer,
           }}
           className="shadow-sm flex items-center"
@@ -102,26 +141,23 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
-              className: 'trigger px-6 text-xl',
+              className: "trigger px-6 text-xl",
               onClick: () => setCollapsed(!collapsed),
             }
           )}
           <div className="px-6 h-full flex items-center">
-            <h2 className="text-lg font-semibold">Welcome, Admin</h2>
+            <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
           </div>
         </Header>
-        <Content className="m-6">
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-            className="shadow-sm"
-          >
-            {children}
-          </div>
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          <div className="shadow-sm">{children}</div>
         </Content>
       </Layout>
     </Layout>

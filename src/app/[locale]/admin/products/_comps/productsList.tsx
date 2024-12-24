@@ -1,24 +1,18 @@
-import { useSearchParams } from "next/navigation";
-import React from "react";
-import { useGetAdminProducts } from "../_api/query";
+import NoData from "@/components/ui/noData";
 import { Pagination, Spin } from "antd";
 import AdminProductCard from "../../_comps/adminProductCard";
-import NoData from "@/components/ui/noData";
 
-const ProductsList = () => {
-  const searchParams = useSearchParams();
-  const categoryId = searchParams.get("category") || "";
-
-  const {
-    products,
-    isLoading: ProductsLoading,
-    refetchProduct,
-    pagination,
-  } = useGetAdminProducts({
-    categoryId,
-  });
-  console.log("🚀 ~ file: productsList.tsx:17 ~ pagination:", pagination);
-
+const ProductsList = ({
+  products,
+  refetchProduct,
+  pagination,
+  ProductsLoading,
+}: {
+  products: Product[];
+  refetchProduct: any;
+  pagination: any;
+  ProductsLoading: boolean;
+}) => {
   return (
     <div>
       <span className=" capitalize text-sm text-black">

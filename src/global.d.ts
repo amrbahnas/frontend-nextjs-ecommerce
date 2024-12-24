@@ -164,14 +164,26 @@ type AddressType = {
   phone: string;
 };
 
+type topSellingProducts = {
+  title: string;
+  sales: number;
+  revenue: number;
+};
+
+type SalesByCategoryType = {
+  category: string;
+  totalSales: number;
+  totalUnits: number;
+};
+
 type DashboardStatsType = {
   totalRevenue: number;
   totalOrders: number;
   totalProducts: number;
   totalUsers: number;
   recentOrders: OrderType[];
-  topSellingProducts: Product[];
-  salesByCategory: any[];
+  topSellingProducts: topSellingProducts[];
+  salesByCategory: SalesByCategoryType[];
 };
 
 type RevenueStatsType = {

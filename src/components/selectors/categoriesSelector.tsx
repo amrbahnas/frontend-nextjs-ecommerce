@@ -5,9 +5,11 @@ import { Select } from "antd";
 const CategoriesSelector = ({
   value,
   onChange,
+  ...props
 }: {
   value?: string | null;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | null) => void;
+  [key: string]: any;
 }) => {
   const { categories, isLoading } = useGetCategories();
   return (
@@ -22,6 +24,7 @@ const CategoriesSelector = ({
         label: el.name,
         value: el.id,
       }))}
+      {...props}
     />
   );
 };

@@ -43,13 +43,6 @@ export const useGetAdminSubCategoriesById = (
   };
 };
 
-// totalRevenue,
-// totalOrders,
-// totalProducts,
-// totalUsers,
-// recentOrders,
-// topSellingProducts,
-// salesByCategory,
 export const useGetAdminStats = () => {
   const { data, isLoading } = useQuery<DashboardStatsType>("/stats/dashboard");
   return { stats: data, isLoading };
@@ -58,7 +51,7 @@ export const useGetAdminStats = () => {
 //revenue
 export const useGetAdminRevenue = () => {
   const { data, isLoading } = useQuery<RevenueStatsType[]>("/stats/revenue");
-  return { revenue: data, isLoading };
+  return { revenue: data || [], isLoading };
 };
 
 export const useGetStatsProduct = (id: string | undefined) => {

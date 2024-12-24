@@ -558,28 +558,6 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.3.5.tgz#45f9f87398c5dcea085b715c58ddcf1faf65f716"
   integrity sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==
 
-"@types/react-image-magnifiers@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@types/react-image-magnifiers/-/react-image-magnifiers-1.3.5.tgz#ce65506b99084dfd0f24422a29ac5565771029a9"
-  integrity sha512-lwl8WCT4qBDwOecA0TDGdMi0XnjVWkhtj0CbwqetO7mQU6do7MzVLRCBUs5xPDrn2HWkXE3hf2ui214K72nTQw==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-image-magnify@^2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@types/react-image-magnify/-/react-image-magnify-2.7.4.tgz#8b85dfe1b2955797b31c39799c2d152e13918e33"
-  integrity sha512-EzKC1eNf9OIO5JwvAoE9+XHcuJXeWqV9gutvO7Ae7L2rtQVZ3zd+08AREGI9mUZT5sQ4KHydjD1D5Bzwe/sJuA==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react@*":
-  version "18.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.3.tgz#9679020895318b0915d7a3ab004d92d33375c45f"
-  integrity sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
-
 "@types/react@^18":
   version "18.3.16"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.16.tgz#5326789125fac98b718d586ad157442ceb44ff28"

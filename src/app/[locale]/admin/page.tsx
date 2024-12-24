@@ -23,12 +23,10 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div>
+    <div className=" space-y-6">
       <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
-      
       <StatsCards stats={stats} />
       <RevenueOverview revenue={revenue} />
-
       <Row gutter={[16, 16]} className="mt-6">
         <Col xs={24} lg={14}>
           <TopSellingProducts products={stats?.topSellingProducts} />

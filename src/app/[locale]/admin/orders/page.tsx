@@ -18,9 +18,18 @@ import {
 import AdminPageTile from "../_comps/adminPageTile";
 import { useDeliverMultiOrder, usePayMultiOrder } from "./_api/action";
 import { useAdminGetOrders } from "./_api/query";
+import OrdersFilter from "./_comps/ordersFilter";
+import useParamsService from "@/hooks/global/useParamsService";
 
 const Page = () => {
-  const { orders, ordersLoading, pagination, refetch } = useAdminGetOrders();
+  const { getParams } = useParamsService("");
+  const search = getParams("search") || "";
+  const createdAt = getParams("createdAt") || "";
+
+  const { orders, ordersLoading, pagination, refetch } = useAdminGetOrders({
+    userName: search,
+    createdAt,
+  });
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const { payMultiOrder, payMultiLoading } = usePayMultiOrder();
   const { deliverMultiOrder, deliverMultiLoading } = useDeliverMultiOrder();
@@ -214,6 +223,7 @@ const Page = () => {
           <Badge count={selectedRowKeys.length} color="blue" />
         </span>
       )}
+      <OrdersFilter />
       <Table
         rowSelection={rowSelection}
         columns={columns}

@@ -62,7 +62,6 @@ export default function ProductsPage() {
           className="!w-full md:!w-[350px]"
           enterButton={<SearchOutlined />}
           size="large"
-          value={search}
           onSearch={(value) => setParams("search", value)}
         />
         <CategoriesSelector

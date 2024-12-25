@@ -1,19 +1,10 @@
 "use client";
 import React from "react";
-import {
-  Table,
-  Button,
-  Space,
-  Tag,
-  Popconfirm,
-  TableProps,
-} from "antd";
-import {
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { Table, Button, Space, Tag, Popconfirm, TableProps } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import NextImage from "@/components/ui/nextImage";
 
 const formatStatus = (status: ProductStatus | undefined): string => {
   if (!status) return "Unknown";
@@ -63,6 +54,7 @@ const ProductsTable = ({
       title: "No.",
       key: "number",
       width: 70,
+      align: "center",
       fixed: "left",
       render: (text, record, index) => (
         <Link href={`/admin/products/${record.id}`} key={record.id}>
@@ -71,19 +63,31 @@ const ProductsTable = ({
       ),
     },
     {
-      title: "Product Name",
-      dataIndex: "title",
+      title: "Product ",
       key: "title",
       width: 250,
+      align: "center",
       fixed: "left",
-      sorter: (a: Product, b: Product) => a.title.localeCompare(b.title),
-      render: (text: string) => (
-        <div className="truncate max-w-[200px]">{text}</div>
+      render: (_, record) => (
+        <div className="  max-w-[200px] flex items-center gap-2">
+          <NextImage
+            src={record.imageCover}
+            alt=""
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <span className="font-semibold max-w-2/3 truncate">
+            {record.title}
+          </span>
+        </div>
       ),
     },
     {
       title: "Price",
       dataIndex: "price",
+      align: "center",
+
       key: "price",
       width: 100,
       render: (price: number) => `$${price.toFixed(2)}`,
@@ -92,6 +96,8 @@ const ProductsTable = ({
     {
       title: "Category",
       key: "category",
+      align: "center",
+
       width: 150,
       render: (_, record: Product) => (
         <div className="truncate max-w-[130px]">
@@ -103,6 +109,8 @@ const ProductsTable = ({
       title: "Stock",
       dataIndex: "quantity",
       key: "quantity",
+      align: "center",
+
       width: 100,
       sorter: (a: Product, b: Product) => a.quantity - b.quantity,
       render: (quantity: number) => (
@@ -116,6 +124,8 @@ const ProductsTable = ({
       dataIndex: "status",
       key: "status",
       width: 120,
+      align: "center",
+
       render: (status: ProductStatus) => (
         <Tag color={getStatusColor(status)}>{formatStatus(status)}</Tag>
       ),

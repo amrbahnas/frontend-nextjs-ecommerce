@@ -157,7 +157,7 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
             borderRadius: borderRadiusLG,
           }}
         >
-          <div className="shadow-sm">{children}</div>
+          {children}
         </Content>
       </Layout>
     </Layout>

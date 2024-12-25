@@ -69,7 +69,10 @@ const ProductsTable = ({
       align: "center",
       fixed: "left",
       render: (_, record) => (
-        <div className="  max-w-[200px] flex items-center gap-2">
+        <Link
+          className="  max-w-[200px] flex items-center gap-2 text-black"
+          href={`/admin/products/${record.id}`}
+        >
           <NextImage
             src={record.imageCover}
             alt=""
@@ -80,7 +83,7 @@ const ProductsTable = ({
           <span className="font-semibold max-w-2/3 truncate">
             {record.title}
           </span>
-        </div>
+        </Link>
       ),
     },
     {
@@ -134,8 +137,9 @@ const ProductsTable = ({
       title: "Actions",
       key: "actions",
       fixed: "right",
+      align: "center",
       render: (_, record: Product) => (
-        <Space size={4} className="flex-nowrap">
+        <Space size={24} className="flex-nowrap">
           <Button
             type="link"
             className="!px-2"

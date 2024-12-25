@@ -36,9 +36,9 @@ const Page = () => {
   const [deleteCouponLoading, setDeleteCouponLoading] = React.useState(false);
 
   return (
-    <div className="space-y-6">
+    <div className="">
       <AdminPageTile>Coupons</AdminPageTile>
-      <div className="flex justify-end">
+      <div className="flex justify-end my-6">
         <Button
           type="primary"
           icon={<IoIosAddCircleOutline />}
@@ -82,7 +82,7 @@ const Page = () => {
       </Spin>
 
       {coupons?.length > 0 && (
-        <div className="flex justify-center my-6">
+        <div className="flex justify-center  mt-40">
           <Pagination {...pagination} />
         </div>
       )}

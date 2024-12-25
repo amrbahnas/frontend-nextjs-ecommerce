@@ -14,9 +14,11 @@ import {
   TagsOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Layout, Menu, Popconfirm, theme } from "antd";
+import { Avatar, Layout, Menu, Popconfirm, theme } from "antd";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { CiShop } from "react-icons/ci";
 
 const { Header, Content, Sider } = Layout;
 
@@ -69,6 +71,11 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
       label: "Dashboard",
     },
     {
+      key: "/admin/orders",
+      icon: <ShoppingCartOutlined />,
+      label: "Orders",
+    },
+    {
       key: "/admin/products",
       icon: <ShoppingOutlined />,
       label: "All Products",
@@ -82,11 +89,6 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
       key: "/admin/sub-category",
       icon: <TagsOutlined />,
       label: "Sub-Category",
-    },
-    {
-      key: "/admin/orders",
-      icon: <ShoppingCartOutlined />,
-      label: "Orders",
     },
 
     {
@@ -145,8 +147,17 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
               onClick: () => setCollapsed(!collapsed),
             }
           )}
-          <div className="px-6 h-full flex items-center">
-            <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
+          <div className="px-6 h-full flex  justify-between items-center w-full">
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 text-black"
+            >
+              <Avatar src={user?.profileImg} alt="user" />
+              <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
+            </Link>
+            <Link href="/">
+              <CiShop size={40} />
+            </Link>
           </div>
         </Header>
         <Content

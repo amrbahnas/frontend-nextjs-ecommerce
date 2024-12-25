@@ -1,59 +1,249 @@
 "use client";
-import React from "react";
-import { useAdminGetOrders } from "./_api/query";
-import { Divider, Table, TableProps } from "antd";
+import ConfirmModal from "@/components/ui/confirmModal";
+import { Badge, Button, Table, TableProps } from "antd";
+import dayjs from "dayjs";
 import Link from "next/link";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import {
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaCreditCard,
+  FaDollarSign,
+  FaHashtag,
+  FaTimesCircle,
+  FaTruck,
+  FaUser,
+} from "react-icons/fa";
 import AdminPageTile from "../_comps/adminPageTile";
+import { useDeliverMultiOrder, usePayMultiOrder } from "./_api/action";
+import { useAdminGetOrders } from "./_api/query";
 
 const Page = () => {
-  const { orders, ordersLoading, pagination } = useAdminGetOrders();
-  const columns: TableProps<OrderType>["columns"] = [
+  const { orders, ordersLoading, pagination, refetch } = useAdminGetOrders();
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { payMultiOrder, payMultiLoading } = usePayMultiOrder();
+  const { deliverMultiOrder, deliverMultiLoading } = useDeliverMultiOrder();
+  const [payModalVisible, setPayModalVisible] = useState(false);
+  const [deliverModalVisible, setDeliverModalVisible] = useState(false);
+
+  const handleBulkPay = () => {
+    setPayModalVisible(true);
+  };
+
+  const handleBulkDeliver = () => {
+    setDeliverModalVisible(true);
+  };
+
+  const confirmPay = () => {
+    payMultiOrder(
+      { orderIds: selectedRowKeys },
+      {
+        onSuccess: () => {
+          refetch();
+          toast.success("Orders paid successfully");
+          setSelectedRowKeys([]);
+          setPayModalVisible(false);
+        },
+      }
+    );
+  };
+
+  const confirmDeliver = () => {
+    deliverMultiOrder(
+      { orderIds: selectedRowKeys },
+      {
+        onSuccess: () => {
+          refetch();
+          toast.success("Orders delivered successfully");
+          setSelectedRowKeys([]);
+          setDeliverModalVisible(false);
+        },
+      }
+    );
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys: React.Key[]) => {
+      setSelectedRowKeys(newSelectedRowKeys);
+    },
+  };
+
+  const columns: TableProps<any>["columns"] = [
     {
-      title: "N",
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaHashtag /> <span>N</span>
+        </div>
+      ),
       key: "number",
+      align: "center",
       render: (text, record, index) => (
-        <Link href={`/orders/${record.id}`} key={record.id}>
+        <Link
+          href={`/admin/orders/${record.id}`}
+          key={record.id}
+          className="text-lg text-center !w-full text-gray-600"
+        >
           {index + 1}
         </Link>
       ),
     },
     {
-      title: "createdAt",
-      key: "createdAt",
-      render: (record) => new Date(record.createdAt).toLocaleString(),
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaUser /> <span>Client Name</span>
+        </div>
+      ),
+      key: "number",
+      dataIndex: ["user", "name"],
+      align: "center",
     },
     {
-      title: "total Order Price",
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaDollarSign /> <span>Total Order Price</span>
+        </div>
+      ),
       dataIndex: "totalOrderPrice",
       key: "totalOrderPrice",
+      align: "center",
+      render: (price: number) => (
+        <div className="flex items-center justify-center">
+          <span className="font-semibold">${price?.toFixed(2)}</span>
+        </div>
+      ),
     },
     {
-      title: "isPaid",
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaCalendarAlt /> <span>Created At</span>
+        </div>
+      ),
+      key: "createdAt",
+      dataIndex: "createdAt",
+      align: "center",
+      render: (value) => (
+        <div className="flex items-center justify-center">
+          {dayjs(value).format("DD/MM/YYYY")}
+        </div>
+      ),
+    },
+    {
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaCreditCard /> <span>Payment Status</span>
+        </div>
+      ),
       dataIndex: "isPaid",
       key: "isPaid",
-      render: (isPaid) => (isPaid ? "Paid" : "Not Paid"),
+      align: "center",
+      render: (isPaid) => (
+        <div className="flex items-center justify-center gap-2">
+          {isPaid ? (
+            <FaCheckCircle className="text-green-500 text-lg" />
+          ) : (
+            <FaTimesCircle className="text-red-500 text-lg" />
+          )}
+          <span>{isPaid ? "Paid" : "Not Paid"}</span>
+        </div>
+      ),
     },
     {
-      title: "payment Method",
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaCreditCard /> <span>Payment Method</span>
+        </div>
+      ),
       dataIndex: "paymentMethod",
       key: "paymentMethod",
+      align: "center",
+      render: (method) => (
+        <div className="flex items-center justify-center gap-2">
+          <FaCreditCard className="text-gray-500" />
+          <span>{method}</span>
+        </div>
+      ),
     },
     {
-      title: "isDelivered",
+      title: (
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <FaTruck /> <span>Delivery Status</span>
+        </div>
+      ),
       dataIndex: "isDelivered",
       key: "isDelivered",
-      render: (isDelivered) => (isDelivered ? "Delivered" : "Not Delivered"),
+      align: "center",
+      render: (isDelivered) => (
+        <div className="flex items-center justify-center gap-2">
+          {isDelivered ? (
+            <FaCheckCircle className="text-green-500 text-lg" />
+          ) : (
+            <FaTimesCircle className="text-red-500 text-lg" />
+          )}
+          <span>{isDelivered ? "Delivered" : "Not Delivered"}</span>
+        </div>
+      ),
     },
   ];
 
   return (
     <div>
       <AdminPageTile>Orders</AdminPageTile>
+      <div style={{ marginBottom: 16 }} className="flex items-center gap-4">
+        <Button
+          type="primary"
+          onClick={handleBulkPay}
+          disabled={!selectedRowKeys.length || payMultiLoading}
+          loading={payMultiLoading}
+          style={{ marginRight: 8 }}
+        >
+          Pay Selected Orders
+        </Button>
+        <Button
+          onClick={handleBulkDeliver}
+          disabled={!selectedRowKeys.length || deliverMultiLoading}
+          loading={deliverMultiLoading}
+        >
+          Deliver Selected Orders
+        </Button>
+      </div>
+      {selectedRowKeys.length > 0 && (
+        <span className="text-gray-600 block mb-3">
+          Selected Orders Count:{" "}
+          <Badge count={selectedRowKeys.length} color="blue" />
+        </span>
+      )}
       <Table
-        dataSource={orders}
+        rowSelection={rowSelection}
         columns={columns}
+        dataSource={orders}
+        loading={ordersLoading || payMultiLoading || deliverMultiLoading}
         pagination={pagination}
-        loading={ordersLoading}
+        rowKey="id"
+        scroll={{ x: "max-content" }}
+      />
+
+      <ConfirmModal
+        title="Confirm Payment"
+        itemsCount={selectedRowKeys.length}
+        itemName="order"
+        action="Pay Orders"
+        onConfirm={confirmPay}
+        isLoading={payMultiLoading}
+        open={payModalVisible}
+        onCancel={() => setPayModalVisible(false)}
+      />
+
+      <ConfirmModal
+        title="Confirm Delivery"
+        itemsCount={selectedRowKeys.length}
+        itemName="order"
+        action="Mark as Delivered"
+        onConfirm={confirmDeliver}
+        isLoading={deliverMultiLoading}
+        open={deliverModalVisible}
+        onCancel={() => setDeliverModalVisible(false)}
       />
     </div>
   );

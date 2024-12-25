@@ -15,9 +15,9 @@ export function RecentOrders({ orders }: RecentOrdersProps) {
         renderItem={(order: any) => (
           <List.Item>
             <div className="flex justify-between w-full">
-              <span>Order #{order.id}</span>
+              <span className="w-1/2 truncate">Order #{order.id}</span>
               <span className="text-gray-500">
-                ${order.total?.toLocaleString()}
+                ${order.totalOrderPrice?.toLocaleString()}
               </span>
             </div>
           </List.Item>

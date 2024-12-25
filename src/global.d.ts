@@ -111,6 +111,7 @@ type User = {
   image: string;
   email: string;
   role: string;
+  phone: string;
   emailVerified: boolean;
   active: boolean;
   profileImg: string;

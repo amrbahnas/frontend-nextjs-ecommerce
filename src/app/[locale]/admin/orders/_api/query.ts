@@ -6,10 +6,12 @@ export const useAdminGetOrders = () => {
     data: orders,
     isLoading: ordersLoading,
     pagination,
+    refetch,
   } = usePagination<OrderType[]>("/orders");
   return {
     orders: orders || [],
     ordersLoading,
     pagination,
+    refetch,
   };
 };

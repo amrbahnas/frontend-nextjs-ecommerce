@@ -13,7 +13,13 @@ const HomePage = () => {
       <Slider />
       <Container>
         <CategoriesSlider />
-        <ProductStatsList type="featured" />
+        <div className=" space-y-8 mt-8">
+          <ProductStatsList type="most-sold" />
+          <ProductStatsList type="new-arrivals" />
+          <ProductStatsList type="top-rated" />
+          <ProductStatsList type="trending" />
+          <ProductStatsList type="featured" />
+        </div>
       </Container>
     </div>
   );

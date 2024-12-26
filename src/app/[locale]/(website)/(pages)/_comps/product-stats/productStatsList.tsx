@@ -20,7 +20,7 @@ const ProductStatsList = ({ type }: Props) => {
 
   return (
     <div>
-      <h1 className="text-2xl mt-6">{titleMap[type]}</h1>
+      <h1 className="text-2xl  ">{titleMap[type]}</h1>
       <ProductList products={productStats} isLoading={isLoading} />
     </div>
   );

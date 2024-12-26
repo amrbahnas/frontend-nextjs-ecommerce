@@ -29,7 +29,7 @@ const ProductList = ({
   if (isLoading && displayType === "grid")
     return (
       <RenderedCardsGrid length={5}>
-        {[1, 2, 3, 4, 5, 6].map((i) => (
+        {[1, 2, 3, 4].map((i) => (
           <ProductCardSkeleton key={i} />
         ))}
       </RenderedCardsGrid>
@@ -50,7 +50,7 @@ const ProductList = ({
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
-        className={`w-full mt-4 ${styles["product-swiper"]}`}
+        className={`w-full   ${styles["product-swiper"]}`}
       >
         {isLoading &&
           [1, 2, 3, 4, 5, 6].map((i) => (

@@ -12,6 +12,7 @@ import {
   ShoppingOutlined,
   TagOutlined,
   TagsOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Avatar, Layout, Menu, Popconfirm, theme } from "antd";
@@ -95,6 +96,11 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
       key: "/admin/coupons",
       icon: <GiftOutlined />,
       label: "Coupons",
+    },
+    {
+      key: "/admin/users",
+      icon: <UserOutlined />,
+      label: "Users",
     },
     {
       key: "/admin/settings",

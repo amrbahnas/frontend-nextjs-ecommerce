@@ -89,10 +89,17 @@ const ReviewForm = ({
           <Rate allowHalf />
         </Item>
         <Item
-          name={"title"}
-          rules={[{ required: true, message: "Title is required" }]}
+          name={"comment"}
+          rules={[
+            { required: true, message: "Comment is required" },
+            {
+              type: "string",
+              min: 6,
+              message: "Comment must be at least 10 characters",
+            },
+          ]}
         >
-          <TextArea rows={3} placeholder={t("title")} />
+          <TextArea rows={3} placeholder={t("comment")} />
         </Item>
 
         <Button

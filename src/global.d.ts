@@ -18,6 +18,8 @@ type SubCategoryType = {
   name: string;
   categoryId: string;
   completed: boolean;
+  productsCount: number;
+  categoryName: string;
 };
 
 type CouponType = {
@@ -96,10 +98,10 @@ type ProductSize = "S" | "M" | "L" | "XL" | "XXL";
 
 type ReviewType = {
   id: string;
-  title: string;
+  comment: comment;
   rating: number;
   user: User;
-  product: string;
+  product: Product;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -202,4 +204,21 @@ type ProoductStatsType = {
     reviewsCount: number;
   };
   reviews: ReviewType[];
+};
+
+type UserReportType = User & {
+  addresses: AddressType[];
+  orders: OrderType[];
+  reviews: ReviewType[];
+  cart: CartType;
+  stats: {
+    totalOrders: number;
+    totalSpent: number;
+    averageOrderValue: number;
+    totalReviews: number;
+    averageRating: number;
+    orderStatusSummary: {
+      success: number;
+    };
+  };
 };

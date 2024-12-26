@@ -12,7 +12,7 @@ interface ConfirmModalProps extends Omit<ModalProps, "title"> {
 
 const ConfirmModal = ({
   title,
-  itemsCount = 0,
+  itemsCount = 1,
   itemName = "items",
   action,
   onConfirm,
@@ -35,9 +35,11 @@ const ConfirmModal = ({
     >
       <p>
         Are you sure you want to {action.toLowerCase()} {itemsCount} {itemName}
-        {itemsCount !== 1 ? "s" : ""}?
+        {itemsCount > 1 ? "s" : ""}?
       </p>
-      <p className="text-gray-500 text-sm mt-2">This action cannot be undone.</p>
+      <p className="text-gray-500 text-sm mt-2">
+        This action cannot be undone.
+      </p>
     </Modal>
   );
 };

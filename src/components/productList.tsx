@@ -26,7 +26,7 @@ const ProductList = ({
   showNoData?: boolean;
   loop?: boolean;
 }) => {
-  if (isLoading)
+  if (isLoading && displayType === "grid")
     return (
       <RenderedCardsGrid length={5}>
         {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -52,6 +52,12 @@ const ProductList = ({
         }}
         className={`w-full mt-4 ${styles["product-swiper"]}`}
       >
+        {isLoading &&
+          [1, 2, 3, 4, 5, 6].map((i) => (
+            <SwiperSlide key={i}>
+              <ProductCardSkeleton />
+            </SwiperSlide>
+          ))}
         {products?.map((product: Product) => (
           <SwiperSlide key={product.id}>
             <ProductCard product={product} />

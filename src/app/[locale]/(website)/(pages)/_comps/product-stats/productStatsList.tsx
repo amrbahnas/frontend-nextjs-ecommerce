@@ -16,6 +16,7 @@ const titleMap = {
 
 const ProductStatsList = ({ type }: Props) => {
   const { isLoading, productStats } = useGetProductStats(type);
+  if (!productStats?.length && !isLoading) return null;
 
   return (
     <div>

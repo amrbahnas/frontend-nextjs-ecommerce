@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Head from "next/head";
 import { usePathname } from "next/navigation";
 import ProductStructuredData from "@/components/structured-data/productStructuredData";
+import RelatedProductList from "../../_comps/product-stats/relatedProductList";
 
 const SinglePage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -117,6 +118,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
             <Reviews productId={product?.id!} />
           </div>
         </div>
+        <RelatedProductList productId={product?.id!} />
       </Container>
     </>
   );

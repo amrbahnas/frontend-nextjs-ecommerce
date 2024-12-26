@@ -2,9 +2,8 @@
 import CategoriesSlider from "@/app/[locale]/(website)/(pages)/_comps/categoriesSlider";
 import Container from "@/components/container";
 import Slider from "@/components/slider";
-import FeaturedProducts from "./(pages)/_comps/featuredProducts";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import ProductStatsList from "./(pages)/_comps/product-stats/productStatsList";
 
 const HomePage = () => {
   const t = useTranslations("HomePage");
@@ -14,7 +13,7 @@ const HomePage = () => {
       <Slider />
       <Container>
         <CategoriesSlider />
-        <FeaturedProducts />
+        <ProductStatsList type="featured" />
       </Container>
     </div>
   );

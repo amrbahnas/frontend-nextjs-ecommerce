@@ -92,7 +92,7 @@ const Page = () => {
         <Link
           href={`/admin/orders/${record.id}`}
           key={record.id}
-          className="text-lg text-center !w-full text-gray-600"
+          className="text-lg text-center !w-full  "
         >
           {index + 1}
         </Link>

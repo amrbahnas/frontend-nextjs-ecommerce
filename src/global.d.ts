@@ -9,6 +9,10 @@ type CategoryType = {
   name: string;
   slug: string;
   image: string;
+  subCategories: SubCategoryType[];
+  _count: {
+    products: number;
+  };
   createdAt: string;
   updatedAt: string;
 };

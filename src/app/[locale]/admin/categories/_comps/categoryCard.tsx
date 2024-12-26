@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Divider, Popconfirm } from "antd";
+import { Button, Divider, Popconfirm, Tooltip } from "antd";
 import toast from "react-hot-toast";
 import { MdEdit } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -45,9 +45,7 @@ const CategoryCard = ({
     );
   };
   return (
-    <div className=" group relative flex flex-col items-center bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden ">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
+    <div className="   relative flex flex-col items-center bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden ">
       <div className=" relative w-full h-40  flex justify-center items-center  overflow-hidden">
         <img
           src={category.image}
@@ -84,8 +82,35 @@ const CategoryCard = ({
       </div>
 
       <Divider className="!my-1" />
-      <div className="p-4 flex justify-center items-center">
+      <div className="p-2 flex justify-center items-center text-xl capitalize">
         <h1>{category.name}</h1>
+      </div>
+      <div className="flex flex-col gap-2 border-t w-full p-3">
+        <div className=" flex justify-between items-center  ">
+          <span>Products:</span>
+          <span>{category._count.products}</span>
+        </div>
+        <Tooltip
+          title={
+            <div className="flex flex-col gap-2">
+              {category.subCategories.map((subCategory) => {
+                return (
+                  <div
+                    className="flex justify-between items-center"
+                    key={subCategory.id}
+                  >
+                    <span>{subCategory.name}</span>
+                  </div>
+                );
+              })}
+            </div>
+          }
+        >
+          <div className="  flex justify-between items-center  w-full ">
+            <span>Sub Categories:</span>
+            <span>{category.subCategories.length}</span>
+          </div>
+        </Tooltip>
       </div>
     </div>
   );

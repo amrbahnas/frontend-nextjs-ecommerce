@@ -4,7 +4,7 @@ import useQuery from "@/hooks/apiHandler/useQuery";
 export const useGetAdminCategories = (params?: any) => {
   const { data, isLoading, refetch, pagination } = usePagination<
     CategoryType[]
-  >("/categories", {
+  >("/categories/admin", {
     params: {
       fields: "name,image",
       ...params,

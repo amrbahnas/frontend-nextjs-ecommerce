@@ -102,11 +102,11 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
       icon: <UserOutlined />,
       label: "Users",
     },
-    {
-      key: "/admin/settings",
-      icon: <SettingOutlined />,
-      label: "Settings",
-    },
+    // {
+    //   key: "/admin/settings",
+    //   icon: <SettingOutlined />,
+    //   label: "Settings",
+    // },
     { type: "divider" },
     {
       key: "logout",
@@ -157,12 +157,13 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
             <Link
               href="/profile"
               className="flex items-center gap-2 text-black"
+              title="Profile"
             >
               <Avatar src={user?.profileImg} alt="user" />
               <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
             </Link>
-            <Link href="/">
-              <CiShop size={40} />
+            <Link href="/" title="Home">
+              <CiShop size={40} className="text-primary/90" />
             </Link>
           </div>
         </Header>

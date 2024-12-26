@@ -1,26 +1,25 @@
 "use client";
 import React from "react";
 
-import { Button, Divider, Popconfirm, Spin } from "antd";
-import toast from "react-hot-toast";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import { TiDeleteOutline } from "react-icons/ti";
+import useParamsService from "@/hooks/global/useParamsService";
+import { Pagination, Spin } from "antd";
 import AdminPageTile from "../_comps/adminPageTile";
-import { useAdminDeleteSubCategory } from "./_api/action";
-import SubCategoryModal from "./_comps/subCategoryModal";
 import CategoryFilter from "../_comps/categoryFilter";
 import { useGetAdminSubCategories } from "./_api/query";
-import useParamsService from "@/hooks/global/useParamsService";
-import SubCategoryCard from "./_comps/subCategoryCard";
 import AddSubCategoryCard from "./_comps/addSubCategoryCard";
+import SubCategoryCard from "./_comps/subCategoryCard";
+import SubCategoryModal from "./_comps/subCategoryModal";
+import SubCategoryFilter from "./_comps/subCategoryFilter";
 
 const Page = () => {
   const { getParams } = useParamsService("okay");
   const selectedCategory = getParams("category") || "";
-  const { Subcategories, isLoading, refetch } = useGetAdminSubCategories({
-    categoryId: selectedCategory,
-  });
+  const search = getParams("search") || "";
+  const { Subcategories, isLoading, refetch, pagination } =
+    useGetAdminSubCategories({
+      categoryId: selectedCategory,
+      search,
+    });
   const [visible, setVisible] = React.useState(false);
   const [subCategory, setSubCategory] = React.useState<SubCategoryType | null>(
     null
@@ -30,10 +29,12 @@ const Page = () => {
   return (
     <div>
       <AdminPageTile>Sub Category</AdminPageTile>
-      <CategoryFilter />
-      <span className=" capitalize text-sm text-black my-4 block w-full text-right">
-        {Subcategories.length} items found
-      </span>
+      <div className="flex items-center justify-between mt-8 mb-4">
+        <SubCategoryFilter />
+        <span className=" capitalize text-sm text-black my-4 block w-full text-right">
+          {Subcategories.length} items found
+        </span>
+      </div>
       <Spin
         spinning={isLoading || deleteSubCategoryLoading}
         tip="Loading..."
@@ -53,6 +54,11 @@ const Page = () => {
           <AddSubCategoryCard setVisible={setVisible} />
         </div>
       </Spin>
+      {Subcategories?.length > 0 && (
+        <div className="flex justify-end  mt-10">
+          <Pagination {...pagination} />
+        </div>
+      )}
       <SubCategoryModal
         subCategory={subCategory}
         refetch={refetch}

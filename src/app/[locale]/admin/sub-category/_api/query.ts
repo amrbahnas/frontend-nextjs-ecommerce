@@ -1,17 +1,16 @@
 import usePagination from "@/hooks/apiHandler/usePagination";
 
 export const useGetAdminSubCategories = (params?: any) => {
-  console.log("🚀 ~ file: query.ts:4 ~ params:", params);
-  const { data, isLoading, refetch } = usePagination<SubCategoryType[]>(
-    `/sub-categories/admin`,
-    {
-      params,
-    }
-  );
+  const { data, isLoading, refetch, pagination } = usePagination<
+    SubCategoryType[]
+  >(`/sub-categories/admin`, {
+    params,
+  });
 
   return {
     Subcategories: data || [],
     isLoading,
     refetch,
+    pagination,
   };
 };

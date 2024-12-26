@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
 
-import { Button, Divider, Pagination, Popconfirm, Spin } from "antd";
-import toast from "react-hot-toast";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import { TiDeleteOutline } from "react-icons/ti";
+import { Pagination, Spin } from "antd";
 import { useGetAdminCategories } from "../_api/query";
 import AdminPageTile from "../_comps/adminPageTile";
-import { useAdminDeleteCategory } from "./_api/action";
+import AddCategoryCard from "./_comps/addCategoryCard";
+import CategoryCard from "./_comps/categoryCard";
 import CategoryModal from "./_comps/categoryModal";
 
 const Page = () => {
@@ -41,7 +38,11 @@ const Page = () => {
           <AddCategoryCard setVisible={setVisible} />
         </div>
       </Spin>
-      <Pagination {...pagination} />
+      {categories?.length > 0 && (
+        <div className="flex justify-end  mt-10">
+          <Pagination {...pagination} />
+        </div>
+      )}
       <CategoryModal
         category={category}
         refetch={refetch}
@@ -49,108 +50,6 @@ const Page = () => {
         setVisible={setVisible}
         setCategory={setCategory}
       />
-    </div>
-  );
-};
-
-const CategoryCard = ({
-  category,
-  setCategory,
-  setVisible,
-  refetch,
-  setDeleteCategoryLoading,
-}: {
-  category: CategoryType;
-  setCategory: any;
-  setVisible: any;
-  refetch: any;
-  setDeleteCategoryLoading: any;
-}) => {
-  const { deleteCategory, deleteLoading } = useAdminDeleteCategory(
-    category?.id
-  );
-  const updateCategory = () => {
-    setCategory(category);
-    setVisible(true);
-  };
-
-  const removeCategory = () => {
-    setDeleteCategoryLoading(true);
-    deleteCategory(
-      {},
-      {
-        onSuccess: () => {
-          toast.success("Category Deleted");
-          setDeleteCategoryLoading(false);
-          refetch();
-        },
-        onError: (error) => {
-          toast.error(error.message);
-          setDeleteCategoryLoading(false);
-        },
-      }
-    );
-  };
-  return (
-    <div className=" flex flex-col items-center bg-gray-100 hover:shadow-lg translate transition-all rounded-md overflow-hidden ">
-      <div className=" relative w-full h-40  flex justify-center items-center  overflow-hidden">
-        <img
-          src={category.image}
-          alt=""
-          className="w-full h-full object-center object-cover absolute top-0 left-0"
-        />
-        <div className="  w-full h-full  text-white bg-black/20 flex justify-end p-4 items-start gap-1 absolute z-30">
-          {/* <button type="button" onClick={updateCategory}>
-            <MdEdit size={25} className=" hover:!text-blue-600" />
-          </button> */}
-          <Button
-            type="text"
-            onClick={updateCategory}
-            className=" !text-white !p-0 !m-0"
-            icon={<MdEdit size={25} className=" hover:!text-blue-300" />}
-          />
-          <Popconfirm
-            onConfirm={removeCategory}
-            title="Are you sure to delete this category?"
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button
-              disabled={deleteLoading}
-              loading={deleteLoading}
-              type="text"
-              className=" !text-white !p-0 !m-0"
-              icon={
-                <TiDeleteOutline size={25} className="  hover:!text-primary" />
-              }
-            />
-          </Popconfirm>
-        </div>
-      </div>
-
-      <Divider className="!my-1" />
-      <div className="p-4 flex justify-center items-center">
-        <h1>{category.name}</h1>
-      </div>
-    </div>
-  );
-};
-const AddCategoryCard = ({
-  setVisible,
-}: {
-  setVisible: (value: boolean) => void;
-}) => {
-  return (
-    <div
-      className=" flex  bg-gray-100  cursor-pointer  justify-center items-center flex-col rounded-md min-h-40 hover:shadow-lg translate transition-all"
-      onClick={() => {
-        setVisible(true);
-      }}
-    >
-      <IoIosAddCircleOutline size={50} className=" !text-gray-800" />
-      <span>
-        <h1>Create Category</h1>
-      </span>
     </div>
   );
 };

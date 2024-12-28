@@ -1,6 +1,6 @@
 import { memo } from "react";
-import ProductCard from "./productCard/productCard";
-import ProductCardSkeleton from "./productCard/productCard.skeleton";
+import ProductCard from "./productCard";
+
 import NoData from "./ui/noData";
 import RenderedCardsGrid from "./ui/renderedCardsGrid";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +8,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import styles from "./productList.module.css";
+import ProductCardSkeleton from "./productCard/productCard.skeleton";
 
 const ProductList = ({
   products,

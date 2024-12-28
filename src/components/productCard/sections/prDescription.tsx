@@ -25,15 +25,15 @@ const PrDescription = ({
       </h3>
 
       {/* Price Section - More compact and responsive */}
-      <div className="flex items-center flex-wrap gap-1.5">
+      <div className="flex  flex-col gap-1.5">
         <DisplayPrice
           afterPrice={price}
           beforePrice={price + 50}
           afterPriceClassName="text-base font-semibold text-primary"
           beforePriceClassName="text-xs text-gray-400 line-through"
         />
-        <div className="inline-block px-1.5 py-0.5 bg-green-50 rounded-full">
-          <span className="text-[10px] font-medium text-green-600 whitespace-nowrap">
+        <div className="inline-block px-2 py-0.5 bg-green-50 rounded-full  w-fit">
+          <span className="text-[10px] font-medium text-green-600 whitespace-nowrap ">
             <SavingPercentage
               small
               beforePrice={price + 50}

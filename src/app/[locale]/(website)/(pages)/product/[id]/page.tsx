@@ -73,7 +73,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
       {product && <ProductStructuredData product={product} />}
       <Container className="mt-1 md:mt-2">
         <div className=" relative flex flex-col lg:flex-row gap-16">
-          <div className="w-full lg:w-2/3 lg:sticky top-20 h-max">
+          <div className="w-full lg:w-2/3 lg:sticky top-20 h-max z-10">
             <ProductImages
               images={
                 product.images ? [product.imageCover, ...product.images] : []
@@ -113,7 +113,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
 
             <Add product={product} />
 
-            <div className="h-[2px] bg-gray-100" />
+            <div className="my-6" />
 
             <Reviews productId={product?.id!} />
           </div>

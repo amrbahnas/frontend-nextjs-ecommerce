@@ -15,7 +15,7 @@ const HomePage = () => {
         <CategoriesSlider />
         <div className=" space-y-8 mt-8">
           <ProductStatsList type="most-sold" />
-          <ProductStatsList type="new-arrivals" />
+          <ProductStatsList type="new-arrivals" displayType="swiper" />
           <ProductStatsList type="top-rated" />
           <ProductStatsList type="trending" />
           <ProductStatsList type="featured" />

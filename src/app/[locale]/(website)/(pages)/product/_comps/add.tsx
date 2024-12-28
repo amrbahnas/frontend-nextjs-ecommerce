@@ -32,14 +32,11 @@ const Add = ({ product }: { product: Product }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-1/2">
-        <SizeSelector
-          availableSizes={availableSizes}
-          selectedSize={size}
-          setSelectedSize={setSize}
-        />
-      </div>
-      <Divider className="!my-2" />
+      <SizeSelector
+        availableSizes={availableSizes}
+        selectedSize={size}
+        setSelectedSize={setSize}
+      />
       <ColorSelector
         availableColors={colors}
         selectedColor={color}
@@ -73,11 +70,14 @@ const Add = ({ product }: { product: Product }) => {
               {t("outOfStock")}
             </div>
           ) : (
-            <div className="text-xs">
-              Only <span className="text-orange-500">{stockNumber} items</span>{" "}
-              left!
-              <br /> {"Don't"} miss it
-            </div>
+            stockNumber <= 10 && (
+              <div className="text-xs">
+                Only{" "}
+                <span className="text-orange-500">{stockNumber} items</span>{" "}
+                left!
+                <br /> {"Don't"} miss it
+              </div>
+            )
           )}
           <CardBadge productId={id} />
         </div>

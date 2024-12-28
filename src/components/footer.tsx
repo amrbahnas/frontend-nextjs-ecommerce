@@ -2,121 +2,228 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "./container";
 import NextImage from "./ui/nextImage";
-import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
-import { IoLogoInstagram } from "react-icons/io5";
+import { FaWhatsapp } from "react-icons/fa";
+import { SiFacebook, SiInstagram, SiLinkedin, SiGithub } from "react-icons/si";
 import { memo } from "react";
 import { useTranslations } from "next-intl";
 
 const Footer = () => {
-  const t = useTranslations('Footer');
+  const t = useTranslations("Footer");
+  const phoneNumber = "+201064480375"; // Format for WhatsApp
 
   return (
-    <div className=" py-24 bg-gray-100 text-sm mt-24">
-      <Container>
-        {/* TOP */}
-        <div className="flex flex-col md:flex-row justify-between gap-10 flex-wrap">
-          {/* LEFT */}
-          <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
-            <Link href="/">
-              <div className="text-2xl tracking-wide">{t('brand')}</div>
+    <footer className="bg-gray-50 text-gray-600 mt-24">
+      {/* Newsletter Section */}
+      <div className="bg-primary/5 py-12">
+        <Container>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                {t("subscribeNewsletter")}
+              </h3>
+              <p className="text-gray-500">{t("newsletterDescription")}</p>
+            </div>
+            <div className="w-full md:w-1/3">
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder={t("enterEmail")}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-primary text-white rounded-md text-sm hover:bg-primary/90 transition-colors">
+                  {t("subscribe")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* Main Footer */}
+      <Container className="py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand Info */}
+          <div className="space-y-6">
+            <Link href="/" className="block">
+              <div className="text-2xl font-bold tracking-wide text-gray-800">
+                {t("brand")}
+              </div>
             </Link>
-            <p>{t('description')}</p>
-            <a
-              className="font-semibold"
-              href="mailto:elbahnsawy.work@gmail.com"
-            >
-              elbahnsawy.work@gmail.com
-            </a>
-            <span className="font-semibold">(+20)1064480375</span>
-            <div className="flex gap-6">
+            <p className="text-gray-500 leading-relaxed">{t("description")}</p>
+            <div className="space-y-3">
+              <a
+                href="mailto:elbahnsawy.work@gmail.com"
+                className="flex items-center gap-2 text-nowrap text-gray-600 hover:text-primary transition-colors"
+              >
+                <span className="material-icons-outlined text-lg">
+                  {t("emailUs")}
+                </span>
+                <span>elbahnsawy.work@gmail.com</span>
+              </a>
+              <a
+                href={`https://wa.me/${phoneNumber}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors text-nowrap"
+              >
+                <FaWhatsapp className="text-lg" />
+                <span>{phoneNumber.replace("+", "")}</span>
+              </a>
+            </div>
+            <div className="flex gap-4">
               <a
                 href="https://www.facebook.com/amr.bahnas.75"
                 target="_blank"
                 rel="noreferrer"
-                className="text-3xl"
+                className="text-2xl text-blue-600 hover:text-primary/80 transition-colors"
               >
-                <FaFacebookSquare />
+                <SiFacebook />
               </a>
               <a
                 href="https://www.instagram.com/amr_elbahnsawy/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-3xl"
+                className="text-2xl text-pink-600 hover:text-pink-500 transition-colors"
               >
-                <IoLogoInstagram />
+                <SiInstagram />
               </a>
               <a
                 href="https://www.linkedin.com/in/amr-elbahnsawy/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-3xl"
+                className="text-2xl text-blue-600 hover:text-blue-500 transition-colors"
               >
-                <FaLinkedin />
+                <SiLinkedin />
               </a>
               <a
                 href="https://github.com/amrbahnas"
                 target="_blank"
                 rel="noreferrer"
-                className="text-3xl"
+                className="text-2xl text-gray-600 hover:text-gray-500 transition-colors"
               >
-                <FaGithub />
+                <SiGithub />
               </a>
             </div>
           </div>
-          {/* CENTER */}
-          <div className="grid  grid-cols-2 md:grid-cols-3  gap-3 flex-1 shrink-0">
-            <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">{t('shop')}</h1>
-              <div className="flex flex-col gap-6">
-                <Link href="/list?cat=66fc7bc1ce2284e5c7c337ae">{t('men')}</Link>
-                <Link href="?cat=66fc7f18e3bd2937a6e60771">{t('sport')}</Link>
-                <Link href="/list">{t('allProducts')}</Link>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">{t('help')}</h1>
-              <div className="flex flex-col gap-6">
-                <Link href="/customer-service">{t('customerService')}</Link>
-                <Link href="/profile">{t('myAccount')}</Link>
-                <Link href="/find-store">{t('findStore')}</Link>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3 md:gap-16">
-              <h1 className="font-medium text-lg">{t('company')}</h1>
-              <div className="flex flex-col gap-6 ">
-                <Link href="/about-us">{t('aboutUs')}</Link>
-                <Link href="/contact-us">{t('contactUs')}</Link>
-              </div>
+
+          {/* Quick Links */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-800">{t("shop")}</h3>
+            <div className="space-y-4">
+              <Link
+                href="/list?cat=66fc7bc1ce2284e5c7c337ae"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("men")}
+              </Link>
+              <Link
+                href="?cat=66fc7f18e3bd2937a6e60771"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("sport")}
+              </Link>
+              <Link
+                href="/list"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("allProducts")}
+              </Link>
             </div>
           </div>
-          {/* RIGHT */}
-          <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
-            <span className="font-semibold">{t('securePayments')}</span>
-            <div className="flex justify-between">
-              <NextImage src="/discover.png" alt="" width={40} height={20} />
-              <NextImage src="/skrill.png" alt="" width={40} height={20} />
-              <NextImage src="/paypal.png" alt="" width={40} height={20} />
-              <NextImage src="/mastercard.png" alt="" width={40} height={20} />
-              <NextImage src="/visa.png" alt="" width={40} height={20} />
+
+          {/* Help */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-800">{t("help")}</h3>
+            <div className="space-y-4">
+              <Link
+                href="/customer-service"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("customerService")}
+              </Link>
+              <Link
+                href="/profile"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("myAccount")}
+              </Link>
+              <Link
+                href="/find-store"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                {t("findStore")}
+              </Link>
+            </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-800">
+              {t("paymentMethods")}
+            </h3>
+            <div className="grid grid-cols-3 gap-4">
+              <NextImage
+                src="/discover.png"
+                alt="Discover"
+                width={60}
+                height={40}
+                className="hover:scale-105 transition-transform"
+              />
+              <NextImage
+                src="/skrill.png"
+                alt="Skrill"
+                width={60}
+                height={40}
+                className="hover:scale-105 transition-transform"
+              />
+              <NextImage
+                src="/paypal.png"
+                alt="PayPal"
+                width={60}
+                height={40}
+                className="hover:scale-105 transition-transform"
+              />
+              <NextImage
+                src="/mastercard.png"
+                alt="Mastercard"
+                width={60}
+                height={40}
+                className="hover:scale-105 transition-transform"
+              />
+              <NextImage
+                src="/visa.png"
+                alt="Visa"
+                width={60}
+                height={40}
+                className="hover:scale-105 transition-transform"
+              />
             </div>
           </div>
         </div>
-        {/* BOTTOM */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mt-16">
-          <div className="">{t('copyright')} 2024 {t('brand')}</div>
-          <div className="flex flex-col gap-8 md:flex-row">
-            <div className="">
-              <span className="text-gray-500 mr-4">{t('language')}</span>
-              <span className="font-medium">{t('unitedStates')} | {t('english')}</span>
+
+        {/* Bottom Bar */}
+        <div className="mt-16 pt-8 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+            <div className="text-gray-500">
+              {t("copyright")} &copy; 2024 {t("brand")}.{" "}
+              {t("allRightsReserved")}
             </div>
-            <div className="">
-              <span className="text-gray-500 mr-4">{t('currency')}</span>
-              <span className="font-medium">$ {t('egp')}</span>
+            <div className="flex flex-wrap justify-center gap-6">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-400">{t("language")}:</span>
+                <span className="text-gray-600">
+                  {t("unitedStates")} | {t("english")}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-400">{t("currency")}:</span>
+                <span className="text-gray-600">$ {t("egp")}</span>
+              </div>
             </div>
           </div>
         </div>
       </Container>
-    </div>
+    </footer>
   );
 };
 

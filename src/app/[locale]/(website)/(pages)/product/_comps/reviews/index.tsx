@@ -40,7 +40,7 @@ const Reviews = ({ productId }: { productId: string }) => {
             />
           ))}
         </div>
-        <Divider />
+
         <ReviewForm productId={productId} customOnSuccess={refetch} />
       </div>
     </>

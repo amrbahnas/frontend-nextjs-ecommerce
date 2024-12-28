@@ -1,5 +1,5 @@
 import React from "react";
-import { Segmented } from "antd";
+import { Divider, Segmented } from "antd";
 const SizeSelector = ({
   availableSizes = [],
   selectedSize,
@@ -11,7 +11,7 @@ const SizeSelector = ({
 }) => {
   if (availableSizes.length === 0) return null;
   return (
-    <div>
+    <div className="w-1/2">
       <h4 className="font-medium mb-2">Size</h4>
       <Segmented<ProductSize>
         size="large"
@@ -20,6 +20,7 @@ const SizeSelector = ({
         onChange={setSelectedSize}
         block
       />
+      <Divider className="!my-2" />
     </div>
   );
 };

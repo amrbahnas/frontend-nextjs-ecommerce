@@ -48,12 +48,21 @@
     "aboutUs": "About Us",
     "contactUs": "Contact Us",
     "securePayments": "Secure Payments",
-    "copyright": "",
+    "copyright": "Copyright",
     "language": "Language",
     "unitedStates": "United States",
     "english": "English",
     "currency": "Currency",
-    "egp": "EGP"
+    "egp": "EGP",
+    "subscribeNewsletter": "Subscribe to Our Newsletter",
+    "newsletterDescription": "Stay updated with our latest offers and products",
+    "enterEmail": "Enter your email",
+    "subscribe": "Subscribe",
+    "allRightsReserved": "All rights reserved",
+    "emailUs": "Email",
+    "whatsappUs": "WhatsApp",
+    "followUs": "Follow us on social media",
+    "paymentMethods": "Payment Methods"
   },
   "Product": {
     "title": "{title}",
@@ -100,6 +109,6 @@
     "editReview": "Edit Review",
     "deleteReview": "Delete Review",
     "addReview": "Add Review",
-    "title": "Title" 
+    "title": "Title"
   }
 }

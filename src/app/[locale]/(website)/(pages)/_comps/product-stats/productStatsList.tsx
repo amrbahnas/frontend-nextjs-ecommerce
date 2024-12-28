@@ -4,6 +4,7 @@ import { useGetProductStats } from "./_api/query";
 
 type Props = {
   type: "featured" | "trending" | "most-sold" | "new-arrivals" | "top-rated";
+  displayType?: "grid" | "swiper";
 };
 
 const titleMap = {
@@ -14,14 +15,18 @@ const titleMap = {
   "top-rated": "Top Rated Products",
 };
 
-const ProductStatsList = ({ type }: Props) => {
+const ProductStatsList = ({ type, displayType }: Props) => {
   const { isLoading, productStats } = useGetProductStats(type);
   if (!productStats?.length && !isLoading) return null;
 
   return (
     <div>
       <h1 className="text-2xl  ">{titleMap[type]}</h1>
-      <ProductList products={productStats} isLoading={isLoading} />
+      <ProductList
+        products={productStats}
+        isLoading={isLoading}
+        displayType={displayType}
+      />
     </div>
   );
 };

@@ -56,7 +56,7 @@ export default CategoriesSlider;
 const CategoryCard = ({ category }: { category: CategoryType }) => {
   return (
     <Link
-      href={`/list?cat=${category.id}`}
+      href={`/list?category=${category.id}`}
       key={category.id}
       className="flex flex-col justify-center items-center hover:scale-105 transform transition-transform  "
     >

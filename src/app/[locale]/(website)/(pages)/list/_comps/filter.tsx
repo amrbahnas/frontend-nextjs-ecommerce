@@ -1,13 +1,15 @@
 "use client";
 import CategoriesSelector from "@/components/selectors/categoriesSelector";
 import useParamsService from "@/hooks/global/useParamsService";
-import { Button, InputNumber, Select, Tag } from "antd";
-import { memo, useState } from "react";
+import { Button, Drawer, InputNumber, Select, Tag } from "antd";
+import { memo, useEffect, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { GrPowerReset } from "react-icons/gr";
-import classNames from "classnames";
+import { IoMdClose } from "react-icons/io";
+
 import { useGetCategories } from "../../_api/query";
+
 type FilterProps = {
   status?: string;
   minPrice?: string;
@@ -17,7 +19,7 @@ type FilterProps = {
 };
 
 const Filter = () => {
-  const { setMultiParams, resetParams, getParams } =
+  const { setMultiParams, resetParams, getParams, getCurrentParams } =
     useParamsService("okay I will");
 
   const [showFilter, setShowFilter] = useState(false);
@@ -30,6 +32,13 @@ const Filter = () => {
     setMultiParams(filters);
   };
 
+  useEffect(() => {
+    const currentParams = getCurrentParams().reduce((acc, param) => {
+      return { ...acc, [param.key]: param.value };
+    }, {});
+    setFilters(currentParams);
+  }, []);
+
   const handleResetFilter = () => {
     setShowFilter(false);
     resetParams();
@@ -37,29 +46,37 @@ const Filter = () => {
   };
 
   return (
-    <div className=" md:mt-4">
+    <div className="md:mt-4">
       <div className="flex justify-end items-center md:mb-3 gap-4">
         <FilterTags setFilters={setFilters} />
         <Button
-          className=" flex-shrink-0"
+          className="flex-shrink-0"
           type="primary"
           icon={showFilter ? <CiFilter /> : <GiSettingsKnobs />}
           onClick={() => setShowFilter((prev) => !prev)}
         />
       </div>
-      <div
-        className={classNames(
-          "transition-all duration-300 overflow-hidden h-0 opacity-0 ",
-          {
-            " opacity-100 h-auto my-3": showFilter,
-          }
-        )}
+      <Drawer
+        title={
+          <div className="flex justify-between items-center w-full  ">
+            <span className="font-semibold">Product Filters</span>
+            <IoMdClose
+              className="text-xl cursor-pointer"
+              onClick={() => setShowFilter(false)}
+            />
+          </div>
+        }
+        placement="left"
+        onClose={() => setShowFilter(false)}
+        open={showFilter}
+        width={320}
+        closeIcon={null}
       >
-        <div className=" grid  gap-4 grid-cols-autoFit-150">
+        <div className="flex flex-col gap-4">
           <Select
             placeholder="Type"
-            dropdownStyle={{ minWidth: "150px" }}
-            value={filters.status || getParams("status")}
+            style={{ width: "100%" }}
+            value={filters.status}
             allowClear
             onChange={(value) => {
               setFilters({ ...filters, status: value });
@@ -74,33 +91,33 @@ const Filter = () => {
           <InputNumber
             className="!w-full"
             placeholder="min price"
-            value={filters.minPrice || getParams("minPrice")}
+            value={filters.minPrice}
             onChange={(value) => {
               setFilters({ ...filters, minPrice: value?.toString() });
             }}
           />
           <InputNumber
             className="!w-full"
-            value={filters.maxPrice || getParams("maxPrice")}
+            value={filters.maxPrice}
             placeholder="max price"
             onChange={(value) => {
               setFilters({ ...filters, maxPrice: value?.toString() });
             }}
           />
           <CategoriesSelector
-            value={filters.category || getParams("category")}
+            value={filters.category}
             onChange={(value: any) => {
               setFilters({ ...filters, category: value });
             }}
           />
           <Select
             placeholder="Sort By"
+            style={{ width: "100%" }}
             allowClear
-            value={filters.sort || getParams("sort")}
+            value={filters.sort}
             onChange={(value) => {
               setFilters({ ...filters, sort: value });
             }}
-            dropdownStyle={{ minWidth: "150px" }}
             options={[
               { label: "Price (low to high)", value: "price" },
               { label: "Price (high to low)", value: "-price" },
@@ -108,20 +125,20 @@ const Filter = () => {
               { label: "Oldest", value: "createdAt" },
             ]}
           />
+          <div className="flex  flex-col gap-2  mt-4">
+            <Button
+              icon={<CiFilter />}
+              type="primary"
+              onClick={handleFilterChange}
+            >
+              Apply Filter
+            </Button>
+            <Button icon={<GrPowerReset />} onClick={handleResetFilter}>
+              Reset Filter
+            </Button>
+          </div>
         </div>
-        <div className="mt-4 flex items-center gap-2 justify-center md:justify-end w-full">
-          <Button icon={<GrPowerReset />} onClick={handleResetFilter}>
-            Reset Filter
-          </Button>
-          <Button
-            icon={<CiFilter />}
-            type="primary"
-            onClick={handleFilterChange}
-          >
-            Apply Filter
-          </Button>
-        </div>
-      </div>
+      </Drawer>
     </div>
   );
 };
@@ -154,7 +171,7 @@ const FilterTags = ({
           <span className=" capitalize mr-1">{param.key}:</span>
           <span className="capitalize text-blue-600 font-semibold">
             {param.key === "category"
-              ? categories.find((cat) => cat.id === param.value)?.name
+              ? categories.find((cat) => cat.id === param.value)?.name || "..."
               : param.value}
           </span>
         </Tag>

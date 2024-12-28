@@ -90,3 +90,15 @@ export const useRemoveCoupon = () => {
     isPending,
   };
 };
+
+// subscribe
+
+export const useSubscribe = () => {
+  const { mutate: subscribe, isPending } = useMutation(
+    `/email-subscriptions/subscribe`
+  );
+  return {
+    subscribe,
+    isPending,
+  };
+};

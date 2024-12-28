@@ -6,6 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { SiFacebook, SiInstagram, SiLinkedin, SiGithub } from "react-icons/si";
 import { memo } from "react";
 import { useTranslations } from "next-intl";
+import Newsletter from "./newsletter";
 
 const Footer = () => {
   const t = useTranslations("Footer");
@@ -14,30 +15,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-50 text-gray-600 mt-24">
       {/* Newsletter Section */}
-      <div className="bg-primary/5 py-12">
-        <Container>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-                {t("subscribeNewsletter")}
-              </h3>
-              <p className="text-gray-500">{t("newsletterDescription")}</p>
-            </div>
-            <div className="w-full md:w-1/3">
-              <div className="relative">
-                <input
-                  type="email"
-                  placeholder={t("enterEmail")}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-primary text-white rounded-md text-sm hover:bg-primary/90 transition-colors">
-                  {t("subscribe")}
-                </button>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div>
+      <Newsletter />
 
       {/* Main Footer */}
       <Container className="py-16">

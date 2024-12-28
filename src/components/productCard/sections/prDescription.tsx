@@ -18,34 +18,52 @@ const PrDescription = ({
   const t = useTranslations("Product");
 
   return (
-    <div className="px-3 space-y-1 mt-2">
-      <div className="flex justify-between flex-col md:flex-row">
-        <span className="font-medium  text-lg  md:text-xl  truncate">
-          {t("title", { title })}
-        </span>
+    <div className="p-3 space-y-2">
+      {/* Title */}
+      <h3 className="font-medium text-gray-900 text-sm leading-tight line-clamp-2 hover:text-primary transition-colors duration-200">
+        {t("title", { title })}
+      </h3>
+
+      {/* Price Section - More compact and responsive */}
+      <div className="flex items-center flex-wrap gap-1.5">
         <DisplayPrice
           afterPrice={price}
           beforePrice={price + 50}
-          afterPriceClassName="text-xl md:text-2xl"
-          beforePriceClassName="!text-md md:!text-lg"
+          afterPriceClassName="text-base font-semibold text-primary"
+          beforePriceClassName="text-xs text-gray-400 line-through"
         />
+        <div className="inline-block px-1.5 py-0.5 bg-green-50 rounded-full">
+          <span className="text-[10px] font-medium text-green-600 whitespace-nowrap">
+            <SavingPercentage
+              small
+              beforePrice={price + 50}
+              afterPrice={price}
+            />
+          </span>
+        </div>
       </div>
-      <Rate
-        defaultValue={ratingsAverage}
-        disabled
-        className="!text-sm"
-        tooltips={[
-          t("terrible"),
-          t("bad"),
-          t("normal"),
-          t("good"),
-          t("wonderful"),
-        ]}
-      />
-      <p className="text-gray-500 text-sm line-clamp-2 truncate">
+
+      {/* Rating */}
+      <div className="flex items-center gap-1.5">
+        <Rate
+          defaultValue={ratingsAverage}
+          disabled
+          className="!text-xs"
+          tooltips={[
+            t("terrible"),
+            t("bad"),
+            t("normal"),
+            t("good"),
+            t("wonderful"),
+          ]}
+        />
+        <span className="text-xs text-gray-500">({ratingsAverage})</span>
+      </div>
+
+      {/* Description - Optional, can be removed if too crowded */}
+      <p className="text-xs text-gray-600 line-clamp-1 h-4">
         {t("description", { description })}
       </p>
-      <SavingPercentage beforePrice={price + 50} afterPrice={price} />
     </div>
   );
 };

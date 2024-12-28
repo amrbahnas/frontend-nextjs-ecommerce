@@ -23,33 +23,57 @@ const ProductCard = ({ product }: { product: Product }) => {
   } = product;
   return (
     <ProductStatusBadge status={status}>
-      <div className=" flex flex-col gap-4  bg-gray-100   hover:shadow-lg  relative min-w-100">
-        <Link href={"/product/" + id} key={id}>
-          <PrImage imageCover={imageCover} />
-          <PrDescription
-            title={title}
-            price={price}
-            ratingsAverage={ratingsAverage}
-            description={description}
-          />
-        </Link>
-        <Divider className="!my-0" />
-        <div className="flex items-center px-3 pb-3 gap-1  justify-between ">
-          <PrAddToCart
-            product={product}
-            availableSizes={availableSizes}
-            colors={colors}
-            quantity={quantity}
-          />
-          <WishlistButton productId={id} />
+      <div className="group bg-white rounded-lg border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        {/* Image Section - Made larger */}
+        <div className="relative h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden">
+          <Link href={"/product/" + id} key={id} className="block h-full">
+            <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-500">
+              <PrImage imageCover={imageCover} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </Link>
+
+          {/* Status Badge */}
+          <div className="absolute top-3 left-3">
+            <CardBadge productId={id} />
+          </div>
+
+          {/* Stock Status */}
+          {quantity <= 0 && (
+            <div className="absolute bottom-3 right-3 bg-red-500/90 text-white text-xs px-2 py-1 rounded-full">
+              Out of Stock
+            </div>
+          )}
         </div>
 
-        {/* left badges */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2 ">
-          <CardBadge productId={id} />
+        {/* Compact Info Section */}
+        <div className="flex flex-col">
+          <Link href={"/product/" + id} key={id} className="block">
+            <PrDescription
+              title={title}
+              price={price}
+              ratingsAverage={ratingsAverage}
+              description={description}
+            />
+          </Link>
+
+          {/* Action Bar - Horizontal layout */}
+          <div className="px-3 pb-3">
+            <div className="flex items-center gap-2">
+              <div className="flex-grow min-w-0">
+                <PrAddToCart
+                  product={product}
+                  availableSizes={availableSizes}
+                  colors={colors}
+                  quantity={quantity}
+                />
+              </div>
+              <div className="flex-shrink-0">
+                <WishlistButton productId={id} className="!p-1 " />
+              </div>
+            </div>
+          </div>
         </div>
-        {/* Right Badges */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2 "></div>
       </div>
     </ProductStatusBadge>
   );

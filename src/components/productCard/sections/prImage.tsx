@@ -3,13 +3,13 @@ import React from "react";
 
 const PrImage = ({ imageCover }: { imageCover: string }) => {
   return (
-    <div className="relative w-full h-40 md:h-60 overflow-hidden ">
+    <div className="relative w-full h-full">
       <NextImage
         src={imageCover || "/product.png"}
         alt=""
         fill
         sizes="25vw"
-        className=" object-contain rounded-lg "
+        className="object-cover rounded-lg "
         priority // for avoid Largest Contentful Paint (LCP) issue
       />
     </div>

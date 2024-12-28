@@ -32,7 +32,7 @@ const PrAddToCart = ({
             size: availableSizes[0],
           }}
           buttonStyle={{
-            buttonClassName: " !w-26",
+            buttonClassName: " !w-full md:!w-26 !text-xs md:!text-sm ",
           }}
         />
       )}

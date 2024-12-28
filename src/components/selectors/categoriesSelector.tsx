@@ -8,7 +8,7 @@ const CategoriesSelector = ({
   ...props
 }: {
   value?: string | null;
-  onChange?: (value: string | null) => void;
+  onChange?: (value: string | null, option: any) => void;
   [key: string]: any;
 }) => {
   const { categories, isLoading } = useGetCategories();

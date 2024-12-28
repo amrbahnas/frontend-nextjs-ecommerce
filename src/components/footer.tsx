@@ -53,7 +53,7 @@ const Footer = () => {
                 href="https://www.facebook.com/amr.bahnas.75"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl text-blue-600 hover:text-primary/80 transition-colors"
+                className="text-2xl    hover:text-blue-500 transition-colors"
               >
                 <SiFacebook />
               </a>
@@ -61,7 +61,7 @@ const Footer = () => {
                 href="https://www.instagram.com/amr_elbahnsawy/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl text-pink-600 hover:text-pink-500 transition-colors"
+                className="text-2xl   hover:text-pink-500 transition-colors"
               >
                 <SiInstagram />
               </a>
@@ -69,7 +69,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/amr-elbahnsawy/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl text-blue-600 hover:text-blue-500 transition-colors"
+                className="text-2xl   hover:text-blue-500 transition-colors"
               >
                 <SiLinkedin />
               </a>
@@ -77,7 +77,7 @@ const Footer = () => {
                 href="https://github.com/amrbahnas"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl text-gray-600 hover:text-gray-500 transition-colors"
+                className="text-2xl   hover:text-gray-500 transition-colors"
               >
                 <SiGithub />
               </a>

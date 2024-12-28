@@ -7,11 +7,12 @@ import { CiFilter } from "react-icons/ci";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { GrPowerReset } from "react-icons/gr";
 import classNames from "classnames";
+import { useGetCategories } from "../../_api/query";
 type FilterProps = {
   status?: string;
   minPrice?: string;
   maxPrice?: string;
-  cat?: string;
+  category?: string;
   sort?: string;
 };
 
@@ -87,9 +88,9 @@ const Filter = () => {
             }}
           />
           <CategoriesSelector
-            value={filters.cat || getParams("cat")}
-            onChange={(value) => {
-              setFilters({ ...filters, cat: value });
+            value={filters.category || getParams("category")}
+            onChange={(value: any) => {
+              setFilters({ ...filters, category: value });
             }}
           />
           <Select
@@ -134,6 +135,7 @@ const FilterTags = ({
 }) => {
   const { getCurrentParams, removeParams, resetParams } =
     useParamsService("okay I will");
+  const { categories } = useGetCategories();
   const params = getCurrentParams();
 
   if (params.length === 0) return null;
@@ -149,8 +151,12 @@ const FilterTags = ({
             removeParams(param.key);
           }}
         >
-          <span className=" capitalize">{param.key}:</span>
-          {param.value}
+          <span className=" capitalize mr-1">{param.key}:</span>
+          <span className="capitalize text-blue-600 font-semibold">
+            {param.key === "category"
+              ? categories.find((cat) => cat.id === param.value)?.name
+              : param.value}
+          </span>
         </Tag>
       ))}
       {params.length > 0 && (

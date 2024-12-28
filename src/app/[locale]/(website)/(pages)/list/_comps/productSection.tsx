@@ -7,7 +7,7 @@ const ProductSection = () => {
   const searchParams = useSearchParams();
   const { isLoading, products } = useGetProducts({
     search: searchParams.get("search") || "",
-    category: searchParams.get("cat") || "",
+    category: searchParams.get("category") || "",
     sort: searchParams.get("sort") || "",
     "price[gte]": searchParams.get("minPrice") || "",
     "price[lte]": searchParams.get("maxPrice") || "",

@@ -18,10 +18,10 @@ export const useGetSpecificProduct = (id: any) => {
   };
 };
 
-export const useGetProductReviews = (id: string) => {
+export const useGetProductReviews = (id: string, skip?: boolean) => {
   const { data, error, refetch, isError, isLoading, pagination } =
     usePagination<ReviewType[]>(`/products/${id}/reviews`, {
-      skip: !id,
+      skip: !id || skip,
       params: {
         sort: "-createdAt",
       },

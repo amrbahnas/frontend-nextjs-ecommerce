@@ -25,6 +25,7 @@ export default function AntDLayout({
               // borderRadiusSM: 24,
               controlOutline: "",
               primaryShadow: "none",
+              algorithm: true,
             },
             Table: {
               // headerBg: "rgba(169, 105, 0, 0.25)",
@@ -54,6 +55,7 @@ export default function AntDLayout({
             },
             Input: {
               activeShadow: "none",
+              algorithm: true,
             },
             Badge: {
               colorBgContainer: "#fff",

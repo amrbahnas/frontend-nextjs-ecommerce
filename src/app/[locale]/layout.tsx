@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
 import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
+import ChatPopup from "@/components/chat/ChatPopup";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -160,6 +161,7 @@ export default async function LocaleLayout({
               <ProgressBarLayout>
                 <DayjsConfig />
                 <OnlineStatus>{children}</OnlineStatus>
+                <ChatPopup />
               </ProgressBarLayout>
             </AntDLayout>
           </ReactQueryLayout>

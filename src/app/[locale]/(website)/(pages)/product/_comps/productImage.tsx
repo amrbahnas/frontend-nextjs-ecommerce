@@ -64,7 +64,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
                 style={{
                   position: "absolute",
                   left: `calc(100% + 20px)`,
-                  top: "50%",
+                  top: 20,
                   width: "400px",
                   height: "400px",
                   border: "1px solid #ddd",

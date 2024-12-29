@@ -1,5 +1,6 @@
 import ProductList from "@/components/productList";
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import { useGetProductStats } from "./_api/query";
 
 type Props = {
@@ -16,17 +17,28 @@ const titleMap = {
 };
 
 const ProductStatsList = ({ type, displayType }: Props) => {
-  const { isLoading, productStats } = useGetProductStats(type);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+    rootMargin: '50px'
+  });
+  
+  const { isLoading, productStats } = useGetProductStats(type, !inView);
+  
   if (!productStats?.length && !isLoading) return null;
 
   return (
-    <div>
-      <h1 className="text-2xl  ">{titleMap[type]}</h1>
-      <ProductList
-        products={productStats}
-        isLoading={isLoading}
-        displayType={displayType}
-      />
+    <div ref={ref}>
+      {inView && (
+        <>
+          <h1 className="text-2xl font-medium mb-4 ">{titleMap[type]}</h1>
+          <ProductList
+            products={productStats}
+            isLoading={isLoading}
+            displayType={displayType}
+          />
+        </>
+      )}
     </div>
   );
 };

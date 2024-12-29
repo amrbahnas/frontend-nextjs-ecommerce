@@ -121,7 +121,7 @@ export const ProfileIcon = () => {
             <p className="text-sm font-medium text-gray-700 group-hover:text-primary transition-colors">
               {user?.name}
             </p>
-            <p className="text-xs text-gray-500 truncate max-w-[100px]">
+            <p className="text-xs text-gray-500 truncate max-w-[150px]">
               {user?.email}
             </p>
           </div>

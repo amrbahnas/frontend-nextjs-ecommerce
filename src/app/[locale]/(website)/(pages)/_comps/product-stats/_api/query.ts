@@ -7,9 +7,10 @@
 
 import usePagination from "@/hooks/apiHandler/usePagination";
 
-export const useGetProductStats = (type: string) => {
+export const useGetProductStats = (type: string, skip?: boolean) => {
   const { data, isLoading } = usePagination<Product[]>(
-    `/product-stats/${type}`
+    `/product-stats/${type}`,
+    { skip }
   );
   return { productStats: data, isLoading };
 };

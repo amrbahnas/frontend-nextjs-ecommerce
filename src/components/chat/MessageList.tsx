@@ -1,12 +1,28 @@
-import { List } from 'antd';
-import { Message } from './types';
-import { MessageItem } from './MessageItem';
+import { List } from "antd";
+import { Message } from "./types";
+import { MessageItem } from "./MessageItem";
+import { useState } from "react";
+import { useGetMessages } from "./_api/query";
+import useUserStore from "@/store/useUserStore";
 
 interface MessageListProps {
-  messages: Message[];
+  selectedConversation: ConversationType | null;
 }
 
-export const MessageList = ({ messages }: MessageListProps) => {
+export const MessageList = ({ selectedConversation }: MessageListProps) => {
+  const { messages } = useGetMessages(selectedConversation?.user.id);
+  const user = useUserStore((state) => state.user);
+  console.log("🚀 ~ file: MessageList.tsx:13 ~ messages:", messages);
+  // const [messages, setMessages] = useState<Message[]>([
+  //   {
+  //     id: "1",
+  //     type: "text",
+  //     content: "Hello! How can I help you today?",
+  //     isAdmin: true,
+  //     timestamp: new Date().toLocaleTimeString(),
+  //   },
+  // ]);
+
   return (
     <List
       className="chat-messages"
@@ -16,12 +32,17 @@ export const MessageList = ({ messages }: MessageListProps) => {
         <List.Item
           key={message.id}
           style={{
-            justifyContent: message.isAdmin ? "flex-start" : "flex-end",
+            justifyContent:
+              message.senderId === user?.id ? "flex-end" : "flex-start",
             border: "none",
             padding: "8px 0",
           }}
         >
-          <MessageItem message={message} />
+          <MessageItem
+            message={message}
+            fromMe={message.senderId === user?.id}
+            receiverProfileImg={selectedConversation?.user.profileImg}
+          />
         </List.Item>
       )}
       style={{

@@ -1,32 +1,36 @@
 import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Conversation } from "./ConversationTypes";
+import useAuthStore from "@/store/useAuthStore";
 
 interface ConversationHeaderProps {
-  conversation: Conversation;
+  conversation: ConversationType | null;
 }
 
 export const ConversationHeader = ({
   conversation,
 }: ConversationHeaderProps) => {
+  const isAdmin = useAuthStore((state) => state.isAdmin);
+
+  if (!isAdmin) return null;
+
   return (
     <div
       style={{
-        padding: "15.5px 16px",
         borderBottom: "1px solid #f0f0f0",
         display: "flex",
         alignItems: "center",
         gap: "12px",
         backgroundColor: "#fff",
       }}
+      className="pb-2 px-2"
     >
       <div style={{ position: "relative" }}>
         <Avatar
-          src={conversation.userImage}
-          icon={!conversation.userImage && <UserOutlined />}
+          src={conversation?.user.profileImg}
+          icon={!conversation?.user.profileImg && <UserOutlined />}
           size="large"
         />
-        {conversation.isOnline && (
+        {/* {conversation.isOnline && (
           <Badge
             status="success"
             style={{
@@ -35,18 +39,18 @@ export const ConversationHeader = ({
               right: 2,
             }}
           />
-        )}
+        )} */}
       </div>
       <div>
-        <div style={{ fontWeight: 500 }}>{conversation.userName}</div>
-        <div
+        <div style={{ fontWeight: 500 }}>{conversation?.user.name}</div>
+        {/* <div
           style={{
             fontSize: "12px",
             color: conversation.isOnline ? "#52c41a" : "#999",
           }}
         >
           {conversation.isOnline ? "Online" : "Offline"}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -226,3 +226,31 @@ type UserReportType = User & {
     };
   };
 };
+
+type ConversationType = {
+  id?: string;
+  user: User | any;
+  lastMessage?: {
+    id: string;
+    content: string;
+    imageUrl: string;
+    senderId: string;
+    receiverId: string;
+    createdAt: string;
+    isRead: boolean;
+  };
+
+  unreadCount?: number;
+  updatedAt?: string;
+};
+
+type MessageType = {
+  id: string;
+  content: string;
+  imageUrl: string;
+  senderId: string;
+  receiverId: string;
+  createdAt: string;
+  isRead: boolean;
+  type: string;
+};

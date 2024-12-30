@@ -1,48 +1,55 @@
-import { List, Avatar, Badge } from "antd";
+import useAuthStore from "@/store/useAuthStore";
 import { UserOutlined } from "@ant-design/icons";
-import { Conversation } from "./ConversationTypes";
+import { Avatar, Badge, List } from "antd";
+import { useGetAllConversations } from "./_api/query";
+import dayjs from "dayjs";
 
 interface ConversationsProps {
-  conversations: Conversation[];
-  onSelectConversation: (conversation: Conversation) => void;
+  onSelectConversation: (conversation: ConversationType) => void;
   selectedId?: string;
 }
 
 export const Conversations = ({
-  conversations,
   onSelectConversation,
   selectedId,
 }: ConversationsProps) => {
+  const isAdmin = useAuthStore((state) => state.isAdmin);
+  const { conversations } = useGetAllConversations({
+    skip: !isAdmin,
+  });
+
+  if (!isAdmin) return null;
   return (
-    <List
-      className="conversations-list"
-      itemLayout="horizontal"
-      dataSource={conversations}
-      renderItem={(conversation) => (
-        <List.Item
-          key={conversation.id}
-          onClick={() => onSelectConversation(conversation)}
-          style={{
-            padding: "12px 16px",
-            cursor: "pointer",
-            backgroundColor:
-              selectedId === conversation.id
-                ? "rgba(0, 0, 0, 0.02)"
-                : "transparent",
-            transition: "background-color 0.3s",
-            borderBottom: "1px solid #f0f0f0",
-          }}
-          className="hover:!bg-[rgba(0,0,0,0.04)]"
-        >
-          <List.Item.Meta
-            avatar={
-              <div style={{ position: "relative" }}>
-                <Avatar
-                  src={conversation.userImage}
-                  icon={!conversation.userImage && <UserOutlined />}
-                  size="large"
-                />
-                {conversation.isOnline && (
+    <div style={{ width: "300px" }}>
+      <List
+        className="conversations-list"
+        itemLayout="horizontal"
+        dataSource={conversations}
+        renderItem={(conversation) => (
+          <List.Item
+            key={conversation.id}
+            onClick={() => onSelectConversation(conversation)}
+            style={{
+              padding: "12px 16px",
+              cursor: "pointer",
+              backgroundColor:
+                selectedId === conversation.id
+                  ? "rgba(0, 0, 0, 0.02)"
+                  : "transparent",
+              transition: "background-color 0.3s",
+              borderBottom: "1px solid #f0f0f0",
+            }}
+            className="hover:!bg-[rgba(0,0,0,0.04)]"
+          >
+            <List.Item.Meta
+              avatar={
+                <div style={{ position: "relative" }}>
+                  <Avatar
+                    src={conversation.user.profileImg}
+                    icon={!conversation.user.profileImg && <UserOutlined />}
+                    size="large"
+                  />
+                  {/* {conversation.isOnline && (
                   <Badge
                     status="success"
                     style={{
@@ -51,49 +58,54 @@ export const Conversations = ({
                       right: 2,
                     }}
                   />
-                )}
-              </div>
-            }
-            title={
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>{conversation.userName}</span>
-                <span style={{ fontSize: "12px", color: "#999" }}>
-                  {conversation.timestamp}
-                </span>
-              </div>
-            }
-            description={
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span
-                  style={{
-                    color: "#666",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    maxWidth: "70%",
-                  }}
+                )} */}
+                </div>
+              }
+              title={
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  {conversation.lastMessage}
-                </span>
-                {conversation.unreadCount ? (
-                  <Badge
-                    count={conversation.unreadCount}
+                  <span>{conversation.user.name}</span>
+                  <span style={{ fontSize: "12px", color: "#999" }}>
+                    {dayjs(conversation.lastMessage?.createdAt).format("hh:mm")}
+                  </span>
+                </div>
+              }
+              description={
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span
                     style={{
-                      backgroundColor: "#1890ff",
-                      marginLeft: "8px",
+                      color: "#666",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      maxWidth: "70%",
                     }}
-                  />
-                ) : null}
-              </div>
-            }
-          />
-        </List.Item>
-      )}
-      style={{
-        height: "100%",
-        overflowY: "auto",
-        borderRight: "1px solid #f0f0f0",
-      }}
-    />
+                  >
+                    {conversation.lastMessage?.content}
+                  </span>
+                  {conversation.unreadCount ? (
+                    <Badge
+                      count={conversation.unreadCount}
+                      style={{
+                        backgroundColor: "#1890ff",
+                        marginLeft: "8px",
+                      }}
+                    />
+                  ) : null}
+                </div>
+              }
+            />
+          </List.Item>
+        )}
+        style={{
+          height: "100%",
+          overflowY: "auto",
+          borderRight: "1px solid #f0f0f0",
+        }}
+      />
+    </div>
   );
 };

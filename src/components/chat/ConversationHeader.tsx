@@ -1,6 +1,7 @@
 import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import useAuthStore from "@/store/useAuthStore";
+import { useSocketContext } from "@/context/socketContext";
 
 interface ConversationHeaderProps {
   conversation: ConversationType | null;
@@ -9,7 +10,10 @@ interface ConversationHeaderProps {
 export const ConversationHeader = ({
   conversation,
 }: ConversationHeaderProps) => {
+  const { onlineUsers } = useSocketContext();
+
   const isAdmin = useAuthStore((state) => state.isAdmin);
+  const isOnline = onlineUsers.includes(conversation?.user.id);
 
   if (!isAdmin) return null;
 
@@ -30,7 +34,7 @@ export const ConversationHeader = ({
           icon={!conversation?.user.profileImg && <UserOutlined />}
           size="large"
         />
-        {/* {conversation.isOnline && (
+        {isOnline && (
           <Badge
             status="success"
             style={{
@@ -39,18 +43,18 @@ export const ConversationHeader = ({
               right: 2,
             }}
           />
-        )} */}
+        )}
       </div>
       <div>
         <div style={{ fontWeight: 500 }}>{conversation?.user.name}</div>
-        {/* <div
+        <div
           style={{
             fontSize: "12px",
-            color: conversation.isOnline ? "#52c41a" : "#999",
+            color: isOnline ? "#52c41a" : "#999",
           }}
         >
-          {conversation.isOnline ? "Online" : "Offline"}
-        </div> */}
+          {isOnline ? "Online" : "Offline"}
+        </div>
       </div>
     </div>
   );

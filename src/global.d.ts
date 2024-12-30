@@ -247,10 +247,10 @@ type ConversationType = {
 type MessageType = {
   id: string;
   content: string;
-  imageUrl: string;
+  imageUrl?: string;
   senderId: string;
   receiverId: string;
-  createdAt: string;
+  createdAt: Date;
   isRead: boolean;
   type: string;
 };

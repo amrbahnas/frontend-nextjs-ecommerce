@@ -9,15 +9,11 @@ import { adminConversation } from "./adminConversation";
 import { Conversations } from "./Conversations";
 import useAuthStore from "@/store/useAuthStore";
 
-const ChatPopup = () => {
+const Chat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const [selectedConversation, setSelectedConversation] =
     useState<ConversationType | null>(null);
-  console.log(
-    "🚀 ~ file: index.tsx:16 ~ selectedConversation:",
-    selectedConversation
-  );
 
   useEffect(() => {
     if (isAdmin === false) {
@@ -114,4 +110,4 @@ const ChatPopup = () => {
   );
 };
 
-export default ChatPopup;
+export default Chat;

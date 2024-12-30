@@ -3,6 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Badge, List } from "antd";
 import { useGetAllConversations } from "./_api/query";
 import dayjs from "dayjs";
+import { useSocketContext } from "@/context/socketContext";
 
 interface ConversationsProps {
   onSelectConversation: (conversation: ConversationType) => void;
@@ -13,6 +14,7 @@ export const Conversations = ({
   onSelectConversation,
   selectedId,
 }: ConversationsProps) => {
+  const { onlineUsers } = useSocketContext();
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const { conversations } = useGetAllConversations({
     skip: !isAdmin,
@@ -49,16 +51,18 @@ export const Conversations = ({
                     icon={!conversation.user.profileImg && <UserOutlined />}
                     size="large"
                   />
-                  {/* {conversation.isOnline && (
-                  <Badge
-                    status="success"
-                    style={{
-                      position: "absolute",
-                      bottom: 2,
-                      right: 2,
-                    }}
-                  />
-                )} */}
+                  {onlineUsers.includes(conversation.user.id) && (
+                    <Badge
+                      status="success"
+                      className="absolute bottom-2 right-2 "
+                      styles={{
+                        indicator: {
+                          width: "8px",
+                          height: "8px",
+                        },
+                      }}
+                    />
+                  )}
                 </div>
               }
               title={

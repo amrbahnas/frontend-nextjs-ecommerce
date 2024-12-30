@@ -12,6 +12,7 @@ import "./globals.css";
 import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
 import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
 import Chat from "@/components/chat";
+import ChatLayout from "@/components/layout/chatLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -161,7 +162,7 @@ export default async function LocaleLayout({
               <ProgressBarLayout>
                 <DayjsConfig />
                 <OnlineStatus>{children}</OnlineStatus>
-                <Chat />
+                <ChatLayout />
               </ProgressBarLayout>
             </AntDLayout>
           </ReactQueryLayout>

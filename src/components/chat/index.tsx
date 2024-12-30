@@ -14,12 +14,19 @@ const ChatPopup = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const [selectedConversation, setSelectedConversation] =
     useState<ConversationType | null>(null);
+  console.log(
+    "🚀 ~ file: index.tsx:16 ~ selectedConversation:",
+    selectedConversation
+  );
 
   useEffect(() => {
-    if (!isAdmin) {
+    if (isAdmin === false) {
       setSelectedConversation(adminConversation);
+    } else {
+      setSelectedConversation(null);
     }
-  }, []);
+  }, [isAdmin]);
+
   return (
     <div>
       <Button
@@ -81,7 +88,7 @@ const ChatPopup = () => {
             className="w-[350px]"
             style={{ flex: 1, display: "flex", flexDirection: "column" }}
           >
-            {selectedConversation || !isAdmin ? (
+            {selectedConversation ? (
               <>
                 <ConversationHeader conversation={selectedConversation} />
                 <MessageList selectedConversation={selectedConversation} />

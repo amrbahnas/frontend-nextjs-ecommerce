@@ -26,12 +26,7 @@ export const MessageItem = ({
         width: "100%",
       }}
     >
-      <Avatar
-        src={fromMe ? user?.profileImg : receiverProfileImg}
-        style={{
-          backgroundColor: !fromMe ? "#1890ff" : "#f56a00",
-        }}
-      />
+      <Avatar src={fromMe ? user?.profileImg : receiverProfileImg} />
       <div
         style={{
           display: "flex",
@@ -74,7 +69,7 @@ export const MessageItem = ({
             marginTop: "4px",
           }}
         >
-          {dayjs(message.createdAt).format("DD/MM/YYYY HH:mm")}
+          {dayjs(message.createdAt).format("HH:mm")}
         </span>
       </div>
     </div>

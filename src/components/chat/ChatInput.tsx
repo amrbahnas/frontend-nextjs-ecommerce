@@ -1,25 +1,26 @@
-import { Input, Button } from "antd";
-import { SendOutlined, PictureOutlined } from "@ant-design/icons";
+import { PictureOutlined, SendOutlined } from "@ant-design/icons";
+import { Button, Form, Input } from "antd";
 import { useRef, useState } from "react";
-
-import { ImagePreviewModal } from "./ImagePreviewModal";
-import { useSendChatMessage } from "./_api/actions";
-import toast from "react-hot-toast";
 import { useSocketContext } from "@/context/socketContext";
+import { ImagePreviewModal } from "./ImagePreviewModal";
+
+interface ChatFormValues {
+  message: string;
+}
 
 export const ChatInput = ({
   selectedConversation,
 }: {
   selectedConversation: ConversationType | null;
 }) => {
-  // const { sendMessage, isPending } = useSendChatMessage();
+  const [form] = Form.useForm<ChatFormValues>();
   const [isPending, setIsPending] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { socket } = useSocketContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -41,13 +42,10 @@ export const ChatInput = ({
     };
     try {
       setIsPending(true);
-      socket?.emit(
-        "sendMessage",
-        payload
-        // (mesage)=>{} // callback function to get the response, not required since  backend emit "newMessage" event for both sender and receiver
-      );
-      setNewMessage("");
+      socket?.emit("sendMessage", payload);
+      form.resetFields();
       setImagePreview(null);
+      setImageFile(null);
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
@@ -55,8 +53,16 @@ export const ChatInput = ({
     }
   };
 
+  const onFinish = (values: ChatFormValues) => {
+    if (values.message.trim()) {
+      handleSendMessage("text", values.message);
+    }
+  };
+
   return (
-    <div
+    <Form
+      form={form}
+      onFinish={onFinish}
       style={{
         padding: "10px",
         display: "flex",
@@ -76,20 +82,25 @@ export const ChatInput = ({
         icon={<PictureOutlined />}
         onClick={() => fileInputRef.current?.click()}
         size="large"
+        loading={isPending}
       />
-      <Input
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        onPressEnter={() => handleSendMessage("text", newMessage)}
-        placeholder="Type your message..."
-        style={{ borderRadius: "20px" }}
-        size="large"
-      />
+      <Form.Item
+        name="message"
+        style={{ flex: 1, margin: 0 }}
+        rules={[{ required: true, message: "" }]}
+      >
+        <Input
+          placeholder="Type your message..."
+          style={{ borderRadius: "20px" }}
+          size="large"
+          disabled={isPending}
+        />
+      </Form.Item>
       <Button
         type="primary"
         shape="circle"
         icon={<SendOutlined />}
-        onClick={() => handleSendMessage("text", newMessage)}
+        htmlType="submit"
         size="large"
         loading={isPending}
       />
@@ -102,6 +113,6 @@ export const ChatInput = ({
           }
         }}
       />
-    </div>
+    </Form>
   );
 };

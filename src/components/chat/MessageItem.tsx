@@ -16,6 +16,9 @@ export const MessageItem = ({
   receiverProfileImg,
 }: MessageItemProps) => {
   const user = useUserStore((state) => state.user);
+  const messageBgColor =
+    message.type === "text" ? (fromMe ? "#1890ff" : "#f0f0f0") : "transparent";
+  const messageColor = fromMe ? "white" : "black";
   return (
     <div
       style={{
@@ -39,9 +42,10 @@ export const MessageItem = ({
           style={{
             padding: message.type === "text" ? "8px 12px" : "4px",
             borderRadius: "12px",
-            backgroundColor: !fromMe ? "#f0f0f0" : "#1890ff",
-            color: !fromMe ? "black" : "white",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            backgroundColor: messageBgColor,
+            color: messageColor,
+            boxShadow:
+              message.type === "text" ? "0 2px 8px rgba(0,0,0,0.1)" : "none",
           }}
         >
           {message.type === "text" ? (

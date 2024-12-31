@@ -4,6 +4,7 @@ import { Avatar, Badge, List } from "antd";
 import { useGetAllConversations } from "./_api/query";
 import dayjs from "dayjs";
 import { useSocketContext } from "@/context/socketContext";
+import { useEffect } from "react";
 
 interface ConversationsProps {
   onSelectConversation: (conversation: ConversationType) => void;
@@ -14,11 +15,25 @@ export const Conversations = ({
   onSelectConversation,
   selectedId,
 }: ConversationsProps) => {
-  const { onlineUsers } = useSocketContext();
+  const { onlineUsers, socket } = useSocketContext();
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const { conversations } = useGetAllConversations({
+  const { conversations, refetch } = useGetAllConversations({
     skip: !isAdmin,
   });
+
+  useEffect(() => {
+    if (socket && isAdmin) {
+      socket?.on("conversationUpdated", (aas) => {
+        console.log("🚀 ~ file: Conversations.tsx:27 ~ aas:", aas);
+        refetch();
+      });
+    }
+    return () => {
+      if (socket) {
+        socket?.off("conversationUpdated");
+      }
+    };
+  }, [socket, refetch]);
 
   if (!isAdmin) return null;
   return (
@@ -47,11 +62,15 @@ export const Conversations = ({
               avatar={
                 <div style={{ position: "relative" }}>
                   <Avatar
-                    src={conversation.user.profileImg}
-                    icon={!conversation.user.profileImg && <UserOutlined />}
+                    src={conversation.participants[0].profileImg}
+                    icon={
+                      !conversation.participants[0].profileImg && (
+                        <UserOutlined />
+                      )
+                    }
                     size="large"
                   />
-                  {onlineUsers.includes(conversation.user.id) && (
+                  {onlineUsers.includes(conversation.participants[0].id) && (
                     <Badge
                       status="success"
                       className="absolute bottom-2 right-2 "
@@ -69,7 +88,7 @@ export const Conversations = ({
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <span>{conversation.user.name}</span>
+                  <span>{conversation.participants[0].name}</span>
                   <span style={{ fontSize: "12px", color: "#999" }}>
                     {dayjs(conversation.lastMessage?.createdAt).format("hh:mm")}
                   </span>

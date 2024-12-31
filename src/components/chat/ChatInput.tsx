@@ -3,6 +3,7 @@ import { Button, Form, Input } from "antd";
 import { useRef, useState } from "react";
 import { useSocketContext } from "@/context/socketContext";
 import { ImagePreviewModal } from "./ImagePreviewModal";
+import toast from "react-hot-toast";
 
 interface ChatFormValues {
   message: string;
@@ -35,21 +36,30 @@ export const ChatInput = ({
   };
 
   const handleSendMessage = async (type: string, content: string | File) => {
+    if (!socket) {
+      toast.error("Socket is not connected");
+      return;
+    }
+
     const payload = {
       content,
       type,
-      receiverId: selectedConversation?.user.id || "",
+      participantsIds: selectedConversation?.participants?.map(
+        (p: User) => p.id
+      ),
     };
+
     try {
       setIsPending(true);
-      socket?.emit("sendMessage", payload);
-      form.resetFields();
-      setImagePreview(null);
-      setImageFile(null);
+      socket.emit("sendMessage", payload, () => {
+        form.resetFields();
+        setImagePreview(null);
+        setImageFile(null);
+        setIsPending(false);
+      });
     } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
       setIsPending(false);
+      toast.error("Failed to send message");
     }
   };
 
@@ -106,6 +116,7 @@ export const ChatInput = ({
       />
       <ImagePreviewModal
         imagePreview={imagePreview}
+        loading={isPending}
         onCancel={() => setImagePreview(null)}
         onSend={() => {
           if (imageFile) {

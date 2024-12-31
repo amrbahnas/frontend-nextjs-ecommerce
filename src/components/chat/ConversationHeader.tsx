@@ -13,7 +13,7 @@ export const ConversationHeader = ({
   const { onlineUsers } = useSocketContext();
 
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const isOnline = onlineUsers.includes(conversation?.user.id);
+  const isOnline = onlineUsers.includes(conversation?.participants[0].id);
 
   if (!isAdmin) return null;
 
@@ -30,8 +30,8 @@ export const ConversationHeader = ({
     >
       <div style={{ position: "relative" }}>
         <Avatar
-          src={conversation?.user.profileImg}
-          icon={!conversation?.user.profileImg && <UserOutlined />}
+          src={conversation?.participants[0].profileImg}
+          icon={!conversation?.participants[0].profileImg && <UserOutlined />}
           size="large"
         />
         {isOnline && (
@@ -46,7 +46,9 @@ export const ConversationHeader = ({
         )}
       </div>
       <div>
-        <div style={{ fontWeight: 500 }}>{conversation?.user.name}</div>
+        <div style={{ fontWeight: 500 }}>
+          {conversation?.participants[0].name}
+        </div>
         <div
           style={{
             fontSize: "12px",

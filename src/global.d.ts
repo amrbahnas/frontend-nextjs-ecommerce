@@ -229,7 +229,8 @@ type UserReportType = User & {
 
 type ConversationType = {
   id?: string;
-  user: User | any;
+  participants: User[] | any;
+  creatorId: string;
   lastMessage?: {
     id: string;
     content: string;
@@ -239,17 +240,15 @@ type ConversationType = {
     createdAt: string;
     isRead: boolean;
   };
-
   unreadCount?: number;
+  createdAt?: string;
   updatedAt?: string;
 };
 
 type MessageType = {
   id: string;
   content: string;
-  imageUrl?: string;
   senderId: string;
-  receiverId: string;
   createdAt: Date;
   isRead: boolean;
   type: string;

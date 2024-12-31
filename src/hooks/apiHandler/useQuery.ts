@@ -6,6 +6,7 @@ import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
 import toast from "react-hot-toast";
 import { useResetAppData } from "../global/useResetAppData";
+import { useLogout } from "../global/useLogout";
 
 type UseQueryOptionsType = {
   params?: ParamsType;
@@ -18,7 +19,7 @@ type UseQueryOptionsType = {
 };
 
 function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
-  const logout = useResetAppData();
+  const { logout } = useLogout();
   const isLogin = useAuthStore((state) => state.isLogin);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
   const queryFn = () =>

@@ -12,6 +12,8 @@ import io, { Socket } from "socket.io-client";
 
 interface ISocketContext {
   socket: Socket | null;
+  chatLoading: boolean;
+  setChatLoading: React.Dispatch<React.SetStateAction<boolean>>;
   onlineUsers: string[];
 }
 
@@ -32,6 +34,7 @@ const socketURL = process.env.NEXT_PUBLIC_BASE_URL;
 const SocketContextProvider = ({ children }: { children: ReactNode }) => {
   const socketRef = useRef<Socket | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+  const [chatLoading, setChatLoading] = useState(false);
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {
@@ -44,7 +47,6 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
       socketRef.current = socket;
 
       socket.on("onlineUsers", (users: string[]) => {
-        console.log("🚀 ~ file: socketContext.tsx:47 ~ users:", users);
         setOnlineUsers(users);
       });
       return () => {
@@ -60,7 +62,14 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   return (
-    <SocketContext.Provider value={{ socket: socketRef.current, onlineUsers }}>
+    <SocketContext.Provider
+      value={{
+        socket: socketRef.current,
+        onlineUsers,
+        chatLoading,
+        setChatLoading,
+      }}
+    >
       {children}
     </SocketContext.Provider>
   );

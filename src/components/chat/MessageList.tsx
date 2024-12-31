@@ -11,7 +11,7 @@ interface MessageListProps {
 }
 
 export const MessageList = ({ selectedConversation }: MessageListProps) => {
-  const { messages } = useGetMessages(selectedConversation?.user.id);
+  const { messages, isPending } = useGetMessages(selectedConversation?.id);
   const { socket } = useSocketContext();
   const user = useUserStore((state) => state.user);
   const [Renderedmessages, setMessages] = useState<MessageType[]>([
@@ -20,9 +20,8 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
       type: "text",
       content: "Hello! How can I help you today?",
       createdAt: new Date(),
-      senderId: adminConversation.user.id,
+      senderId: adminConversation.participants[0].id,
       isRead: false,
-      receiverId: selectedConversation?.user.id || "",
     },
   ]);
 
@@ -37,6 +36,7 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
   useEffect(() => {
     if (socket) {
       socket.on("newMessage", (message: MessageType) => {
+        console.log("🚀 ~ file: MessageList.tsx:39 ~ message:", message);
         setMessages((prev) => [...prev, message]);
       });
     }
@@ -55,6 +55,7 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
     <List
       className="chat-messages"
       itemLayout="horizontal"
+      loading={isPending}
       dataSource={Renderedmessages}
       renderItem={(message) => (
         <List.Item
@@ -69,7 +70,9 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
           <MessageItem
             message={message}
             fromMe={message.senderId === user?.id}
-            receiverProfileImg={selectedConversation?.user.profileImg}
+            receiverProfileImg={
+              selectedConversation?.participants[0].profileImg
+            }
           />
         </List.Item>
       )}

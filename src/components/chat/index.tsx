@@ -61,7 +61,7 @@ const Chat = () => {
       </Tooltip>
 
       <Modal
-        title="Chat Support"
+        title={isAdmin ? "Chat Support" : <ConversationHeader />}
         open={isOpen}
         onClose={onCloseChat}
         onCancel={onCloseChat}
@@ -92,7 +92,7 @@ const Chat = () => {
           <Conversations />
           {selectedConversation ? (
             <div className="w-[350px] flex-1 flex flex-col">
-              <ConversationHeader />
+              {isAdmin && <ConversationHeader />}
               <MessageList />
               <ChatInput />
             </div>

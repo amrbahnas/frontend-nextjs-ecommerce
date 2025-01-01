@@ -2,6 +2,12 @@ import { adminConversation } from "@/components/chat/adminConversation";
 import { playNotification } from "@/services/playNotification";
 import useUserStore from "@/store/useUserStore";
 import {
+  requestNotificationPermission,
+  showBrowserNotification,
+  updateTabTitle,
+} from "@/services/notificationService";
+
+import {
   createContext,
   useState,
   useEffect,
@@ -63,6 +69,9 @@ const ChatContextProvider = ({ children }: { children: ReactNode }) => {
       });
       socketRef.current = socket;
 
+      // Request notification permission when component mounts
+      requestNotificationPermission();
+
       socket.on("onlineUsers", (users: string[]) => {
         setOnlineUsers(users);
       });
@@ -71,6 +80,10 @@ const ChatContextProvider = ({ children }: { children: ReactNode }) => {
           playNotification();
           setHasNotification(true);
           setNotificationContent(content);
+          // Show browser notification
+          showBrowserNotification("New Message", content);
+          // Update tab title
+          updateTabTitle(true);
           setTimeout(() => {
             setNotificationContent("");
           }, 3000);
@@ -87,6 +100,13 @@ const ChatContextProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   }, [user, isOpen]);
+
+  // Reset tab title when chat is opened
+  useEffect(() => {
+    if (isOpen) {
+      updateTabTitle(false);
+    }
+  }, [isOpen]);
 
   return (
     <ChatContext.Provider

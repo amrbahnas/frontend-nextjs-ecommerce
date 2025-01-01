@@ -11,8 +11,6 @@ export const ConversationHeader = () => {
     selectedConversation?.participants[0].id
   );
 
-  if (!isAdmin) return null;
-
   return (
     <div
       style={{

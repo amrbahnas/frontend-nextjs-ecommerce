@@ -1,18 +1,20 @@
 import { useChatContext } from "@/context/chatContext";
-import { playNotification } from "@/services/playNotification";
 import useAuthStore from "@/store/useAuthStore";
 import useUserStore from "@/store/useUserStore";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Badge, List } from "antd";
-import dayjs from "dayjs";
+import { List, Spin } from "antd";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaImage } from "react-icons/fa";
+import InfiniteScroll from "react-infinite-scroll-component";
+import ConversationItem from "./conversationItem";
+import { ConversationsSkeleton } from "./ConversationsSkeleton";
 
 export const Conversations = () => {
   const { onlineUsers, socket, selectedConversation, setSelectedConversation } =
     useChatContext();
   const isAdmin = useAuthStore((state) => state.isAdmin);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingConversations, setLoadingConversations] = useState(false);
   const [renderedConversations, setRenderedConversations] = useState<
     ConversationType[]
   >([]);
@@ -20,17 +22,34 @@ export const Conversations = () => {
 
   useEffect(() => {
     if (socket && isAdmin) {
+      setLoadingConversations(true);
       socket.emit(
         "getConversations",
-        {},
-        ({ success, error, conversations }: any) => {
+        { page, pageSize: 10 },
+        ({ success, error, conversations, hasMore }: any) => {
           if (success) {
-            setRenderedConversations(conversations);
+            if (page === 1) {
+              setRenderedConversations(conversations);
+            } else {
+              setRenderedConversations((prev) => [...prev, ...conversations]);
+            }
+            setHasMore(hasMore);
           } else {
             toast.error(error);
           }
+          setLoadingConversations(false);
         }
       );
+    }
+    return () => {
+      if (socket) {
+        socket?.off("getConversations");
+      }
+    };
+  }, [socket, isAdmin, user, page]);
+
+  useEffect(() => {
+    if (socket && isAdmin) {
       socket?.on(
         "updateConversationLastMessage",
         (message: lastMessageType) => {
@@ -45,12 +64,10 @@ export const Conversations = () => {
     }
     return () => {
       if (socket) {
-        socket?.off("newMessage");
-        socket?.off("getConversations");
         socket?.off("updateConversationLastMessage");
       }
     };
-  }, [socket, selectedConversation, isAdmin, user]);
+  }, [socket, selectedConversation, isAdmin]);
 
   const updateLastMessage = (message: lastMessageType) => {
     setRenderedConversations((prev) =>
@@ -84,114 +101,68 @@ export const Conversations = () => {
   };
 
   const handleSelectConversation = (conversation: ConversationType) => {
+    if (conversation?.id === selectedConversation?.id) {
+      setSelectedConversation(null);
+      return;
+    }
     setSelectedConversation(conversation);
-    socket?.emit(
-      "markConversationAsRead",
-      { conversationId: conversation.id },
-      () => {
-        handleResetConversationReadCount(conversation.id);
-      }
-    );
+    if (conversation?.unreadCount! > 0) {
+      socket?.emit(
+        "markConversationAsRead",
+        { conversationId: conversation.id },
+        () => {
+          handleResetConversationReadCount(conversation.id);
+        }
+      );
+    }
   };
 
   if (!isAdmin) return null;
+  if (loadingConversations) return <ConversationsSkeleton />;
+
   return (
-    <div style={{ width: "300px" }}>
-      <List
-        className="conversations-list"
-        itemLayout="horizontal"
-        dataSource={renderedConversations}
-        renderItem={(conversation) => (
-          <List.Item
-            key={conversation.id}
-            onClick={() => handleSelectConversation(conversation)}
-            style={{
-              padding: "12px 16px",
-              cursor: "pointer",
-              backgroundColor:
-                selectedConversation?.id === conversation.id
-                  ? "rgba(0, 0, 0, 0.02)"
-                  : "transparent",
-              transition: "background-color 0.3s",
-              borderBottom: "1px solid #f0f0f0",
-            }}
-            className="hover:!bg-[rgba(0,0,0,0.04)]"
-          >
-            <List.Item.Meta
-              avatar={
-                <div style={{ position: "relative" }}>
-                  <Avatar
-                    src={conversation.participants[0].profileImg}
-                    icon={
-                      !conversation.participants[0].profileImg && (
-                        <UserOutlined />
-                      )
-                    }
-                    size="large"
-                  />
-                  {onlineUsers.includes(conversation.participants[0].id) && (
-                    <Badge
-                      status="success"
-                      className="absolute bottom-2 right-2 "
-                      styles={{
-                        indicator: {
-                          width: "8px",
-                          height: "8px",
-                        },
-                      }}
-                    />
-                  )}
-                </div>
-              }
-              title={
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <span>{conversation.participants[0].name}</span>
-                  <span style={{ fontSize: "12px", color: "#999" }}>
-                    {dayjs(conversation.lastMessage?.createdAt).format("hh:mm")}
-                  </span>
-                </div>
-              }
-              description={
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <span
-                    style={{
-                      color: "#666",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                      maxWidth: "70%",
-                    }}
-                  >
-                    {conversation?.lastMessage?.type === "text" ? (
-                      conversation.lastMessage?.content
-                    ) : (
-                      <FaImage size={24} />
-                    )}
-                  </span>
-                  {conversation.unreadCount ? (
-                    <Badge
-                      count={conversation.unreadCount}
-                      style={{
-                        backgroundColor: "#1890ff",
-                        marginLeft: "8px",
-                      }}
-                    />
-                  ) : null}
-                </div>
-              }
+    <div
+      className="w-[300px] !border-r flex-1 border-gray-200 custom-scrollbar"
+      style={{
+        height: "500px",
+        overflow: "auto",
+      }}
+    >
+      <InfiniteScroll
+        dataLength={renderedConversations.length}
+        next={() => setPage(page + 1)}
+        hasMore={hasMore}
+        loader={
+          <div style={{ textAlign: "center", padding: "10px" }}>
+            <Spin size="small" />
+          </div>
+        }
+        endMessage={
+          page > 1 && (
+            <p className="text-center text-gray-400 mt-2 mb-4">
+              You are all caught up!
+            </p>
+          )
+        }
+      >
+        <List
+          className="conversations-list"
+          itemLayout="horizontal"
+          dataSource={renderedConversations}
+          renderItem={(conversation) => (
+            <ConversationItem
+              conversation={conversation}
+              handleSelectConversation={handleSelectConversation}
+              selectedConversation={selectedConversation}
+              onlineUsers={onlineUsers}
             />
-          </List.Item>
-        )}
-        style={{
-          height: "100%",
-          overflowY: "auto",
-          borderRight: "1px solid #f0f0f0",
-        }}
-      />
+          )}
+          style={{
+            height: "100%",
+            overflowY: "auto",
+          }}
+        />
+      </InfiniteScroll>
     </div>
   );
 };

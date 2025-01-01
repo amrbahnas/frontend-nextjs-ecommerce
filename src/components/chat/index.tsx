@@ -88,7 +88,7 @@ const Chat = () => {
         mask={false}
         // maskClosable={false}
       >
-        <div className="flex  h-[500px]">
+        <div className="flex  h-[500px] mt-2">
           <Conversations />
           {selectedConversation ? (
             <div className="w-[350px] flex-1 flex flex-col">

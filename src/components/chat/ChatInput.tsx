@@ -1,7 +1,7 @@
 import { PictureOutlined, SendOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useRef, useState } from "react";
-import { useSocketContext } from "@/context/socketContext";
+import { useChatContext } from "@/context/chatContext";
 import { ImagePreviewModal } from "./ImagePreviewModal";
 import toast from "react-hot-toast";
 
@@ -9,16 +9,18 @@ interface ChatFormValues {
   message: string;
 }
 
-export const ChatInput = ({
-  selectedConversation,
-}: {
-  selectedConversation: ConversationType | null;
-}) => {
+export const ChatInput = () => {
   const [form] = Form.useForm<ChatFormValues>();
-  const [isPending, setIsPending] = useState(false);
+  const [loadingState, setLoadingState] = useState<{
+    type: string;
+    loading: boolean;
+  }>({
+    type: "text",
+    loading: false,
+  });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { socket } = useSocketContext();
+  const { socket, selectedConversation } = useChatContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -50,15 +52,15 @@ export const ChatInput = ({
     };
 
     try {
-      setIsPending(true);
+      setLoadingState({ type, loading: true });
       socket.emit("sendMessage", payload, () => {
         form.resetFields();
         setImagePreview(null);
         setImageFile(null);
-        setIsPending(false);
+        setLoadingState({ type, loading: false });
       });
     } catch (error) {
-      setIsPending(false);
+      setLoadingState({ type, loading: false });
       toast.error("Failed to send message");
     }
   };
@@ -92,7 +94,7 @@ export const ChatInput = ({
         icon={<PictureOutlined />}
         onClick={() => fileInputRef.current?.click()}
         size="large"
-        loading={isPending}
+        loading={loadingState.type === "image" && loadingState.loading}
       />
       <Form.Item
         name="message"
@@ -103,7 +105,7 @@ export const ChatInput = ({
           placeholder="Type your message..."
           style={{ borderRadius: "20px" }}
           size="large"
-          disabled={isPending}
+          disabled={loadingState.loading}
         />
       </Form.Item>
       <Button
@@ -112,11 +114,11 @@ export const ChatInput = ({
         icon={<SendOutlined />}
         htmlType="submit"
         size="large"
-        loading={isPending}
+        loading={loadingState.type === "text" && loadingState.loading}
       />
       <ImagePreviewModal
         imagePreview={imagePreview}
-        loading={isPending}
+        loading={loadingState.type === "image" && loadingState.loading}
         onCancel={() => setImagePreview(null)}
         onSend={() => {
           if (imageFile) {

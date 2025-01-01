@@ -1,18 +1,23 @@
-import { useSocketContext } from "@/context/socketContext";
+import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
 import { List } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { useGetMessages } from "./_api/query";
 import { adminConversation } from "./adminConversation";
 import { MessageItem } from "./MessageItem";
+import toast from "react-hot-toast";
+import useAuthStore from "@/store/useAuthStore";
+import { playNotification } from "@/services/playNotification";
 
 interface MessageListProps {
   selectedConversation: ConversationType | null;
 }
 
-export const MessageList = ({ selectedConversation }: MessageListProps) => {
-  const { messages, isPending } = useGetMessages(selectedConversation?.id);
-  const { socket } = useSocketContext();
+export const MessageList = () => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { socket, isOpen, selectedConversation } = useChatContext();
+  const isAdmin = useAuthStore((state) => state.isAdmin);
+
   const user = useUserStore((state) => state.user);
   const [Renderedmessages, setMessages] = useState<MessageType[]>([
     {
@@ -21,31 +26,44 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
       content: "Hello! How can I help you today?",
       createdAt: new Date(),
       senderId: adminConversation.participants[0].id,
-      isRead: false,
     },
   ]);
-
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (messages) {
-      setMessages((prev) => [...prev, ...messages]);
-    }
-  }, [messages]);
 
   useEffect(() => {
     if (socket) {
       socket.on("newMessage", (message: MessageType) => {
-        console.log("🚀 ~ file: MessageList.tsx:39 ~ message:", message);
+        const messageConversationNotOpen =
+          message.conversationId !== selectedConversation?.id;
+
+        if ((isAdmin === true && messageConversationNotOpen) || !isOpen) {
+          return;
+        }
+        socket.emit("markMessageAsRead", {
+          messageId: message.id,
+        });
         setMessages((prev) => [...prev, message]);
       });
+      socket.emit(
+        "getMessages",
+        {
+          conversationId: selectedConversation?.id,
+        },
+        ({ success, messages, error }: any) => {
+          if (success) {
+            setMessages(messages);
+          } else {
+            toast.error(error);
+          }
+        }
+      );
     }
     return () => {
       if (socket) {
         socket.off("newMessage");
+        socket.off("markMessageAsRead");
       }
     };
-  }, [socket]);
+  }, [socket, selectedConversation, isOpen, isAdmin, user]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -55,7 +73,7 @@ export const MessageList = ({ selectedConversation }: MessageListProps) => {
     <List
       className="chat-messages"
       itemLayout="horizontal"
-      loading={isPending}
+      loading={false}
       dataSource={Renderedmessages}
       renderItem={(message) => (
         <List.Item

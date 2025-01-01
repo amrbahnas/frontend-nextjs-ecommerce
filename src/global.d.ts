@@ -231,25 +231,32 @@ type ConversationType = {
   id?: string;
   participants: User[] | any;
   creatorId: string;
-  lastMessage?: {
-    id: string;
-    content: string;
-    imageUrl: string;
-    senderId: string;
-    receiverId: string;
-    createdAt: string;
-    isRead: boolean;
-  };
+  lastMessage?: lastMessageType;
   unreadCount?: number;
   createdAt?: string;
   updatedAt?: string;
+};
+
+type lastMessageType = {
+  id: string;
+  content: string;
+  senderId: string;
+  type: string;
+  conversationId: string;
+  createdAt: string;
 };
 
 type MessageType = {
   id: string;
   content: string;
   senderId: string;
-  createdAt: Date;
-  isRead: boolean;
   type: string;
+  createdAt: Date;
+  conversationId?: string;
+  seenBy?: User[];
 };
+
+declare module "*.mp3" {
+  const src: string;
+  export default src;
+}

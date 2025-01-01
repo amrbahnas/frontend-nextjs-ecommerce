@@ -1,19 +1,15 @@
 import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import useAuthStore from "@/store/useAuthStore";
-import { useSocketContext } from "@/context/socketContext";
+import { useChatContext } from "@/context/chatContext";
 
-interface ConversationHeaderProps {
-  conversation: ConversationType | null;
-}
-
-export const ConversationHeader = ({
-  conversation,
-}: ConversationHeaderProps) => {
-  const { onlineUsers } = useSocketContext();
+export const ConversationHeader = () => {
+  const { onlineUsers, selectedConversation } = useChatContext();
 
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const isOnline = onlineUsers.includes(conversation?.participants[0].id);
+  const isOnline = onlineUsers.includes(
+    selectedConversation?.participants[0].id
+  );
 
   if (!isAdmin) return null;
 
@@ -30,8 +26,12 @@ export const ConversationHeader = ({
     >
       <div style={{ position: "relative" }}>
         <Avatar
-          src={conversation?.participants[0].profileImg}
-          icon={!conversation?.participants[0].profileImg && <UserOutlined />}
+          src={selectedConversation?.participants[0].profileImg}
+          icon={
+            !selectedConversation?.participants[0].profileImg && (
+              <UserOutlined />
+            )
+          }
           size="large"
         />
         {isOnline && (
@@ -47,7 +47,7 @@ export const ConversationHeader = ({
       </div>
       <div>
         <div style={{ fontWeight: 500 }}>
-          {conversation?.participants[0].name}
+          {selectedConversation?.participants[0].name}
         </div>
         <div
           style={{

@@ -1,50 +1,70 @@
 "use client";
+import { useChatContext } from "@/context/chatContext";
+import useAuthStore from "@/store/useAuthStore";
 import { MessageOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
-import { useEffect, useState } from "react";
+import { FloatButton, Modal, Tooltip } from "antd";
+import { useEffect } from "react";
 import { ChatInput } from "./ChatInput";
 import { ConversationHeader } from "./ConversationHeader";
-import { MessageList } from "./MessageList";
-import { adminConversation } from "./adminConversation";
 import { Conversations } from "./Conversations";
-import useAuthStore from "@/store/useAuthStore";
+import { MessageList } from "./MessageList";
 
 const Chat = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const [selectedConversation, setSelectedConversation] =
-    useState<ConversationType | null>(null);
+
+  const {
+    isOpen,
+    setIsOpen,
+    selectedConversation,
+    setSelectedConversation,
+    hasNotification,
+    setHasNotification,
+    notificationContent,
+    setNotificationContent,
+  } = useChatContext();
 
   useEffect(() => {
-    if (isAdmin === false) {
-      setSelectedConversation(adminConversation);
-    } else {
+    if (isAdmin) {
       setSelectedConversation(null);
     }
-  }, [isAdmin]);
+  }, [isAdmin, isOpen]);
 
+  const onOpenChat = () => {
+    setIsOpen(true);
+    setHasNotification(false);
+    setNotificationContent("");
+  };
+
+  const onCloseChat = () => {
+    setIsOpen(false);
+  };
   return (
     <div>
-      <Button
-        type="primary"
-        shape="circle"
-        icon={<MessageOutlined />}
-        size="large"
-        onClick={() => setIsOpen(true)}
-        style={{
-          position: "fixed",
-          bottom: "2rem",
-          right: "2rem",
-          zIndex: 1000,
-          width: "60px",
-          height: "60px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-        }}
-      />
+      <Tooltip
+        open={!!notificationContent}
+        title={notificationContent}
+        placement="left"
+        color="blue"
+      >
+        <FloatButton
+          onClick={onOpenChat}
+          shape="circle"
+          tooltip={notificationContent ? "" : "Chat Support"}
+          type="primary"
+          badge={{
+            count: hasNotification ? "!" : 0,
+            offset: [0, 5],
+          }}
+          icon={<MessageOutlined className="!text-white" />}
+          className=" !w-16 !h-16 !z-50"
+        />
+      </Tooltip>
+
       <Modal
         title="Chat Support"
         open={isOpen}
-        onCancel={() => setIsOpen(false)}
+        onClose={onCloseChat}
+        onCancel={onCloseChat}
         footer={null}
         style={{
           position: "fixed",
@@ -59,51 +79,30 @@ const Chat = () => {
           <div
             style={{
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              borderRadius: "8px",
-              overflow: "hidden",
             }}
+            className=" overflow-hidden rounded-lg"
           >
             {modal}
           </div>
         )}
         mask={false}
-        maskClosable={false}
+        // maskClosable={false}
       >
-        <div
-          style={{
-            height: "500px",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Conversations
-            onSelectConversation={setSelectedConversation}
-            selectedId={selectedConversation?.id}
-          />
-          <div
-            className="w-[350px]"
-            style={{ flex: 1, display: "flex", flexDirection: "column" }}
-          >
-            {selectedConversation ? (
-              <>
-                <ConversationHeader conversation={selectedConversation} />
-                <MessageList selectedConversation={selectedConversation} />
-                <ChatInput selectedConversation={selectedConversation} />
-              </>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                  color: "#999",
-                }}
-              >
+        <div className="flex  h-[500px]">
+          <Conversations />
+          {selectedConversation ? (
+            <div className="w-[350px] flex-1 flex flex-col">
+              <ConversationHeader />
+              <MessageList />
+              <ChatInput />
+            </div>
+          ) : (
+            <div className="w-[350px] flex-1 flex flex-col">
+              <div className="flex items-center justify-center h-full text-gray-500">
                 Select a conversation to start chatting
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

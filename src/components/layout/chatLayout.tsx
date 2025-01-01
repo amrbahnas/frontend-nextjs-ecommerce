@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import Chat from "../chat";
-import SocketContextProvider from "@/context/socketContext";
+import ChatContextProvider from "@/context/chatContext";
 
 const ChatLayout = () => {
   return (
-    <SocketContextProvider>
+    <ChatContextProvider>
       <Chat />
-    </SocketContextProvider>
+    </ChatContextProvider>
   );
 };
 

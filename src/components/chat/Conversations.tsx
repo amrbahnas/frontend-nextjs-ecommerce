@@ -1,39 +1,98 @@
+import { useChatContext } from "@/context/chatContext";
+import { playNotification } from "@/services/playNotification";
 import useAuthStore from "@/store/useAuthStore";
+import useUserStore from "@/store/useUserStore";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Badge, List } from "antd";
-import { useGetAllConversations } from "./_api/query";
 import dayjs from "dayjs";
-import { useSocketContext } from "@/context/socketContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FaImage } from "react-icons/fa";
 
-interface ConversationsProps {
-  onSelectConversation: (conversation: ConversationType) => void;
-  selectedId?: string;
-}
-
-export const Conversations = ({
-  onSelectConversation,
-  selectedId,
-}: ConversationsProps) => {
-  const { onlineUsers, socket } = useSocketContext();
+export const Conversations = () => {
+  const { onlineUsers, socket, selectedConversation, setSelectedConversation } =
+    useChatContext();
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const { conversations, refetch } = useGetAllConversations({
-    skip: !isAdmin,
-  });
+  const [renderedConversations, setRenderedConversations] = useState<
+    ConversationType[]
+  >([]);
+  const user = useUserStore((state) => state.user);
 
   useEffect(() => {
     if (socket && isAdmin) {
-      socket?.on("conversationUpdated", (aas) => {
-        console.log("🚀 ~ file: Conversations.tsx:27 ~ aas:", aas);
-        refetch();
-      });
+      socket.emit(
+        "getConversations",
+        {},
+        ({ success, error, conversations }: any) => {
+          if (success) {
+            setRenderedConversations(conversations);
+          } else {
+            toast.error(error);
+          }
+        }
+      );
+      socket?.on(
+        "updateConversationLastMessage",
+        (message: lastMessageType) => {
+          if (message.conversationId === selectedConversation?.id) {
+            updateLastMessage(message);
+          } else {
+            updateLastMessage(message);
+            increaseUnreadCount(message.conversationId);
+          }
+        }
+      );
     }
     return () => {
       if (socket) {
-        socket?.off("conversationUpdated");
+        socket?.off("newMessage");
+        socket?.off("getConversations");
+        socket?.off("updateConversationLastMessage");
       }
     };
-  }, [socket, refetch]);
+  }, [socket, selectedConversation, isAdmin, user]);
+
+  const updateLastMessage = (message: lastMessageType) => {
+    setRenderedConversations((prev) =>
+      prev.map((conv) =>
+        conv.id === message.conversationId
+          ? { ...conv, lastMessage: message }
+          : conv
+      )
+    );
+  };
+
+  const increaseUnreadCount = (conversationId: string) => {
+    setRenderedConversations((prev) =>
+      prev.map((conv) =>
+        conv.id === conversationId
+          ? { ...conv, unreadCount: (conv?.unreadCount || 0) + 1 }
+          : conv
+      )
+    );
+  };
+
+  const handleResetConversationReadCount = (
+    conversationId: string | undefined
+  ) => {
+    if (!conversationId) return;
+    setRenderedConversations((prev) =>
+      prev.map((conv) =>
+        conv.id === conversationId ? { ...conv, unreadCount: 0 } : conv
+      )
+    );
+  };
+
+  const handleSelectConversation = (conversation: ConversationType) => {
+    setSelectedConversation(conversation);
+    socket?.emit(
+      "markConversationAsRead",
+      { conversationId: conversation.id },
+      () => {
+        handleResetConversationReadCount(conversation.id);
+      }
+    );
+  };
 
   if (!isAdmin) return null;
   return (
@@ -41,16 +100,16 @@ export const Conversations = ({
       <List
         className="conversations-list"
         itemLayout="horizontal"
-        dataSource={conversations}
+        dataSource={renderedConversations}
         renderItem={(conversation) => (
           <List.Item
             key={conversation.id}
-            onClick={() => onSelectConversation(conversation)}
+            onClick={() => handleSelectConversation(conversation)}
             style={{
               padding: "12px 16px",
               cursor: "pointer",
               backgroundColor:
-                selectedId === conversation.id
+                selectedConversation?.id === conversation.id
                   ? "rgba(0, 0, 0, 0.02)"
                   : "transparent",
               transition: "background-color 0.3s",
@@ -107,7 +166,11 @@ export const Conversations = ({
                       maxWidth: "70%",
                     }}
                   >
-                    {conversation.lastMessage?.content}
+                    {conversation?.lastMessage?.type === "text" ? (
+                      conversation.lastMessage?.content
+                    ) : (
+                      <FaImage size={24} />
+                    )}
                   </span>
                   {conversation.unreadCount ? (
                     <Badge

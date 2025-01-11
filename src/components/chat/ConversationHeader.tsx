@@ -6,10 +6,7 @@ import { useChatContext } from "@/context/chatContext";
 export const ConversationHeader = () => {
   const { onlineUsers, selectedConversation } = useChatContext();
 
-  const isAdmin = useAuthStore((state) => state.isAdmin);
-  const isOnline = onlineUsers.includes(
-    selectedConversation?.participants[0].id
-  );
+  const isOnline = onlineUsers.includes(selectedConversation?.userId || "");
 
   return (
     <div
@@ -24,12 +21,8 @@ export const ConversationHeader = () => {
     >
       <div style={{ position: "relative" }}>
         <Avatar
-          src={selectedConversation?.participants[0].profileImg}
-          icon={
-            !selectedConversation?.participants[0].profileImg && (
-              <UserOutlined />
-            )
-          }
+          src={selectedConversation?.image}
+          icon={!selectedConversation?.image && <UserOutlined />}
           size="large"
         />
         {isOnline && (
@@ -44,9 +37,7 @@ export const ConversationHeader = () => {
         )}
       </div>
       <div>
-        <div style={{ fontWeight: 500 }}>
-          {selectedConversation?.participants[0].name}
-        </div>
+        <div style={{ fontWeight: 500 }}>{selectedConversation?.name}</div>
         <div
           style={{
             fontSize: "12px",

@@ -46,9 +46,8 @@ export const ChatInput = () => {
     const payload = {
       content,
       type,
-      participantsIds: selectedConversation?.participants?.map(
-        (p: User) => p.id
-      ),
+      conversationId: selectedConversation?.id,
+      receiverId: selectedConversation?.userId,
     };
 
     try {

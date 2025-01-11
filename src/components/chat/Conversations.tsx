@@ -1,63 +1,76 @@
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
-import useUserStore from "@/store/useUserStore";
 import { List, Spin } from "antd";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useGetAllConversations } from "./_api/query";
 import ConversationItem from "./conversationItem";
 import { ConversationsSkeleton } from "./ConversationsSkeleton";
+import { adminConversation } from "./adminConversation";
 
 export const Conversations = () => {
-  const { onlineUsers, socket, selectedConversation, setSelectedConversation } =
-    useChatContext();
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(false);
-  const [loadingConversations, setLoadingConversations] = useState(false);
+  const {
+    conversations,
+    isPending,
+    refetch,
+    pagination,
+    hasMore,
+    nextPage,
+    page,
+  } = useGetAllConversations();
+  const {
+    onlineUsers,
+    socket,
+    selectedConversation,
+    setSelectedConversation,
+    isOpen,
+  } = useChatContext();
   const [renderedConversations, setRenderedConversations] = useState<
     ConversationType[]
   >([]);
-  const user = useUserStore((state) => state.user);
 
   useEffect(() => {
-    if (socket && isAdmin) {
-      setLoadingConversations(true);
-      socket.emit(
-        "getConversations",
-        { page, pageSize: 10 },
-        ({ success, error, conversations, hasMore }: any) => {
-          if (success) {
-            if (page === 1) {
-              setRenderedConversations(conversations);
-            } else {
-              setRenderedConversations((prev) => [...prev, ...conversations]);
-            }
-            setHasMore(hasMore);
-          } else {
-            toast.error(error);
-          }
-          setLoadingConversations(false);
-        }
-      );
+    if (!isAdmin) {
+      setSelectedConversation(conversations[0] || adminConversation);
     }
-    return () => {
-      if (socket) {
-        socket?.off("getConversations");
-      }
-    };
-  }, [socket, isAdmin, user, page]);
+  }, [isAdmin, conversations, setSelectedConversation]);
+
+  useEffect(() => {
+    if (!conversations) return;
+    if (page === 1) {
+      setRenderedConversations(conversations);
+    } else {
+      setRenderedConversations((prev) => {
+        const newConversations = conversations.filter(
+          (newConv) => !prev.some((prevConv) => prevConv.id === newConv.id)
+        );
+        return [...prev, ...newConversations];
+      });
+    }
+  }, [conversations?.length, page]);
+
+  useEffect(() => {
+    if (isOpen && isAdmin) refetch();
+  }, [isOpen, refetch]);
 
   useEffect(() => {
     if (socket && isAdmin) {
       socket?.on(
         "updateConversationLastMessage",
         (message: lastMessageType) => {
-          if (message.conversationId === selectedConversation?.id) {
-            updateLastMessage(message);
+          const conversation = renderedConversations.find(
+            (conv) => conv.id === message.conversationId
+          );
+          if (conversation) {
+            conversation.lastMessage = message;
+            setRenderedConversations(
+              renderedConversations.map((conv) =>
+                conv.id === conversation.id ? conversation : conv
+              )
+            );
           } else {
-            updateLastMessage(message);
-            increaseUnreadCount(message.conversationId);
+            refetch();
           }
         }
       );
@@ -67,27 +80,7 @@ export const Conversations = () => {
         socket?.off("updateConversationLastMessage");
       }
     };
-  }, [socket, selectedConversation, isAdmin]);
-
-  const updateLastMessage = (message: lastMessageType) => {
-    setRenderedConversations((prev) =>
-      prev.map((conv) =>
-        conv.id === message.conversationId
-          ? { ...conv, lastMessage: message }
-          : conv
-      )
-    );
-  };
-
-  const increaseUnreadCount = (conversationId: string) => {
-    setRenderedConversations((prev) =>
-      prev.map((conv) =>
-        conv.id === conversationId
-          ? { ...conv, unreadCount: (conv?.unreadCount || 0) + 1 }
-          : conv
-      )
-    );
-  };
+  }, [socket, isAdmin, renderedConversations, refetch]);
 
   const handleResetConversationReadCount = (
     conversationId: string | undefined
@@ -118,7 +111,7 @@ export const Conversations = () => {
   };
 
   if (!isAdmin) return null;
-  if (loadingConversations) return <ConversationsSkeleton />;
+  if (isPending) return <ConversationsSkeleton />;
 
   return (
     <div
@@ -130,7 +123,7 @@ export const Conversations = () => {
     >
       <InfiniteScroll
         dataLength={renderedConversations.length}
-        next={() => setPage(page + 1)}
+        next={nextPage}
         hasMore={hasMore}
         loader={
           <div style={{ textAlign: "center", padding: "10px" }}>
@@ -138,7 +131,7 @@ export const Conversations = () => {
           </div>
         }
         endMessage={
-          page > 1 && (
+          pagination.current > 1 && (
             <p className="text-center text-gray-400 mt-2 mb-4">
               You are all caught up!
             </p>

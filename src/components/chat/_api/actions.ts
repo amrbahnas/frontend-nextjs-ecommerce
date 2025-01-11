@@ -17,3 +17,17 @@ export const useMarkMessageAsRead = (messageId: string) => {
     isPending,
   };
 };
+
+export const useMarkConversationAsRead = (conversationId: string) => {
+  const { mutate, isPending } = useMutation(
+    `/chat/conversations/${conversationId}/read`,
+    {
+      method: "patch",
+    }
+  );
+
+  return {
+    markConversationAsRead: mutate,
+    isPending,
+  };
+};

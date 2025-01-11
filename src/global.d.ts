@@ -229,18 +229,22 @@ type UserReportType = User & {
 
 type ConversationType = {
   id?: string;
-  participants: User[] | any;
-  creatorId: string;
+  image?: string;
+  name?: string;
+  participants?: User[] | any;
+  participantUserIds?: string[] | any;
   lastMessage?: lastMessageType;
   unreadCount?: number;
   createdAt?: string;
   updatedAt?: string;
+  userId?: string;
 };
 
 type lastMessageType = {
   id: string;
   content: string;
   senderId: string;
+  seenBy?: string[];
   type: string;
   conversationId: string;
   createdAt: string;
@@ -253,7 +257,7 @@ type MessageType = {
   type: string;
   createdAt: Date;
   conversationId?: string;
-  seenBy?: User[];
+  seenBy?: string[];
 };
 
 declare module "*.mp3" {

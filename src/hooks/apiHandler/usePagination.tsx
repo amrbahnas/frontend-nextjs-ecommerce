@@ -28,7 +28,9 @@ function usePagination<T>(
   const prevParamsRef = useRef(options?.params);
 
   useEffect(() => {
-    if (JSON.stringify(prevParamsRef.current) !== JSON.stringify(options?.params)) {
+    if (
+      JSON.stringify(prevParamsRef.current) !== JSON.stringify(options?.params)
+    ) {
       setPage(1);
       prevParamsRef.current = options?.params;
     }
@@ -74,6 +76,13 @@ function usePagination<T>(
         setPage(1);
         setPageSize(size);
       },
+    },
+    hasMore: data?.data?.pagination?.hasMore,
+    page,
+    nextPage: () => {
+      if (data?.data?.pagination?.hasMore) {
+        setPage(page + 1);
+      }
     },
     data: (data?.data?.list as T) || [],
     isLoading,

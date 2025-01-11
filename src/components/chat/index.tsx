@@ -3,7 +3,6 @@ import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
 import { MessageOutlined } from "@ant-design/icons";
 import { FloatButton, Modal, Tooltip } from "antd";
-import { useEffect } from "react";
 import { ChatInput } from "./ChatInput";
 import { ConversationHeader } from "./ConversationHeader";
 import { Conversations } from "./Conversations";
@@ -16,18 +15,11 @@ const Chat = () => {
     isOpen,
     setIsOpen,
     selectedConversation,
-    setSelectedConversation,
     hasNotification,
     setHasNotification,
     notificationContent,
     setNotificationContent,
   } = useChatContext();
-
-  useEffect(() => {
-    if (isAdmin) {
-      setSelectedConversation(null);
-    }
-  }, [isAdmin, isOpen]);
 
   const onOpenChat = () => {
     setIsOpen(true);

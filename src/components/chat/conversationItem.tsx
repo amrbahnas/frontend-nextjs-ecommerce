@@ -34,13 +34,11 @@ const ConversationItem = ({
         avatar={
           <div style={{ position: "relative" }}>
             <Avatar
-              src={conversation.participants[0].profileImg}
-              icon={
-                !conversation.participants[0].profileImg && <UserOutlined />
-              }
+              src={conversation?.image}
+              icon={!conversation?.image && <UserOutlined />}
               size="large"
             />
-            {onlineUsers.includes(conversation.participants[0].id) && (
+            {onlineUsers.includes(conversation?.userId || "") && (
               <Badge
                 status="success"
                 className="absolute bottom-2 right-2 "
@@ -56,9 +54,9 @@ const ConversationItem = ({
         }
         title={
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span>{conversation.participants[0].name}</span>
+            <span>{conversation?.name}</span>
             <span style={{ fontSize: "12px", color: "#999" }}>
-              {dayjs(conversation.lastMessage?.createdAt).format("hh:mm")}
+              {dayjs(conversation?.lastMessage?.createdAt).format("hh:mm")}
             </span>
           </div>
         }

@@ -17,6 +17,7 @@ import {
 } from "react";
 
 import io, { Socket } from "socket.io-client";
+import { Pagination } from "antd";
 
 interface ISocketContext {
   socket: Socket | null;
@@ -57,7 +58,7 @@ const ChatContextProvider = ({ children }: { children: ReactNode }) => {
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
   const [chatLoading, setChatLoading] = useState(false);
   const [selectedConversation, setSelectedConversation] =
-    useState<ConversationType | null>(adminConversation);
+    useState<ConversationType | null>(null);
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {

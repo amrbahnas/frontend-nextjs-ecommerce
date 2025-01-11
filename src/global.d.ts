@@ -238,6 +238,7 @@ type ConversationType = {
   createdAt?: string;
   updatedAt?: string;
   userId?: string;
+  lastSeen?: Date;
 };
 
 type lastMessageType = {

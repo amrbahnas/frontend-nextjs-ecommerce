@@ -2,6 +2,7 @@ import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import useAuthStore from "@/store/useAuthStore";
 import { useChatContext } from "@/context/chatContext";
+import dayjs from "dayjs";
 
 export const ConversationHeader = () => {
   const { onlineUsers, selectedConversation } = useChatContext();
@@ -44,7 +45,11 @@ export const ConversationHeader = () => {
             color: isOnline ? "#52c41a" : "#999",
           }}
         >
-          {isOnline ? "Online" : "Offline"}
+          {isOnline
+            ? "Online"
+            : selectedConversation?.lastSeen
+            ? dayjs(selectedConversation?.lastSeen).fromNow()
+            : "Offline"}
         </div>
       </div>
     </div>

@@ -76,6 +76,7 @@ export const ChatInput = () => {
       onFinish={onFinish}
       style={{
         padding: "10px",
+        paddingRight: "0px",
         display: "flex",
         gap: "8px",
         borderTop: "1px solid #f0f0f0",

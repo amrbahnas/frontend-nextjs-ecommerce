@@ -67,6 +67,11 @@ const Chat = () => {
           top: "auto",
         }}
         className="!w-auto"
+        styles={{
+          content: {
+            paddingBottom: 0,
+          },
+        }}
         modalRender={(modal) => (
           <div
             style={{

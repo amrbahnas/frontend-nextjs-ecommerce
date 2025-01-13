@@ -1,7 +1,7 @@
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
 import { List, Spin } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetAllConversations } from "./_api/query";
 import ConversationItem from "./conversationItem";
@@ -59,19 +59,7 @@ export const Conversations = () => {
       socket?.on(
         "updateConversationLastMessage",
         (message: lastMessageType) => {
-          const conversation = renderedConversations.find(
-            (conv) => conv.id === message.conversationId
-          );
-          if (conversation) {
-            conversation.lastMessage = message;
-            setRenderedConversations(
-              renderedConversations.map((conv) =>
-                conv.id === conversation.id ? conversation : conv
-              )
-            );
-          } else {
-            refetch();
-          }
+          handleUpdateConversationLastMessage(message);
         }
       );
     }
@@ -80,35 +68,57 @@ export const Conversations = () => {
         socket?.off("updateConversationLastMessage");
       }
     };
-  }, [socket, isAdmin, renderedConversations, refetch]);
+  }, [socket, isAdmin, renderedConversations, refetch, selectedConversation]);
 
-  const handleResetConversationReadCount = (
-    conversationId: string | undefined
-  ) => {
-    if (!conversationId) return;
-    setRenderedConversations((prev) =>
-      prev.map((conv) =>
-        conv.id === conversationId ? { ...conv, unreadCount: 0 } : conv
-      )
-    );
-  };
-
-  const handleSelectConversation = (conversation: ConversationType) => {
-    if (conversation?.id === selectedConversation?.id) {
-      setSelectedConversation(null);
-      return;
-    }
-    setSelectedConversation(conversation);
-    if (conversation?.unreadCount! > 0) {
-      socket?.emit(
-        "markConversationAsRead",
-        { conversationId: conversation.id },
-        () => {
-          handleResetConversationReadCount(conversation.id);
-        }
+  const handleUpdateConversationLastMessage = useCallback(
+    (message: lastMessageType) => {
+      const conversation = renderedConversations.find(
+        (conv) => conv.id === message.conversationId
       );
-    }
+      if (conversation) {
+        const isChatOpen = selectedConversation?.id === message.conversationId;
+
+        let unread = message.unread;
+
+        if (isChatOpen) unread = false;
+        conversation.lastMessage = { ...message, unread };
+        conversation.unreadCount = unread
+          ? (conversation?.unreadCount || 0) + 1
+          : conversation.unreadCount;
+        setRenderedConversations((prev) =>
+          prev.map((conv) =>
+            conv.id === conversation.id ? conversation : conv
+          )
+        );
+      } else {
+        refetch();
+      }
+    },
+    [refetch, renderedConversations, selectedConversation]
+  );
+
+  const markConversationAsRead = (conversation: ConversationType) => {
+    return {
+      ...conversation,
+      unreadCount: 0,
+      lastMessage: { ...conversation.lastMessage!, unread: false },
+    };
   };
+  const handleSelectConversation = useCallback(
+    (conversation: ConversationType) => {
+      if (conversation?.id === selectedConversation?.id) {
+        setSelectedConversation(null);
+        return;
+      }
+      setSelectedConversation(conversation);
+      const modifiedConversation = markConversationAsRead(conversation);
+      const newConversations = conversations.map((conv) =>
+        conv.id === conversation.id ? modifiedConversation : conv
+      );
+      setRenderedConversations(newConversations);
+    },
+    [conversations, selectedConversation]
+  );
 
   if (!isAdmin) return null;
   if (isPending) return <ConversationsSkeleton />;

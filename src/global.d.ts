@@ -249,6 +249,7 @@ type lastMessageType = {
   type: string;
   conversationId: string;
   createdAt: string;
+  unread: boolean;
 };
 
 type MessageType = {

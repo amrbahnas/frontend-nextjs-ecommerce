@@ -1,5 +1,6 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Badge, List } from "antd";
+import classNames from "classnames";
 import dayjs from "dayjs";
 import { FaImage } from "react-icons/fa";
 
@@ -63,13 +64,12 @@ const ConversationItem = ({
         description={
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span
-              style={{
-                color: "#666",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                maxWidth: "70%",
-              }}
+              className={classNames(
+                "overflow-hidden text-sm truncate text-gray-400 max-w-[70%]",
+                {
+                  "!font-bold !text-black ": conversation?.lastMessage?.unread,
+                }
+              )}
             >
               {conversation?.lastMessage?.type === "text" ? (
                 conversation.lastMessage?.content

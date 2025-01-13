@@ -16,8 +16,12 @@ export const MessageList = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, setUser } = useUserStore();
 
-  const { messages, isPending, pagination, hasMore, nextPage, page } =
+  const { messages, isPending, pagination, hasMore, nextPage, page, refetch } =
     useGetMessages(selectedConversation?.id);
+
+  useEffect(() => {
+    if (isOpen && selectedConversation) refetch();
+  }, [isOpen, refetch, selectedConversation]);
 
   useEffect(() => {
     if (messages) {

@@ -79,6 +79,7 @@ function usePagination<T>(
     },
     hasMore: data?.data?.pagination?.hasMore,
     page,
+    setPage,
     nextPage: () => {
       if (data?.data?.pagination?.hasMore) {
         setPage(page + 1);

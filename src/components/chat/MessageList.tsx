@@ -16,17 +16,36 @@ export const MessageList = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, setUser } = useUserStore();
 
-  const { messages, isPending, pagination, hasMore, nextPage, page, refetch } =
-    useGetMessages(selectedConversation?.id);
+  const {
+    messages,
+    isPending,
+    pagination,
+    hasMore,
+    nextPage,
+    page,
+    refetch,
+    setPage,
+  } = useGetMessages(selectedConversation?.id);
+
+  const scrollToBottom = () => {
+    const element = messagesEndRef.current;
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  };
 
   useEffect(() => {
-    if (isOpen && selectedConversation) refetch();
+    if (isOpen && selectedConversation) {
+      setPage(1);
+      scrollToBottom();
+    }
   }, [isOpen, refetch, selectedConversation]);
 
   useEffect(() => {
     if (messages) {
       if (page === 1) {
         setRenderMessages([...new Set(messages)]);
+        setTimeout(scrollToBottom, 100);
       } else {
         setRenderMessages((prev) => [...new Set([...messages, ...prev])]);
       }
@@ -78,6 +97,7 @@ export const MessageList = () => {
     <div
       id="scrollableDiv"
       className="custom-scrollbar"
+      ref={messagesEndRef}
       style={{
         height: "calc(500px - 80px)",
         overflow: "auto",
@@ -107,7 +127,7 @@ export const MessageList = () => {
           </p>
         }
       >
-        <div>
+        <div ref={messagesEndRef}>
           {renderedmessages.map((message) => (
             <MessageItem
               key={message.id}

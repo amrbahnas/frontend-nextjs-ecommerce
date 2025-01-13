@@ -16,10 +16,18 @@ export const useGetAllConversations = () => {
 };
 
 export const useGetMessages = (conversationId: string | undefined) => {
-  const { data, isPending, refetch, pagination, hasMore, nextPage, page } =
-    usePagination<MessageType>(`/chat/messages/${conversationId}`, {
-      skip: !conversationId,
-    });
+  const {
+    data,
+    isPending,
+    refetch,
+    pagination,
+    hasMore,
+    nextPage,
+    page,
+    setPage,
+  } = usePagination<MessageType>(`/chat/messages/${conversationId}`, {
+    skip: !conversationId,
+  });
   return {
     messages: data as MessageType[],
     isPending,
@@ -28,5 +36,6 @@ export const useGetMessages = (conversationId: string | undefined) => {
     hasMore,
     nextPage,
     page,
+    setPage,
   };
 };

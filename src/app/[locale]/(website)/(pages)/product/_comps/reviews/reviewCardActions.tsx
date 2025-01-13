@@ -36,7 +36,7 @@ const ReviewCardActions = ({
     );
   };
   return (
-    <>
+    <div>
       <Popover
         trigger="click"
         placement="bottom"
@@ -77,7 +77,9 @@ const ReviewCardActions = ({
         }
       >
         {(currentUser?.role === "admin" || currentUserIsOwnThisReview) && (
-          <HiOutlineDotsVertical className=" cursor-pointer" />
+          <div>
+            <HiOutlineDotsVertical className=" cursor-pointer" />
+          </div>
         )}
       </Popover>
 
@@ -89,7 +91,7 @@ const ReviewCardActions = ({
           setOpenEditModal(false);
         }}
       />
-    </>
+    </div>
   );
 };
 

@@ -57,7 +57,6 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     }
   }
 
-  console.log("🚀 ~ file: useQuery.ts:60 ~ data?.data:", data?.data);
   return {
     data: data?.data as T | undefined,
     ...result,

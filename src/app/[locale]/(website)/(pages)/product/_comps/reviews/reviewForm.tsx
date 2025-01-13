@@ -64,7 +64,7 @@ const ReviewForm = ({
         validateTrigger="onBlur"
         form={form}
         onFinish={(values) => {
-          if (!isLogin) return router.push(`/login?redirect=${pathName}`);
+          if (!isLogin) return router.push(`/auth/login?redirect=${pathName}`);
           if (review) {
             handleEditReview(values);
           } else {

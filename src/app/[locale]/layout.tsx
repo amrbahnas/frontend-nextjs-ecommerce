@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import ProgressBarLayout from "@/components/layout/progressBarLayout";
 import AntDLayout from "@/components/layout/antDLayout";
 import ReactQueryLayout from "@/components/layout/reactQueryLayout";
@@ -7,14 +7,27 @@ import OnlineStatus from "@/components/layout/onlineStatus";
 import DayjsConfig from "@/components/layout/dayjsConfig";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
-
-import "./globals.css";
 import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
 import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
-import Chat from "@/components/chat";
 import ChatLayout from "@/components/layout/chatLayout";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -84,12 +97,6 @@ export const metadata: Metadata = {
     creator: "@amr_elbahnsawy",
     site: "@amr_elbahnsawy",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
@@ -109,19 +116,20 @@ export const metadata: Metadata = {
 
 async function getMessages(locale: string) {
   try {
-    return (await import(`../../../messages/${locale}.json`)).default;
+    return (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
-    return (await import(`../../../messages/en.json`)).default;
+    return (await import(`../../messages/en.json`)).default;
   }
 }
-
+type Params = Promise<{ locale: string }>;
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Params;
 }) {
+  const { locale } = await params;
   const messages = await getMessages(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 
@@ -153,12 +161,14 @@ export default async function LocaleLayout({
           content="QKdQNht25W1XB9fhKkw-nTPR6mQruPIQ2katXOb6pj0"
         />
       </head>
-      <body className={inter.className}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <WebsiteStructuredData />
         <LocalBusinessStructuredData />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ReactQueryLayout>
-            <AntDLayout>
+            <AntDLayout locale={locale}>
               <ProgressBarLayout>
                 <DayjsConfig />
                 <OnlineStatus>{children}</OnlineStatus>

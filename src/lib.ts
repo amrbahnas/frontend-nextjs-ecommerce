@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 import axiosInstance from "./config/apiClient";
 
 export async function verifyToken() {
-  const session = cookies().get("session")?.value;
+  const cookieStore = await cookies();
+  const session = cookieStore.get("session")?.value;
 
   if (!session) {
     return null;

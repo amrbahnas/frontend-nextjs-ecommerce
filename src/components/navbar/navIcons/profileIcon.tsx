@@ -107,7 +107,9 @@ export const ProfileIcon = () => {
       }
       trigger="click"
       placement="bottomRight"
-      overlayClassName="!p-0 !m-0 !w-64"
+      classNames={{
+        root: "!p-0 !m-0 !w-64",
+      }}
     >
       <div className="flex items-center gap-3 cursor-pointer group">
         <Avatar

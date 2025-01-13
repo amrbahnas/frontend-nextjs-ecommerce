@@ -114,6 +114,12 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-800">{t("help")}</h3>
             <div className="space-y-4">
               <Link
+                href="/contact-us"
+                className="block text-gray-500 hover:text-primary transition-colors"
+              >
+                Contact Us
+              </Link>
+              <Link
                 href="/customer-service"
                 className="block text-gray-500 hover:text-primary transition-colors"
               >
@@ -124,12 +130,6 @@ const Footer = () => {
                 className="block text-gray-500 hover:text-primary transition-colors"
               >
                 {t("myAccount")}
-              </Link>
-              <Link
-                href="/find-store"
-                className="block text-gray-500 hover:text-primary transition-colors"
-              >
-                {t("findStore")}
               </Link>
             </div>
           </div>

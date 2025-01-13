@@ -1,15 +1,15 @@
-"use client";
+import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ConfigProvider, theme } from "antd";
-import { useParams } from "next/navigation";
+import "@ant-design/v5-patch-for-react-19";
+import { ConfigProvider } from "antd";
 
 export default function AntDLayout({
   children,
+  locale,
 }: {
   children: React.ReactNode;
+  locale?: string;
 }) {
-  const params = useParams();
-  const locale = (params?.locale as string) || "en";
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (

@@ -16,7 +16,6 @@ import { usePathname } from "next/navigation";
 import ProductStructuredData from "@/components/structured-data/productStructuredData";
 import RelatedProductList from "../../_comps/product-stats/relatedProductList";
 
-type Params = Promise<{ id: string }>;
 const SinglePage = ({ params }: { params: Params }) => {
   const { id } = use(params);
   const { product, isLoading } = useGetSpecificProduct(id);

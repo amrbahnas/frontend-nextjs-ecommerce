@@ -17,7 +17,7 @@ import Link from "next/link";
 const Page = () => {
   const { getParams } = useParamsService("okay");
   const search = getParams("search");
-  const { users, isLoading } = useGetAdminUsers({
+  const { users, isLoading, refetch } = useGetAdminUsers({
     search,
   });
 
@@ -41,6 +41,7 @@ const Page = () => {
         {
           onSuccess: () => {
             toast.success("User role updated successfully");
+            refetch();
             setModalType(null);
           },
         }
@@ -61,6 +62,7 @@ const Page = () => {
                 selectedUser?.active ? "deactivated" : "activated"
               } successfully`
             );
+            refetch();
             setModalType(null);
           },
         }

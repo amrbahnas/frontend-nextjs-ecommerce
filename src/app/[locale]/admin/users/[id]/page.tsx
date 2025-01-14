@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import { useGetAdminUserReport } from "./_api/query";
 import { useAdminEditUser } from "../_api/actions";
 import {
@@ -56,14 +56,15 @@ const iconColors = {
   address: "#13c2c2", // Cyan
 };
 
-const Page = ({ params }: { params: { id: string } }) => {
-  const { userReport: user, isLoading } = useGetAdminUserReport(params.id);
+const Page = ({ params }: { params: Params }) => {
+  const { id } = use(params);
+  const { userReport: user, isLoading, refetch } = useGetAdminUserReport(id);
   const {
     changeUserRole,
     changeUserRoleLoading,
     toggleActive,
     toggleActiveLoading,
-  } = useAdminEditUser(params.id);
+  } = useAdminEditUser(id);
   const { showConfirmModal, ConfirmModalComponent } = useConfirmModal();
 
   const handleRoleChange = async (newRole: string) => {
@@ -73,7 +74,12 @@ const Page = ({ params }: { params: { id: string } }) => {
       itemName: "user role",
       onConfirm: async () => {
         try {
-          await changeUserRole({ role: newRole });
+          changeUserRole(
+            { role: newRole },
+            {
+              onSuccess: refetch,
+            }
+          );
         } catch (error) {
           console.error("Failed to change user role:", error);
         }
@@ -89,7 +95,12 @@ const Page = ({ params }: { params: { id: string } }) => {
       itemName: "user",
       onConfirm: async () => {
         try {
-          await toggleActive({});
+          toggleActive(
+            {},
+            {
+              onSuccess: refetch,
+            }
+          );
         } catch (error) {
           console.error("Failed to toggle user status:", error);
         }
@@ -461,7 +472,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                   className="mr-2"
                   style={{ color: iconColors.cart }}
                 />
-                Cart ({user.cart.cartItems.length})
+                Cart ({user?.cart?.cartItems?.length})
               </span>
             }
             key="cart"
@@ -469,7 +480,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             <Table
               scroll={{ x: "max-content" }}
               columns={cartColumns}
-              dataSource={user.cart.cartItems}
+              dataSource={user?.cart?.cartItems}
               rowKey="id"
               pagination={false}
               summary={() => (

@@ -60,6 +60,7 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   return {
     data: data?.data as T | undefined,
     ...result,
+    refetch: (data?: any) => result.refetch(),
   };
 }
 

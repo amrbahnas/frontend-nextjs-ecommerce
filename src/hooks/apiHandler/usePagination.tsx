@@ -88,6 +88,7 @@ function usePagination<T>(
     data: (data?.data?.list as T) || [],
     isLoading,
     ...result,
+    refetch: (data?: any) => result.refetch(),
   };
 }
 

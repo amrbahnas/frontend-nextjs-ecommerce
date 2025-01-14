@@ -51,10 +51,10 @@ const useParamsService: ParamsService = (
     replace(pathname);
   };
 
-  const getCurrentParams = () => {
+  const getCurrentParams = (): { key: string; value: string }[] => {
     const params = new URLSearchParams(searchParams);
     const entries = params.entries();
-    const result = [];
+    const result: { key: string; value: string }[] = [];
     for (const [key, value] of entries) {
       result.push({ key, value });
     }

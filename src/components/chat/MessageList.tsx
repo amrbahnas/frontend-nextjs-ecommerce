@@ -44,10 +44,10 @@ export const MessageList = () => {
   useEffect(() => {
     if (messages) {
       if (page === 1) {
-        setRenderMessages([...new Set(messages)]);
+        setRenderMessages(messages);
         setTimeout(scrollToBottom, 100);
       } else {
-        setRenderMessages((prev) => [...new Set([...messages, ...prev])]);
+        setRenderMessages((prev) => [...messages, ...prev]);
       }
     }
   }, [messages.length, page]);

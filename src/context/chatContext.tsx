@@ -60,7 +60,7 @@ const ChatContextProvider = ({ children }: { children: ReactNode }) => {
   const [selectedConversation, setSelectedConversation] =
     useState<ConversationType | null>(null);
   const user = useUserStore((state) => state.user);
-
+  // todo: fix infinite scroll, add seen messsage mark at message item
   useEffect(() => {
     if (user) {
       const socket = io(socketURL, {

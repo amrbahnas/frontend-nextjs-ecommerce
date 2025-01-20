@@ -1,8 +1,7 @@
 import { Avatar, Image } from "antd";
 
-import { Message } from "./types";
-import dayjs from "dayjs";
 import useUserStore from "@/store/useUserStore";
+import dayjs from "dayjs";
 
 interface MessageItemProps {
   message: MessageType;

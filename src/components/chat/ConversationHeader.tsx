@@ -3,11 +3,28 @@ import { UserOutlined } from "@ant-design/icons";
 import useAuthStore from "@/store/useAuthStore";
 import { useChatContext } from "@/context/chatContext";
 import dayjs from "dayjs";
+import { useEffect } from "react";
 
 export const ConversationHeader = () => {
-  const { onlineUsers, selectedConversation } = useChatContext();
-
+  const { onlineUsers, selectedConversation, setSelectedConversation, socket } =
+    useChatContext();
   const isOnline = onlineUsers.includes(selectedConversation?.userId || "");
+
+  useEffect(() => {
+    if (socket && selectedConversation) {
+      socket.on("updateuserLastSeen", (userId) => {
+        if (userId === selectedConversation?.userId) {
+          setSelectedConversation((prev) => ({
+            ...prev,
+            lastSeen: new Date(),
+          }));
+        }
+      });
+      return () => {
+        socket.off("updateuserLastSeen");
+      };
+    }
+  }, [socket, selectedConversation]);
 
   return (
     <div

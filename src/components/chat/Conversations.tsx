@@ -38,21 +38,34 @@ export const Conversations = () => {
 
   useEffect(() => {
     if (!conversations) return;
-    if (page === 1) {
-      setRenderedConversations(conversations);
-    } else {
-      setRenderedConversations((prev) => {
-        const newConversations = conversations.filter(
-          (newConv) => !prev.some((prevConv) => prevConv.id === newConv.id)
-        );
-        return [...prev, ...newConversations];
-      });
-    }
+    setRenderedConversations((prev) => {
+      const existingIds = new Set(prev.map((conv) => conv.id));
+      const newConversations = conversations.filter(
+        (conv) => !existingIds.has(conv.id)
+      );
+      return [...prev, ...newConversations];
+    });
   }, [conversations?.length, page]);
 
-  // useEffect(() => {
-  //   if (isOpen && isAdmin) refetch();
-  // }, [isOpen, refetch]);
+  useEffect(() => {
+    if (socket && selectedConversation) {
+      socket.on("updateConversationLastSeen", (userId) => {
+        setRenderedConversations((prev) =>
+          prev.map((conv) =>
+            conv.userId === userId
+              ? {
+                  ...conv,
+                  lastSeen: new Date(),
+                }
+              : conv
+          )
+        );
+      });
+      return () => {
+        socket.off("updateConversationLastSeen");
+      };
+    }
+  }, [socket, selectedConversation]);
 
   useEffect(() => {
     if (socket && isAdmin) {

@@ -50,9 +50,9 @@ export const Conversations = () => {
     }
   }, [conversations?.length, page]);
 
-  useEffect(() => {
-    if (isOpen && isAdmin) refetch();
-  }, [isOpen, refetch]);
+  // useEffect(() => {
+  //   if (isOpen && isAdmin) refetch();
+  // }, [isOpen, refetch]);
 
   useEffect(() => {
     if (socket && isAdmin) {

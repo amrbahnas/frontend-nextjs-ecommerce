@@ -26,6 +26,7 @@ export const MessageList = () => {
     refetch,
     setPage,
   } = useGetMessages(selectedConversation?.id);
+  console.log("🚀 ~ file: MessageList.tsx:21 ~ messages:", messages);
 
   const scrollToBottom = () => {
     const element = messagesEndRef.current;
@@ -39,7 +40,7 @@ export const MessageList = () => {
       setPage(1);
       scrollToBottom();
     }
-  }, [isOpen, refetch, selectedConversation]);
+  }, []);
 
   useEffect(() => {
     if (messages) {
@@ -99,7 +100,7 @@ export const MessageList = () => {
       className="custom-scrollbar"
       ref={messagesEndRef}
       style={{
-        height: "calc(500px - 80px)",
+        height: 500,
         overflow: "auto",
         display: "flex",
         flexDirection: "column-reverse",
@@ -127,16 +128,16 @@ export const MessageList = () => {
           </p>
         }
       >
-        <div ref={messagesEndRef}>
-          {renderedmessages.map((message) => (
-            <MessageItem
-              key={message.id}
-              message={message}
-              fromMe={message.senderId === user?.id}
-              receiverProfileImg={selectedConversation?.image || ""}
-            />
-          ))}
-        </div>
+        {/* <div ref={messagesEndRef}> */}
+        {renderedmessages.map((message) => (
+          <MessageItem
+            key={message.id}
+            message={message}
+            fromMe={message.senderId === user?.id}
+            receiverProfileImg={selectedConversation?.image || ""}
+          />
+        ))}
+        {/* </div> */}
       </InfiniteScroll>
     </div>
   );

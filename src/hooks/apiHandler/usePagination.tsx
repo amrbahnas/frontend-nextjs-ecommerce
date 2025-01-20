@@ -82,7 +82,7 @@ function usePagination<T>(
     setPage,
     nextPage: () => {
       if (data?.data?.pagination?.hasMore) {
-        setPage(page + 1);
+        setPage((prevPage) => prevPage + 1);
       }
     },
     data: (data?.data?.list as T) || [],

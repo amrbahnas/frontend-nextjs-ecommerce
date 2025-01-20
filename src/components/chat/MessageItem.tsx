@@ -1,5 +1,5 @@
 import { Avatar, Image } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+
 import { Message } from "./types";
 import dayjs from "dayjs";
 import useUserStore from "@/store/useUserStore";

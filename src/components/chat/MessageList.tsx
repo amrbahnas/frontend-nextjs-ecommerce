@@ -44,14 +44,15 @@ export const MessageList = () => {
 
   useEffect(() => {
     if (messages) {
-      if (page === 1) {
-        setRenderMessages(messages);
-        setTimeout(scrollToBottom, 100);
-      } else {
-        setRenderMessages((prev) => [...messages, ...prev]);
-      }
+      setRenderMessages((prev) => {
+        // Create a Set of existing message IDs for quick lookup
+        const existingIds = new Set(prev.map((msg) => msg.id));
+        // Only add messages that don't already exist
+        const newMessages = messages.filter((msg) => !existingIds.has(msg.id));
+        return [...prev, ...newMessages];
+      });
     }
-  }, [messages.length, page]);
+  }, [messages]);
 
   useEffect(() => {
     if (socket) {

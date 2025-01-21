@@ -18,6 +18,7 @@ export const Conversations = () => {
     hasMore,
     nextPage,
     page,
+    setPage,
   } = useGetAllConversations();
   const {
     onlineUsers,
@@ -32,12 +33,19 @@ export const Conversations = () => {
 
   useEffect(() => {
     if (!isAdmin) {
-      setSelectedConversation(conversations[0] || adminConversation);
+      const { name, image } = adminConversation;
+      if (conversations[0])
+        setSelectedConversation({ ...conversations[0], name, image });
+      else setSelectedConversation(adminConversation);
     }
   }, [isAdmin, conversations, setSelectedConversation]);
 
   useEffect(() => {
     if (!conversations) return;
+    if (page === 1) {
+      setRenderedConversations(conversations);
+      return;
+    }
     setRenderedConversations((prev) => {
       const existingIds = new Set(prev.map((conv) => conv.id));
       const newConversations = conversations.filter(
@@ -45,7 +53,7 @@ export const Conversations = () => {
       );
       return [...prev, ...newConversations];
     });
-  }, [conversations?.length, page]);
+  }, [conversations, page]);
 
   useEffect(() => {
     if (socket && selectedConversation) {
@@ -66,6 +74,18 @@ export const Conversations = () => {
       };
     }
   }, [socket, selectedConversation]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("newConversation", () => {
+        setPage(1);
+        refetch();
+      });
+      return () => {
+        socket.off("newConversation");
+      };
+    }
+  }, [socket]);
 
   useEffect(() => {
     if (socket && isAdmin) {
@@ -125,10 +145,11 @@ export const Conversations = () => {
       }
       setSelectedConversation(conversation);
       const modifiedConversation = markConversationAsRead(conversation);
-      const newConversations = conversations.map((conv) =>
-        conv.id === conversation.id ? modifiedConversation : conv
+      setRenderedConversations((prev) =>
+        prev.map((conv) =>
+          conv.id === conversation.id ? modifiedConversation : conv
+        )
       );
-      setRenderedConversations(newConversations);
     },
     [conversations, selectedConversation]
   );
@@ -137,14 +158,9 @@ export const Conversations = () => {
   if (isPending) return <ConversationsSkeleton />;
 
   return (
-    <div
-      className="w-[300px] !border-r flex-1 border-gray-200 custom-scrollbar"
-      style={{
-        height: "500px",
-        overflow: "auto",
-      }}
-    >
+    <div className="w-[300px] !border-r flex-1 border-gray-200 custom-scrollbar">
       <InfiniteScroll
+        height={500}
         dataLength={renderedConversations.length}
         next={nextPage}
         hasMore={hasMore}
@@ -161,23 +177,15 @@ export const Conversations = () => {
           )
         }
       >
-        <List
-          className="conversations-list"
-          itemLayout="horizontal"
-          dataSource={renderedConversations}
-          renderItem={(conversation) => (
-            <ConversationItem
-              conversation={conversation}
-              handleSelectConversation={handleSelectConversation}
-              selectedConversation={selectedConversation}
-              onlineUsers={onlineUsers}
-            />
-          )}
-          style={{
-            height: "100%",
-            overflowY: "auto",
-          }}
-        />
+        {renderedConversations.map((conversation) => (
+          <ConversationItem
+            key={conversation.id}
+            conversation={conversation}
+            handleSelectConversation={handleSelectConversation}
+            selectedConversation={selectedConversation}
+            onlineUsers={onlineUsers}
+          />
+        ))}
       </InfiniteScroll>
     </div>
   );

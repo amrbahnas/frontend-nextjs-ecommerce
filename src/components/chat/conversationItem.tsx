@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Badge, List } from "antd";
+import { Avatar, Badge } from "antd";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import { FaImage } from "react-icons/fa";
@@ -16,58 +16,47 @@ const ConversationItem = ({
   onlineUsers: string[];
 }) => {
   return (
-    <List.Item
-      key={conversation.id}
+    <div
       onClick={() => handleSelectConversation(conversation)}
-      style={{
-        padding: "12px 16px",
-        cursor: "pointer",
-        backgroundColor:
-          selectedConversation?.id === conversation.id
-            ? "rgba(0, 0, 0, 0.02)"
-            : "transparent",
-        transition: "background-color 0.3s",
-        borderBottom: "1px solid #f0f0f0",
-      }}
-      className="hover:!bg-[rgba(0,0,0,0.04)]"
+      className={`p-3 cursor-pointer flex items-center border-b border-[#f0f0f0] transition-colors duration-300 hover:!bg-[rgba(0,0,0,0.04)] ${
+        selectedConversation?.id === conversation.id
+          ? "bg-[rgba(0,0,0,0.02)]"
+          : "bg-transparent"
+      }`}
     >
-      <List.Item.Meta
-        avatar={
-          <div style={{ position: "relative" }}>
-            <Avatar
-              src={conversation?.image}
-              icon={!conversation?.image && <UserOutlined />}
-              size="large"
+      <div className="flex items-center flex-1">
+        <div style={{ position: "relative" }}>
+          <Avatar
+            src={conversation?.image}
+            icon={!conversation?.image && <UserOutlined />}
+            size="large"
+          />
+          {onlineUsers.includes(conversation?.userId || "") && (
+            <Badge
+              status="success"
+              className="absolute bottom-2 right-2 "
+              styles={{
+                indicator: {
+                  width: "8px",
+                  height: "8px",
+                },
+              }}
             />
-            {onlineUsers.includes(conversation?.userId || "") && (
-              <Badge
-                status="success"
-                className="absolute bottom-2 right-2 "
-                styles={{
-                  indicator: {
-                    width: "8px",
-                    height: "8px",
-                  },
-                }}
-              />
-            )}
-          </div>
-        }
-        title={
+          )}
+        </div>
+        <div className="ml-4 flex-1">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span>{conversation?.name}</span>
             <span style={{ fontSize: "12px", color: "#999" }}>
               {dayjs(conversation?.lastMessage?.createdAt).format("hh:mm")}
             </span>
           </div>
-        }
-        description={
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span
               className={classNames(
                 "overflow-hidden text-sm truncate text-gray-400 max-w-[70%]",
                 {
-                  "!font-bold !text-black ": conversation?.lastMessage?.unread,
+                  "!font-bold !text-black": conversation?.lastMessage?.unread,
                 }
               )}
             >
@@ -87,9 +76,9 @@ const ConversationItem = ({
               />
             ) : null}
           </div>
-        }
-      />
-    </List.Item>
+        </div>
+      </div>
+    </div>
   );
 };
 

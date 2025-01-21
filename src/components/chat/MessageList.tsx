@@ -1,13 +1,12 @@
 import { useChatContext } from "@/context/chatContext";
-import useAuthStore from "@/store/useAuthStore";
 import useUserStore from "@/store/useUserStore";
-import { useEffect, useMemo, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { Spin } from "antd";
+import { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useGetMessages } from "./_api/query";
+import { welcomeMessage } from "./adminConversation";
 import { MessageItem } from "./MessageItem";
 import { MessageListSkeleton } from "./MessageListSkeleton";
-import { Spin } from "antd";
-import { useGetMessages } from "./_api/query";
 
 export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
@@ -26,7 +25,6 @@ export const MessageList = () => {
     refetch,
     setPage,
   } = useGetMessages(selectedConversation?.id);
-  console.log("🚀 ~ file: MessageList.tsx:21 ~ messages:", messages);
 
   const scrollToBottom = () => {
     const element = messagesEndRef.current;
@@ -43,21 +41,30 @@ export const MessageList = () => {
   }, []);
 
   useEffect(() => {
-    if (messages) {
-      setRenderMessages((prev) => {
-        // Create a Set of existing message IDs for quick lookup
-        const existingIds = new Set(prev.map((msg) => msg.id));
-        // Only add messages that don't already exist
-        const newMessages = messages.filter((msg) => !existingIds.has(msg.id));
-        return [...prev, ...newMessages];
-      });
+    if (selectedConversation?.id) {
+      if (messages) {
+        if (page === 1) {
+          setRenderMessages(messages);
+          return;
+        }
+        setRenderMessages((prev) => {
+          // Create a Set of existing message IDs for quick lookup
+          const existingIds = new Set(prev.map((msg) => msg.id));
+          // Only add messages that don't already exist
+          const newMessages = messages.filter(
+            (msg) => !existingIds.has(msg.id)
+          );
+          return [...prev, ...newMessages];
+        });
+      }
+    } else {
+      setRenderMessages([welcomeMessage]);
     }
   }, [messages]);
 
   useEffect(() => {
     if (socket) {
       socket.on("newMessage", (message: MessageType) => {
-        console.log("🚀 ~ file: MessageList.tsx:35 ~ message:", message);
         if (
           !selectedConversation?.id ||
           selectedConversation?.id === message.conversationId
@@ -67,7 +74,7 @@ export const MessageList = () => {
               messageId: message.id,
             });
           }
-          setRenderMessages((prev) => [...prev, message]);
+          setRenderMessages((prev) => [message, ...prev]);
         }
       });
       return () => {
@@ -79,17 +86,17 @@ export const MessageList = () => {
   }, [socket, selectedConversation?.id, user?.id]);
 
   useEffect(() => {
-    if (socket) {
-      socket.on("newConversation", (conversation: ConversationType) => {
-        setSelectedConversation((prev) => ({ ...prev, id: conversation.id }));
+    if (socket && selectedConversation) {
+      socket.on("updateSelectedConversation", (conversationId: string) => {
+        setSelectedConversation((prev) => ({ ...prev, id: conversationId }));
       });
       return () => {
         if (socket) {
-          socket?.off("newConversation");
+          socket?.off("updateSelectedConversation");
         }
       };
     }
-  }, [socket, user, setUser]);
+  }, [socket, user, setUser, selectedConversation]);
 
   if (isPending && pagination.current === 1) {
     return <MessageListSkeleton />;

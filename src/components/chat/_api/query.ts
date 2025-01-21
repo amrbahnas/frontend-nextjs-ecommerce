@@ -2,8 +2,18 @@ import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 
 export const useGetAllConversations = () => {
-  const { data, isPending, refetch, pagination, hasMore, nextPage, page } =
-    usePagination<ConversationType[]>("/chat/conversations");
+  const {
+    data,
+    isPending,
+    refetch,
+    pagination,
+    hasMore,
+    nextPage,
+    page,
+    setPage,
+  } = usePagination<ConversationType[]>("/chat/conversations", {
+    pageSize: 5,
+  });
   return {
     conversations: data as ConversationType[],
     isPending,
@@ -12,6 +22,7 @@ export const useGetAllConversations = () => {
     hasMore,
     nextPage,
     page,
+    setPage,
   };
 };
 

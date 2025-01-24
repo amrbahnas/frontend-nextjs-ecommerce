@@ -1,102 +1,45 @@
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
 import { Spin } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetMessages } from "../_api/query";
-import { welcomeMessage } from "../welcome";
+import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
+import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
+import { useResetMessagesPage } from "./hooks/useResetMessagesPage";
 import { MessageItem } from "./messageItem";
 import { MessageListSkeleton } from "./messageListSkeleton";
 
 export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
     useChatContext();
-  const [renderedmessages, setRenderMessages] = useState<MessageType[]>([]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { user, setUser } = useUserStore();
+  const { user } = useUserStore();
 
-  const {
+  const { messages, isPending, pagination, hasMore, nextPage, page, setPage } =
+    useGetMessages(selectedConversation?.id);
+
+  const { renderedmessages, setRenderMessages } = useManageRenderedMessages({
+    selectedConversation,
     messages,
-    isPending,
-    pagination,
-    hasMore,
-    nextPage,
     page,
+  });
 
+  useResetMessagesPage({
+    isOpen,
+    messagesEndRef,
+    selectedConversation,
     setPage,
-  } = useGetMessages(selectedConversation?.id);
+  });
 
-  const scrollToBottom = () => {
-    const element = messagesEndRef.current;
-    if (element) {
-      element.scrollTop = element.scrollHeight;
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen && selectedConversation) {
-      setPage(1);
-      scrollToBottom();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (selectedConversation?.id) {
-      if (messages) {
-        if (page === 1) {
-          setRenderMessages(messages);
-          return;
-        }
-        setRenderMessages((prev) => {
-          const existingIds = new Set(prev.map((msg) => msg.id));
-
-          const newMessages = messages.filter(
-            (msg) => !existingIds.has(msg.id)
-          );
-          return [...prev, ...newMessages];
-        });
-      }
-    } else {
-      setRenderMessages([welcomeMessage]);
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("newMessage", (message: MessageType) => {
-        if (
-          !selectedConversation?.id ||
-          selectedConversation?.id === message.conversationId
-        ) {
-          if (message.senderId !== user?.id) {
-            socket.emit("markMessageAsRead", {
-              messageId: message.id,
-            });
-          }
-          setRenderMessages((prev) => [message, ...prev]);
-        }
-      });
-      return () => {
-        if (socket) {
-          socket?.off("newMessage");
-        }
-      };
-    }
-  }, [socket, selectedConversation?.id, user?.id]);
-
-  useEffect(() => {
-    if (socket && selectedConversation) {
-      socket.on("updateSelectedConversation", (conversationId: string) => {
-        setSelectedConversation((prev) => ({ ...prev, id: conversationId }));
-      });
-      return () => {
-        if (socket) {
-          socket?.off("updateSelectedConversation");
-        }
-      };
-    }
-  }, [socket, user, setUser, selectedConversation]);
+  useMessagesSocketEvents({
+    selectedConversation,
+    socket,
+    setRenderMessages,
+    setSelectedConversation,
+    user,
+  });
 
   if (isPending && pagination.current === 1) {
     return <MessageListSkeleton />;

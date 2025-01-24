@@ -8,12 +8,12 @@ const ConversationItem = ({
   conversation,
   handleSelectConversation,
   selectedConversation,
-  onlineUsers,
+  isOnline,
 }: {
   conversation: ConversationType;
   handleSelectConversation: (conversation: ConversationType) => void;
   selectedConversation: ConversationType | null;
-  onlineUsers: string[];
+  isOnline: boolean;
 }) => {
   return (
     <div
@@ -31,7 +31,7 @@ const ConversationItem = ({
             icon={!conversation?.image && <UserOutlined />}
             size="large"
           />
-          {onlineUsers.includes(conversation?.userId || "") && (
+          {isOnline && (
             <Badge
               status="success"
               className="absolute bottom-2 right-2 "

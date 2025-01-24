@@ -1,12 +1,14 @@
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
-import { List, Spin } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { Spin } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetAllConversations } from "../_api/query";
 import ConversationItem from "./conversationItem";
 import { ConversationsSkeleton } from "./conversationsSkeleton";
-import { adminConversation } from "../welcome";
+import { useConversationsActions } from "./hooks/useConversationsActions";
+import { useConversationsSocketEvents } from "./hooks/useConversationsSocketEvents";
+import { useInitialConversationSelection } from "./hooks/useInitialConcersationSelection";
+import { useManageRenderedConversations } from "./hooks/useManageRenderedConversations";
 
 export const ConversationsList = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
@@ -27,132 +29,40 @@ export const ConversationsList = () => {
     setSelectedConversation,
     isOpen,
   } = useChatContext();
-  const [renderedConversations, setRenderedConversations] = useState<
-    ConversationType[]
-  >([]);
 
-  useEffect(() => {
-    if (!isAdmin) {
-      const { name, image } = adminConversation;
-      if (conversations[0])
-        setSelectedConversation({ ...conversations[0], name, image });
-      else setSelectedConversation(adminConversation);
-    }
-  }, [isAdmin, conversations, setSelectedConversation, isOpen]);
+  useInitialConversationSelection({
+    conversations,
+    isAdmin,
+    setSelectedConversation,
+    isOpen,
+  });
 
-  useEffect(() => {
-    if (!conversations) return;
-    if (page === 1) {
-      setRenderedConversations(conversations);
-      return;
-    }
-    setRenderedConversations((prev) => {
-      const existingIds = new Set(prev.map((conv) => conv.id));
-      const newConversations = conversations.filter(
-        (conv) => !existingIds.has(conv.id)
-      );
-      return [...prev, ...newConversations];
+  const { renderedConversations, setRenderedConversations } =
+    useManageRenderedConversations({
+      conversations,
+      page,
     });
-  }, [conversations, page]);
 
-  useEffect(() => {
-    if (socket && selectedConversation) {
-      socket.on("updateConversationLastSeen", (userId) => {
-        setRenderedConversations((prev) =>
-          prev.map((conv) =>
-            conv.userId === userId
-              ? {
-                  ...conv,
-                  lastSeen: new Date(),
-                }
-              : conv
-          )
-        );
-      });
-      return () => {
-        socket.off("updateConversationLastSeen");
-      };
-    }
-  }, [socket, selectedConversation]);
+  const { handleSelectConversation, handleUpdateConversationLastMessage } =
+    useConversationsActions({
+      renderedConversations,
+      selectedConversation,
+      setSelectedConversation,
+      conversations,
+      refetch,
+      setRenderedConversations,
+    });
 
-  useEffect(() => {
-    if (socket) {
-      socket.on("newConversation", () => {
-        setPage(1);
-        refetch();
-      });
-      return () => {
-        socket.off("newConversation");
-      };
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    if (socket && isAdmin) {
-      socket?.on(
-        "updateConversationLastMessage",
-        (message: lastMessageType) => {
-          handleUpdateConversationLastMessage(message);
-        }
-      );
-    }
-    return () => {
-      if (socket) {
-        socket?.off("updateConversationLastMessage");
-      }
-    };
-  }, [socket, isAdmin, renderedConversations, refetch, selectedConversation]);
-
-  const handleUpdateConversationLastMessage = useCallback(
-    (message: lastMessageType) => {
-      const conversation = renderedConversations.find(
-        (conv) => conv.id === message.conversationId
-      );
-      if (conversation) {
-        const isChatOpen = selectedConversation?.id === message.conversationId;
-
-        let unread = message.unread;
-
-        if (isChatOpen) unread = false;
-        conversation.lastMessage = { ...message, unread };
-        conversation.unreadCount = unread
-          ? (conversation?.unreadCount || 0) + 1
-          : conversation.unreadCount;
-        setRenderedConversations((prev) =>
-          prev.map((conv) =>
-            conv.id === conversation.id ? conversation : conv
-          )
-        );
-      } else {
-        refetch();
-      }
-    },
-    [refetch, renderedConversations, selectedConversation]
-  );
-
-  const markConversationAsRead = (conversation: ConversationType) => {
-    return {
-      ...conversation,
-      unreadCount: 0,
-      lastMessage: { ...conversation.lastMessage!, unread: false },
-    };
-  };
-  const handleSelectConversation = useCallback(
-    (conversation: ConversationType) => {
-      if (conversation?.id === selectedConversation?.id) {
-        setSelectedConversation(null);
-        return;
-      }
-      setSelectedConversation(conversation);
-      const modifiedConversation = markConversationAsRead(conversation);
-      setRenderedConversations((prev) =>
-        prev.map((conv) =>
-          conv.id === conversation.id ? modifiedConversation : conv
-        )
-      );
-    },
-    [conversations, selectedConversation]
-  );
+  useConversationsSocketEvents({
+    setPage,
+    setRenderedConversations,
+    socket,
+    isAdmin,
+    selectedConversation,
+    refetch,
+    handleUpdateConversationLastMessage,
+    renderedConversations,
+  });
 
   if (!isAdmin) return null;
   if (isPending) return <ConversationsSkeleton />;
@@ -183,7 +93,7 @@ export const ConversationsList = () => {
             conversation={conversation}
             handleSelectConversation={handleSelectConversation}
             selectedConversation={selectedConversation}
-            onlineUsers={onlineUsers}
+            isOnline={onlineUsers.includes(conversation?.userId || "")}
           />
         ))}
       </InfiniteScroll>

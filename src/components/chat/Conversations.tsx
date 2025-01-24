@@ -38,7 +38,7 @@ export const Conversations = () => {
         setSelectedConversation({ ...conversations[0], name, image });
       else setSelectedConversation(adminConversation);
     }
-  }, [isAdmin, conversations, setSelectedConversation]);
+  }, [isAdmin, conversations, setSelectedConversation, isOpen]);
 
   useEffect(() => {
     if (!conversations) return;

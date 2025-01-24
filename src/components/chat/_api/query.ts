@@ -12,7 +12,7 @@ export const useGetAllConversations = () => {
     page,
     setPage,
   } = usePagination<ConversationType[]>("/chat/conversations", {
-    pageSize: 5,
+    staleTime: "0s",
   });
   return {
     conversations: data as ConversationType[],
@@ -38,6 +38,7 @@ export const useGetMessages = (conversationId: string | undefined) => {
     setPage,
   } = usePagination<MessageType>(`/chat/messages/${conversationId}`, {
     skip: !conversationId,
+    staleTime: "0s",
   });
   return {
     messages: data as MessageType[],

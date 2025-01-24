@@ -15,6 +15,7 @@ const Chat = () => {
     isOpen,
     setIsOpen,
     selectedConversation,
+    setSelectedConversation,
     hasNotification,
     setHasNotification,
     notificationContent,
@@ -29,7 +30,9 @@ const Chat = () => {
 
   const onCloseChat = () => {
     setIsOpen(false);
+    // setSelectedConversation(null);
   };
+
   return (
     <div>
       <Tooltip
@@ -57,6 +60,7 @@ const Chat = () => {
         open={isOpen}
         onClose={onCloseChat}
         onCancel={onCloseChat}
+        destroyOnClose
         footer={null}
         style={{
           position: "fixed",

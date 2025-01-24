@@ -12,6 +12,10 @@ export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
     useChatContext();
   const [renderedmessages, setRenderMessages] = useState<MessageType[]>([]);
+  console.log(
+    "🚀 ~ file: MessageList.tsx:15 ~ renderedmessages:",
+    renderedmessages
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, setUser } = useUserStore();
 

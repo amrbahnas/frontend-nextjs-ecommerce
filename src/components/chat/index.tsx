@@ -3,10 +3,10 @@ import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
 import { MessageOutlined } from "@ant-design/icons";
 import { FloatButton, Modal, Tooltip } from "antd";
-import { ChatInput } from "./ChatInput";
-import { ConversationHeader } from "./ConversationHeader";
-import { Conversations } from "./Conversations";
-import { MessageList } from "./MessageList";
+import { ChatInput } from "./chatInput";
+import { ConversationHeader } from "./conversations/conversationHeader";
+import { ConversationsList } from "./conversations";
+import { MessageList } from "./messages";
 
 const Chat = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
@@ -30,7 +30,6 @@ const Chat = () => {
 
   const onCloseChat = () => {
     setIsOpen(false);
-    // setSelectedConversation(null);
   };
 
   return (
@@ -90,7 +89,7 @@ const Chat = () => {
         // maskClosable={false}
       >
         <div className="flex  h-[500px] mt-2">
-          <Conversations />
+          <ConversationsList />
           {selectedConversation ? (
             <div className="w-[350px] flex-1 flex flex-col">
               {isAdmin && <ConversationHeader />}

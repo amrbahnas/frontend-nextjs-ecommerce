@@ -3,12 +3,12 @@ import useAuthStore from "@/store/useAuthStore";
 import { List, Spin } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useGetAllConversations } from "./_api/query";
+import { useGetAllConversations } from "../_api/query";
 import ConversationItem from "./conversationItem";
-import { ConversationsSkeleton } from "./ConversationsSkeleton";
-import { adminConversation } from "./adminConversation";
+import { ConversationsSkeleton } from "./conversationsSkeleton";
+import { adminConversation } from "../welcome";
 
-export const Conversations = () => {
+export const ConversationsList = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const {
     conversations,

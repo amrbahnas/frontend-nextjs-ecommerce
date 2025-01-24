@@ -1,4 +1,4 @@
-import { adminConversation } from "@/components/chat/adminConversation";
+import { adminConversation } from "@/components/chat/welcome";
 import { playNotification } from "@/services/playNotification";
 import useUserStore from "@/store/useUserStore";
 import {

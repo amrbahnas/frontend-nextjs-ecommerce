@@ -2,7 +2,7 @@ import { PictureOutlined, SendOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useRef, useState } from "react";
 import { useChatContext } from "@/context/chatContext";
-import { ImagePreviewModal } from "./ImagePreviewModal";
+import { ImagePreviewModal } from "./imagePreviewModal";
 import toast from "react-hot-toast";
 
 interface ChatFormValues {

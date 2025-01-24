@@ -3,19 +3,16 @@ import useUserStore from "@/store/useUserStore";
 import { Spin } from "antd";
 import { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useGetMessages } from "./_api/query";
-import { welcomeMessage } from "./adminConversation";
-import { MessageItem } from "./MessageItem";
-import { MessageListSkeleton } from "./MessageListSkeleton";
+import { useGetMessages } from "../_api/query";
+import { welcomeMessage } from "../welcome";
+import { MessageItem } from "./messageItem";
+import { MessageListSkeleton } from "./messageListSkeleton";
 
 export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
     useChatContext();
   const [renderedmessages, setRenderMessages] = useState<MessageType[]>([]);
-  console.log(
-    "🚀 ~ file: MessageList.tsx:15 ~ renderedmessages:",
-    renderedmessages
-  );
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, setUser } = useUserStore();
 
@@ -26,7 +23,7 @@ export const MessageList = () => {
     hasMore,
     nextPage,
     page,
-    refetch,
+
     setPage,
   } = useGetMessages(selectedConversation?.id);
 
@@ -52,9 +49,8 @@ export const MessageList = () => {
           return;
         }
         setRenderMessages((prev) => {
-          // Create a Set of existing message IDs for quick lookup
           const existingIds = new Set(prev.map((msg) => msg.id));
-          // Only add messages that don't already exist
+
           const newMessages = messages.filter(
             (msg) => !existingIds.has(msg.id)
           );
@@ -140,7 +136,6 @@ export const MessageList = () => {
           </p>
         }
       >
-        {/* <div ref={messagesEndRef}> */}
         {renderedmessages.map((message) => (
           <MessageItem
             key={message.id}
@@ -149,7 +144,6 @@ export const MessageList = () => {
             receiverProfileImg={selectedConversation?.image || ""}
           />
         ))}
-        {/* </div> */}
       </InfiniteScroll>
     </div>
   );

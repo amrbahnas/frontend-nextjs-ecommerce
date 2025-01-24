@@ -8,8 +8,14 @@ interface SEOHeadingProps {
   highlight?: string[];
 }
 
-const SEOHeading = ({ level, children, className = "", id, highlight = [] }: SEOHeadingProps) => {
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+const SEOHeading = ({
+  level,
+  children,
+  className = "",
+  id,
+  highlight = [],
+}: SEOHeadingProps) => {
+  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   const highlightText = (text: string) => {
     if (highlight.length === 0) return text;

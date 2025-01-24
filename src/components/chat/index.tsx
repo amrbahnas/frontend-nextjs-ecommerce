@@ -15,7 +15,7 @@ const Chat = () => {
     isOpen,
     setIsOpen,
     selectedConversation,
-    setSelectedConversation,
+
     hasNotification,
     setHasNotification,
     notificationContent,
@@ -61,15 +61,7 @@ const Chat = () => {
         onCancel={onCloseChat}
         destroyOnClose
         footer={null}
-        style={{
-          position: "fixed",
-          bottom: "6rem",
-          right: "2rem",
-          margin: 0,
-          padding: 0,
-          top: "auto",
-        }}
-        className="!w-auto"
+        className="!w-auto !fixed !bottom-24 !right-8 !m-0 !p-0 !top-auto"
         styles={{
           content: {
             paddingBottom: 0,
@@ -86,7 +78,6 @@ const Chat = () => {
           </div>
         )}
         mask={false}
-        // maskClosable={false}
       >
         <div className="flex  h-[500px] mt-2">
           <ConversationsList />

@@ -15,6 +15,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import { useGetSpecificOrder } from "../_api/query";
 import OrderDetailsSkeleton from "./_comps/orderDetails.skeleton";
+import { use } from "react";
 
 const getOrderStatus = (order?: any) => {
   const steps = [
@@ -42,8 +43,9 @@ const getStatusTag = (status: string) => {
     <Tag color={statusColors[status?.toLowerCase()] || "default"}>{status}</Tag>
   );
 };
-const OrderDetailsPage = ({ params }: { params: { id: string } }) => {
-  const { order, isLoading } = useGetSpecificOrder(params.id);
+const OrderDetailsPage = ({ params }: { params: Params }) => {
+  const { id } = use(params);
+  const { order, isLoading } = useGetSpecificOrder(id);
 
   if (isLoading || !order) {
     return <OrderDetailsSkeleton />;

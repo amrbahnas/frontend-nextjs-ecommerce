@@ -146,8 +146,7 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
                   <div>
                     <div className="font-medium">Delivery Address</div>
                     <div className="text-gray-500">
-                      {order?.address.address}, {order?.address.city},{" "}
-                      {order?.address.state}, {order?.address.country}
+                      {order?.address.address}
                     </div>
                   </div>
                 </div>

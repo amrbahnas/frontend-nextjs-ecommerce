@@ -18,17 +18,16 @@ const titleMap = {
 
 const ProductStatsList = ({ type, displayType }: Props) => {
   const { ref, inView } = useInView({
-    threshold: 0,
     triggerOnce: true,
-    rootMargin: '50px'
+    threshold: 0,
   });
-  
+
   const { isLoading, productStats } = useGetProductStats(type, !inView);
-  
-  if (!productStats?.length && !isLoading) return null;
+
+  if (productStats?.length === 0 && !isLoading && inView) return null;
 
   return (
-    <div ref={ref}>
+    <div className="min-h-[200px]" ref={ref} id={type}>
       {inView && (
         <>
           <h1 className="text-2xl font-medium mb-4 ">{titleMap[type]}</h1>

@@ -1,19 +1,32 @@
 import ProductList from "@/components/productList";
 import React from "react";
+import { useInView } from "react-intersection-observer";
+
 import { useGetRelatedProducts } from "./_api/query";
 
 const RelatedProductList = ({ productId }: { productId: string }) => {
-  const { isLoading, relatedProducts } = useGetRelatedProducts(productId);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
+  const { isLoading, relatedProducts } = useGetRelatedProducts(
+    productId,
+    !inView
+  );
   if (!relatedProducts?.length && !isLoading) return null;
   return (
-    <div>
-      <h1 className="text-2xl mt-6">Related Products</h1>
-      <ProductList
-        products={relatedProducts}
-        isLoading={isLoading}
-        displayType="swiper"
-        showNoData={false}
-      />
+    <div className="min-h-[200px]" ref={ref} id={productId}>
+      {inView && (
+        <>
+          <h1 className="text-2xl mt-6">Related Products</h1>
+          <ProductList
+            products={relatedProducts}
+            isLoading={isLoading}
+            displayType="swiper"
+            showNoData={false}
+          />
+        </>
+      )}
     </div>
   );
 };

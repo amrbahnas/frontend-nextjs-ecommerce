@@ -41,7 +41,7 @@ export const MessageList = () => {
     user,
   });
 
-  if (isPending && pagination.current === 1) {
+  if (isPending && page ===1) {
     return <MessageListSkeleton />;
   }
 

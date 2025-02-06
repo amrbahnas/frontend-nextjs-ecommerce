@@ -2,7 +2,7 @@ import { useGetCart } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Badge, Popover } from "antd";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { memo, useEffect, useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import CartSkeleton from "./cart.skeleton";
@@ -10,6 +10,7 @@ import CartBody from "./cartBody";
 
 const CartModal = () => {
   const route = useRouter();
+  const pathName = usePathname();
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, setOnlineCart, onlineCart } = useCardStore();
@@ -22,7 +23,7 @@ const CartModal = () => {
 
   useEffect(() => {
     if (open && isLogin) refetch();
-  }, [open, isLogin, refetch]);
+  }, [open, isLogin]);
 
   useEffect(() => {
     if (apiCart.id && isLogin) {
@@ -33,13 +34,16 @@ const CartModal = () => {
       });
     }
   }, [apiCart]);
+  const onOpenChangeHandler = () => {
+    if (pathName === "/cart") return;
+    cartCount > 2 ? route.push("/cart") : setOpen(!open);
+  };
 
   return (
     <Popover
       open={open}
-      onOpenChange={() => {
-        cartCount > 2 ? route.push("/cart") : setOpen(!open);
-      }}
+      destroyTooltipOnHide
+      onOpenChange={onOpenChangeHandler}
       content={
         isLoading ? (
           <CartSkeleton />

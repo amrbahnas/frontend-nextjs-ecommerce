@@ -15,7 +15,10 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import { useGetSpecificOrder } from "../_api/query";
 import OrderDetailsSkeleton from "./_comps/orderDetails.skeleton";
-import { use } from "react";
+import { use, useEffect } from "react";
+import useParamsService from "@/hooks/global/useParamsService";
+import toast from "react-hot-toast";
+import useCardStore from "@/store/useCardStore";
 
 const getOrderStatus = (order?: any) => {
   const steps = [
@@ -45,7 +48,19 @@ const getStatusTag = (status: string) => {
 };
 const OrderDetailsPage = ({ params }: { params: Params }) => {
   const { id } = use(params);
+  const resetCart = useCardStore((store) => store.resetCart);
+  const { getParams } = useParamsService({});
   const { order, isLoading } = useGetSpecificOrder(id);
+
+  useEffect(() => {
+    if (Object.values(order).length === 0) return;
+    const isSuccess = getParams("success");
+    const orderSince = dayjs(order.createdAt).fromNow();
+    if (isSuccess && orderSince.match("few seconds")) {
+      resetCart();
+      toast.success("Order placed successfully");
+    }
+  }, [order]);
 
   if (isLoading || !order) {
     return <OrderDetailsSkeleton />;

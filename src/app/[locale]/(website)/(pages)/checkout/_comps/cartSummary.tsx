@@ -52,10 +52,8 @@ const CartSummary = () => {
       />
       <Card className="mt-4">
         <div className="flex justify-between items-center">
-          <Text strong>Total Amount:</Text>
-          <Text strong className="text-xl text-primary">
-            ${total.toFixed(2)}
-          </Text>
+          <span className=" font-semibold text-lg">Total Amount:</span>
+          <span className="text-xl font-bold">${total.toFixed(2)}</span>
         </div>
       </Card>
     </div>

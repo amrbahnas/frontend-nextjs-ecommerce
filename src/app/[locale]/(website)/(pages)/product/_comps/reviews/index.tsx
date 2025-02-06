@@ -12,7 +12,6 @@ const Reviews = ({ productId }: { productId: string }) => {
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
-    rootMargin: "50px",
   });
   const { error, isLoading, refetch, reviews } = useGetProductReviews(
     productId,
@@ -25,10 +24,10 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <ReviewsSkeleton />;
 
   return (
-    <div ref={ref}>
+    <div className="min-h-[200px]" ref={ref}>
       {inView && (
         <>
-          <h1 className="text-2xl">
+          <h1 className="text-2xl mb-4">
             {t("userReviews")}
             <Badge
               count={reviews?.length}

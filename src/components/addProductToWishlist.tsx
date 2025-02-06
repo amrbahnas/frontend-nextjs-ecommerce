@@ -30,7 +30,13 @@ const WishlistButton = ({
 
   const { toggleWishlist, isPending } = useToggleProductWishlist(productId);
   const handleToggleWishlist = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isPending) return;
     setIsWithListed((prev) => !prev);
+    setShowHeartAnimation(true);
+    setTimeout(() => {
+      setShowHeartAnimation(false);
+    }, 4000);
+
     toggleWishlist(
       {},
       {
@@ -39,10 +45,6 @@ const WishlistButton = ({
           setUser(newUser);
           if (!isWithListed) {
             successToast();
-            setShowHeartAnimation(true);
-            setTimeout(() => {
-              setShowHeartAnimation(false);
-            }, 4000);
           } else {
             toast.success("Product Removed from wishlist");
           }
@@ -55,7 +57,7 @@ const WishlistButton = ({
   };
 
   if (!isLogin) return null;
-  if (isPending) return <Spin />;
+  // if (isPending) return <Spin />;
   return (
     <div
       onClick={handleToggleWishlist}
@@ -76,7 +78,7 @@ const successToast = () => {
     <div className={"flex items-center gap-1 flex-wrap"}>
       Product added to wishlist
       <Link
-        href="/withlist"
+        href="/wishlist"
         className="!text-blue-500 !underline !ml-2 !font-semibold"
       >
         View wishlist

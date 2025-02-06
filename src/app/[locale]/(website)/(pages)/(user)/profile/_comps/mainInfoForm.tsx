@@ -131,7 +131,11 @@ const MainInfoForm = ({
           name="phone"
           label="Phone Number"
           rules={[
-            { required: true, message: "Please input your phone number!" },
+            {
+              required: false,
+              message: "invalid phone number",
+              min: 8,
+            },
           ]}
         >
           <Input

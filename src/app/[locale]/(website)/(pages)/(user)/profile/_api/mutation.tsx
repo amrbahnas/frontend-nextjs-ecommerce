@@ -65,7 +65,7 @@ export const useCreateAddress = () => {
   };
 };
 
-export const useUpdateAddress = (id: string | undefined) => {
+export const useUpdateAddress = (id: string | undefined | null) => {
   const { data, error, isError, isPending, isSuccess, mutate } = useMutation(
     `/addresses/${id}`,
     { method: "patch" }

@@ -4,16 +4,24 @@ import { Button, Form, Input, Spin } from "antd";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import { useChangePassword } from "../_api/mutation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 const { Password } = Input;
 
 const ChangePasswordForm = () => {
+  const route = useRouter();
   const { changePassword, changePasswordIsPending, changePasswordError } =
     useChangePassword();
   const [form] = Form.useForm();
 
   const changePasswordHandler = async (values: any) => {
-    changePassword(values);
-    form.resetFields();
+    changePassword(values, {
+      onSuccess: (result) => {
+        toast.success("Password Changed Successfully");
+        route.push("/profile");
+        form.resetFields();
+      },
+    });
   };
 
   return (

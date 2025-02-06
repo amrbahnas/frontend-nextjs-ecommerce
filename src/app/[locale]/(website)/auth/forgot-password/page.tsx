@@ -9,7 +9,7 @@ import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../../enum/pagesScr
 import Container from "@/components/container";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
+const { Password } = Input;
 const ForgetPasswordPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
@@ -185,14 +185,14 @@ const ForgetPasswordPage = () => {
                     },
                   ]}
                 >
-                  <Input
+                  <Password
                     type="password"
                     placeholder="Enter your new password"
                     className=" rounded-md p-4"
                   />
                 </Item>
                 <Item
-                  label="Password"
+                  label="Confirm Password"
                   name="confirmPassword"
                   rules={[
                     {
@@ -201,7 +201,7 @@ const ForgetPasswordPage = () => {
                     },
                   ]}
                 >
-                  <Input
+                  <Password
                     type="password"
                     placeholder="Enter your new password"
                     className=" rounded-md p-4"

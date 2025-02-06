@@ -15,7 +15,7 @@ const SettingsPage = () => {
       </div>
 
       <div className="grid gap-6">
-        <Card title="Security" className="shadow-sm">
+        <Card title="Security" className="shadow-sm w-full sm:w-2/3">
           <ChangePasswordForm />
         </Card>
       </div>

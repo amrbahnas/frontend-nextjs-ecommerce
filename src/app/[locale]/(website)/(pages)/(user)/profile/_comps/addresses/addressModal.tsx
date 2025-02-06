@@ -1,8 +1,7 @@
 "use client";
 import { Button, Form, Input, Modal, Spin, message } from "antd";
 import { useCreateAddress, useUpdateAddress } from "../../_api/mutation";
-import { useEffect } from "react";
-import { AimOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 
 const { Item } = Form;
 
@@ -19,7 +18,10 @@ const AddressModal = ({
   initialData,
   addressesRefetch,
 }: AddressModalProps) => {
-  const addressId = initialData?.id;
+  // const addressId = initialData?.id;
+  const [addressId, setAddressId] = useState<string | null | undefined>(
+    initialData?.id
+  );
   const [form] = Form.useForm();
   const { createAddress, createAddressIsPending } = useCreateAddress();
   const { updateAddress, updateAddressIsPending } = useUpdateAddress(addressId);
@@ -27,22 +29,30 @@ const AddressModal = ({
   const onFinish = async (values: AddressType) => {
     if (addressId) {
       updateAddress(values, {
-        onSuccess: addressesRefetch,
+        onSuccess: () => {
+          addressesRefetch && addressesRefetch();
+          form.resetFields();
+          onClose();
+        },
       });
     } else {
       createAddress(values, {
-        onSuccess: addressesRefetch,
+        onSuccess: () => {
+          addressesRefetch && addressesRefetch();
+          form.resetFields();
+          onClose();
+        },
       });
     }
-    form.resetFields();
-    onClose();
   };
 
   useEffect(() => {
     if (initialData) {
       form.setFieldsValue(initialData);
+      setAddressId(initialData.id);
     } else {
       form.resetFields();
+      setAddressId(null);
     }
   }, [initialData, form]);
 

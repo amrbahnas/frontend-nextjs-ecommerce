@@ -37,7 +37,7 @@ const ListPage = () => {
       {/* FILTER */}
       <Filter />
       {/* PRODUCTS */}
-      <h1 className="text-xl font-semibold">
+      <h1 className="text-xl font-semibold mb-4">
         {search ? `Search results for "${search}"` : "Our Best Picks"}
       </h1>
       <ProductSection />

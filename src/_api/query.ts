@@ -16,7 +16,7 @@ export const useMe = () => {
 };
 
 export const useGetProducts = (params?: any) => {
-  const { data, isLoading } = usePagination<Product[]>("/products", {
+  const { data, isLoading, pagination } = usePagination<Product[]>("/products", {
     params: {
       fields:
         "title,price,imageCover,images,colors,description,status,availableSizes,quantity,ratingsAverage,status",
@@ -24,7 +24,7 @@ export const useGetProducts = (params?: any) => {
     },
   });
 
-  return { products: (data || []) as Product[], isLoading };
+  return { products: (data || []) as Product[], isLoading, pagination };
 };
 
 export const useGetCart = () => {

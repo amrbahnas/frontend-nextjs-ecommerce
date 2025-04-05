@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import styles from "./productList.module.css";
 import ProductCardSkeleton from "./productCard/productCard.skeleton";
+import { Pagination } from "antd";
 
 const ProductList = ({
   products,
@@ -18,6 +19,7 @@ const ProductList = ({
   spaceBetween = 30,
   showNoData = true,
   loop = true,
+  pagination,
 }: {
   products: Product[];
   isLoading: boolean;
@@ -26,11 +28,12 @@ const ProductList = ({
   spaceBetween?: number;
   showNoData?: boolean;
   loop?: boolean;
+  pagination?: Pagination;
 }) => {
   if (isLoading && displayType === "grid")
     return (
       <RenderedCardsGrid length={5}>
-        {[1, 2, 3, 4].map((i) => (
+        {Array.from({ length: pagination?.pageSize || 5 }).map((_, i) => (
           <ProductCardSkeleton key={i} />
         ))}
       </RenderedCardsGrid>
@@ -69,11 +72,18 @@ const ProductList = ({
   }
 
   return (
-    <RenderedCardsGrid length={products?.length}>
-      {products?.map((product: Product) => (
-        <ProductCard product={product} key={product.id} />
-      ))}
-    </RenderedCardsGrid>
+    <>
+      <RenderedCardsGrid length={products?.length}>
+        {products?.map((product: Product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </RenderedCardsGrid>
+      {pagination && (
+        <div className="flex justify-center mt-8">
+          <Pagination {...pagination} />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -268,3 +268,15 @@ declare module "*.mp3" {
 }
 
 type Params = Promise<any>;
+
+ 
+
+type Pagination = {
+  current: number;
+  pageSize: number;
+  total: number;
+  showSizeChanger: boolean;
+  showTotal: (total: number) => React.ReactNode;
+  onChange: (page: number, pageSize?: number) => void;
+  onShowSizeChange: (current: number, size: number) => void;
+};

@@ -3,7 +3,7 @@
 import axiosInstance from "@/config/apiClient";
 import proxyAxiosInstance from "@/config/proxyClient";
 import {
-  keepPreviousData,
+  keepPreviousData as keepPreviousDataPlaceholder,
   useQuery as reactUseQuery,
 } from "@tanstack/react-query";
 import ms from "ms";
@@ -20,6 +20,7 @@ function usePagination<T>(
     pageSize?: number;
     disableProxy?: boolean;
     staleTime?: string;
+    keepPreviousData?: boolean;
   }
 ) {
   const [page, setPage] = useState(1);
@@ -55,7 +56,7 @@ function usePagination<T>(
     retry: options?.retry || 3,
     initialData: options?.initialData,
     enabled: !Boolean(options?.skip),
-    placeholderData: keepPreviousData,
+    placeholderData: options?.keepPreviousData ? keepPreviousDataPlaceholder : undefined,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
@@ -76,7 +77,7 @@ function usePagination<T>(
         setPage(1);
         setPageSize(size);
       },
-    },
+    } as Pagination,
     hasMore: data?.data?.pagination?.hasMore,
     page,
     setPage,

@@ -65,7 +65,7 @@ const CategoryCard = ({ category }: { category: CategoryType }) => {
         alt=""
         width={80}
         height={80}
-        className="object-cover rounded-full bg-gray-300"
+        className="object-cover rounded-full bg-gray-300 aspect-square"
       />
       <span className=" font-light text-sm sm:text-xl tracking-wide text-center text-black">
         {category.name}

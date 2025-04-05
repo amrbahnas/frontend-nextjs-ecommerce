@@ -56,26 +56,30 @@ function usePagination<T>(
     retry: options?.retry || 3,
     initialData: options?.initialData,
     enabled: !Boolean(options?.skip),
-    placeholderData: options?.keepPreviousData ? keepPreviousDataPlaceholder : undefined,
+    placeholderData: options?.keepPreviousData
+      ? keepPreviousDataPlaceholder
+      : undefined,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
   return {
     pagination: {
-      current: data?.data?.pagination?.currentPage,
-      pageSize: data?.data?.pagination?.pageSize,
+      // current: data?.data?.pagination?.currentPage,
+      current: page,
+      // pageSize: data?.data?.pagination?.pageSize,
+      pageSize,
       total: data?.data?.pagination?.total,
       showSizeChanger: true,
       showTotal: (total: number) => (
         <span className="font-medium">{`Total ${total} items`}</span>
       ),
-      onChange: (page: number, pageSize?: number) => {
-        setPage(page);
-        pageSize && setPageSize(pageSize);
-      },
-      onShowSizeChange: (current: number, size: number) => {
-        setPage(1);
-        setPageSize(size);
+      onChange: (page: number, nextPageSize?: number) => {
+        if (pageSize !== nextPageSize) {
+          setPageSize(nextPageSize!);
+          setPage(1);
+        } else {
+          setPage(page);
+        }
       },
     } as Pagination,
     hasMore: data?.data?.pagination?.hasMore,

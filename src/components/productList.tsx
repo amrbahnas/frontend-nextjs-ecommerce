@@ -80,7 +80,7 @@ const ProductList = ({
       </RenderedCardsGrid>
       {pagination && (
         <div className="flex justify-center mt-8">
-          <Pagination {...pagination} />
+          <Pagination  {...pagination} />
         </div>
       )}
     </>

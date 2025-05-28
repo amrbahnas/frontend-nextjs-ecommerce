@@ -9,20 +9,7 @@ import {
 import ms from "ms";
 import { useEffect, useState, useRef } from "react";
 
-function usePagination<T>(
-  endpoint: string,
-  options?: {
-    params?: Record<string, any>;
-    initialData?: any;
-    skip?: boolean;
-    retry?: number;
-    refetchOnWindowFocus?: boolean;
-    pageSize?: number;
-    disableProxy?: boolean;
-    staleTime?: string;
-    keepPreviousData?: boolean;
-  }
-) {
+function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;

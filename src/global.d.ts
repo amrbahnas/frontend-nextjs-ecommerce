@@ -287,3 +287,15 @@ interface InfinitePaginationType {
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
 }
+
+type QueryOptionsType = {
+  params?: Record<string, any>;
+  initialData?: any;
+  skip?: boolean;
+  retry?: number;
+  refetchOnWindowFocus?: boolean;
+  pageSize?: number;
+  disableProxy?: boolean;
+  staleTime?: string;
+  keepPreviousData?: boolean;
+};

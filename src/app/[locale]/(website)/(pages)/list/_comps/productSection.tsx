@@ -1,8 +1,9 @@
 import { useGetProducts } from "@/_api/query";
-import ProductList from "@/components/productList";
-import ProductListInfinityScroll from "@/components/productListInfinityScroll";
+import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
+import ProductCard from "@/components/productCard";
+import ProductCardSkeleton from "@/components/productCard/productCard.skeleton";
 import { useSearchParams } from "next/navigation";
-import React, { memo } from "react";
+import { memo } from "react";
 
 const ProductSection = () => {
   const searchParams = useSearchParams();
@@ -16,10 +17,12 @@ const ProductSection = () => {
   });
 
   return (
-    <ProductListInfinityScroll
-      products={products}
-      isLoading={isLoading}
+    <ListItemsInfinityScroll<Product>
+      data={products}
       pagination={pagination}
+      isLoading={isLoading}
+      skeketonItem={(key) => <ProductCardSkeleton key={key} />}
+      renderItem={(product) => <ProductCard product={product} />}
     />
   );
 };

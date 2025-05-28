@@ -5,17 +5,18 @@ const RenderedCardsGrid = ({
   children,
   length,
   minCardWidth,
+  customColsNum,
 }: {
   children: React.ReactNode;
   length: number;
   minCardWidth?: number;
+  customColsNum?: number;
 }) => {
   return (
     <div
-      className={classnames("  grid  gap-4", {
-        // " grid-cols-autoFit-150  md:grid-cols-autoFit-250": length > 1,
-        // "grid-cols-1  md:grid-cols-3 lg:grid-cols-4  ": length === 1,
-        "grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl::grid-cols-5  ": true,
+      className={classnames("grid gap-4", {
+        "grid-cols-2 md:grid-cols-3 lg:grid-cols-4": !customColsNum,
+        [`grid-cols-${customColsNum}`]: customColsNum,
       })}
     >
       {children}

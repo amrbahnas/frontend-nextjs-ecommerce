@@ -13,7 +13,6 @@ const ReviewCard = ({
   currentUser: User | null;
   refetch: () => void;
 }) => {
-  console.log("🚀 ~ file: reviewCard.tsx:9 ~ review:", review);
   const t = useTranslations("Reviews");
   if (!review.user) return null;
   const currentUserIsOwnThisReview = currentUser?.id === review.user?.id;

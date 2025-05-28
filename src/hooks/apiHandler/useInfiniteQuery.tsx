@@ -12,19 +12,7 @@ import proxyAxiosInstance from "@/config/proxyClient";
 //   return { certificates: data as CertificateType[] ||[], isLoading,error };
 // };
 
-function useInfiniteQuery<T>(
-  endpoint: string,
-  options?: {
-    params?: Record<string, any>;
-    initialData?: any;
-    skip?: boolean;
-    retry?: number;
-    refetchOnWindowFocus?: boolean;
-    pageSize?: number;
-    disableProxy?: boolean;
-    staleTime?: string;
-  }
-) {
+function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
   const { logout } = useLogout();
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
   const pageSize = options?.pageSize || 12;

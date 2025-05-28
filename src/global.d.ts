@@ -269,8 +269,6 @@ declare module "*.mp3" {
 
 type Params = Promise<any>;
 
- 
-
 type Pagination = {
   current: number;
   pageSize: number;
@@ -280,3 +278,12 @@ type Pagination = {
   onChange: (page: number, pageSize?: number) => void;
   onShowSizeChange: (current: number, size: number) => void;
 };
+
+interface InfinitePaginationType {
+  current: number;
+  pageSize: number;
+  total: number;
+  hasMore: boolean;
+  fetchNextPage: () => void;
+  isFetchingNextPage: boolean;
+}

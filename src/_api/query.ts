@@ -1,3 +1,4 @@
+import useInfiniteQuery from "@/hooks/apiHandler/useInfiniteQuery";
 import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 import useAuthStore from "@/store/useAuthStore";
@@ -16,13 +17,16 @@ export const useMe = () => {
 };
 
 export const useGetProducts = (params?: any) => {
-  const { data, isLoading, pagination } = usePagination<Product[]>("/products", {
-    params: {
-      fields:
-        "title,price,imageCover,images,colors,description,status,availableSizes,quantity,ratingsAverage,status",
-      ...params,
-    },
-  });
+  const { data, isLoading, pagination } = useInfiniteQuery<Product[]>(
+    "/products",
+    {
+      params: {
+        fields:
+          "title,price,imageCover,images,colors,description,status,availableSizes,quantity,ratingsAverage,status",
+        ...params,
+      },
+    }
+  );
 
   return { products: (data || []) as Product[], isLoading, pagination };
 };

@@ -15,6 +15,7 @@ import Head from "next/head";
 import { usePathname } from "next/navigation";
 import ProductStructuredData from "@/components/structured-data/productStructuredData";
 import RelatedProductList from "../../_comps/product-stats/relatedProductList";
+import { useProductSeo } from "../hooks/useProductSeo";
 
 const SinglePage = ({ params }: { params: Params }) => {
   const { id } = use(params);
@@ -22,43 +23,7 @@ const SinglePage = ({ params }: { params: Params }) => {
   const t = useTranslations("ProductDetails");
   const pathname = usePathname();
 
-  useEffect(() => {
-    // Dynamically update meta tags since this is a client component
-    if (product) {
-      document.title = `${product.title} | Shope-Amr`;
-      const metaDescription = document.querySelector(
-        'meta[name="description"]'
-      );
-      if (metaDescription) {
-        metaDescription.setAttribute("content", product.description || "");
-      }
-
-      // Update Open Graph tags
-      let ogTitle = document.querySelector('meta[property="og:title"]');
-      let ogDesc = document.querySelector('meta[property="og:description"]');
-      let ogImage = document.querySelector('meta[property="og:image"]');
-
-      if (!ogTitle) {
-        ogTitle = document.createElement("meta");
-        ogTitle.setAttribute("property", "og:title");
-        document.head.appendChild(ogTitle);
-      }
-      if (!ogDesc) {
-        ogDesc = document.createElement("meta");
-        ogDesc.setAttribute("property", "og:description");
-        document.head.appendChild(ogDesc);
-      }
-      if (!ogImage) {
-        ogImage = document.createElement("meta");
-        ogImage.setAttribute("property", "og:image");
-        document.head.appendChild(ogImage);
-      }
-
-      ogTitle.setAttribute("content", product.title);
-      ogDesc.setAttribute("content", product.description || "");
-      ogImage.setAttribute("content", product.imageCover);
-    }
-  }, [product]);
+  useProductSeo(product);
 
   if (isLoading) return <ProductSkeleton />;
 

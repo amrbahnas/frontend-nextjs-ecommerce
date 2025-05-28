@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar-hide::-webkit-scrollbar {
+/* .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
 .scrollbar-hide {
   scrollbar-width: none;
-}
+} */
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0px;
   height: 5px;
-}
+} */
 
 ::-webkit-scrollbar-thumb {
   background-color: rgb(114, 113, 113);
@@ -83,7 +83,7 @@
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
   }
-  
+
   .custom-scrollbar:hover {
     scrollbar-color: rgba(155, 155, 155, 0.8) transparent;
   }

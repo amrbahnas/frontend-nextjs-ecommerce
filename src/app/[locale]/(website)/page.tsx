@@ -1,7 +1,7 @@
 "use client";
 import CategoriesSlider from "@/app/[locale]/(website)/(pages)/_comps/categoriesSlider";
-import Container from "@/components/container";
-import Slider from "@/components/slider";
+import Container from "@/components/ui/container";
+import Slider from "@/components/home/slider";
 import { useTranslations } from "next-intl";
 import ProductStatsList from "./(pages)/_comps/product-stats/productStatsList";
 

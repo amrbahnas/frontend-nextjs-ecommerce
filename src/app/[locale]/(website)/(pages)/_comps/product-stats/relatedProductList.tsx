@@ -1,4 +1,4 @@
-import ProductList from "@/components/productList";
+import ProductList from "@/components/shared/productList";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 

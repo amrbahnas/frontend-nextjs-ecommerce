@@ -1,4 +1,4 @@
-import AddProductToCard from "@/components/addProductToCard";
+import AddProductToCard from "@/components/shared/addProductToCard";
 import { Tag, Tooltip } from "antd";
 import React, { memo } from "react";
 

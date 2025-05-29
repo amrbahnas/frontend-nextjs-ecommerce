@@ -5,7 +5,7 @@ import CartItem from "@/components/cart/cartItem";
 import CheckButton from "@/components/cart/checkButton";
 import Pricing from "@/components/cart/pricing";
 import ResetCart from "@/components/cart/resetCart";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import NoData from "@/components/ui/noData";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";

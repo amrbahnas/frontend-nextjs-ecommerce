@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Divider } from "antd";
-import WishlistButton from "../addProductToWishlist";
+import WishlistButton from "../../addProductToWishlist";
 import CardBadge from "./bages/cardBadge";
 import ProductStatusBadge from "./bages/productStatusBadge";
 import PrAddToCart from "./sections/prAddToCart";

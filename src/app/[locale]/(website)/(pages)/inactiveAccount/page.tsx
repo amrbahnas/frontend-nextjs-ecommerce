@@ -1,5 +1,5 @@
 "use client";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import React, { useEffect } from "react";
 import { ImBlocked } from "react-icons/im";
 import useAuthStore from "@/store/useAuthStore";

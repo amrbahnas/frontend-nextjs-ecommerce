@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Form, Input, message } from "antd";
-import Container from "./container";
+import Container from "../ui/container";
 import { useTranslations } from "next-intl";
 import { useSubscribe } from "@/_api/actions";
 const { Item } = Form;

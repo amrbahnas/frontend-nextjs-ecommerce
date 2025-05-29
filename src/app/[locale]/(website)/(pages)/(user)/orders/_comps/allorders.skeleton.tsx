@@ -1,5 +1,5 @@
 import { Card, Skeleton, Table } from "antd";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 
 const AllOrdersSkeleton = () => {
   const columns = [

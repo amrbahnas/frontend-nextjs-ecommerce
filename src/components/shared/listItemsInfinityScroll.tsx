@@ -1,8 +1,8 @@
 import { Spin } from "antd";
-import { InfiniteScroll } from "./ui/InfiniteScroll";
-import NoData from "./ui/noData";
-import RenderedCardsGrid from "./ui/renderedCardsGrid";
-import { Error } from "./ui/error";
+import { InfiniteScroll } from "../ui/InfiniteScroll";
+import NoData from "../ui/noData";
+import RenderedCardsGrid from "../ui/renderedCardsGrid";
+import { Error } from "../ui/error";
 
 const ListItemsInfinityScroll = <T,>({
   data,

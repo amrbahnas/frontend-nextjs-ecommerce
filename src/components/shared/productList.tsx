@@ -1,8 +1,8 @@
 import { memo } from "react";
 import ProductCard from "./productCard";
 
-import NoData from "./ui/noData";
-import RenderedCardsGrid from "./ui/renderedCardsGrid";
+import NoData from "../ui/noData";
+import RenderedCardsGrid from "../ui/renderedCardsGrid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -80,7 +80,7 @@ const ProductList = ({
       </RenderedCardsGrid>
       {pagination && (
         <div className="flex justify-center mt-8">
-          <Pagination  {...pagination} />
+          <Pagination {...pagination} />
         </div>
       )}
     </>

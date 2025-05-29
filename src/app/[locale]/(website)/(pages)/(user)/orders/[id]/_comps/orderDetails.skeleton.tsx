@@ -1,6 +1,6 @@
 "use client";
 import { Card, Skeleton, Steps } from "antd";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import {
   CheckCircleOutlined,
   DollarOutlined,

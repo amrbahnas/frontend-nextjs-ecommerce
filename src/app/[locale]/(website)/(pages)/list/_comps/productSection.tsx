@@ -1,7 +1,7 @@
 import { useGetProducts } from "@/_api/query";
-import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
-import ProductCard from "@/components/productCard";
-import ProductCardSkeleton from "@/components/productCard/productCard.skeleton";
+import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
+import ProductCard from "@/components/shared/productCard";
+import ProductCardSkeleton from "@/components/shared/productCard/productCard.skeleton";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 

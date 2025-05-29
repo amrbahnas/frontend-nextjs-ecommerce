@@ -1,4 +1,4 @@
-import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
+import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import useUserStore from "@/store/useUserStore";
 import { Badge } from "antd";
 import { useTranslations } from "next-intl";

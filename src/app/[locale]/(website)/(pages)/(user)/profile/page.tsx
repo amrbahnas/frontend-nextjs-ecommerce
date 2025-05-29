@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Avatar, Card, Button, Spin } from "antd";
 import MainInfoForm from "./_comps/mainInfoForm";
 import { useGetAllOrders } from "../orders/_api/query";

@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Card } from "antd";
 import ChangePasswordForm from "./_comps/changePasswordForm";
 

@@ -6,7 +6,7 @@ import { useForgetPassword } from "../_api/mutation";
 import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../../enum/pagesScreens";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import Link from "next/link";
 import toast from "react-hot-toast";
 const { Password } = Input;

@@ -2,7 +2,7 @@
 
 import { useGetAllOrders } from "./_api/query";
 import { Card, Table, Tag, Button, TableProps } from "antd";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { EyeOutlined } from "@ant-design/icons";

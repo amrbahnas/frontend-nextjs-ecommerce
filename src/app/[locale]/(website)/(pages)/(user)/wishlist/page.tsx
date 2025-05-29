@@ -1,8 +1,8 @@
 "use client";
-import Container from "@/components/container";
-import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
-import ProductCard from "@/components/productCard";
-import ProductCardSkeleton from "@/components/productCard/productCard.skeleton";
+import Container from "@/components/ui/container";
+import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
+import ProductCard from "@/components/shared/productCard";
+import ProductCardSkeleton from "@/components/shared/productCard/productCard.skeleton";
 import useUserStore from "@/store/useUserStore";
 import { Divider } from "antd";
 import { useEffect } from "react";

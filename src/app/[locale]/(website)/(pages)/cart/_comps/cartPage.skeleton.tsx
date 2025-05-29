@@ -1,4 +1,4 @@
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Skeleton } from "antd";
 import React from "react";
 

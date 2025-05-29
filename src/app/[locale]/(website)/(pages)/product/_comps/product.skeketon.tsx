@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import ImageSkeleton from "@/components/ui/imageSkeleton";
 import { Skeleton } from "antd";
 

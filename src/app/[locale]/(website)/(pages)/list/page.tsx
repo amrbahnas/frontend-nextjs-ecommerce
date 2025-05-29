@@ -1,5 +1,5 @@
 "use client";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Button, Skeleton } from "antd";
 import Image from "next/image";
 import React, { Suspense } from "react";

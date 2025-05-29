@@ -1,5 +1,5 @@
-import Container from "@/components/container";
-import LoadingPage from "@/components/loadingPage";
+import Container from "@/components/ui/container";
+import LoadingPage from "@/components/shared/loadingPage";
 
 export default function Loading() {
   return (
@@ -7,7 +7,7 @@ export default function Loading() {
       <div className="animate-pulse space-y-8 py-8">
         {/* Hero Section Skeleton */}
         <div className="h-64 bg-gray-200 rounded-lg w-full" />
-        
+
         {/* Categories Skeleton */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {[...Array(6)].map((_, i) => (
@@ -17,7 +17,7 @@ export default function Loading() {
             </div>
           ))}
         </div>
-        
+
         {/* Products Grid Skeleton */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(8)].map((_, i) => (

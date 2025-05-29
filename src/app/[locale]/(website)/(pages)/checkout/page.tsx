@@ -1,5 +1,5 @@
 "use client";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Steps, Button, Spin } from "antd";
 import { useState } from "react";
 import CartSummary from "./_comps/cartSummary";

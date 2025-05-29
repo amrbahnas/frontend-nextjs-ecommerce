@@ -1,5 +1,5 @@
 "use client";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { useState } from "react";
 import EnterNewEmail from "./_comps/enterNewEmail";
 import EnterOTP from "./_comps/enterOTP";

@@ -1,4 +1,4 @@
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import React from "react";
 import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";

@@ -1,4 +1,4 @@
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import DisableLink from "@/components/ui/disableLink";
 import { Breadcrumb as BreadcrumbAntd } from "antd";
 import { usePathname } from "next/navigation";

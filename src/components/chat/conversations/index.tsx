@@ -1,4 +1,4 @@
-import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
+import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
 import { useGetAllConversations } from "../_api/query";

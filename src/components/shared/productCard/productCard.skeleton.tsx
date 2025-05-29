@@ -1,6 +1,6 @@
 "use client";
 import { Skeleton } from "antd";
-import ImageSkeleton from "../ui/imageSkeleton";
+import ImageSkeleton from "../../ui/imageSkeleton";
 
 const ProductCardSkeleton = () => {
   return (

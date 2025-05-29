@@ -2,7 +2,7 @@
 import useOnlineStatus from "@/hooks/global/useOnlineStatus";
 import classnames from "classnames";
 import React from "react";
-import OfflineModal from "../offlineModal";
+import OfflineModal from "./offlineModal";
 
 const OnlineStatus: React.FC<React.PropsWithChildren> = ({ children }) => {
   const isOnline = useOnlineStatus();

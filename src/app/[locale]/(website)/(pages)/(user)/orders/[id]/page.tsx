@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, Descriptions, Steps, Tag, List, Image as AntdImage } from "antd";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import {
   CheckCircleOutlined,
   ClockCircleOutlined,

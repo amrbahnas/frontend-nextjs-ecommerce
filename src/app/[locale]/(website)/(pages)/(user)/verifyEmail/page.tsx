@@ -1,6 +1,6 @@
 "use client";
 import Item from "@/components/antd/item";
-import Container from "@/components/container";
+import Container from "@/components/ui/container";
 import { Error } from "@/components/ui/error";
 import useParamsService from "@/hooks/global/useParamsService";
 import useUserStore from "@/store/useUserStore";

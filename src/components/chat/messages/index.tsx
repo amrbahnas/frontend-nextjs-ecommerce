@@ -1,4 +1,4 @@
-import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
+import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
 import { useRef } from "react";

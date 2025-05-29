@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Container from "./container";
-import NextImage from "./ui/nextImage";
+import Container from "../ui/container";
+import NextImage from "../ui/nextImage";
 import { FaWhatsapp } from "react-icons/fa";
 import { SiFacebook, SiInstagram, SiLinkedin, SiGithub } from "react-icons/si";
 import { memo } from "react";

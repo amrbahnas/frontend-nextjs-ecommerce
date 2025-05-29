@@ -116,13 +116,6 @@ export const metadata: Metadata = {
   category: "E-commerce",
 };
 
-async function getMessages(locale: string) {
-  try {
-    return (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    return (await import(`../../messages/en.json`)).default;
-  }
-}
 type Params = Promise<{ locale: string }>;
 export default async function LocaleLayout({
   children,
@@ -132,7 +125,7 @@ export default async function LocaleLayout({
   params: Params;
 }) {
   const { locale } = await params;
-  const messages = await getMessages(locale);
+
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
@@ -162,13 +155,17 @@ export default async function LocaleLayout({
           name="google-site-verification"
           content="QKdQNht25W1XB9fhKkw-nTPR6mQruPIQ2katXOb6pj0"
         />
+        <script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <WebsiteStructuredData />
         <LocalBusinessStructuredData />
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider locale={locale}>
           <ReactQueryLayout>
             <AntDLayout locale={locale}>
               <ProgressBarLayout>

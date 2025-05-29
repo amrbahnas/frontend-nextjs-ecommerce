@@ -39,7 +39,7 @@ const ProductList = ({
       </RenderedCardsGrid>
     );
 
-  if (products?.length === 0 && showNoData) return <NoData />;
+  if (products?.length === 0 && showNoData && !isLoading) return <NoData />;
 
   if (displayType === "swiper") {
     return (

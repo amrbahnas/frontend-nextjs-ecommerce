@@ -1,12 +1,13 @@
 "use client";
 import AddProductToCard from "@/components/shared/addProductToCard";
-import WishlistButton from "@/components/addProductToWishlist";
+
 import { Divider } from "antd";
 import { useState } from "react";
 import ColorSelector from "./colorSelector";
 import SizeSelector from "./sizeSelector";
 import CardBadge from "@/components/shared/productCard/bages/cardBadge";
 import { useTranslations } from "next-intl";
+import WishlistButton from "@/components/shared/addProductToWishlist";
 
 const Add = ({ product }: { product: Product }) => {
   const {

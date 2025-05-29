@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 export const MessageListSkeleton = () => {
   return (
-    <div className="flex-1 p-4 overflow-y-auto space-y-4 w-full">
+    <div className="flex-1  overflow-y-auto space-y-4 w-full">
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <div
           key={item}

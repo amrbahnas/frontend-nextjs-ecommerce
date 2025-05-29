@@ -1,93 +1,72 @@
+import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
-import { Spin } from "antd";
 import { useRef } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetMessages } from "../_api/query";
 import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
 import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
-import { useResetMessagesPage } from "./hooks/useResetMessagesPage";
+import { useScrollMessagesList } from "./hooks/useScrollMessagesList";
 import { MessageItem } from "./messageItem";
 import { MessageListSkeleton } from "./messageListSkeleton";
 
 export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
     useChatContext();
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user } = useUserStore();
 
-  const { messages, isPending, pagination, hasMore, nextPage, page, setPage } =
-    useGetMessages(selectedConversation?.id);
+  // get messages
+  const { messages, isPending, pagination, error } = useGetMessages(
+    selectedConversation?.id
+  );
 
+  // set rendered messages with backend messages
   const { renderedmessages, setRenderMessages } = useManageRenderedMessages({
     selectedConversation,
     messages,
-    page,
   });
 
-  useResetMessagesPage({
+  // scroll messages list to bottom when open
+  useScrollMessagesList({
     isOpen,
     messagesEndRef,
     selectedConversation,
-    setPage,
   });
 
+  // handle messages socket events (send message, updateSelectedConversation)
   useMessagesSocketEvents({
     selectedConversation,
     socket,
     setRenderMessages,
     setSelectedConversation,
+    messagesEndRef,
     user,
   });
 
-  if (isPending && page ===1) {
-    return <MessageListSkeleton />;
-  }
-
+  // render messages list
   return (
     <div
-      id="scrollableDiv"
-      className="custom-scrollbar"
       ref={messagesEndRef}
-      style={{
-        height: 500,
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column-reverse",
-      }}
+      className="flex-1 overflow-y-auto custom-scrollbar p-4 "
     >
-      <InfiniteScroll
-        dataLength={renderedmessages.length}
-        next={nextPage}
-        hasMore={hasMore}
-        loader={
-          <div style={{ textAlign: "center", padding: "10px" }}>
-            <Spin size="small" />
-          </div>
-        }
-        scrollableTarget="scrollableDiv"
-        inverse={true}
-        style={{
-          display: "flex",
-          flexDirection: "column-reverse",
-          padding: "0 10px",
-        }}
-        endMessage={
-          <p className="text-center text-gray-400 mt-2 mb-4">
-            You are all caught up!
-          </p>
-        }
-      >
-        {renderedmessages.map((message) => (
+      <ListItemsInfinityScroll
+        data={renderedmessages}
+        pagination={pagination}
+        threshold={500}
+        reverse={true}
+        customColsNum={1}
+        renderItem={(message) => (
           <MessageItem
             key={message.id}
             message={message}
             fromMe={message.senderId === user?.id}
             receiverProfileImg={selectedConversation?.image || ""}
           />
-        ))}
-      </InfiniteScroll>
+        )}
+        isLoading={isPending}
+        skeketonItem={(key) => <MessageListSkeleton key={key} />}
+        error={error}
+      />
     </div>
   );
 };

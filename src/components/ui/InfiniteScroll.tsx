@@ -4,12 +4,14 @@ type InfiniteScrollProps = {
   children: React.ReactNode;
   onLoadMore?: () => void;
   threshold?: number;
+  reverse?: boolean;
 };
 
 export function InfiniteScroll({
   children,
   onLoadMore,
   threshold = 500,
+  reverse = false,
 }: InfiniteScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,8 +24,10 @@ export function InfiniteScroll({
         }
       },
       {
-        rootMargin: `0px 0px ${threshold}px 0px`,
-      },
+        rootMargin: reverse
+          ? `${threshold}px 0px 0px 0px` // For upward scrolling
+          : `0px 0px ${threshold}px 0px`, // For downward scrolling
+      }
     );
 
     const currentContainer = containerRef.current;
@@ -36,12 +40,13 @@ export function InfiniteScroll({
         observer.unobserve(currentContainer);
       }
     };
-  }, [onLoadMore, threshold]);
+  }, [onLoadMore, threshold, reverse]);
 
   return (
     <div>
+      {reverse && <div ref={containerRef} className="h-1" />}
       {children}
-      <div ref={containerRef} className="h-1" />
+      {!reverse && <div ref={containerRef} className="h-1" />}
     </div>
   );
 }

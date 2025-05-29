@@ -1,17 +1,9 @@
-import usePagination from "@/hooks/apiHandler/usePagination";
-import useQuery from "@/hooks/apiHandler/useQuery";
+import useInfiniteQuery from "@/hooks/apiHandler/useInfiniteQuery";
 
 export const useGetAllConversations = () => {
-  const {
-    data,
-    isPending,
-    refetch,
-    pagination,
-    hasMore,
-    nextPage,
-    page,
-    setPage,
-  } = usePagination<ConversationType[]>("/chat/conversations", {
+  const { data, isPending, refetch, pagination, error } = useInfiniteQuery<
+    ConversationType[]
+  >("/chat/conversations", {
     staleTime: "0s",
   });
   return {
@@ -19,35 +11,23 @@ export const useGetAllConversations = () => {
     isPending,
     refetch,
     pagination,
-    hasMore,
-    nextPage,
-    page,
-    setPage,
+    error,
   };
 };
 
 export const useGetMessages = (conversationId: string | undefined) => {
-  const {
-    data,
-    isPending,
-    refetch,
-    pagination,
-    hasMore,
-    nextPage,
-    page,
-    setPage,
-  } = usePagination<MessageType>(`/chat/messages/${conversationId}`, {
+  const { data, isPending, refetch, pagination, error } = useInfiniteQuery<
+    MessageType[]
+  >(`/chat/messages/${conversationId}`, {
     skip: !conversationId,
     staleTime: "0s",
+    reverse: true,
   });
   return {
-    messages: data as MessageType[],
+    messages: data,
     isPending,
     refetch,
     pagination,
-    hasMore,
-    nextPage,
-    page,
-    setPage,
+    error,
   };
 };

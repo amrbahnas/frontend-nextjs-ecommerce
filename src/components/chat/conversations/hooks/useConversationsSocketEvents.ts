@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Socket } from "socket.io-client";
 
 interface UseSocketEventsProps {
-  setPage: (page: number) => void;
   setRenderedConversations: React.Dispatch<
     React.SetStateAction<ConversationType[]>
   >;
@@ -15,7 +14,6 @@ interface UseSocketEventsProps {
 }
 
 export const useConversationsSocketEvents = ({
-  setPage,
   setRenderedConversations,
   socket,
   isAdmin,
@@ -47,7 +45,6 @@ export const useConversationsSocketEvents = ({
   useEffect(() => {
     if (socket) {
       socket.on("newConversation", () => {
-        setPage(1);
         refetch();
       });
       return () => {

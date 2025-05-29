@@ -298,4 +298,5 @@ type QueryOptionsType = {
   disableProxy?: boolean;
   staleTime?: string;
   keepPreviousData?: boolean;
+  reverse?: boolean;
 };

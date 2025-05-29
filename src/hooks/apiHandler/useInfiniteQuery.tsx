@@ -60,16 +60,18 @@ function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
   if (error?.response?.status === 401) {
     logout();
   }
-
   // Flatten the pages data for easier consumption
   const flattenedData = data?.pages?.flatMap((page) => page.data?.list) || [];
+  const lists = options?.reverse
+    ? flattenedData.reverse()
+    : flattenedData || [];
 
   // Get pagination info from the latest page
   const latestPage = data?.pages[data.pages.length - 1];
   const pagination = latestPage?.data?.pagination;
 
   return {
-    data: (flattenedData || []) as T,
+    data: (lists || []) as T,
     pagination: {
       current: pagination?.current,
       pageSize: pagination?.pageSize,

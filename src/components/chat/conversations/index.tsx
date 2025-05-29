@@ -1,7 +1,6 @@
+import ListItemsInfinityScroll from "@/components/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
-import { Spin } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetAllConversations } from "../_api/query";
 import ConversationItem from "./conversationItem";
 import { ConversationsSkeleton } from "./conversationsSkeleton";
@@ -12,16 +11,9 @@ import { useManageRenderedConversations } from "./hooks/useManageRenderedConvers
 
 export const ConversationsList = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const {
-    conversations,
-    isPending,
-    refetch,
-    pagination,
-    hasMore,
-    nextPage,
-    page,
-    setPage,
-  } = useGetAllConversations();
+  const { conversations, isPending, refetch, pagination, error } =
+    useGetAllConversations();
+
   const {
     onlineUsers,
     socket,
@@ -38,10 +30,7 @@ export const ConversationsList = () => {
   });
 
   const { renderedConversations, setRenderedConversations } =
-    useManageRenderedConversations({
-      conversations,
-      page,
-    });
+    useManageRenderedConversations(conversations);
 
   const { handleSelectConversation, handleUpdateConversationLastMessage } =
     useConversationsActions({
@@ -54,7 +43,6 @@ export const ConversationsList = () => {
     });
 
   useConversationsSocketEvents({
-    setPage,
     setRenderedConversations,
     socket,
     isAdmin,
@@ -65,29 +53,14 @@ export const ConversationsList = () => {
   });
 
   if (!isAdmin) return null;
-  if (isPending) return <ConversationsSkeleton />;
 
   return (
-    <div className="w-[300px] !border-r flex-1 border-gray-200 custom-scrollbar">
-      <InfiniteScroll
-        height={500}
-        dataLength={renderedConversations.length}
-        next={nextPage}
-        hasMore={hasMore}
-        loader={
-          <div style={{ textAlign: "center", padding: "10px" }}>
-            <Spin size="small" />
-          </div>
-        }
-        endMessage={
-          pagination.current > 1 && (
-            <p className="text-center text-gray-400 mt-2 mb-4">
-              You are all caught up!
-            </p>
-          )
-        }
-      >
-        {renderedConversations.map((conversation) => (
+    <div className="w-[300px]  overflow-y-auto  !border-r flex-1 border-gray-200 custom-scrollbar">
+      <ListItemsInfinityScroll
+        data={renderedConversations}
+        pagination={pagination}
+        customColsNum={1}
+        renderItem={(conversation) => (
           <ConversationItem
             key={conversation.id}
             conversation={conversation}
@@ -95,8 +68,11 @@ export const ConversationsList = () => {
             selectedConversation={selectedConversation}
             isOnline={onlineUsers.includes(conversation?.userId || "")}
           />
-        ))}
-      </InfiniteScroll>
+        )}
+        isLoading={isPending}
+        skeketonItem={(key) => <ConversationsSkeleton key={key} />}
+        error={error}
+      />
     </div>
   );
 };

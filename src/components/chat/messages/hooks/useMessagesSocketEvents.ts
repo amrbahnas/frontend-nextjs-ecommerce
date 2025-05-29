@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { Socket } from "socket.io-client";
 
 interface UseSocketEventsProps {
@@ -8,6 +8,7 @@ interface UseSocketEventsProps {
     React.SetStateAction<ConversationType | null>
   >;
   user: User | null;
+  messagesEndRef: RefObject<HTMLDivElement | null>;
 
   setRenderMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
 }
@@ -17,9 +18,11 @@ export const useMessagesSocketEvents = ({
   selectedConversation,
   setSelectedConversation,
   user,
-
+  messagesEndRef,
   setRenderMessages,
 }: UseSocketEventsProps) => {
+  const lastMessageRef = useRef<MessageType | null>(null);
+
   useEffect(() => {
     if (socket) {
       socket.on("newMessage", (message: MessageType) => {
@@ -32,7 +35,8 @@ export const useMessagesSocketEvents = ({
               messageId: message.id,
             });
           }
-          setRenderMessages((prev) => [message, ...prev]);
+          lastMessageRef.current = message;
+          setRenderMessages((prev) => [...prev, message]);
         }
       });
       return () => {
@@ -42,6 +46,21 @@ export const useMessagesSocketEvents = ({
       };
     }
   }, [socket, selectedConversation?.id, user?.id]);
+
+  // Separate effect to handle scrolling
+  useEffect(() => {
+    if (
+      lastMessageRef.current &&
+      lastMessageRef.current.senderId === user?.id
+    ) {
+      const element = messagesEndRef?.current;
+      if (element) {
+        requestAnimationFrame(() => {
+          element.scrollTop = element.scrollHeight;
+        });
+      }
+    }
+  }, [lastMessageRef.current?.id]);
 
   useEffect(() => {
     if (socket && selectedConversation) {
@@ -54,5 +73,5 @@ export const useMessagesSocketEvents = ({
         }
       };
     }
-  }, [socket, user, selectedConversation]);
+  }, [socket, selectedConversation?.id]);
 };

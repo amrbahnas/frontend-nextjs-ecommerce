@@ -1,8 +1,8 @@
-import usePagination from "@/hooks/apiHandler/usePagination";
+import useInfiniteQuery from "@/hooks/apiHandler/useInfiniteQuery";
 
 export const useGetWishlist = () => {
   const { data, isLoading, refetch, pagination } =
-    usePagination<Product[]>("/wishlist");
+    useInfiniteQuery<Product[]>("/wishlist");
 
   return {
     wishlist: data || [],

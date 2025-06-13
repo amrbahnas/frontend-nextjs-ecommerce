@@ -8,12 +8,12 @@ import { memo } from "react";
 const ProductSection = () => {
   const searchParams = useSearchParams();
   const { isLoading, products, pagination } = useGetProducts({
-    search: searchParams.get("search") || "",
-    category: searchParams.get("category") || "",
-    sort: searchParams.get("sort") || "",
-    "price[gte]": searchParams.get("minPrice") || "",
-    "price[lte]": searchParams.get("maxPrice") || "",
-    status: searchParams.get("status") || "",
+    search: searchParams.get("search") || undefined,
+    categoryId: searchParams.get("category") || undefined,
+    sort: searchParams.get("sort") || undefined,
+    minPrice: searchParams.get("minPrice") || undefined,
+    maxPrice: searchParams.get("maxPrice") || undefined,
+    status: searchParams.get("status") || undefined,
   });
 
   return (

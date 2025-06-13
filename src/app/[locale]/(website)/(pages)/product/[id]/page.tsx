@@ -1,20 +1,19 @@
 "use client";
 import Add from "@/app/[locale]/(website)/(pages)/product/_comps/add";
+import ProductStructuredData from "@/components/structured-data/productStructuredData";
 import Container from "@/components/ui/container";
 import DisplayPrice from "@/components/ui/displayPrice";
 import SavingPercentage from "@/components/ui/savingPercentage";
 import { Rate } from "antd";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
+import { use } from "react";
+import RelatedProductList from "../../_comps/product-stats/relatedProductList";
 import { useGetSpecificProduct } from "../_api/query";
 import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
-import { Metadata } from "next";
-import { use, useEffect } from "react";
-import Head from "next/head";
-import { usePathname } from "next/navigation";
-import ProductStructuredData from "@/components/structured-data/productStructuredData";
-import RelatedProductList from "../../_comps/product-stats/relatedProductList";
 import { useProductSeo } from "../hooks/useProductSeo";
 
 const SinglePage = ({ params }: { params: Params }) => {

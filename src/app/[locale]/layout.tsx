@@ -155,10 +155,10 @@ export default async function LocaleLayout({
           name="google-site-verification"
           content="QKdQNht25W1XB9fhKkw-nTPR6mQruPIQ2katXOb6pj0"
         />
-        <script
+        {/* <script
           crossOrigin="anonymous"
           src="//unpkg.com/react-scan/dist/auto.global.js"
-        />
+        /> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

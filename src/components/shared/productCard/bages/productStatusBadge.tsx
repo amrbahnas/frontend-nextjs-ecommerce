@@ -8,23 +8,27 @@ const ProductStatusBadge = ({
   status: ProductStatus;
   children: React.ReactNode;
 }) => {
-  const color = {
-    trending: "red",
-    featured: "blue",
-    popular: "green",
-    normal: "gray",
-    "most-sold": "purple",
-    "new-arrival": "yellow",
-  }[status];
+  const color =
+    {
+      trending: "red",
+      featured: "blue",
+      popular: "green",
+      normal: "gray",
+      "most-sold": "purple",
+      "new-arrival": "yellow",
+      "best-seller": "orange",
+    }[status] || "gray";
 
-  const text = {
-    trending: "Trending",
-    featured: "Featured",
-    popular: "Popular",
-    normal: "Normal",
-    "most-sold": "Most Sold",
-    "new-arrival": "New Arrival",
-  }[status];
+  const text =
+    {
+      trending: "Trending",
+      featured: "Featured",
+      popular: "Popular",
+      normal: "Normal",
+      "most-sold": "Most Sold",
+      "new-arrival": "New Arrival",
+      "best-seller": "Best Seller",
+    }[status] || status;
 
   return (
     <Badge.Ribbon color={color} text={text}>

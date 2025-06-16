@@ -14,6 +14,7 @@ import {
   FiShoppingBag,
   FiHeart,
 } from "react-icons/fi";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 export const ProfileIcon = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -22,7 +23,7 @@ export const ProfileIcon = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { logout, isPending } = useLogout();
-
+  const xs = useBreakPoints("xs");
   const handleProfileIcon = () => {
     isLogin ? setIsProfileOpen(!isProfileOpen) : router.push("/auth/login");
   };
@@ -106,7 +107,7 @@ export const ProfileIcon = () => {
         </div>
       }
       trigger="click"
-      placement="bottomRight"
+      placement={xs ? "bottom" : "bottomRight"}
       classNames={{
         root: "!p-0 !m-0 !w-64",
       }}

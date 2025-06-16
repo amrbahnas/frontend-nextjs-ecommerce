@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import Container from "../ui/container";
 import { useTranslations } from "next-intl";
 import { useSubscribe } from "@/_api/actions";
+import toast from "react-hot-toast";
 const { Item } = Form;
 const Newsletter = () => {
   const t = useTranslations("Footer");
@@ -13,11 +14,11 @@ const Newsletter = () => {
   const handleSubscribe = async (values: { email: string }) => {
     subscribe(values, {
       onSuccess: () => {
-        message.success("Successfully subscribed to newsletter!");
+        toast.success("Successfully subscribed to newsletter!");
         form.resetFields();
       },
       onError: () => {
-        message.error("Failed to subscribe. Please try again.");
+        // toast.error("Failed to subscribe. Please try again.");
       },
     });
   };

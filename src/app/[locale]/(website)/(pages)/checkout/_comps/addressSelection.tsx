@@ -22,8 +22,10 @@ const AddressSelection = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-medium">Select Delivery Address</h3>
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-2">
+        <h3 className=" text-base sm:text-lg font-medium">
+          Select Delivery Address
+        </h3>
         <Button
           type="primary"
           icon={<PlusOutlined />}

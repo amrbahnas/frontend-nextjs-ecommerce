@@ -183,7 +183,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
             <div className="text-gray-500">
-              {t("copyright")} &copy; 2024 {t("brand")}.{" "}
+              {t("copyright")} &copy; 2025 {t("brand")}.{" "}
               {t("allRightsReserved")}
             </div>
             <div className="flex flex-wrap justify-center gap-6">

@@ -1,5 +1,6 @@
 "use client";
 import NextImage from "@/components/ui/nextImage";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 import classNames from "classnames";
 import { memo, useState } from "react";
 
@@ -8,8 +9,9 @@ const ProductImages = ({ images }: { images: string[] }) => {
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[x, y], setXY] = useState([0, 0]);
   const [[width, height], setSize] = useState([0, 0]);
-
+  const sm = useBreakPoints("sm");
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (sm) return;
     const elem = e.currentTarget;
     const { width, height } = elem.getBoundingClientRect();
     setSize([width, height]);
@@ -17,6 +19,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (sm) return;
     const elem = e.currentTarget;
     const { left, top } = elem.getBoundingClientRect();
     const x = e.clientX - left;

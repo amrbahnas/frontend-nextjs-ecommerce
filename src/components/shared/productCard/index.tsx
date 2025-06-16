@@ -1,13 +1,12 @@
 import Link from "next/link";
-import { Divider } from "antd";
 
+import { memo } from "react";
+import WishlistButton from "../addProductToWishlist";
 import CardBadge from "./bages/cardBadge";
 import ProductStatusBadge from "./bages/productStatusBadge";
 import PrAddToCart from "./sections/prAddToCart";
 import PrDescription from "./sections/prDescription";
 import PrImage from "./sections/prImage";
-import { memo } from "react";
-import WishlistButton from "../addProductToWishlist";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {

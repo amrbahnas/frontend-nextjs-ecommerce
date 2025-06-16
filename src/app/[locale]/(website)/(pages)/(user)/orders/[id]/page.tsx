@@ -40,6 +40,7 @@ const getStatusTag = (status: string) => {
     processing: "warning",
     delivered: "success",
     cancelled: "error",
+    success: "success",
   };
 
   return (

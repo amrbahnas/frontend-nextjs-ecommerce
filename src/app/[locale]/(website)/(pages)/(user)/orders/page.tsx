@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { EyeOutlined } from "@ant-design/icons";
 import AllOrdersSkeleton from "./_comps/allorders.skeleton";
+import Link from "next/link";
 
 const OrdersPage = () => {
   const { orders, isLoading } = useGetAllOrders();
@@ -17,7 +18,11 @@ const OrdersPage = () => {
       title: "Order ID",
       dataIndex: "id",
       key: "id",
-      render: (id: string) => <span className="font-medium">#{id}</span>,
+      render: (id: string) => (
+        <Link href={`/orders/${id}`} className="font-medium">
+          #{id}
+        </Link>
+      ),
     },
     {
       title: "Date",
@@ -84,6 +89,7 @@ const OrdersPage = () => {
           columns={columns}
           dataSource={orders}
           rowKey="id"
+          scroll={{ x: "max-content" }}
           pagination={{
             pageSize: 10,
             position: ["bottomCenter"],

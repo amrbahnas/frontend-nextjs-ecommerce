@@ -20,7 +20,7 @@ const WishlistPage = () => {
   return (
     <Container>
       <div>
-        <Divider>
+        <Divider className="!mb-8 !mt-4">
           <h1 className="text-3xl font-semibold text-primary">Wishlist</h1>
         </Divider>
         <ListItemsInfinityScroll<Product>

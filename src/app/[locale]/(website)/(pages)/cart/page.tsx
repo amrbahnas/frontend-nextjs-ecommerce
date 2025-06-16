@@ -25,7 +25,7 @@ const Page = () => {
   const { cart: apiCart, isLoading: fetchLoading, refetch } = useGetCart();
 
   const renderedCart = isLogin ? apiCart : storeCart;
-  const cartCount = renderedCart.cartItems.length;
+  const cartCount = renderedCart?.cartItems?.length || 0;
 
   const {
     cartItems = [],

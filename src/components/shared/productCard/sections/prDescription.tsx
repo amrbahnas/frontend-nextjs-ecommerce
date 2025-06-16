@@ -20,7 +20,7 @@ const PrDescription = ({
   return (
     <div className="p-3 space-y-2">
       {/* Title */}
-      <h3 className="font-medium text-gray-900 text-sm leading-tight line-clamp-2 hover:text-primary transition-colors duration-200">
+      <h3 className="font-medium  line-clamp-1 text-gray-900 text-sm leading-tight sm:line-clamp-2 hover:text-primary transition-colors duration-200">
         {t("title", { title })}
       </h3>
 

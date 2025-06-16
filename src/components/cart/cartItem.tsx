@@ -42,7 +42,7 @@ const CartItem = ({
           width={72}
           height={96}
           className="object-cover rounded-md cursor-pointer"
-          style={{ width: "auto", height: "auto" }}
+          // style={{ width: "auto", height: "auto" }}
           onClick={() => route.push(`/product/${item.productId}`)}
         />
       )}

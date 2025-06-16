@@ -55,7 +55,6 @@ const ProductList = ({
           pauseOnMouseEnter: true,
         }}
         className={`w-full   ${styles["product-swiper"]}`}
-        // resposice
         breakpoints={{
           0: {
             slidesPerView: 2,
@@ -67,9 +66,6 @@ const ProductList = ({
           },
           1024: {
             slidesPerView: 4,
-          },
-          1280: {
-            slidesPerView: 5,
           },
         }}
       >

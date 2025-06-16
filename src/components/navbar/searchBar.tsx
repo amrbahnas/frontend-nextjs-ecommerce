@@ -1,5 +1,4 @@
 "use client";
-import axiosInstance from "@/config/apiClient";
 import useBreakPoints from "@/hooks/global/userBreakPoints";
 import useSearchStore from "@/store/useSearchStore";
 import {
@@ -14,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useParamsService from "../../hooks/global/useParamsService";
 import Image from "next/image";
+import proxyAxiosInstance from "@/config/proxyClient";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
@@ -83,7 +83,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
       try {
         const {
           data: { data },
-        } = await axiosInstance.get("/products/search", {
+        } = await proxyAxiosInstance.get("/products/search", {
           params: {
             q: value,
           },

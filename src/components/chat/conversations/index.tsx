@@ -55,7 +55,7 @@ export const ConversationsList = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="w-[300px]  overflow-y-auto  !border-r flex-1 border-gray-200 custom-scrollbar">
+    <div className="w-full  overflow-y-auto  !border-r flex-1 border-gray-200 custom-scrollbar">
       <ListItemsInfinityScroll
         data={renderedConversations}
         pagination={pagination}

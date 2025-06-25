@@ -35,7 +35,7 @@ export const ConversationHeader = () => {
         gap: "12px",
         backgroundColor: "#fff",
       }}
-      className="pb-2 px-2"
+      className="w-full"
     >
       <div style={{ position: "relative" }}>
         <Avatar

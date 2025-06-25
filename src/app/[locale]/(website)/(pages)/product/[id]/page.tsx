@@ -40,7 +40,7 @@ const SinglePage = ({ params }: { params: Params }) => {
           <div className="w-full lg:w-2/3 lg:sticky top-20 h-max z-10">
             <ProductImages
               images={
-                product.images ? [product.imageCover, ...product.images] : []
+                product?.images ? [product.imageCover, ...product.images] : []
               }
             />
           </div>

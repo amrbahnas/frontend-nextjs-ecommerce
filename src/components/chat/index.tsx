@@ -1,8 +1,14 @@
 "use client";
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
-import { MessageOutlined } from "@ant-design/icons";
+import {
+  MessageOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { FloatButton, Modal, Tooltip } from "antd";
+import { useState } from "react";
 import { ChatInput } from "./chatInput";
 import { ConversationHeader } from "./conversations/conversationHeader";
 import { ConversationsList } from "./conversations";
@@ -10,6 +16,7 @@ import { MessageList } from "./messages";
 
 const Chat = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const {
     isOpen,
@@ -30,6 +37,11 @@ const Chat = () => {
 
   const onCloseChat = () => {
     setIsOpen(false);
+    setIsFullScreen(false);
+  };
+
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
   };
 
   return (
@@ -55,16 +67,44 @@ const Chat = () => {
       </Tooltip>
 
       <Modal
-        title={isAdmin ? "Chat Support" : <ConversationHeader />}
+        title={<span>{isAdmin ? "Chat Support" : <ConversationHeader />}</span>}
         open={isOpen}
         onClose={onCloseChat}
         onCancel={onCloseChat}
+        closeIcon={
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-2 pr-4"
+          >
+            <button
+              onClick={toggleFullScreen}
+              className="border-none bg-transparent cursor-pointer hover:text-blue-500 p-1"
+            >
+              {isFullScreen ? (
+                <FullscreenExitOutlined className="text-gray-400" />
+              ) : (
+                <FullscreenOutlined className="text-gray-400" />
+              )}
+            </button>
+            <CloseOutlined
+              onClick={onCloseChat}
+              className="text-gray-400 cursor-pointer hover:text-red-500"
+            />
+          </div>
+        }
         destroyOnClose
         footer={null}
-        className="!w-auto !fixed !bottom-24 !right-8 !m-0 !p-0 !top-auto"
+        className={` ${
+          isFullScreen
+            ? "!w-screen !h-screen !top-2"
+            : "!w-auto !fixed !bottom-24 !right-8 !m-0 !p-0 !top-auto"
+        } [&_.ant-modal-close:hover]:!bg-transparent [&_.ant-modal-close:hover]:!text-gray-400`}
         styles={{
           content: {
             paddingBottom: 0,
+          },
+          wrapper: {
+            overflow: "hidden",
           },
         }}
         modalRender={(modal) => (
@@ -72,14 +112,21 @@ const Chat = () => {
             style={{
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
             }}
-            className=" overflow-hidden rounded-lg"
+            className={`overflow-hidden rounded-lg ${
+              isFullScreen ? "!rounded-none" : ""
+            }`}
           >
             {modal}
           </div>
         )}
-        mask={false}
+        mask={isFullScreen}
+        maskClosable={true}
       >
-        <div className="flex  h-[500px] mt-2">
+        <div
+          className={`flex ${
+            isFullScreen ? "h-[calc(100vh-80px)]" : "h-[500px]"
+          } mt-2`}
+        >
           <ConversationsList />
           {selectedConversation ? (
             <div className="w-[350px] flex-1 flex flex-col">

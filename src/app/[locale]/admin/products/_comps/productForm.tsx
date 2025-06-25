@@ -45,7 +45,7 @@ const ProductForm = ({ id }: { id?: string }) => {
 
       setImageCover([{ data_url: product?.imageCover, file: null }]);
       setImages(
-        product.images.map((image: string) => ({
+        product?.images?.map((image: string) => ({
           data_url: image,
           file: null,
         }))

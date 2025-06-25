@@ -4,7 +4,7 @@ const ProductStructuredData = ({ product }: { product: Product }) => {
     "@type": "Product",
     name: product.title,
     description: product.description,
-    image: [product.imageCover, ...product.images],
+    image: [product.imageCover, ...product?.images],
     sku: product.id,
     mpn: product.id,
     brand: {

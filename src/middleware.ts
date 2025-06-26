@@ -38,6 +38,16 @@ export async function middleware(request: NextRequest) {
     return response;
   };
 
+  // failed to verify token
+  if (tokenData === "error" && pathName !== "/oops") {
+    // stay on the same page
+    return createRedirectResponse("/oops?redirect=" + pathName);
+  }
+
+  if (tokenData === "error") {
+    return intlResponse;
+  }
+
   // 1) Handling Auth routes section
   if (pathName.startsWith("/auth")) {
     if (!tokenData) {

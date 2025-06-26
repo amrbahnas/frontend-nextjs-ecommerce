@@ -1,10 +1,10 @@
 "use client";
 import { Button, Result } from "antd";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 const NotFound = () => {
   const route = useRouter();
+
   return (
     <Result
       status="404"

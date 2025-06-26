@@ -16,6 +16,6 @@ export async function verifyToken() {
 
     return response?.data?.data as User;
   } catch (error) {
-    return null;
+    return "error";
   }
 }

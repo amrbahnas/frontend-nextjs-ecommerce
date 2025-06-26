@@ -24,7 +24,7 @@ export const MessageListSkeleton = () => {
               <Skeleton.Input
                 active
                 size="large"
-                className="!w-[200px]  !bg-gray-50 "
+                className="!w-full  !bg-gray-50 "
               />
             </div>
           </div>

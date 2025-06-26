@@ -12,7 +12,7 @@ const CategoriesSlider = () => {
 
   if (isLoading) {
     return (
-      <div className="mt-4 flex justify-between gap-4 overflow-scroll scrollbar-hide ">
+      <div className="mt-4 flex justify-between gap-4 overflow-auto scrollbar-hide ">
         {[1, 2, 3, 4, 5, 6, 7].map((value, i) => (
           <Skeleton.Avatar size={80} active key={value} />
         ))}

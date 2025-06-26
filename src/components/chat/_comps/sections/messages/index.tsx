@@ -54,7 +54,7 @@ export const MessageList = () => {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto custom-scrollbar p-4">
+    <div className="flex-1 overflow-y-auto custom-scrollbar sm:p-4">
       <ListItemsInfinityScroll
         data={renderedmessages}
         pagination={pagination}

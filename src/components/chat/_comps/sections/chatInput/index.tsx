@@ -74,13 +74,7 @@ export const ChatInput = () => {
     <Form
       form={form}
       onFinish={onFinish}
-      style={{
-        padding: "10px",
-        paddingRight: "0px",
-        display: "flex",
-        gap: "8px",
-        borderTop: "1px solid #f0f0f0",
-      }}
+      className="flex gap-2 h-[70px] !mt-3 items-center border-t border-[#f0f0f0]"
     >
       <input
         type="file"

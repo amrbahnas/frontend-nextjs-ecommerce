@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect } from "react";
 import { Socket } from "socket.io-client";
 
 interface UseSocketEventsProps {
@@ -9,8 +9,8 @@ interface UseSocketEventsProps {
   >;
   user: User | null;
   messagesEndRef: RefObject<HTMLDivElement | null>;
-
   setRenderMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
+  scrollToBottom: () => void;
 }
 
 export const useMessagesSocketEvents = ({
@@ -18,60 +18,46 @@ export const useMessagesSocketEvents = ({
   selectedConversation,
   setSelectedConversation,
   user,
-  messagesEndRef,
   setRenderMessages,
+  scrollToBottom,
 }: UseSocketEventsProps) => {
-  const lastMessageRef = useRef<MessageType | null>(null);
-
   useEffect(() => {
-    if (socket) {
-      socket.on("newMessage", (message: MessageType) => {
-        if (
-          !selectedConversation?.id ||
-          selectedConversation?.id === message.conversationId
-        ) {
-          if (message.senderId !== user?.id) {
-            socket.emit("markMessageAsRead", {
-              messageId: message.id,
-            });
-          }
-          lastMessageRef.current = message;
-          setRenderMessages((prev) => [...prev, message]);
-        }
-      });
-      return () => {
-        if (socket) {
-          socket?.off("newMessage");
-        }
-      };
-    }
-  }, [socket, selectedConversation?.id, user?.id]);
+    if (!socket) return;
 
-  // Separate effect to handle scrolling
-  useEffect(() => {
-    if (
-      lastMessageRef.current &&
-      lastMessageRef.current.senderId === user?.id
-    ) {
-      const element = messagesEndRef?.current;
-      if (element) {
-        requestAnimationFrame(() => {
-          element.scrollTop = element.scrollHeight;
-        });
+    const handleNewMessage = (message: MessageType) => {
+      if (
+        !selectedConversation?.id ||
+        selectedConversation?.id === message.conversationId
+      ) {
+        if (message.senderId !== user?.id) {
+          socket.emit("markMessageAsRead", {
+            messageId: message.id,
+          });
+        }
+
+        setRenderMessages((prev) => [...prev, message]);
+        // Ensure DOM is updated before scrolling
+        setTimeout(scrollToBottom, 50);
       }
-    }
-  }, [lastMessageRef.current?.id]);
+    };
 
-  useEffect(() => {
-    if (socket && selectedConversation) {
-      socket.on("updateSelectedConversation", (conversationId: string) => {
-        setSelectedConversation((prev) => ({ ...prev, id: conversationId }));
-      });
-      return () => {
-        if (socket) {
-          socket?.off("updateSelectedConversation");
-        }
-      };
-    }
-  }, [socket, selectedConversation?.id]);
+    const handleConversationUpdate = (conversationId: string) => {
+      setSelectedConversation((prev) => ({ ...prev, id: conversationId }));
+    };
+
+    socket.on("newMessage", handleNewMessage);
+    socket.on("updateSelectedConversation", handleConversationUpdate);
+
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+      socket.off("updateSelectedConversation", handleConversationUpdate);
+    };
+  }, [
+    socket,
+    selectedConversation?.id,
+    user?.id,
+    setRenderMessages,
+    scrollToBottom,
+    setSelectedConversation,
+  ]);
 };

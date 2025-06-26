@@ -1,7 +1,7 @@
 import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
-import { useRef } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useGetMessages } from "../_api/query";
 import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
 import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
@@ -12,7 +12,7 @@ import { MessageListSkeleton } from "./messageListSkeleton";
 export const MessageList = () => {
   const { socket, isOpen, selectedConversation, setSelectedConversation } =
     useChatContext();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { user } = useUserStore();
 
   // get messages
@@ -26,29 +26,36 @@ export const MessageList = () => {
     messages,
   });
 
-  // scroll messages list to bottom when open
-  useScrollMessagesList({
-    isOpen,
-    messagesEndRef,
-    selectedConversation,
-  });
+  const scrollToBottom = useCallback(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
-  // handle messages socket events (send message, updateSelectedConversation)
+  // Scroll when messages change
+  useEffect(() => {
+    if (renderedmessages.length > 0) {
+      scrollToBottom();
+    }
+  }, [renderedmessages.length, selectedConversation?.id]);
+
+  // handle messages socket events
   useMessagesSocketEvents({
     selectedConversation,
     socket,
     setRenderMessages,
     setSelectedConversation,
-    messagesEndRef,
+    messagesEndRef: scrollRef,
     user,
+    scrollToBottom,
   });
 
-  // render messages list
+  if (!renderedmessages.length) {
+    return null;
+  }
+
   return (
-    <div
-      ref={messagesEndRef}
-      className="flex-1 overflow-y-auto custom-scrollbar p-4 "
-    >
+    <div className="flex-1 overflow-y-auto custom-scrollbar p-4">
       <ListItemsInfinityScroll
         data={renderedmessages}
         pagination={pagination}
@@ -67,6 +74,7 @@ export const MessageList = () => {
         skeketonItem={(key) => <MessageListSkeleton key={key} />}
         error={error}
       />
+      <div ref={scrollRef} style={{ height: "1px" }} />
     </div>
   );
 };

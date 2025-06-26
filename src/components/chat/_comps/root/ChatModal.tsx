@@ -94,7 +94,7 @@ export const ChatModal = memo(
     >
       <div
         className={classNames("flex mt-2", {
-          "h-[calc(100dvh-100px)]": isFullScreen || !lg,
+          "h-[calc(100svh-100px)]": isFullScreen || !lg,
           "h-[500px]": !isFullScreen && lg,
         })}
       >

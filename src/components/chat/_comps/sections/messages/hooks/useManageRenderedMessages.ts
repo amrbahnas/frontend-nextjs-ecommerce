@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { welcomeMessage } from "../../welcome";
+import { welcomeMessage } from "../welcome";
 
 interface Props {
   selectedConversation: ConversationType | null;

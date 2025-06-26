@@ -2,7 +2,7 @@ import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
 import { useCallback, useEffect, useRef } from "react";
-import { useGetMessages } from "../_api/query";
+import { useGetMessages } from "@/components/chat/_api/query";
 import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
 import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
 import { MessageItem } from "./messageItem";

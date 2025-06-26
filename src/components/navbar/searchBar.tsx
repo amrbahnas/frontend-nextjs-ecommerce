@@ -169,7 +169,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
           value={search}
           className="!w-full"
           dropdownStyle={{
-            top: 70,
+            top: lg ? 70 : 100,
             maxHeight: 400,
             overflow: "auto",
           }}

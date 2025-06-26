@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { adminConversation } from "../../../../welcome";
+import { adminConversation } from "../../messages/welcome";
 
 interface Props {
   isAdmin: boolean;

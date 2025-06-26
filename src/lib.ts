@@ -4,14 +4,14 @@ import axiosInstance from "./config/apiClient";
 
 export async function verifyToken() {
   const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
 
-  if (!session) {
+  if (!refreshToken) {
     return null;
   }
   try {
     const response = await axiosInstance.post(`/auth/verify-token`, {
-      session,
+      refreshToken,
     });
 
     return response?.data?.data as User;

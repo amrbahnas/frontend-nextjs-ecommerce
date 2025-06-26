@@ -1,16 +1,15 @@
 import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
-import { useRef, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useGetMessages } from "../_api/query";
 import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
 import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
-import { useScrollMessagesList } from "./hooks/useScrollMessagesList";
 import { MessageItem } from "./messageItem";
 import { MessageListSkeleton } from "./messageListSkeleton";
 
 export const MessageList = () => {
-  const { socket, isOpen, selectedConversation, setSelectedConversation } =
+  const { socket, selectedConversation, setSelectedConversation } =
     useChatContext();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { user } = useUserStore();

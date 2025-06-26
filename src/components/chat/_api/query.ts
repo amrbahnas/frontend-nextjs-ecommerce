@@ -1,10 +1,11 @@
 import useInfiniteQuery from "@/hooks/apiHandler/useInfiniteQuery";
 
-export const useGetAllConversations = () => {
+export const useGetAllConversations = ({ skip }: { skip?: boolean }) => {
   const { data, isPending, refetch, pagination, error } = useInfiniteQuery<
     ConversationType[]
   >("/chat/conversations", {
     staleTime: "0s",
+    skip,
   });
   return {
     conversations: data as ConversationType[],

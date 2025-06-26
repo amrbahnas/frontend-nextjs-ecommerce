@@ -67,5 +67,5 @@ export const useConversationsSocketEvents = ({
         socket?.off("updateConversationLastMessage");
       }
     };
-  }, [socket, isAdmin, renderedConversations, refetch, selectedConversation]);
+  }, [socket, isAdmin, renderedConversations, selectedConversation]);
 };

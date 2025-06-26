@@ -6,28 +6,15 @@ import ConversationItem from "./conversationItem";
 import { ConversationsSkeleton } from "./conversationsSkeleton";
 import { useConversationsActions } from "./hooks/useConversationsActions";
 import { useConversationsSocketEvents } from "./hooks/useConversationsSocketEvents";
-import { useInitialConversationSelection } from "./hooks/useInitialConcersationSelection";
 import { useManageRenderedConversations } from "./hooks/useManageRenderedConversations";
 
 export const ConversationsList = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const { conversations, isPending, refetch, pagination, error } =
-    useGetAllConversations();
+    useGetAllConversations({});
 
-  const {
-    onlineUsers,
-    socket,
-    selectedConversation,
-    setSelectedConversation,
-    isOpen,
-  } = useChatContext();
-
-  useInitialConversationSelection({
-    conversations,
-    isAdmin,
-    setSelectedConversation,
-    isOpen,
-  });
+  const { onlineUsers, socket, selectedConversation, setSelectedConversation } =
+    useChatContext();
 
   const { renderedConversations, setRenderedConversations } =
     useManageRenderedConversations(conversations);

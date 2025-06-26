@@ -16,6 +16,8 @@ import { ConversationHeader } from "./conversations/conversationHeader";
 import { ConversationsList } from "./conversations";
 import { MessageList } from "./messages";
 import useBreakPoints from "@/hooks/global/userBreakPoints";
+import { useInitialConversationSelection } from "./conversations/hooks/useInitialConcersationSelection";
+import { useGetAllConversations } from "./_api/query";
 
 type Conversation = any; // Replace with your actual conversation type
 
@@ -76,7 +78,7 @@ const ChatModal = ({
     footer={null}
     className={classNames(
       {
-        "!w-screen !h-screen !top-2": isFullScreen || !lg,
+        "!w-screen !h-screen !top-4": isFullScreen || !lg,
         "!w-auto !fixed sm:!bottom-24 sm:!right-8 !m-0 !p-0 sm:!top-auto":
           !isFullScreen && lg,
       },
@@ -102,7 +104,7 @@ const ChatModal = ({
   >
     <div
       className={classNames("flex mt-2", {
-        "h-[calc(100vh-80px)]": isFullScreen || !lg,
+        "h-[calc(100dvh-100px)]": isFullScreen || !lg,
         "h-[500px]": !isFullScreen && lg,
       })}
     >
@@ -158,10 +160,12 @@ const ChatContent = ({
 }: ChatContentProps) => {
   if (!isAdmin) {
     return (
-      <div className="w-[350px] flex-1 flex flex-col">
+      <div className="w-full flex-1 flex flex-col">
         {selectedConversation ? (
           <>
-            <MessageList />
+            <div className="flex-1 overflow-y-auto">
+              <MessageList />
+            </div>
             <ChatInput />
           </>
         ) : (
@@ -176,7 +180,7 @@ const ChatContent = ({
   return (
     <>
       <div
-        className={classNames("transition-all  duration-300", {
+        className={classNames("transition-all duration-300", {
           "w-[350px]": lg,
           "w-full": !lg && !selectedConversation,
           hidden: !lg && selectedConversation,
@@ -241,6 +245,19 @@ const Chat = () => {
     notificationContent,
     setNotificationContent,
   } = useChatContext();
+
+  // use for get user conversations
+  const { conversations } = useGetAllConversations({
+    skip: isAdmin || !isOpen,
+  });
+
+  // use for set initial conversation case is user
+  useInitialConversationSelection({
+    isAdmin,
+    conversations,
+    setSelectedConversation,
+    isOpen,
+  });
 
   const onOpenChat = () => {
     setIsOpen(true);

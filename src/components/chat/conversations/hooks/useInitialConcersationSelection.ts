@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { adminConversation } from "../../welcome";
 
 interface Props {
@@ -15,11 +15,13 @@ export const useInitialConversationSelection = ({
   isOpen,
 }: Props) => {
   useEffect(() => {
-    if (!isAdmin) {
+    if (!isOpen || isAdmin) return;
+    // Only run for non-admin users and when we haven't initialized yet
+    if (!isAdmin && conversations.length > 0) {
       const { name, image } = adminConversation;
-      if (conversations[0])
-        setSelectedConversation({ ...conversations[0], name, image });
-      else setSelectedConversation(adminConversation);
+      setSelectedConversation({ ...conversations[0], name, image });
+    } else {
+      setSelectedConversation(adminConversation);
     }
-  }, [isAdmin, conversations, setSelectedConversation, isOpen]);
+  }, [isAdmin, conversations.length]);
 };

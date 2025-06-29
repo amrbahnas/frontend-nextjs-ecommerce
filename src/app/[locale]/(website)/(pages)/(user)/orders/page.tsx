@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { EyeOutlined } from "@ant-design/icons";
 import AllOrdersSkeleton from "./_comps/allorders.skeleton";
 import Link from "next/link";
+import { FaCreditCard, FaMoneyBill } from "react-icons/fa";
 
 const OrdersPage = () => {
   const { orders, isLoading } = useGetAllOrders();
@@ -29,6 +30,27 @@ const OrdersPage = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (date: string) => dayjs(date).format("DD/MM/YYYY"),
+    },
+    {
+      title: "payment Method",
+      dataIndex: "paymentMethod",
+      key: "paymentMethod",
+      render: (method: string) => {
+        if (method === "card") {
+          return (
+            <div className="flex items-center justify-center gap-2">
+              <FaCreditCard className="text-gray-500" />
+              <span>Credit Card</span>
+            </div>
+          );
+        }
+        return (
+          <div className="flex items-center justify-center gap-2">
+            <FaMoneyBill className="text-gray-500" />
+            <span>Cash on Delivery</span>
+          </div>
+        );
+      },
     },
     {
       title: "Total",

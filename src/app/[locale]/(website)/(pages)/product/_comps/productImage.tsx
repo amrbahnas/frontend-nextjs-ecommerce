@@ -39,7 +39,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
           <img
             src={images[index]}
             alt="Product"
-            className="w-full h-full object-cover rounded-md"
+            className="w-full h-[300px] md:h-[500px] object-cover rounded-md "
           />
 
           {showMagnifier && (

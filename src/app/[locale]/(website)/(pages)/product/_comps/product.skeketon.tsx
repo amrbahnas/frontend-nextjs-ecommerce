@@ -8,7 +8,7 @@ const ProductSkeleton = () => {
   return (
     <Container className="mt-8">
       <div className=" relative flex flex-col lg:flex-row gap-16">
-        <div className="w-full lg:w-1/2 lg:sticky top-20 h-80 md:h-[500px] ">
+        <div className="w-full overflow-hidden lg:w-1/2 lg:sticky lg:top-20 h-80 sm:h-[500px] relative">
           <ImageSkeleton />
         </div>
 

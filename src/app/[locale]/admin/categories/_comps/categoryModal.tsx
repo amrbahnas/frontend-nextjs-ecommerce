@@ -100,7 +100,7 @@ const CategoryModal = ({
       >
         <div className="text-red-500">{error}</div>
         <Form
-          validateTrigger="onBlur"
+          validateTrigger="onSubmit"
           layout="vertical"
           form={form}
           onFinish={onFinish}

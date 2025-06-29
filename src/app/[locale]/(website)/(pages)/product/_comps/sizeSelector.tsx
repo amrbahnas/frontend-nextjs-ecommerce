@@ -11,7 +11,7 @@ const SizeSelector = ({
 }) => {
   if (availableSizes.length === 0) return null;
   return (
-    <div className="w-1/2">
+    <div className="w-full sm:w-1/2">
       <h4 className="font-medium mb-2">Size</h4>
       <Segmented<ProductSize>
         size="large"

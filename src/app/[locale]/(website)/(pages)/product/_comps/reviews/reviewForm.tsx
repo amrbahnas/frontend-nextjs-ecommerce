@@ -61,7 +61,7 @@ const ReviewForm = ({
   return (
     <div>
       <Form
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
         form={form}
         onFinish={(values) => {
           if (!isLogin) return router.push(`/auth/login?redirect=${pathName}`);

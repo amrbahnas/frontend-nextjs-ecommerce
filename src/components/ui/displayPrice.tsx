@@ -18,12 +18,12 @@ const DisplayPrice: React.FC<DisplayPriceProps> = ({
   return (
     <div className={"flex items-center gap-4 " + priceContainerClassName}>
       <h2 className={"font-bold text-2xl " + afterPriceClassName}>
-        ${afterPrice}
+        ${afterPrice.toFixed(2)}
       </h2>
       <h3
         className={"text-xl text-gray-500 line-through " + beforePriceClassName}
       >
-        ${beforePrice}
+        ${beforePrice.toFixed(2)}
       </h3>
     </div>
   );

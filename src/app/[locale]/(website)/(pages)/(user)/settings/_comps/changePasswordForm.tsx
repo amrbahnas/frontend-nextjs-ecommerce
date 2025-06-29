@@ -27,7 +27,7 @@ const ChangePasswordForm = () => {
   return (
     <Spin spinning={changePasswordIsPending}>
       <Form
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
         onFinish={changePasswordHandler}
         form={form}
         layout="vertical"

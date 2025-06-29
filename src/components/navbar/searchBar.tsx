@@ -154,7 +154,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
 
   return (
     <Form
-      validateTrigger="onBlur"
+      validateTrigger="onSubmit"
       className="flex-1 md:!min-w-96"
       form={form}
       layout="inline"

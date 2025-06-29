@@ -87,7 +87,7 @@ const Add = ({ product }: { product: Product }) => {
             disabled={stockNumber < 1 || productQuantity === 0}
             product={product}
             buttonStyle={{
-              buttonClassName: "!w-[50%]",
+              buttonClassName: "flex-1 sm:flex-none sm:!w-[50%]",
               buttonSize: "large",
               buttonType: "primary",
             }}

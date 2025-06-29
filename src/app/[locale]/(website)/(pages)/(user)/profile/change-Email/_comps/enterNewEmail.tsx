@@ -30,7 +30,7 @@ const EnterNewEmail = ({
     <Spin spinning={loading}>
       <Form
         onFinish={onFinish}
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
         className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md gap-8 !w-full min-h-80"
         form={form}
         layout="vertical"

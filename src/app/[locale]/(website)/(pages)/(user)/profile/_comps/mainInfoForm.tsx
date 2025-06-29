@@ -90,7 +90,7 @@ const MainInfoForm = ({
         layout="vertical"
         onFinish={updateUserHandler}
         onValuesChange={handleFormChange}
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
       >
         <Item
           name="name"

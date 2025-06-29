@@ -6,7 +6,7 @@ const CartPageSkeleton = () => {
   return (
     <Container>
       <div className="flex flex-col md:flex-row mt-6 gap-4 md:gap-32 items-center">
-        <div className="flex flex-col gap-8 h-80 overflow-scroll w-full md:flex-1">
+        <div className="flex flex-col gap-8 h-80 overflow-auto   w-full md:flex-1">
           <Skeleton.Input active className="!w-full !h-16" />
           <Skeleton.Input active className="!w-full !h-16" />
           <Skeleton.Input active className="!w-full !h-16" />

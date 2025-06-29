@@ -48,12 +48,13 @@ const ApplyCoupon = ({
           rules={[{ required: true, message: "Enter coupon code" }]}
         >
           <Input
+            size="large"
             allowClear
             placeholder="Enter coupon code"
             disabled={appliedCoupon ? true : false}
           />
         </Item>
-        <Button loading={isPending} htmlType="submit">
+        <Button loading={isPending} htmlType="submit" size="large">
           Apply
         </Button>
       </div>

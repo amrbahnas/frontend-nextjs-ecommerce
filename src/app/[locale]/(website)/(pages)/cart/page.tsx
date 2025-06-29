@@ -112,6 +112,7 @@ const Page = () => {
                 isLoading={isLoading}
                 handleCheckout={handleCheckout}
                 invalidCart={renderedCart.invalidCart}
+                size="large"
               />
             </div>
           </div>

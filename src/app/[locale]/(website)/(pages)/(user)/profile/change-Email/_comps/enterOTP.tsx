@@ -53,7 +53,7 @@ const EnterOTP = ({
     <Spin spinning={loading}>
       <Form
         onFinish={onFinish}
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
         className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md gap-5 !w-full "
         form={form}
         layout="vertical"

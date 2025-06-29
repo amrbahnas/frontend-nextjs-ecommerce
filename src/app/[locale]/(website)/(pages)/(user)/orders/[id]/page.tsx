@@ -128,7 +128,7 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
                     : "-"}
                 </Descriptions.Item>
                 <Descriptions.Item label="Payment Method">
-                  {order?.paymentMethod === "credit"
+                  {order?.paymentMethod === "card"
                     ? "Credit Card"
                     : "Cash on Delivery"}
                 </Descriptions.Item>

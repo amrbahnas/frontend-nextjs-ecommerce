@@ -31,7 +31,7 @@ const ContactUs = () => {
         to us. We are here to help!
       </p>
       <Form
-        validateTrigger="onBlur"
+        validateTrigger="onSubmit"
         form={form}
         name="contact"
         onFinish={onFinish}

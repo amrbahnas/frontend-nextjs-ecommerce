@@ -35,7 +35,7 @@ const SignUpPage = () => {
           form={form}
           layout="vertical"
           onFinish={signUp}
-          validateTrigger="onBlur"
+          validateTrigger="onSubmit"
         >
           <div className="flex flex-col gap-2">
             <Item

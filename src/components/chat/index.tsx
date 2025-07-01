@@ -54,7 +54,7 @@ const Chat = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <ChatTrigger
         onOpenChat={onOpenChat}
         hasNotification={hasNotification}
@@ -74,7 +74,7 @@ const Chat = () => {
           setSelectedConversation={setSelectedConversation}
         />
       </ChatModal>
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import ProductStatusBadge from "./bages/productStatusBadge";
 import PrAddToCart from "./sections/prAddToCart";
 import PrDescription from "./sections/prDescription";
 import PrImage from "./sections/prImage";
+import { SmartLink } from "@/components/ui/smartLink";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {
@@ -26,12 +27,17 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div className="group bg-white rounded-lg border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
         {/* Image Section - Made larger */}
         <div className="relative h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden">
-          <Link href={"/product/" + id} key={id} className="block h-full">
+          <SmartLink
+            href={"/product/" + id}
+            key={id}
+            className="block h-full"
+            prefetchOnHover
+          >
             <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-500">
               <PrImage imageCover={imageCover} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-          </Link>
+          </SmartLink>
 
           {/* Status Badge */}
           <div className="absolute top-3 left-3">

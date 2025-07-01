@@ -31,9 +31,9 @@ export const MessageList = () => {
     }
   }, []);
 
-  // Scroll when messages change
+  // Scroll when open chat
   useEffect(() => {
-    if (renderedmessages.length > 0) {
+    if (renderedmessages.length > 0 && pagination.current === 1) {
       scrollToBottom();
     }
   }, [renderedmessages.length, selectedConversation?.id]);

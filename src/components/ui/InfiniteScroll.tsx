@@ -1,72 +1,35 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, forwardRef, ForwardedRef } from "react";
+import type { JSX } from "react";
 import { Error } from "./error";
 import RenderedCardsGrid from "./renderedCardsGrid";
 import NoData from "./noData";
 import { Spin } from "antd";
 
-const NoMoreItems = () => {
-  return (
-    <div className="text-center py-4  text-muted-foreground ">
-      No more items to load
-    </div>
-  );
-};
-
-const Loader = () => {
-  return (
-    <div className="flex justify-center items-center mt-4">
-      <Spin />
-    </div>
-  );
-};
-
-export function InfiniteScroll<T>({
-  onLoadMore,
-  threshold = 1000,
-  reverse = false,
-  loading,
-  fetchingMoreLoading,
-  hasMore,
-  error,
-  data,
-  customColsNum,
-  renderItem,
-  skeketonItem,
-  customNoData,
-  className,
-}: {
-  onLoadMore: () => void;
-  threshold?: number;
-  reverse?: boolean;
-  loading?: boolean;
-  fetchingMoreLoading?: boolean;
-  hasMore: boolean;
-  error?: any;
-  data: T[];
-  renderItem: (item: T) => React.ReactNode;
-  customColsNum?: number;
-  skeketonItem?: (num: number) => React.ReactNode;
-  customNoData?: React.ReactNode;
-  className?: string;
-}) {
+function InfiniteScrollComponent<T>(
+  {
+    onLoadMore,
+    threshold = 1000,
+    reverse = false,
+    loading,
+    fetchingMoreLoading,
+    hasMore,
+    error,
+    data,
+    customColsNum,
+    renderItem,
+    skeketonItem,
+    customNoData,
+    className,
+  }: InfiniteScrollProps<T>,
+  forwardedRef: ForwardedRef<HTMLDivElement>
+) {
   const traggerRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadInitialData = async () => {
-      if (containerRef.current) {
-        window.scrollTo(0, containerRef.current.scrollHeight);
-      }
-    };
-    reverse ? loadInitialData() : null;
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
-        if (target.isIntersecting) {
-          console.log("🚀 ~ file: InfiniteScroll.tsx:59 ~ isIntersecting:");
+        if (target.isIntersecting && hasMore) {
           onLoadMore?.();
         }
       },
@@ -103,7 +66,8 @@ export function InfiniteScroll<T>({
 
   return (
     <div
-      className={`overflow-y-auto h-full  overflow-x-hidden  ${
+      ref={forwardedRef}
+      className={`overflow-y-auto h-full overflow-x-hidden ${
         reverse ? "flex flex-col-reverse pt-2" : ""
       } ${className}`}
     >
@@ -121,3 +85,39 @@ export function InfiniteScroll<T>({
     </div>
   );
 }
+
+const NoMoreItems = () => {
+  return (
+    <div className="text-center py-4  text-muted-foreground ">
+      No more items to load
+    </div>
+  );
+};
+
+const Loader = () => {
+  return (
+    <div className="flex justify-center items-center mt-4">
+      <Spin />
+    </div>
+  );
+};
+
+interface InfiniteScrollProps<T> {
+  onLoadMore: () => void;
+  threshold?: number;
+  reverse?: boolean;
+  loading?: boolean;
+  fetchingMoreLoading?: boolean;
+  hasMore: boolean;
+  error?: any;
+  data: T[];
+  renderItem: (item: T) => React.ReactNode;
+  customColsNum?: number;
+  skeketonItem?: (num: number) => React.ReactNode;
+  customNoData?: React.ReactNode;
+  className?: string;
+}
+
+export const InfiniteScroll = forwardRef(InfiniteScrollComponent) as <T>(
+  props: InfiniteScrollProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
+) => JSX.Element;

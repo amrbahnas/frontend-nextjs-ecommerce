@@ -49,6 +49,7 @@ export const MessageList = () => {
 
   return (
     <InfiniteScroll<MessageType>
+      ref={scrollRef}
       data={renderedmessages}
       fetchingMoreLoading={pagination.isFetchingNextPage}
       renderItem={(message) => (

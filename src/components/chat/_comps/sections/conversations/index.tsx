@@ -42,27 +42,26 @@ export const ConversationsList = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="w-full   sm:!border-r flex-1 border-gray-200 ">
-      <InfiniteScroll<ConversationType>
-        data={renderedConversations}
-        onLoadMore={pagination.fetchNextPage}
-        hasMore={pagination?.hasMore}
-        loading={isPending}
-        fetchingMoreLoading={pagination.isFetchingNextPage}
-        customColsNum={1}
-        customNoData={<p>No conversations found</p>}
-        skeketonItem={(key) => <ConversationsSkeleton key={key} />}
-        error={error}
-        renderItem={(conversation) => (
-          <ConversationItem
-            key={conversation.id}
-            conversation={conversation}
-            handleSelectConversation={handleSelectConversation}
-            selectedConversation={selectedConversation}
-            isOnline={onlineUsers.includes(conversation?.userId || "")}
-          />
-        )}
-      />
-    </div>
+    <InfiniteScroll<ConversationType>
+      data={renderedConversations}
+      onLoadMore={pagination.fetchNextPage}
+      hasMore={pagination?.hasMore}
+      loading={isPending}
+      fetchingMoreLoading={pagination.isFetchingNextPage}
+      customColsNum={1}
+      className="w-full   sm:!border-r flex-1 border-gray-200 "
+      customNoData={<p>No conversations found</p>}
+      skeketonItem={(key) => <ConversationsSkeleton key={key} />}
+      error={error}
+      renderItem={(conversation) => (
+        <ConversationItem
+          key={conversation.id}
+          conversation={conversation}
+          handleSelectConversation={handleSelectConversation}
+          selectedConversation={selectedConversation}
+          isOnline={onlineUsers.includes(conversation?.userId || "")}
+        />
+      )}
+    />
   );
 };

@@ -50,7 +50,7 @@ function InfiniteScrollComponent<T>(
         observer.unobserve(currentContainer);
       }
     };
-  }, [onLoadMore, threshold, reverse, hasMore, data]);
+  }, [onLoadMore, threshold, reverse, hasMore]);
 
   if (loading && data?.length === 0)
     return (

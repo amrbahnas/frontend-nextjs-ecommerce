@@ -1,4 +1,4 @@
-import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import useUserStore from "@/store/useUserStore";
 import { Badge } from "antd";
 import { useTranslations } from "next-intl";
@@ -35,14 +35,9 @@ const Reviews = ({ productId }: { productId: string }) => {
 
           <div className=" space-y-6 ">
             <div className="  max-h-96 overflow-auto">
-              <ListItemsInfinityScroll<ReviewType>
+              <InfiniteScroll<ReviewType>
                 data={reviews}
-                error={error}
-                customColsNum={1}
-                pagination={pagination}
-                isLoading={isLoading}
-                customNoData={<p>Be the first to review this product</p>}
-                skeketonItem={(key) => <ReviewsSkeleton key={key} />}
+                fetchingMoreLoading={pagination.isFetchingNextPage}
                 renderItem={(review) => (
                   <ReviewCard
                     review={review}
@@ -51,6 +46,12 @@ const Reviews = ({ productId }: { productId: string }) => {
                     refetch={refetch}
                   />
                 )}
+                onLoadMore={pagination.fetchNextPage}
+                hasMore={pagination?.hasMore}
+                loading={isLoading}
+                customColsNum={1}
+                customNoData={<p>Be the first to review this product</p>}
+                skeketonItem={(key) => <ReviewsSkeleton key={key} />}
               />
             </div>
             <ReviewForm productId={productId} customOnSuccess={refetch} />

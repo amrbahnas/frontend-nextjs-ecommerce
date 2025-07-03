@@ -43,12 +43,12 @@ const ErrorOperations = () => {
             >
               Refresh Page
             </Button>
-            <Button onClick={() => router.back()} size="large">
+            {/* <Button onClick={() => router.back()} size="large">
               Go Back
             </Button>
             <Button onClick={() => router.push("/")} size="large">
               Return Home
-            </Button>
+            </Button> */}
           </div>
         }
       />

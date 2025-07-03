@@ -1,8 +1,8 @@
 "use client";
-import Container from "@/components/ui/container";
-import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import ProductCard from "@/components/shared/productCard";
 import ProductCardSkeleton from "@/components/shared/productCard/productCard.skeleton";
+import Container from "@/components/ui/container";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import useUserStore from "@/store/useUserStore";
 import { Divider } from "antd";
 import { useEffect } from "react";
@@ -23,12 +23,17 @@ const WishlistPage = () => {
         <Divider className="!mb-8 !mt-4">
           <h1 className="text-3xl font-semibold text-primary">Wishlist</h1>
         </Divider>
-        <ListItemsInfinityScroll<Product>
+        <InfiniteScroll<Product>
           data={wishlist}
-          pagination={pagination}
-          isLoading={isLoading}
-          skeketonItem={(key) => <ProductCardSkeleton key={key} />}
           renderItem={(product) => <ProductCard product={product} />}
+          onLoadMore={pagination.fetchNextPage}
+          hasMore={pagination?.hasMore}
+          loading={isLoading}
+          fetchingMoreLoading={pagination.isFetchingNextPage}
+          customColsNum={4}
+          skeketonItem={(key) => <ProductCardSkeleton key={key} />}
+          threshold={500}
+          reverse={false}
         />
       </div>
     </Container>

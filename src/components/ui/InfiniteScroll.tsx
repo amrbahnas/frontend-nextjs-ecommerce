@@ -1,25 +1,72 @@
 import { useEffect, useRef } from "react";
+import { Error } from "./error";
+import RenderedCardsGrid from "./renderedCardsGrid";
+import NoData from "./noData";
+import { Spin } from "antd";
 
-type InfiniteScrollProps = {
-  children: React.ReactNode;
-  onLoadMore?: () => void;
-  threshold?: number;
-  reverse?: boolean;
+const NoMoreItems = () => {
+  return (
+    <div className="text-center py-4  text-muted-foreground ">
+      No more items to load
+    </div>
+  );
 };
 
-export function InfiniteScroll({
-  children,
+const Loader = () => {
+  return (
+    <div className="flex justify-center items-center mt-4">
+      <Spin />
+    </div>
+  );
+};
+
+export function InfiniteScroll<T>({
   onLoadMore,
-  threshold = 500,
+  threshold = 1000,
   reverse = false,
-}: InfiniteScrollProps) {
+  loading,
+  fetchingMoreLoading,
+  hasMore,
+  error,
+  data,
+  customColsNum,
+  renderItem,
+  skeketonItem,
+  customNoData,
+  className,
+}: {
+  onLoadMore: () => void;
+  threshold?: number;
+  reverse?: boolean;
+  loading?: boolean;
+  fetchingMoreLoading?: boolean;
+  hasMore: boolean;
+  error?: any;
+  data: T[];
+  renderItem: (item: T) => React.ReactNode;
+  customColsNum?: number;
+  skeketonItem?: (num: number) => React.ReactNode;
+  customNoData?: React.ReactNode;
+  className?: string;
+}) {
+  const traggerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadInitialData = async () => {
+      if (containerRef.current) {
+        window.scrollTo(0, containerRef.current.scrollHeight);
+      }
+    };
+    reverse ? loadInitialData() : null;
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
         if (target.isIntersecting) {
+          console.log("🚀 ~ file: InfiniteScroll.tsx:59 ~ isIntersecting:");
           onLoadMore?.();
         }
       },
@@ -30,7 +77,7 @@ export function InfiniteScroll({
       }
     );
 
-    const currentContainer = containerRef.current;
+    const currentContainer = traggerRef.current;
     if (currentContainer) {
       observer.observe(currentContainer);
     }
@@ -40,13 +87,37 @@ export function InfiniteScroll({
         observer.unobserve(currentContainer);
       }
     };
-  }, [onLoadMore, threshold, reverse]);
+  }, [onLoadMore, threshold, reverse, hasMore, data]);
+
+  if (loading && data?.length === 0)
+    return (
+      <RenderedCardsGrid length={5} customColsNum={customColsNum}>
+        {[1, 2, 3, 4, 5].map((num: any) => (
+          <div key={num}>{skeketonItem?.(num)}</div>
+        ))}
+      </RenderedCardsGrid>
+    );
+
+  if (error) return <Error error={error} />;
+  if (data?.length === 0 && !loading) return customNoData ?? <NoData />;
 
   return (
-    <div>
-      {reverse && <div ref={containerRef} className="h-1" />}
-      {children}
-      {!reverse && <div ref={containerRef} className="h-1" />}
+    <div
+      className={`overflow-y-auto h-full  overflow-x-hidden  ${
+        reverse ? "flex flex-col-reverse pt-2" : ""
+      } ${className}`}
+    >
+      <RenderedCardsGrid
+        customColsNum={customColsNum}
+        length={data?.length ?? 0}
+      >
+        {data?.map((item: any) => (
+          <div key={item?.id}>{renderItem?.(item)}</div>
+        ))}
+      </RenderedCardsGrid>
+      {fetchingMoreLoading && <Loader />}
+      {!hasMore && <NoMoreItems />}
+      <div ref={traggerRef} className="h-1" />
     </div>
   );
 }

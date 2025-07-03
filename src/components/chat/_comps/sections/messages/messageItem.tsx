@@ -57,6 +57,7 @@ export const MessageItem = ({
                 maxWidth: "100%",
                 borderRadius: "8px",
                 cursor: "pointer",
+                height: "200px",
               }}
               preview={{
                 mask: null,

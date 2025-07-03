@@ -1,7 +1,7 @@
 import { useGetProducts } from "@/_api/query";
-import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
 import ProductCard from "@/components/shared/productCard";
 import ProductCardSkeleton from "@/components/shared/productCard/productCard.skeleton";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 
@@ -17,12 +17,17 @@ const ProductSection = () => {
   });
 
   return (
-    <ListItemsInfinityScroll<Product>
+    <InfiniteScroll<Product>
       data={products}
-      pagination={pagination}
-      isLoading={isLoading}
-      skeketonItem={(key) => <ProductCardSkeleton key={key} />}
       renderItem={(product) => <ProductCard product={product} />}
+      onLoadMore={pagination.fetchNextPage}
+      hasMore={pagination?.hasMore}
+      loading={isLoading}
+      customColsNum={4}
+      fetchingMoreLoading={pagination.isFetchingNextPage}
+      skeketonItem={(key) => <ProductCardSkeleton key={key} />}
+      threshold={500}
+      reverse={false}
     />
   );
 };

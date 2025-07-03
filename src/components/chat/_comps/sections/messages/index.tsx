@@ -1,8 +1,8 @@
-import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
+import { useGetMessages } from "@/components/chat/_api/query";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import { useChatContext } from "@/context/chatContext";
 import useUserStore from "@/store/useUserStore";
-import { useCallback, useEffect, useRef } from "react";
-import { useGetMessages } from "@/components/chat/_api/query";
+import { useCallback, useRef } from "react";
 import { useManageRenderedMessages } from "./hooks/useManageRenderedMessages";
 import { useMessagesSocketEvents } from "./hooks/useMessagesSocketEvents";
 import { MessageItem } from "./messageItem";
@@ -12,6 +12,7 @@ export const MessageList = () => {
   const { socket, selectedConversation, setSelectedConversation } =
     useChatContext();
   const scrollRef = useRef<HTMLDivElement>(null);
+
   const { user } = useUserStore();
 
   // get messages
@@ -31,13 +32,6 @@ export const MessageList = () => {
     }
   }, []);
 
-  // Scroll when open chat
-  useEffect(() => {
-    if (renderedmessages.length > 0 && pagination.current === 1) {
-      scrollToBottom();
-    }
-  }, [renderedmessages.length, selectedConversation?.id]);
-
   // handle messages socket events
   useMessagesSocketEvents({
     selectedConversation,
@@ -54,26 +48,26 @@ export const MessageList = () => {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto custom-scrollbar sm:p-4">
-      <ListItemsInfinityScroll
-        data={renderedmessages}
-        pagination={pagination}
-        threshold={500}
-        reverse={true}
-        customColsNum={1}
-        renderItem={(message) => (
-          <MessageItem
-            key={message.id}
-            message={message}
-            fromMe={message.senderId === user?.id}
-            receiverProfileImg={selectedConversation?.image || ""}
-          />
-        )}
-        isLoading={isPending}
-        skeketonItem={(key) => <MessageListSkeleton key={key} />}
-        error={error}
-      />
-      <div ref={scrollRef} style={{ height: "1px" }} />
-    </div>
+    <InfiniteScroll<MessageType>
+      data={renderedmessages}
+      fetchingMoreLoading={pagination.isFetchingNextPage}
+      renderItem={(message) => (
+        <MessageItem
+          key={message.id}
+          message={message}
+          fromMe={message.senderId === user?.id}
+          receiverProfileImg={selectedConversation?.image || ""}
+        />
+      )}
+      onLoadMore={pagination.fetchNextPage}
+      hasMore={pagination?.hasMore}
+      loading={isPending}
+      customColsNum={1}
+      customNoData={<p>Be the first to review this product</p>}
+      skeketonItem={(key) => <MessageListSkeleton key={key} />}
+      error={error}
+      reverse={true}
+      className="px-2"
+    />
   );
 };

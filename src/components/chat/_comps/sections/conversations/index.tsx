@@ -1,4 +1,4 @@
-import ListItemsInfinityScroll from "@/components/shared/listItemsInfinityScroll";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import { useChatContext } from "@/context/chatContext";
 import useAuthStore from "@/store/useAuthStore";
 import { useGetAllConversations } from "../../../_api/query";
@@ -42,11 +42,17 @@ export const ConversationsList = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="w-full  overflow-y-auto  sm:!border-r flex-1 border-gray-200 custom-scrollbar">
-      <ListItemsInfinityScroll
+    <div className="w-full   sm:!border-r flex-1 border-gray-200 ">
+      <InfiniteScroll<ConversationType>
         data={renderedConversations}
-        pagination={pagination}
+        onLoadMore={pagination.fetchNextPage}
+        hasMore={pagination?.hasMore}
+        loading={isPending}
+        fetchingMoreLoading={pagination.isFetchingNextPage}
         customColsNum={1}
+        customNoData={<p>No conversations found</p>}
+        skeketonItem={(key) => <ConversationsSkeleton key={key} />}
+        error={error}
         renderItem={(conversation) => (
           <ConversationItem
             key={conversation.id}
@@ -56,9 +62,6 @@ export const ConversationsList = () => {
             isOnline={onlineUsers.includes(conversation?.userId || "")}
           />
         )}
-        isLoading={isPending}
-        skeketonItem={(key) => <ConversationsSkeleton key={key} />}
-        error={error}
       />
     </div>
   );

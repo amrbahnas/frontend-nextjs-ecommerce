@@ -23,7 +23,6 @@ const ProductSection = () => {
       onLoadMore={pagination.fetchNextPage}
       hasMore={pagination?.hasMore}
       loading={isLoading}
-      customColsNum={4}
       fetchingMoreLoading={pagination.isFetchingNextPage}
       skeketonItem={(key) => <ProductCardSkeleton key={key} />}
       threshold={500}

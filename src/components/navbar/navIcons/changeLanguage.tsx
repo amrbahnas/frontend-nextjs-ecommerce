@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { IoLanguage } from "react-icons/io5";
 
 const ChangeLanguage = () => {
@@ -23,14 +23,20 @@ const ChangeLanguage = () => {
   };
 
   return (
-    <Button
-      type="text"
-      onClick={toggleLanguage}
-      className="flex items-center justify-center gap-1 w-fit !m-0 !p-0"
-      // icon={<IoLanguage className="text-lg" />}
+    <Tooltip
+      title={currentLocale === "en" ? "Switch to Arabic" : "Switch to English"}
     >
-      {currentLocale === "en" ? "Arabic" : "English"}
-    </Button>
+      <Button
+        type="text"
+        onClick={toggleLanguage}
+        className="flex items-center justify-center gap-2 w-fit !m-0 !px-2 !py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+      >
+        <IoLanguage className="text-lg opacity-70" />
+        <span className="text-sm font-medium">
+          {currentLocale === "en" ? "Arabic" : "English"}
+        </span>
+      </Button>
+    </Tooltip>
   );
 };
 

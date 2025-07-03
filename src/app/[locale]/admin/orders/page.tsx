@@ -199,31 +199,38 @@ const Page = () => {
   return (
     <div>
       <AdminPageTile>Orders</AdminPageTile>
-      <div style={{ marginBottom: 16 }} className="flex items-center gap-4">
-        <Button
-          type="primary"
-          onClick={handleBulkPay}
-          disabled={!selectedRowKeys.length || payMultiLoading}
-          loading={payMultiLoading}
-          style={{ marginRight: 8 }}
-        >
-          Pay Selected Orders
-        </Button>
-        <Button
-          onClick={handleBulkDeliver}
-          disabled={!selectedRowKeys.length || deliverMultiLoading}
-          loading={deliverMultiLoading}
-        >
-          Deliver Selected Orders
-        </Button>
-      </div>
+
+      <OrdersFilter />
       {selectedRowKeys.length > 0 && (
         <span className="text-gray-600 block mb-3">
           Selected Orders Count:{" "}
           <Badge count={selectedRowKeys.length} color="blue" />
         </span>
       )}
-      <OrdersFilter />
+      {selectedRowKeys.length > 0 && (
+        <div
+          style={{ marginBottom: 16 }}
+          className="flex items-center flex-wrap  gap-4"
+        >
+          <Button
+            type="primary"
+            onClick={handleBulkPay}
+            disabled={payMultiLoading}
+            loading={payMultiLoading}
+            className="w-full sm:w-auto"
+          >
+            Pay Selected Orders
+          </Button>
+          <Button
+            onClick={handleBulkDeliver}
+            disabled={deliverMultiLoading}
+            loading={deliverMultiLoading}
+            className="w-full sm:w-auto"
+          >
+            Deliver Selected Orders
+          </Button>
+        </div>
+      )}
       <Table
         rowSelection={rowSelection}
         columns={columns}

@@ -11,6 +11,7 @@ import CategoriesSelector from "@/components/selectors/categoriesSelector";
 import ProductsTable from "./_comps/productsTable";
 import ProductsList from "./_comps/productsList";
 import useParamsService from "@/hooks/global/useParamsService";
+import AdminPageTile from "../_comps/adminPageTile";
 
 const { Search } = Input;
 
@@ -43,9 +44,9 @@ export default function ProductsPage() {
   };
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden [&_.ant-card-body]:!p-0 !border-none sm:!border-1 [&_.ant-card-body]:sm:pt-6 ">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <h1 className=" text-lg md:text-2xl font-bold">Products Management</h1>
+        <AdminPageTile>Products</AdminPageTile>
         <Button
           type="primary"
           icon={<PlusOutlined />}

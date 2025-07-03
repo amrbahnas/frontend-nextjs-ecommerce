@@ -15,10 +15,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Avatar, Layout, Menu, Popconfirm, theme } from "antd";
+import { Avatar, Layout, Menu, Popconfirm, theme, Drawer } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CiShop } from "react-icons/ci";
 
 const { Header, Content, Sider } = Layout;
@@ -27,6 +27,8 @@ type MenuItem = Required<MenuProps>["items"][number];
 
 const Admin = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const user = useUserStore((state) => state.user);
   const router = useRouter();
   const pathname = usePathname();
@@ -36,9 +38,25 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
     if (key !== "logout") {
       router.push(key);
+      if (isMobile) {
+        setDrawerVisible(false);
+      }
     }
   };
 
@@ -118,26 +136,56 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Layout className="min-h-screen">
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        className="min-h-screen shadow-lg flex flex-col"
-      >
-        <div className="p-4 flex items-center justify-center">
-          <h1 className="text-white text-xl font-bold">
-            {collapsed ? "AP" : "Admin Panel"}
-          </h1>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[pathname || ""]}
-          items={mainMenuItems}
-          className="flex-1 border-r-0"
-          onClick={handleMenuClick}
-        />
-      </Sider>
+      {!isMobile && (
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          className="min-h-screen shadow-lg flex flex-col"
+        >
+          <div className="p-4 flex items-center justify-center">
+            <h1 className="text-white text-xl font-bold">
+              {collapsed ? "AP" : "Admin Panel"}
+            </h1>
+          </div>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[pathname || ""]}
+            items={mainMenuItems}
+            className="flex-1 border-r-0"
+            onClick={handleMenuClick}
+          />
+        </Sider>
+      )}
+
+      {isMobile && (
+        <Drawer
+          placement="left"
+          onClose={() => setDrawerVisible(false)}
+          open={drawerVisible}
+          styles={{
+            body: {
+              padding: 0,
+              height: "100%",
+            },
+          }}
+          width={250}
+        >
+          <div className="p-4 flex items-center justify-center">
+            <h1 className="text-xl font-bold">Admin Panel</h1>
+          </div>
+          <Menu
+            theme="light"
+            mode="inline"
+            selectedKeys={[pathname || ""]}
+            items={mainMenuItems}
+            className="flex-1 border-r-0"
+            onClick={handleMenuClick}
+          />
+        </Drawer>
+      )}
+
       <Layout>
         <Header
           style={{
@@ -146,21 +194,30 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
           }}
           className="shadow-sm flex items-center"
         >
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger px-6 text-xl",
-              onClick: () => setCollapsed(!collapsed),
-            }
+          {!isMobile &&
+            React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger px-6 text-xl",
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+          {isMobile && (
+            <MenuUnfoldOutlined
+              className="trigger px-6 text-xl"
+              onClick={() => setDrawerVisible(true)}
+            />
           )}
-          <div className="px-6 h-full flex  justify-between items-center w-full">
+          <div className=" pr-6 sm:px-6 h-full flex justify-between items-center w-full">
             <Link
               href="/profile"
               className="flex items-center gap-2 text-black"
               title="Profile"
             >
               <Avatar src={user?.profileImg} alt="user" />
-              <h2 className="text-lg font-semibold">Welcome, {user?.name}</h2>
+              <h2 className="text-lg font-semibold hidden sm:block">
+                Welcome, {user?.name}
+              </h2>
             </Link>
             <Link href="/" title="Home">
               <CiShop size={40} className="text-primary/90" />
@@ -170,10 +227,11 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
         <Content
           style={{
             margin: "24px 16px",
-            padding: 24,
+            // padding: 24,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
+          className="p-4 sm:p-6"
         >
           {children}
         </Content>

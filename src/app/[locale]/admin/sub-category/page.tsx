@@ -29,9 +29,9 @@ const Page = () => {
   return (
     <div>
       <AdminPageTile>Sub Category</AdminPageTile>
-      <div className="flex items-center justify-between mt-8 mb-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 mt-8 mb-4">
         <SubCategoryFilter />
-        <span className=" capitalize text-sm text-black my-4 block w-full text-right">
+        <span className=" capitalize text-sm text-black sm:my-4 block w-full text-right">
           {Subcategories.length} items found
         </span>
       </div>

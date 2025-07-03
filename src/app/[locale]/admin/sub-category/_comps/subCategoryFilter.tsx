@@ -9,6 +9,7 @@ const SubCategoryFilter = () => {
   return (
     <div className="flex items-center gap-4 mb-4">
       <Search
+        size="large"
         placeholder="Search by sub-category name"
         allowClear
         className="!w-full md:!w-[350px]"

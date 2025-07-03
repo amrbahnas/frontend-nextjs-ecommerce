@@ -46,12 +46,12 @@ const SubCategoryCard = ({
   };
 
   return (
-    <div className="group relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <div className="group relative bg-white rounded-xl shadow-md sm:shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
       {/* Gradient Overlay on Hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Actions */}
-      <div className="absolute top-0 right-0 p-3 flex gap-2">
+      <div className="absolute top-0 right-0 p-1 sm:p-3 flex sm:gap-2">
         <Button
           type="text"
           onClick={updateSubCategory}
@@ -68,7 +68,7 @@ const SubCategoryCard = ({
           title="Are you sure to delete this category?"
           okText="Yes"
           cancelText="No"
-          placement="bottomRight"
+          placement="bottom"
         >
           <Button
             disabled={deleteLoading}
@@ -86,8 +86,8 @@ const SubCategoryCard = ({
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col items-center justify-center min-h-[160px]">
-        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-2 group-hover:text-blue-600 transition-colors">
+      <div className=" px-6 pt-8 sm:p-6 flex flex-col items-center justify-center min-h-[160px]">
+        <h1 className="text-lg sm:text-2xl font-semibold text-gray-800 text-center mb-2 group-hover:text-blue-600 transition-colors">
           {subCategory.name}
         </h1>
         <p className="text-sm text-gray-500 text-center">

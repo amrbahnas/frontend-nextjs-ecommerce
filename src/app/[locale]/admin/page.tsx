@@ -9,6 +9,7 @@ import {
   RecentOrders,
   SalesByCategory,
 } from "./_comps/dashboard";
+import AdminPageTile from "./_comps/adminPageTile";
 
 export default function AdminDashboard() {
   const { stats, isLoading: statsLoading } = useGetAdminStats();
@@ -24,7 +25,7 @@ export default function AdminDashboard() {
 
   return (
     <div className=" space-y-6">
-      <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
+      <AdminPageTile>Dashboard Overview</AdminPageTile>
       <StatsCards stats={stats} />
       <RevenueOverview revenue={revenue} />
       <Row gutter={[16, 16]} className="mt-6">

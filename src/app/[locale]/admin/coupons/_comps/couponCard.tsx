@@ -85,7 +85,7 @@ const CouponCard = ({
             onConfirm={handleDelete}
             okText="Yes"
             cancelText="No"
-            placement="topRight"
+            placement="bottom"
           >
             <Button
               type="text"

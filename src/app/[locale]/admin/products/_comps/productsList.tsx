@@ -34,7 +34,7 @@ const ProductsList = ({
           </div>
         </Spin>
       </div>
-      <Pagination {...pagination} />
+      <Pagination {...pagination} showTotal={false} />
     </div>
   );
 };

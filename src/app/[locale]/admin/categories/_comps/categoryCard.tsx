@@ -82,8 +82,8 @@ const CategoryCard = ({
       </div>
 
       <Divider className="!my-1" />
-      <div className="p-2 flex justify-center items-center text-xl capitalize">
-        <h1>{category.name}</h1>
+      <div className="p-2 flex justify-center items-center text-lg sm:text-xl capitalize">
+        <h1 className="truncate w-[80%]">{category.name}</h1>
       </div>
       <div className="flex flex-col gap-2 border-t w-full p-3">
         <div className=" flex justify-between items-center  ">

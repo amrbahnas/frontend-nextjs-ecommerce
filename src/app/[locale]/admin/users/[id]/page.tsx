@@ -245,13 +245,13 @@ const Page = ({ params }: { params: Params }) => {
   ];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="sm:p-6 space-y-6">
       {/* User Header Card */}
-      <Card>
+      <Card className="!border-none sm:!border-1 [&_.ant-card-body]:!p-0 sm:p-6 ">
         <Row gutter={[24, 24]} align="middle">
-          <Col>
+          <Col xs={24} lg={4} className="!flex !justify-center">
             <Avatar
-              size={96}
+              size={120}
               src={user.profileImg}
               icon={<FaUser color={iconColors.user} />}
             />
@@ -270,7 +270,7 @@ const Page = ({ params }: { params: Params }) => {
               </div>
               <div className="flex items-center gap-4">
                 <Select
-                  style={{ width: 120 }}
+                  className="w-full sm:w-auto"
                   value={user.role}
                   onChange={handleRoleChange}
                   loading={changeUserRoleLoading}
@@ -280,6 +280,7 @@ const Page = ({ params }: { params: Params }) => {
                   <Option value="manager">Manager</Option>
                 </Select>
                 <Button
+                  className="w-full sm:w-auto"
                   type={user.active ? "default" : "primary"}
                   onClick={handleToggleActive}
                   loading={toggleActiveLoading}
@@ -298,10 +299,11 @@ const Page = ({ params }: { params: Params }) => {
           </Col>
           <Col xs={24} lg={12}>
             <Row gutter={[16, 16]}>
-              <Col span={12}>
+              <Col xs={24} lg={12}>
                 <Card size="small">
                   <Statistic
                     title="Total Orders"
+                    className="!p-2"
                     value={user.stats.totalOrders}
                     prefix={
                       <FaBox
@@ -312,9 +314,10 @@ const Page = ({ params }: { params: Params }) => {
                   />
                 </Card>
               </Col>
-              <Col span={12}>
+              <Col xs={24} lg={12}>
                 <Card size="small">
                   <Statistic
+                    className="!p-2"
                     title="Total Spent"
                     value={formatPrice(user.stats.totalSpent)}
                     prefix={
@@ -326,9 +329,10 @@ const Page = ({ params }: { params: Params }) => {
                   />
                 </Card>
               </Col>
-              <Col span={12}>
+              <Col xs={24} lg={12}>
                 <Card size="small">
                   <Statistic
+                    className="!p-2"
                     title="Avg Order Value"
                     value={formatPrice(user.stats.averageOrderValue)}
                     prefix={
@@ -340,9 +344,10 @@ const Page = ({ params }: { params: Params }) => {
                   />
                 </Card>
               </Col>
-              <Col span={12}>
+              <Col xs={24} lg={12}>
                 <Card size="small">
                   <Statistic
+                    className="!p-2"
                     title="Avg Rating"
                     value={user.stats.averageRating.toFixed(1)}
                     suffix="⭐"
@@ -361,7 +366,7 @@ const Page = ({ params }: { params: Params }) => {
       </Card>
 
       {/* Tabs Section */}
-      <Card>
+      <Card className="!border-none sm:!border-1 [&_.ant-card-body]:!p-0 sm:p-6 ">
         <Tabs defaultActiveKey="orders" type="card">
           <TabPane
             tab={

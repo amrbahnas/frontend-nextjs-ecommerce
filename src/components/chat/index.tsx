@@ -26,12 +26,9 @@ const Chat = () => {
     setNotificationContent,
   } = useChatContext();
 
-  // use for get user conversations
-  const { conversations } = useGetAllConversations({
-    skip: isAdmin || !isOpen,
-  });
+  const { conversations } = useGetAllConversations({});
 
-  // use for set initial conversation case is user
+  // set initial conversation case  Role is user
   useInitialConversationSelection({
     isAdmin,
     conversations,

@@ -67,7 +67,7 @@ function InfiniteScrollComponent<T>(
   return (
     <div
       ref={forwardedRef}
-      className={`overflow-y-auto h-full overflow-x-hidden ${
+      className={`overflow-y-auto h-full overflow-x-hidden  ${
         reverse ? "flex flex-col-reverse pt-2" : ""
       } ${className}`}
     >

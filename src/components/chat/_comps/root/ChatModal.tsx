@@ -47,7 +47,7 @@ export const ChatModal = memo(
           className="flex items-center gap-2 pr-4"
         >
           {lg && (
-            <button
+            <div
               onClick={toggleFullScreen}
               className="border-none bg-transparent cursor-pointer hover:text-blue-500 p-1"
             >
@@ -56,7 +56,7 @@ export const ChatModal = memo(
               ) : (
                 <FullscreenOutlined className="text-gray-400" />
               )}
-            </button>
+            </div>
           )}
           <CloseOutlined
             onClick={onClose}

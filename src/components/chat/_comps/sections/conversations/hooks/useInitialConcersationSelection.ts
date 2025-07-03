@@ -16,6 +16,7 @@ export const useInitialConversationSelection = ({
 }: Props) => {
   useEffect(() => {
     if (!isOpen || isAdmin) return;
+
     // Only run for non-admin users and when we haven't initialized yet
     if (!isAdmin && conversations.length > 0) {
       const { name, image } = adminConversation;
@@ -23,5 +24,5 @@ export const useInitialConversationSelection = ({
     } else {
       setSelectedConversation(adminConversation);
     }
-  }, [isAdmin, conversations.length]);
+  }, [isAdmin, conversations.length, isOpen]);
 };

@@ -59,7 +59,7 @@ const LoginPage = ({}) => {
               Login with Google
             </Button>
           </a> */}
-          <Divider>Or</Divider>
+          {/* <Divider>Or</Divider> */}
           {loginError && (
             <div className="flex items-center gap-2 mb-5">
               <Error error={loginError} hideOkButton={true} />

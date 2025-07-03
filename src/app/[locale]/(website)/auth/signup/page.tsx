@@ -21,7 +21,7 @@ const SignUpPage = () => {
             Register
           </h1>
         </Divider>
-        <a
+        {/* <a
           className="mt-8 block"
           href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}
         >
@@ -29,7 +29,7 @@ const SignUpPage = () => {
             Register with Google
           </Button>
         </a>
-        <Divider>Or</Divider>
+        <Divider>Or</Divider> */}
         <Form
           className="flex flex-col gap-3 w-full "
           form={form}

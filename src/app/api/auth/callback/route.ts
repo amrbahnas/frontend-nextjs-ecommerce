@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       response.headers.append(
         "Set-Cookie",
         `accessToken=${accessToken}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${
-          2 * 24 * 60 * 60
+          1 * 60 * 60 // 1 hour
         }`
       );
     }
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       response.headers.append(
         "Set-Cookie",
         `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=${
-          2 * 24 * 60 * 60
+          2 * 24 * 60 * 60 // 2 days
         }`
       );
     }

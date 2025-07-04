@@ -50,7 +50,7 @@ export async function middleware(request: NextRequest) {
 
   // 1) Handling Auth routes section
   if (pathName.startsWith("/auth")) {
-    if (!tokenData) {
+    if (!tokenData || pathName === "/auth/callback") {
       return intlResponse;
     } else {
       return createRedirectResponse("/");

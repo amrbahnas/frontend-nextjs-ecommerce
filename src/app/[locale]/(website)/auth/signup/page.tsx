@@ -7,6 +7,7 @@ import { Error } from "@/components/ui/error";
 import Item from "@/components/antd/item";
 import Container from "@/components/ui/container";
 import { FaGoogle } from "react-icons/fa";
+import { thirdpartAuth } from "@/constant/thirdpartAuth";
 const { Password } = Input;
 
 const SignUpPage = () => {
@@ -21,15 +22,12 @@ const SignUpPage = () => {
             Register
           </h1>
         </Divider>
-        {/* <a
-          className="mt-8 block"
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}
-        >
+        <a className="mt-8 block" href={thirdpartAuth.google}>
           <Button size="large" className="!w-full" icon={<FaGoogle />}>
             Register with Google
           </Button>
         </a>
-        <Divider>Or</Divider> */}
+        <Divider>Or</Divider>
         <Form
           className="flex flex-col gap-3 w-full "
           form={form}

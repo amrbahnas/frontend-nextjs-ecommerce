@@ -5,7 +5,6 @@ import { FiUser, FiMail, FiPhone, FiCamera } from "react-icons/fi";
 import useUserStore from "@/store/useUserStore";
 import { useEffect, useState } from "react";
 import { useUpdateProfile } from "../_api/mutation";
-import { useMe } from "@/_api/query";
 import toast from "react-hot-toast";
 import UploadAvatar from "@/components/ui/uploadAvatar";
 import Link from "next/link";

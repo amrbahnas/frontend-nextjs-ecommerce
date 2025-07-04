@@ -7,11 +7,12 @@ import { Button, Divider, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { FaGoogle } from "react-icons/fa";
 
-import useAuthStore from "@/store/useAuthStore";
 import { useLogout } from "@/hooks/global/useLogout";
+import useAuthStore from "@/store/useAuthStore";
 import { useLogin } from "../_api/mutation";
+import { FaGoogle } from "react-icons/fa";
+import { thirdpartAuth } from "@/constant/thirdpartAuth";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
@@ -19,22 +20,7 @@ const LoginPage = ({}) => {
   const router = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout();
-  const { login, loginError, loginPending, onLoginSuccess } = useLogin();
-  const { getParams } = useParamsService({});
-
-  useEffect(() => {
-    const googleAuth = getParams("googleAuth");
-    if (googleAuth) {
-      const isActive = getParams("active");
-      const jsonUser = getParams("user") || "";
-      if (isActive === "true") {
-        const user = JSON.parse(jsonUser);
-        onLoginSuccess(user);
-      } else {
-        router.push("/inactiveAccount");
-      }
-    }
-  }, []);
+  const { login, loginError, loginPending } = useLogin();
 
   useEffect(() => {
     if (isLogin) {
@@ -54,12 +40,12 @@ const LoginPage = ({}) => {
               Login
             </h1>
           </Divider>
-          {/* <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`}>
+          <a href={thirdpartAuth.google}>
             <Button size="large" className="!w-full" icon={<FaGoogle />}>
               Login with Google
             </Button>
-          </a> */}
-          {/* <Divider>Or</Divider> */}
+          </a>
+          <Divider>Or</Divider>
           {loginError && (
             <div className="flex items-center gap-2 mb-5">
               <Error error={loginError} hideOkButton={true} />

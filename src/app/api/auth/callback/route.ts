@@ -7,8 +7,9 @@ export async function GET(request: NextRequest) {
 
   // Copy all cookies from the incoming request to the redirect response
   const cookies = request.headers.get("cookie");
+  console.log("🚀 ~ file: route.ts:10 ~ cookies:", cookies);
   if (cookies) {
-    response.headers.set("Set-Cookie", cookies);
+    response.headers.append("Set-Cookie", cookies);
   }
 
   return response;

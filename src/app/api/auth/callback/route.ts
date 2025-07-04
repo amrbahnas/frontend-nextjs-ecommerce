@@ -15,8 +15,15 @@ export async function GET(request: NextRequest) {
   // if (cookies) {
   //   response.headers.append("Set-Cookie", cookies);
   // }
+  const cookies = request.headers.get("cookie");
+  const cookieArray = cookies?.split(";");
+  console.log("🚀 ~ file: route.ts:20 ~ cookieArray:new", cookieArray);
+  if (cookieArray) {
+    cookieArray.forEach((cookie) => {
+      response.headers.append("Set-Cookie", cookie);
+    });
+  }
 
-  response.headers.set("Set-Cookie", request.headers.get("cookie") || "");
-
+  console.log("🚀 ~ file: route.ts:28 ~ response:", response.headers);
   return response;
 }

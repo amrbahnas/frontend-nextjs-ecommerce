@@ -10,7 +10,7 @@ export const useAdminGetOrders = (params: {
     isLoading: ordersLoading,
     pagination,
     refetch,
-  } = usePagination<OrderType[]>("/orders", { params });
+  } = usePagination<OrderType[]>("/orders/admin", { params });
   return {
     orders: orders || [],
     ordersLoading,

@@ -16,12 +16,16 @@ export async function GET(request: NextRequest) {
   //   response.headers.append("Set-Cookie", cookies);
   // }
   const cookies = request.headers.get("cookie");
+  console.log("🚀 ~ file: route.ts:19 ~ cookies:", cookies);
   const cookieArray = cookies?.split(";");
   console.log("🚀 ~ file: route.ts:20 ~ cookieArray:new", cookieArray);
-  if (cookieArray) {
-    cookieArray.forEach((cookie) => {
-      response.headers.append("Set-Cookie", cookie);
-    });
+  // if (cookieArray) {
+  //   cookieArray.forEach((cookie) => {
+  //     response.headers.append("Set-Cookie", cookie);
+  //   });
+  // }
+  if (cookies) {
+    response.headers.set("Set-Cookie", cookies);
   }
 
   console.log("🚀 ~ file: route.ts:28 ~ response:", response.headers);

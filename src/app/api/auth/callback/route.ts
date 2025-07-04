@@ -6,11 +6,17 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(redirectUrl);
 
   // Copy all cookies from the incoming request to the redirect response
-  const cookies = request.headers.get("cookie");
-  console.log("🚀 ~ file: route.ts:10 ~ cookies:", cookies);
-  if (cookies) {
-    response.headers.append("Set-Cookie", cookies);
-  }
+  // const reqcookies = request.headers.forEach((value, key) => {
+  //   console.log("🚀 ~ file: route.ts:10 ~ reqcookies:", value, key);
+  // });
+
+  // const cookies = request.headers.get("cookie");
+  // console.log("🚀 ~ file: route.ts:10 ~ cookies:", typeof cookies);
+  // if (cookies) {
+  //   response.headers.append("Set-Cookie", cookies);
+  // }
+
+  response.headers.set("Set-Cookie", request.headers.get("cookie") || "");
 
   return response;
 }

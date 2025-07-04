@@ -49,7 +49,7 @@ export const ConversationsList = () => {
       loading={isPending}
       fetchingMoreLoading={pagination.isFetchingNextPage}
       customColsNum={1}
-      className="w-full   sm:!border-r flex-1 border-gray-200 "
+      className="w-full sm:!border-r flex-1 border-gray-200 "
       customNoData={<p>No conversations found</p>}
       skeketonItem={(key) => <ConversationsSkeleton key={key} />}
       error={error}

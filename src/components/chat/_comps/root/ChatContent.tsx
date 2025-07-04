@@ -1,12 +1,11 @@
 "use client";
-import { memo, useCallback } from "react";
-import classNames from "classnames";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { ConversationHeader } from "../sections/conversations/conversationHeader";
-import { ConversationsList } from "../sections/conversations";
-import { MessageList } from "../sections/messages";
+import classNames from "classnames";
+import { memo, useCallback } from "react";
 import { ChatInput } from "../sections/chatInput";
-import { useGetAllConversations } from "../../_api/query";
+import { ConversationsList } from "../sections/conversations";
+import { ConversationHeader } from "../sections/conversations/conversationHeader";
+import { MessageList } from "../sections/messages";
 
 type Conversation = any; // Replace with your actual conversation type
 
@@ -58,9 +57,7 @@ const AdminView = memo(
             hidden: !lg && selectedConversation,
           })}
         >
-          <div className="h-full overflow-y-auto">
-            <ConversationsList />
-          </div>
+          <ConversationsList />
         </div>
         <div
           className={classNames(

@@ -5,6 +5,10 @@ import RenderedCardsGrid from "./renderedCardsGrid";
 import NoData from "./noData";
 import { Spin } from "antd";
 
+export const InfiniteScroll = forwardRef(InfiniteScrollComponent) as <T>(
+  props: InfiniteScrollProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
+) => JSX.Element;
+
 function InfiniteScrollComponent<T>(
   {
     onLoadMore,
@@ -50,7 +54,7 @@ function InfiniteScrollComponent<T>(
         observer.unobserve(currentContainer);
       }
     };
-  }, [onLoadMore, threshold, reverse, hasMore]);
+  }, [hasMore]);
 
   if (loading && data?.length === 0)
     return (
@@ -117,7 +121,3 @@ interface InfiniteScrollProps<T> {
   customNoData?: React.ReactNode;
   className?: string;
 }
-
-export const InfiniteScroll = forwardRef(InfiniteScrollComponent) as <T>(
-  props: InfiniteScrollProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
-) => JSX.Element;

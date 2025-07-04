@@ -5,29 +5,21 @@ export async function GET(request: NextRequest) {
   const redirectUrl = new URL("/auth/callback", request.url);
   const response = NextResponse.redirect(redirectUrl);
 
-  // Copy all cookies from the incoming request to the redirect response
-  // const reqcookies = request.headers.forEach((value, key) => {
-  //   console.log("🚀 ~ file: route.ts:10 ~ reqcookies:", value, key);
-  // });
+  // Get Set-Cookie headers
+  const setCookieHeader = request.headers.get("set-cookie");
+  console.log("🚀 ~ file: route.ts:9 ~ Set-Cookie header:", setCookieHeader);
 
-  // const cookies = request.headers.get("cookie");
-  // console.log("🚀 ~ file: route.ts:10 ~ cookies:", typeof cookies);
-  // if (cookies) {
-  //   response.headers.append("Set-Cookie", cookies);
-  // }
-  const cookies = request.headers.get("cookie");
-  console.log("🚀 ~ file: route.ts:19 ~ cookies:", cookies);
-  const cookieArray = cookies?.split(";");
-  console.log("🚀 ~ file: route.ts:20 ~ cookieArray:new", cookieArray);
-  // if (cookieArray) {
-  //   cookieArray.forEach((cookie) => {
-  //     response.headers.append("Set-Cookie", cookie);
-  //   });
-  // }
-  if (cookies) {
-    response.headers.set("Set-Cookie", cookies);
+  if (setCookieHeader) {
+    // Split multiple Set-Cookie headers and forward each one
+    const cookies = setCookieHeader.split(",").map((cookie) => cookie.trim());
+    cookies.forEach((cookie) => {
+      response.headers.append("Set-Cookie", cookie);
+    });
   }
 
-  console.log("🚀 ~ file: route.ts:28 ~ response:", response.headers);
+  // Also check regular cookie header
+  const cookies = request.headers.get("cookie");
+  console.log("🚀 ~ file: route.ts:19 ~ regular cookies:", cookies);
+
   return response;
 }

@@ -30,7 +30,6 @@ const WishlistPage = () => {
           hasMore={pagination?.hasMore}
           loading={isLoading}
           fetchingMoreLoading={pagination.isFetchingNextPage}
-          customColsNum={4}
           skeketonItem={(key) => <ProductCardSkeleton key={key} />}
           threshold={500}
           reverse={false}

@@ -59,7 +59,14 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
     if (isSuccess) {
       resetCart();
       removeParams("success");
-      toast.success("Order placed successfully");
+      toast.success("Order placed successfully", {
+        duration: 1000,
+        position: "bottom-center",
+      });
+      toast.success("Check your email for the order details", {
+        duration: 2000,
+        position: "bottom-center",
+      });
     }
   }, [order]);
 

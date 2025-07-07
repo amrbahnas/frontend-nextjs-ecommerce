@@ -131,7 +131,7 @@ const AdminProductCard = ({
             <FaRegMoneyBillAlt className="text-gray-400 text-lg flex-shrink-0" />
             <span className="text-gray-500">Price:</span>
             <span className="font-medium text-primary ml-auto">
-              ${product.price.toFixed(2)}
+              ${product.price?.toFixed(2)}
             </span>
           </div>
           <div className="flex items-center gap-2">

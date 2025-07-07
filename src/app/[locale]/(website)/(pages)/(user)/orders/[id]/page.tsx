@@ -50,15 +50,15 @@ const getStatusTag = (status: string) => {
 const OrderDetailsPage = ({ params }: { params: Params }) => {
   const { id } = use(params);
   const resetCart = useCardStore((store) => store.resetCart);
-  const { getParams } = useParamsService({});
+  const { getParams, removeParams } = useParamsService({});
   const { order, isLoading } = useGetSpecificOrder(id);
 
   useEffect(() => {
     if (Object.values(order).length === 0) return;
     const isSuccess = getParams("success");
-    const orderSince = dayjs(order.createdAt).fromNow();
-    if (isSuccess && orderSince.match("few seconds")) {
+    if (isSuccess) {
       resetCart();
+      removeParams("success");
       toast.success("Order placed successfully");
     }
   }, [order]);
@@ -106,7 +106,7 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
                           )}
                         </div>
                         <div className="text-primary font-medium">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${(item.price * item.quantity)?.toFixed(2)}
                         </div>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
                 </Descriptions.Item>
                 <Descriptions.Item label="Total Amount">
                   <span className="text-lg font-bold text-primary">
-                    ${order?.totalOrderPrice.toFixed(2)}
+                    ${order?.totalOrderPrice?.toFixed(2)}
                   </span>
                 </Descriptions.Item>
               </Descriptions>

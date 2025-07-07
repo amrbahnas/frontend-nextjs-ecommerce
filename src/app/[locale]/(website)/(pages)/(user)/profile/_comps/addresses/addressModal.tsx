@@ -2,6 +2,7 @@
 import { Button, Form, Input, Modal, Spin, message } from "antd";
 import { useCreateAddress, useUpdateAddress } from "../../_api/mutation";
 import { useEffect, useState } from "react";
+import TextArea from "antd/es/input/TextArea";
 
 const { Item } = Form;
 
@@ -81,13 +82,12 @@ const AddressModal = ({
             Get Current Location
           </Button> */}
           <Item
-            label="Address"
-            name="address"
-            rules={[{ required: true, message: "Please enter your address" }]}
+            label="Country"
+            name="country"
+            rules={[{ required: true, message: "Please enter your country" }]}
           >
-            <Input placeholder="Enter your address" />
+            <Input placeholder="Enter your country" />
           </Item>
-
           <Item
             label="City"
             name="city"
@@ -95,7 +95,6 @@ const AddressModal = ({
           >
             <Input placeholder="Enter your city" />
           </Item>
-
           <Item
             label="State"
             name="state"
@@ -103,29 +102,18 @@ const AddressModal = ({
           >
             <Input placeholder="Enter your state" />
           </Item>
-
-          <Item
-            label="Zip Code"
-            name="zipCode"
-            rules={[{ required: true, message: "Please enter your Zip code" }]}
-          >
+          <Item label="Zip Code" name="zipCode">
             <Input placeholder="Enter your Zip code" />
           </Item>
-
-          <Item
-            label="Country"
-            name="country"
-            rules={[{ required: true, message: "Please enter your country" }]}
-          >
-            <Input placeholder="Enter your country" />
-          </Item>
-
           <Item
             label="Phone"
             name="phone"
             rules={[{ required: true, message: "Please enter your phone" }]}
           >
             <Input placeholder="Enter your phone" />
+          </Item>
+          <Item label="More Address Details" name="address">
+            <TextArea placeholder="More Address Details" rows={4} />
           </Item>
 
           <Item className="mb-0">

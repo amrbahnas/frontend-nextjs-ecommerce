@@ -42,7 +42,7 @@ const CartSummary = () => {
                 <div className="text-gray-500">
                   <Text>Quantity: {item.quantity}</Text>
                   <Text className="ml-4">
-                    Price: ${(item.price * item.quantity).toFixed(2)}
+                    Price: ${(item.price * item.quantity)?.toFixed(2)}
                   </Text>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const CartSummary = () => {
       <Card className="mt-4">
         <div className="flex justify-between items-center">
           <span className=" font-semibold text-lg">Total Amount:</span>
-          <span className="text-xl font-bold">${total.toFixed(2)}</span>
+          <span className="text-xl font-bold">${total?.toFixed(2)}</span>
         </div>
       </Card>
     </div>

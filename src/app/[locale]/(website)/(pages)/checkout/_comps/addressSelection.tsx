@@ -5,15 +5,12 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import AddressModal from "@/app/[locale]/(website)/(pages)/(user)/profile/_comps/addresses/addressModal";
 import useParamsService from "@/hooks/global/useParamsService";
+import { formatAddress } from "@/utils/formatAddress";
 
 const AddressSelection = () => {
   const { addresses, addressesIsLoading, addressesRefetch } = useGetAddresses();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setParams, getParams } = useParamsService("okay I will");
-
-  const formatAddress = (address: AddressType) => {
-    return `${address.address}, ${address.city}, ${address.state}, ${address.country}`;
-  };
 
   useEffect(() => {
     if (addresses.length === 0) return;

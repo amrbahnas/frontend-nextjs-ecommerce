@@ -13,11 +13,13 @@ const OrdersFilter = () => {
       <Search
         placeholder="Search by product name"
         allowClear
+        size="large"
         className="!w-full md:!w-[350px]"
         enterButton={<SearchOutlined />}
         onSearch={(value) => setParams("search", value)}
       />
       <DatePicker
+        size="large"
         className="!w-full md:!w-[350px]"
         placeholder="Select date"
         onChange={(date, dateString) =>

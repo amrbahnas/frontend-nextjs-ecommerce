@@ -31,7 +31,7 @@ const Pricing = ({
           <div className="flex items-center justify-between font-bold">
             <span className="">Final Price:</span>
             <span className=" text-lg">
-              ${totalPriceAfterDiscount.toFixed(2)}
+              ${totalPriceAfterDiscount?.toFixed(2)}
             </span>
           </div>
         </>

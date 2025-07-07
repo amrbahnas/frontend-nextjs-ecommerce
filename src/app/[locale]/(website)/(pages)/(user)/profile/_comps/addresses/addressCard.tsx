@@ -2,9 +2,7 @@ import React from "react";
 import { Button, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDeleteAddress } from "../../_api/mutation";
-const formatAddress = (address: AddressType) => {
-  return `${address.address}, ${address.city}, ${address.state}, ${address.country}`;
-};
+import { formatAddress } from "@/utils/formatAddress";
 
 const AddressCard = ({
   address,

@@ -349,7 +349,7 @@ const Page = ({ params }: { params: Params }) => {
                   <Statistic
                     className="!p-2"
                     title="Avg Rating"
-                    value={user.stats.averageRating.toFixed(1)}
+                    value={user.stats.averageRating?.toFixed(1)}
                     suffix="⭐"
                     prefix={
                       <FaStar

@@ -15,16 +15,18 @@ import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
 import { useProductSeo } from "../hooks/useProductSeo";
+import NotFound from "@/app/[locale]/not-found";
 
 const SinglePage = ({ params }: { params: Params }) => {
   const { id } = use(params);
-  const { product, isLoading } = useGetSpecificProduct(id);
+  const { product, isLoading, error } = useGetSpecificProduct(id);
   const t = useTranslations("ProductDetails");
   const pathname = usePathname();
 
   useProductSeo(product);
 
   if (isLoading) return <ProductSkeleton />;
+  if (error) return <NotFound />;
 
   return (
     <>

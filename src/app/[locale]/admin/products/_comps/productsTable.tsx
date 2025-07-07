@@ -93,7 +93,7 @@ const ProductsTable = ({
 
       key: "price",
       width: 100,
-      render: (price: number) => `$${price.toFixed(2)}`,
+      render: (price: number) => `$${price?.toFixed(2)}`,
       sorter: (a: Product, b: Product) => a.price - b.price,
     },
     {

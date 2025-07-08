@@ -4,9 +4,9 @@ import { Form, Modal, Input, Button, DatePicker, InputNumber } from "antd";
 import React, { useEffect } from "react";
 import { useAdminCreateCoupon, useAdminEditCoupon } from "../_api/action";
 import toast from "react-hot-toast";
-
 import { Error } from "@/components/ui/error";
 import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
 
 const { Item } = Form;
 
@@ -23,6 +23,7 @@ const CouponModal = ({
   coupon: CouponType | null;
   setCoupon: any;
 }) => {
+  const t = useTranslations("admin.coupons.modal");
   const [error, setError] = React.useState("");
   const [form] = Form.useForm();
   const { createCoupon, createLoading } = useAdminCreateCoupon();
@@ -48,7 +49,7 @@ const CouponModal = ({
     if (coupon) {
       editCoupon(values, {
         onSuccess: () => {
-          toast.success("Coupon Updated");
+          toast.success(t("edit.success"));
           onClose();
           refetch();
         },
@@ -60,7 +61,7 @@ const CouponModal = ({
     } else {
       createCoupon(values, {
         onSuccess: () => {
-          toast.success("Coupon Created");
+          toast.success(t("create.success"));
           onClose();
           refetch();
         },
@@ -74,39 +75,39 @@ const CouponModal = ({
 
   return (
     <Modal
-      title={coupon ? "Edit Coupon" : "Create Coupon"}
+      title={coupon ? t("edit.title") : t("create.title")}
       open={visible}
       onCancel={onClose}
       footer={null}
     >
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Item
-          label="Code"
+          label={t("form.code.label")}
           name="code"
-          rules={[{ required: true, message: "Please input coupon code!" }]}
+          rules={[{ required: true, message: t("form.code.required") }]}
         >
-          <Input placeholder="Enter coupon code" size="large" />
+          <Input placeholder={t("form.code.placeholder")} size="large" />
         </Item>
 
         <Item
-          label="Discount (%)"
+          label={t("form.discount.label")}
           name="discount"
-          rules={[{ required: true, message: "Please input discount!" }]}
+          rules={[{ required: true, message: t("form.discount.required") }]}
         >
           <InputNumber
             type="number"
             min={1}
             max={100}
-            placeholder="Enter discount percentage"
+            placeholder={t("form.discount.placeholder")}
             size="large"
             className="!w-full"
           />
         </Item>
 
         <Item
-          label="Expiry Date"
+          label={t("form.expiry.label")}
           name="expireAt"
-          rules={[{ required: true, message: "Please select expiry date!" }]}
+          rules={[{ required: true, message: t("form.expiry.required") }]}
         >
           <DatePicker size="large" className="w-full" />
         </Item>
@@ -115,7 +116,7 @@ const CouponModal = ({
 
         <div className="flex justify-end gap-2">
           <Button size="large" onClick={onClose}>
-            Cancel
+            {t("cancel")}
           </Button>
           <Button
             size="large"
@@ -123,7 +124,7 @@ const CouponModal = ({
             htmlType="submit"
             loading={createLoading || editLoading}
           >
-            {coupon ? "Update" : "Create"}
+            {coupon ? t("edit.button") : t("create.button")}
           </Button>
         </div>
       </Form>

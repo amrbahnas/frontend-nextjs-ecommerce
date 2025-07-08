@@ -12,10 +12,12 @@ import ProductsTable from "./_comps/productsTable";
 import ProductsList from "./_comps/productsList";
 import useParamsService from "@/hooks/global/useParamsService";
 import AdminPageTile from "../_comps/adminPageTile";
+import { useTranslations } from "next-intl";
 
 const { Search } = Input;
 
 export default function ProductsPage() {
+  const t = useTranslations("admin.products");
   const router = useRouter();
   const { getParams, setParams } = useParamsService("");
   const search = getParams("search") || "";
@@ -36,7 +38,7 @@ export default function ProductsPage() {
       {},
       {
         onSuccess: () => {
-          toast.success("Product deleted successfully");
+          toast.success(t("table.actions.delete.success"));
           refetchProduct();
         },
       }
@@ -44,21 +46,21 @@ export default function ProductsPage() {
   };
 
   return (
-    <Card className="overflow-hidden [&_.ant-card-body]:!p-0 !border-none sm:!border-1 [&_.ant-card-body]:sm:pt-6 ">
+    <Card className="overflow-hidden [&_.ant-card-body]:!p-0 !border-none sm:!border-1 [&_.ant-card-body]:sm:pt-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <AdminPageTile>Products</AdminPageTile>
+        <AdminPageTile>{t("title")}</AdminPageTile>
         <Button
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => router.push("/admin/products/create")}
         >
-          Add New Product
+          {t("add.button")}
         </Button>
       </div>
 
       <div className="mb-4 w-full flex gap-4 items-center flex-wrap">
         <Search
-          placeholder="Search by product name"
+          placeholder={t("filter.search.placeholder")}
           allowClear
           className="!w-full md:!w-[350px]"
           enterButton={<SearchOutlined />}
@@ -68,8 +70,8 @@ export default function ProductsPage() {
         <CategoriesSelector
           value={categoryId || null}
           onChange={(value) => setParams("categoryId", value)}
-          className=" !w-full md:!w-[250px]"
-          placeholder="Filter by category"
+          className="!w-full md:!w-[250px]"
+          placeholder={t("filter.category.placeholder")}
           size="large"
         />
       </div>

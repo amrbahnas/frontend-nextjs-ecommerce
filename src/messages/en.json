@@ -714,5 +714,316 @@
         "sendMessage": "Send Message"
       }
     }
+  },
+  "admin": {
+    "layout": {
+      "title": {
+        "short": "AP",
+        "full": "Admin Panel"
+      },
+      "menu": {
+        "dashboard": "Dashboard",
+        "orders": "Orders",
+        "products": "All Products",
+        "categories": "Categories",
+        "subCategories": "Sub-Category",
+        "coupons": "Coupons",
+        "users": "Users",
+        "settings": "Settings"
+      },
+      "logout": {
+        "title": "Logout",
+        "description": "Are you sure you want to logout?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "header": {
+        "welcome": "Welcome, {name}",
+        "profile": "Profile",
+        "home": "Home"
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "loading": "Loading dashboard data...",
+      "stats": {
+        "users": "Total Users",
+        "orders": "Total Orders",
+        "revenue": "Total Revenue",
+        "products": "Total Products"
+      },
+      "revenue": {
+        "title": "Revenue Overview",
+        "columns": {
+          "date": "Date",
+          "revenue": "Revenue"
+        }
+      },
+      "topProducts": {
+        "title": "Top Selling Products",
+        "columns": {
+          "product": "Product",
+          "sales": "Sales",
+          "revenue": "Revenue"
+        }
+      },
+      "recentOrders": {
+        "title": "Recent Orders",
+        "order": "Order #{id}"
+      },
+      "salesByCategory": {
+        "title": "Sales by Category",
+        "stats": {
+          "sales": "Total Sales",
+          "units": "Units Sold",
+          "unitsSuffix": "units"
+        }
+      }
+    },
+    "categories": {
+      "title": "Categories",
+      "loading": "Loading...",
+      "card": {
+        "products": "Products",
+        "subCategories": "Sub Categories",
+        "actions": {
+          "edit": "Edit Category",
+          "delete": {
+            "title": "Are you sure to delete this category?",
+            "confirm": "Yes",
+            "cancel": "No"
+          },
+          "success": "Category Deleted"
+        },
+        "add": {
+          "title": "Create Category",
+          "aria": "Add new category"
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "Create Category",
+          "button": "Create",
+          "loading": "Creating..."
+        },
+        "edit": {
+          "title": "Edit Category",
+          "button": "Update",
+          "loading": "Updating..."
+        },
+        "form": {
+          "name": {
+            "label": "Name",
+            "placeholder": "Enter category name",
+            "required": "Please input the name!"
+          },
+          "image": {
+            "label": "Image",
+            "error": "Please upload image"
+          }
+        }
+      }
+    },
+    "coupons": {
+      "title": "Coupons",
+      "loading": "Loading...",
+      "add": {
+        "button": "Add New Coupon",
+        "button_short": "Add"
+      },
+      "empty": {
+        "description": "No coupons found",
+        "button": "Create New Coupon"
+      },
+      "card": {
+        "copy": {
+          "tooltip": "Copy Code",
+          "success": "Coupon code copied to clipboard!"
+        },
+        "edit": {
+          "tooltip": "Edit Coupon"
+        },
+        "delete": {
+          "tooltip": "Delete Coupon",
+          "title": "Delete Coupon",
+          "description": "Are you sure you want to delete this coupon?",
+          "confirm": "Yes",
+          "cancel": "No",
+          "success": "Coupon deleted successfully"
+        },
+        "status": {
+          "expired": "Expired",
+          "active": "Active Coupon"
+        },
+        "dates": {
+          "expires": "Expires",
+          "created": "Created"
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "Create Coupon",
+          "button": "Create",
+          "success": "Coupon Created"
+        },
+        "edit": {
+          "title": "Edit Coupon",
+          "button": "Update",
+          "success": "Coupon Updated"
+        },
+        "cancel": "Cancel",
+        "form": {
+          "code": {
+            "label": "Code",
+            "placeholder": "Enter coupon code",
+            "required": "Please input coupon code!"
+          },
+          "discount": {
+            "label": "Discount (%)",
+            "placeholder": "Enter discount percentage",
+            "required": "Please input discount!"
+          },
+          "expiry": {
+            "label": "Expiry Date",
+            "required": "Please select expiry date!"
+          }
+        }
+      }
+    },
+    "orders": {
+      "title": "Orders",
+      "filter": {
+        "search": {
+          "placeholder": "Search by product name"
+        },
+        "date": {
+          "placeholder": "Select date"
+        }
+      },
+      "table": {
+        "columns": {
+          "number": "N",
+          "client": "Client Name",
+          "total": "Total Order Price",
+          "created": "Created At",
+          "payment": {
+            "status": "Payment Status",
+            "method": "Payment Method",
+            "paid": "Paid",
+            "not_paid": "Not Paid"
+          },
+          "delivery": {
+            "status": "Delivery Status",
+            "delivered": "Delivered",
+            "not_delivered": "Not Delivered"
+          }
+        }
+      },
+      "actions": {
+        "bulk": {
+          "pay": {
+            "button": "Pay Selected Orders",
+            "title": "Pay Orders",
+            "description": "Are you sure you want to mark these orders as paid?",
+            "success": "Orders paid successfully"
+          },
+          "deliver": {
+            "button": "Deliver Selected Orders",
+            "title": "Deliver Orders",
+            "description": "Are you sure you want to mark these orders as delivered?",
+            "success": "Orders delivered successfully"
+          }
+        }
+      }
+    },
+    "products": {
+      "title": "Products",
+      "add": {
+        "button": "Add New Product"
+      },
+      "filter": {
+        "search": {
+          "placeholder": "Search by product name"
+        },
+        "category": {
+          "placeholder": "Filter by category"
+        }
+      },
+      "table": {
+        "columns": {
+          "number": "No.",
+          "product": "Product",
+          "price": "Price",
+          "category": "Category",
+          "stock": "Stock",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "actions": {
+          "edit": "Edit",
+          "delete": {
+            "button": "Delete",
+            "title": "Delete Product",
+            "description": "Are you sure you want to delete this product?",
+            "confirm": "Yes",
+            "cancel": "No",
+            "success": "Product deleted successfully"
+          }
+        },
+        "category": {
+          "uncategorized": "Uncategorized"
+        },
+        "status": {
+          "unknown": "Unknown",
+          "trending": "Trending",
+          "featured": "Featured",
+          "popular": "Popular",
+          "most_sold": "Most Sold",
+          "new_arrival": "New Arrival"
+        }
+      },
+      "list": {
+        "items_found": "{count} items found"
+      }
+    },
+    "sub_categories": {
+      "title": "Sub Category",
+      "loading": "Loading...",
+      "items_found": "{count} items found",
+      "card": {
+        "products": "Products",
+        "actions": {
+          "edit": "Edit Sub Category",
+          "delete": {
+            "title": "Are you sure to delete this category?",
+            "confirm": "Yes",
+            "cancel": "No",
+            "success": "Sub Category Deleted"
+          }
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "Create Sub Category",
+          "button": "Create",
+          "loading": "Creating..."
+        },
+        "edit": {
+          "title": "Edit Sub Category",
+          "button": "Update",
+          "loading": "Updating..."
+        },
+        "form": {
+          "category": {
+            "label": "Category",
+            "required": "Please select a category!"
+          },
+          "name": {
+            "label": "Name",
+            "required": "Please input the name!"
+          }
+        }
+      }
+    }
   }
 }

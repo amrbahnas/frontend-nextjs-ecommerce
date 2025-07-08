@@ -4,7 +4,10 @@ import { useAdminCreateCategory, useAdminEditCategory } from "../_api/action";
 import ImageUploader from "@/components/ui/uploadImage";
 import toast from "react-hot-toast";
 import { serialize } from "object-to-formdata";
+import { useTranslations } from "next-intl";
+
 const { Item } = Form;
+
 const CategoryModal = ({
   refetch,
   visible,
@@ -18,6 +21,7 @@ const CategoryModal = ({
   category: any;
   setCategory: any;
 }) => {
+  const t = useTranslations("admin.categories.modal");
   const [error, setError] = React.useState("");
   const [image, setImage] = React.useState<any[]>([]);
   const [form] = Form.useForm();
@@ -50,7 +54,7 @@ const CategoryModal = ({
 
   const onFinish = (values: any) => {
     if (!image[0]) {
-      toast.error("Please upload image");
+      toast.error(t("form.image.error"));
       return;
     }
     values.image = image[0]?.file || image[0]?.data_url;
@@ -84,8 +88,8 @@ const CategoryModal = ({
   return (
     <Modal
       open={visible}
-      title={category ? "Edit Category" : "Create Category"}
-      okText={category ? "Update" : "Create"}
+      title={category ? t("edit.title") : t("create.title")}
+      okText={category ? t("edit.button") : t("create.button")}
       okButtonProps={{
         loading: createLoading || editLoading,
         disabled: createLoading || editLoading,
@@ -95,7 +99,7 @@ const CategoryModal = ({
     >
       <Spin
         spinning={createLoading || editLoading}
-        tip={createLoading ? "Creating..." : "Updating..."}
+        tip={createLoading ? t("create.loading") : t("edit.loading")}
       >
         <div className="text-red-500">{error}</div>
         <Form
@@ -105,13 +109,13 @@ const CategoryModal = ({
           onFinish={onFinish}
         >
           <Item
-            label="Name"
+            label={t("form.name.label")}
             name="name"
-            rules={[{ required: true, message: "Please input the name!" }]}
+            rules={[{ required: true, message: t("form.name.required") }]}
           >
-            <Input />
+            <Input placeholder={t("form.name.placeholder")} />
           </Item>
-          <Item label="Image">
+          <Item label={t("form.image.label")}>
             <div className="flex justify-center">
               <ImageUploader images={image} setImages={setImage} />
             </div>

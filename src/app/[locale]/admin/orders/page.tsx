@@ -20,8 +20,10 @@ import { useDeliverMultiOrder, usePayMultiOrder } from "./_api/action";
 import { useAdminGetOrders } from "./_api/query";
 import OrdersFilter from "./_comps/ordersFilter";
 import useParamsService from "@/hooks/global/useParamsService";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.orders");
   const { getParams } = useParamsService("");
   const search = getParams("search") || "";
   const createdAt = getParams("createdAt") || "";
@@ -50,7 +52,7 @@ const Page = () => {
       {
         onSuccess: () => {
           refetch();
-          toast.success("Orders paid successfully");
+          toast.success(t("actions.bulk.pay.success"));
           setSelectedRowKeys([]);
           setPayModalVisible(false);
         },
@@ -64,7 +66,7 @@ const Page = () => {
       {
         onSuccess: () => {
           refetch();
-          toast.success("Orders delivered successfully");
+          toast.success(t("actions.bulk.deliver.success"));
           setSelectedRowKeys([]);
           setDeliverModalVisible(false);
         },
@@ -83,7 +85,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaHashtag /> <span>N</span>
+          <FaHashtag /> <span>{t("table.columns.number")}</span>
         </div>
       ),
       key: "number",
@@ -92,7 +94,7 @@ const Page = () => {
         <Link
           href={`/admin/orders/${record.id}`}
           key={record.id}
-          className="text-lg text-center !w-full  "
+          className="text-lg text-center !w-full"
         >
           {index + 1}
         </Link>
@@ -101,7 +103,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaUser /> <span>Client Name</span>
+          <FaUser /> <span>{t("table.columns.client")}</span>
         </div>
       ),
       key: "number",
@@ -111,7 +113,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaDollarSign /> <span>Total Order Price</span>
+          <FaDollarSign /> <span>{t("table.columns.total")}</span>
         </div>
       ),
       dataIndex: "totalOrderPrice",
@@ -126,7 +128,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaCalendarAlt /> <span>Created At</span>
+          <FaCalendarAlt /> <span>{t("table.columns.created")}</span>
         </div>
       ),
       key: "createdAt",
@@ -141,7 +143,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaCreditCard /> <span>Payment Status</span>
+          <FaCreditCard /> <span>{t("table.columns.payment.status")}</span>
         </div>
       ),
       dataIndex: "isPaid",
@@ -154,14 +156,18 @@ const Page = () => {
           ) : (
             <FaTimesCircle className="text-red-500 text-lg" />
           )}
-          <span>{isPaid ? "Paid" : "Not Paid"}</span>
+          <span>
+            {isPaid
+              ? t("table.columns.payment.paid")
+              : t("table.columns.payment.not_paid")}
+          </span>
         </div>
       ),
     },
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaCreditCard /> <span>Payment Method</span>
+          <FaCreditCard /> <span>{t("table.columns.payment.method")}</span>
         </div>
       ),
       dataIndex: "paymentMethod",
@@ -177,7 +183,7 @@ const Page = () => {
     {
       title: (
         <div className="flex items-center gap-1 whitespace-nowrap">
-          <FaTruck /> <span>Delivery Status</span>
+          <FaTruck /> <span>{t("table.columns.delivery.status")}</span>
         </div>
       ),
       dataIndex: "isDelivered",
@@ -190,7 +196,11 @@ const Page = () => {
           ) : (
             <FaTimesCircle className="text-red-500 text-lg" />
           )}
-          <span>{isDelivered ? "Delivered" : "Not Delivered"}</span>
+          <span>
+            {isDelivered
+              ? t("table.columns.delivery.delivered")
+              : t("table.columns.delivery.not_delivered")}
+          </span>
         </div>
       ),
     },
@@ -198,69 +208,56 @@ const Page = () => {
 
   return (
     <div>
-      <AdminPageTile>Orders</AdminPageTile>
-
+      <AdminPageTile>{t("title")}</AdminPageTile>
       <OrdersFilter />
-      {selectedRowKeys.length > 0 && (
-        <span className="text-gray-600 block mb-3">
-          Selected Orders Count:{" "}
-          <Badge count={selectedRowKeys.length} color="blue" />
-        </span>
-      )}
-      {selectedRowKeys.length > 0 && (
-        <div
-          style={{ marginBottom: 16 }}
-          className="flex items-center flex-wrap  gap-4"
-        >
-          <Button
-            type="primary"
-            onClick={handleBulkPay}
-            disabled={payMultiLoading}
-            loading={payMultiLoading}
-            className="w-full sm:w-auto"
-          >
-            Pay Selected Orders
-          </Button>
-          <Button
-            onClick={handleBulkDeliver}
-            disabled={deliverMultiLoading}
-            loading={deliverMultiLoading}
-            className="w-full sm:w-auto"
-          >
-            Deliver Selected Orders
-          </Button>
-        </div>
-      )}
+
+      <div className="flex gap-2 mb-4">
+        {selectedRowKeys.length > 0 && (
+          <>
+            <Button
+              type="primary"
+              onClick={handleBulkPay}
+              loading={payMultiLoading}
+            >
+              {t("actions.bulk.pay.button")}
+            </Button>
+            <Button
+              type="primary"
+              onClick={handleBulkDeliver}
+              loading={deliverMultiLoading}
+            >
+              {t("actions.bulk.deliver.button")}
+            </Button>
+          </>
+        )}
+      </div>
+
       <Table
         rowSelection={rowSelection}
         columns={columns}
         dataSource={orders}
-        loading={ordersLoading || payMultiLoading || deliverMultiLoading}
+        loading={ordersLoading}
         pagination={pagination}
         rowKey="id"
-        scroll={{ x: "max-content" }}
+        scroll={{ x: true }}
       />
 
       <ConfirmModal
-        title="Confirm Payment"
-        itemsCount={selectedRowKeys.length}
-        itemName="order"
-        action="Pay Orders"
-        onConfirm={confirmPay}
-        isLoading={payMultiLoading}
         open={payModalVisible}
+        title={t("actions.bulk.pay.title")}
+        action={t("actions.bulk.pay.action")}
+        onConfirm={confirmPay}
         onCancel={() => setPayModalVisible(false)}
+        confirmLoading={payMultiLoading}
       />
 
       <ConfirmModal
-        title="Confirm Delivery"
-        itemsCount={selectedRowKeys.length}
-        itemName="order"
-        action="Mark as Delivered"
-        onConfirm={confirmDeliver}
-        isLoading={deliverMultiLoading}
         open={deliverModalVisible}
+        title={t("actions.bulk.deliver.title")}
+        action={t("actions.bulk.deliver.action")}
+        onConfirm={confirmDeliver}
         onCancel={() => setDeliverModalVisible(false)}
+        confirmLoading={deliverMultiLoading}
       />
     </div>
   );

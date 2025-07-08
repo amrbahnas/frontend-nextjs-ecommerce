@@ -712,5 +712,316 @@
         "sendMessage": "إرسال رسالة"
       }
     }
+  },
+  "admin": {
+    "layout": {
+      "title": {
+        "short": "لإ",
+        "full": "لوحة الإدارة"
+      },
+      "menu": {
+        "dashboard": "لوحة التحكم",
+        "orders": "الطلبات",
+        "products": "جميع المنتجات",
+        "categories": "الفئات",
+        "subCategories": "الفئات الفرعية",
+        "coupons": "الكوبونات",
+        "users": "المستخدمين",
+        "settings": "الإعدادات"
+      },
+      "logout": {
+        "title": "تسجيل الخروج",
+        "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+        "confirm": "نعم",
+        "cancel": "لا"
+      },
+      "header": {
+        "welcome": "مرحباً، {name}",
+        "profile": "الملف الشخصي",
+        "home": "الرئيسية"
+      }
+    },
+    "dashboard": {
+      "title": "نظرة عامة على لوحة التحكم",
+      "loading": "جاري تحميل البيانات...",
+      "stats": {
+        "users": "إجمالي المستخدمين",
+        "orders": "إجمالي الطلبات",
+        "revenue": "إجمالي الإيرادات",
+        "products": "إجمالي المنتجات"
+      },
+      "revenue": {
+        "title": "نظرة عامة على الإيرادات",
+        "columns": {
+          "date": "التاريخ",
+          "revenue": "الإيرادات"
+        }
+      },
+      "topProducts": {
+        "title": "المنتجات الأكثر مبيعاً",
+        "columns": {
+          "product": "المنتج",
+          "sales": "المبيعات",
+          "revenue": "الإيرادات"
+        }
+      },
+      "recentOrders": {
+        "title": "الطلبات الأخيرة",
+        "order": "طلب رقم {id}"
+      },
+      "salesByCategory": {
+        "title": "المبيعات حسب الفئة",
+        "stats": {
+          "sales": "إجمالي المبيعات",
+          "units": "الوحدات المباعة",
+          "unitsSuffix": "وحدة"
+        }
+      }
+    },
+    "categories": {
+      "title": "الفئات",
+      "loading": "جاري التحميل...",
+      "card": {
+        "products": "المنتجات",
+        "subCategories": "الفئات الفرعية",
+        "actions": {
+          "edit": "تعديل الفئة",
+          "delete": {
+            "title": "هل أنت متأكد من حذف هذه الفئة؟",
+            "confirm": "نعم",
+            "cancel": "لا"
+          },
+          "success": "تم حذف الفئة"
+        },
+        "add": {
+          "title": "إنشاء فئة",
+          "aria": "إضافة فئة جديدة"
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "إنشاء فئة جديدة",
+          "button": "إنشاء",
+          "loading": "جاري الإنشاء..."
+        },
+        "edit": {
+          "title": "تعديل الفئة",
+          "button": "تحديث",
+          "loading": "جاري التحديث..."
+        },
+        "form": {
+          "name": {
+            "label": "الاسم",
+            "placeholder": "أدخل اسم الفئة",
+            "required": "الرجاء إدخال الاسم!"
+          },
+          "image": {
+            "label": "الصورة",
+            "error": "الرجاء رفع صورة"
+          }
+        }
+      }
+    },
+    "coupons": {
+      "title": "كوبونات الخصم",
+      "loading": "جاري التحميل...",
+      "add": {
+        "button": "إضافة كوبون جديد",
+        "button_short": "إضافة"
+      },
+      "empty": {
+        "description": "لا توجد كوبونات",
+        "button": "إنشاء كوبون جديد"
+      },
+      "card": {
+        "copy": {
+          "tooltip": "نسخ الكود",
+          "success": "تم نسخ كود الكوبون!"
+        },
+        "edit": {
+          "tooltip": "تعديل الكوبون"
+        },
+        "delete": {
+          "tooltip": "حذف الكوبون",
+          "title": "حذف الكوبون",
+          "description": "هل أنت متأكد من حذف هذا الكوبون؟",
+          "confirm": "نعم",
+          "cancel": "لا",
+          "success": "تم حذف الكوبون بنجاح"
+        },
+        "status": {
+          "expired": "منتهي الصلاحية",
+          "active": "كوبون نشط"
+        },
+        "dates": {
+          "expires": "ينتهي في",
+          "created": "تم الإنشاء في"
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "إنشاء كوبون",
+          "button": "إنشاء",
+          "success": "تم إنشاء الكوبون"
+        },
+        "edit": {
+          "title": "تعديل الكوبون",
+          "button": "تحديث",
+          "success": "تم تحديث الكوبون"
+        },
+        "cancel": "إلغاء",
+        "form": {
+          "code": {
+            "label": "الكود",
+            "placeholder": "أدخل كود الكوبون",
+            "required": "الرجاء إدخال كود الكوبون!"
+          },
+          "discount": {
+            "label": "نسبة الخصم (%)",
+            "placeholder": "أدخل نسبة الخصم",
+            "required": "الرجاء إدخال نسبة الخصم!"
+          },
+          "expiry": {
+            "label": "تاريخ الانتهاء",
+            "required": "الرجاء اختيار تاريخ الانتهاء!"
+          }
+        }
+      }
+    },
+    "orders": {
+      "title": "الطلبات",
+      "filter": {
+        "search": {
+          "placeholder": "البحث باسم المنتج"
+        },
+        "date": {
+          "placeholder": "اختر التاريخ"
+        }
+      },
+      "table": {
+        "columns": {
+          "number": "رقم",
+          "client": "اسم العميل",
+          "total": "إجمالي سعر الطلب",
+          "created": "تاريخ الإنشاء",
+          "payment": {
+            "status": "حالة الدفع",
+            "method": "طريقة الدفع",
+            "paid": "مدفوع",
+            "not_paid": "غير مدفوع"
+          },
+          "delivery": {
+            "status": "حالة التوصيل",
+            "delivered": "تم التوصيل",
+            "not_delivered": "لم يتم التوصيل"
+          }
+        }
+      },
+      "actions": {
+        "bulk": {
+          "pay": {
+            "button": "دفع الطلبات المحددة",
+            "title": "دفع الطلبات",
+            "description": "هل أنت متأكد من تحديد هذه الطلبات كمدفوعة؟",
+            "success": "تم دفع الطلبات بنجاح"
+          },
+          "deliver": {
+            "button": "توصيل الطلبات المحددة",
+            "title": "توصيل الطلبات",
+            "description": "هل أنت متأكد من تحديد هذه الطلبات كتم توصيلها؟",
+            "success": "تم تحديد الطلبات كتم توصيلها بنجاح"
+          }
+        }
+      }
+    },
+    "products": {
+      "title": "المنتجات",
+      "add": {
+        "button": "إضافة منتج جديد"
+      },
+      "filter": {
+        "search": {
+          "placeholder": "البحث باسم المنتج"
+        },
+        "category": {
+          "placeholder": "تصفية حسب الفئة"
+        }
+      },
+      "table": {
+        "columns": {
+          "number": "رقم",
+          "product": "المنتج",
+          "price": "السعر",
+          "category": "الفئة",
+          "stock": "المخزون",
+          "status": "الحالة",
+          "actions": "الإجراءات"
+        },
+        "actions": {
+          "edit": "تعديل",
+          "delete": {
+            "button": "حذف",
+            "title": "حذف المنتج",
+            "description": "هل أنت متأكد من حذف هذا المنتج؟",
+            "confirm": "نعم",
+            "cancel": "لا",
+            "success": "تم حذف المنتج بنجاح"
+          }
+        },
+        "category": {
+          "uncategorized": "غير مصنف"
+        },
+        "status": {
+          "unknown": "غير معروف",
+          "trending": "رائج",
+          "featured": "مميز",
+          "popular": "شائع",
+          "most_sold": "الأكثر مبيعاً",
+          "new_arrival": "وصل حديثاً"
+        }
+      },
+      "list": {
+        "items_found": "تم العثور على {count} منتج"
+      }
+    },
+    "sub_categories": {
+      "title": "الفئات الفرعية",
+      "loading": "جاري التحميل...",
+      "items_found": "تم العثور على {count} فئة فرعية",
+      "card": {
+        "products": "المنتجات",
+        "actions": {
+          "edit": "تعديل الفئة الفرعية",
+          "delete": {
+            "title": "هل أنت متأكد من حذف هذه الفئة الفرعية؟",
+            "confirm": "نعم",
+            "cancel": "لا",
+            "success": "تم حذف الفئة الفرعية"
+          }
+        }
+      },
+      "modal": {
+        "create": {
+          "title": "إنشاء فئة فرعية",
+          "button": "إنشاء",
+          "loading": "جاري الإنشاء..."
+        },
+        "edit": {
+          "title": "تعديل الفئة الفرعية",
+          "button": "تحديث",
+          "loading": "جاري التحديث..."
+        },
+        "form": {
+          "category": {
+            "label": "الفئة",
+            "required": "الرجاء اختيار الفئة!"
+          },
+          "name": {
+            "label": "الاسم",
+            "required": "الرجاء إدخال الاسم!"
+          }
+        }
+      }
+    }
   }
 }

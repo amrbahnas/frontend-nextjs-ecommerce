@@ -6,8 +6,10 @@ import AdminPageTile from "../_comps/adminPageTile";
 import { useGetAdminCoupons } from "./_api/query";
 import CouponCard from "./_comps/couponCard";
 import CouponModal from "./_comps/couponModal";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.coupons");
   const { coupons, isLoading, refetch, pagination } = useGetAdminCoupons();
   const [visible, setVisible] = React.useState(false);
   const [coupon, setCoupon] = React.useState<CouponType | null>(null);
@@ -15,7 +17,7 @@ const Page = () => {
 
   return (
     <div className="">
-      <AdminPageTile>Coupons</AdminPageTile>
+      <AdminPageTile>{t("title")}</AdminPageTile>
       <div className="flex justify-end my-6">
         <Button
           type="primary"
@@ -23,24 +25,24 @@ const Page = () => {
           onClick={() => setVisible(true)}
           className="flex items-center gap-2"
         >
-          <span className="hidden sm:inline">Add New Coupon</span>
-          <span className="sm:hidden">Add</span>
+          <span className="hidden sm:inline">{t("add.button")}</span>
+          <span className="sm:hidden">{t("add.button_short")}</span>
         </Button>
       </div>
 
       <Spin
         spinning={isLoading || deleteCouponLoading}
-        tip="Loading..."
+        tip={t("loading")}
         size="large"
       >
         {coupons?.length === 0 ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="No coupons found"
+            description={t("empty.description")}
             className="my-8"
           >
             <Button type="primary" onClick={() => setVisible(true)}>
-              Create New Coupon
+              {t("empty.button")}
             </Button>
           </Empty>
         ) : (
@@ -60,7 +62,7 @@ const Page = () => {
       </Spin>
 
       {coupons?.length > 0 && (
-        <div className="flex justify-end  mt-10">
+        <div className="flex justify-end mt-10">
           <Pagination {...pagination} />
         </div>
       )}

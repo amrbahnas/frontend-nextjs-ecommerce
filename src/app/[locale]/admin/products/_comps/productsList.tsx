@@ -1,6 +1,7 @@
 import NoData from "@/components/ui/noData";
 import { Pagination, Spin } from "antd";
 import AdminProductCard from "../../_comps/adminProductCard";
+import { useTranslations } from "next-intl";
 
 const ProductsList = ({
   products,
@@ -13,15 +14,17 @@ const ProductsList = ({
   pagination: any;
   ProductsLoading: boolean;
 }) => {
+  const t = useTranslations("admin.products.list");
+
   return (
     <div>
-      <span className=" capitalize text-sm text-black">
-        {products.length} items found
+      <span className="capitalize text-sm text-black">
+        {t("items_found", { count: products.length })}
       </span>
-      <div className="mt-2 h-[calc(100vh-230px)] overflow-scroll flex flex-col gap-3  text-white mb-4 ">
+      <div className="mt-2 h-[calc(100vh-230px)] overflow-scroll flex flex-col gap-3 text-white mb-4">
         {!ProductsLoading && products.length === 0 && <NoData />}
         <Spin spinning={ProductsLoading}>
-          <div className=" !space-y-4 flex- flex-col items-center justify-center">
+          <div className="!space-y-4 flex- flex-col items-center justify-center">
             {products?.map((item) => {
               return (
                 <AdminProductCard

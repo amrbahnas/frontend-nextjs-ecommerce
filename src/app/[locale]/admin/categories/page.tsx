@@ -7,8 +7,10 @@ import AdminPageTile from "../_comps/adminPageTile";
 import AddCategoryCard from "./_comps/addCategoryCard";
 import CategoryCard from "./_comps/categoryCard";
 import CategoryModal from "./_comps/categoryModal";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.categories");
   const { categories, isLoading, refetch, pagination } =
     useGetAdminCategories();
   const [visible, setVisible] = React.useState(false);
@@ -17,11 +19,11 @@ const Page = () => {
     React.useState(false);
   return (
     <div className=" flex flex-col gap-10 h-full">
-      <AdminPageTile>Categories</AdminPageTile>
+      <AdminPageTile>{t("title")}</AdminPageTile>
 
       <Spin
         spinning={isLoading || deleteCategoryLoading}
-        tip="Loading..."
+        tip={t("loading")}
         size="large"
       >
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">

@@ -3,15 +3,18 @@ import { Badge, Button, DatePicker, Input } from "antd";
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import useParamsService from "@/hooks/global/useParamsService";
+import { useTranslations } from "next-intl";
 
 const { Search } = Input;
 
 const OrdersFilter = () => {
+  const t = useTranslations("admin.orders.filter");
   const { setParams } = useParamsService("");
+
   return (
     <div className="flex items-center flex-wrap gap-4 mb-4">
       <Search
-        placeholder="Search by product name"
+        placeholder={t("search.placeholder")}
         allowClear
         size="large"
         className="!w-full md:!w-[350px]"
@@ -21,7 +24,7 @@ const OrdersFilter = () => {
       <DatePicker
         size="large"
         className="!w-full md:!w-[350px]"
-        placeholder="Select date"
+        placeholder={t("date.placeholder")}
         onChange={(date, dateString) =>
           setParams("createdAt", dateString.toLocaleString())
         }

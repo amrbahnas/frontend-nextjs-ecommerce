@@ -1,21 +1,26 @@
 "use client";
 import React from "react";
 import { Card, List } from "antd";
+import { useTranslations } from "next-intl";
 
 interface RecentOrdersProps {
   orders: OrderType[] | undefined;
 }
 
 export function RecentOrders({ orders }: RecentOrdersProps) {
+  const t = useTranslations("admin.dashboard.recentOrders");
+
   return (
-    <Card title="Recent Orders">
+    <Card title={t("title")}>
       <List
         size="small"
         dataSource={orders}
         renderItem={(order: any) => (
           <List.Item>
             <div className="flex justify-between w-full">
-              <span className="w-1/2 truncate">Order #{order.id}</span>
+              <span className="w-1/2 truncate">
+                {t("order", { id: order.id })}
+              </span>
               <span className="text-gray-500">
                 ${order.totalOrderPrice?.toLocaleString()}
               </span>

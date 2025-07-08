@@ -5,13 +5,12 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import NextImage from "@/components/ui/nextImage";
+import { useTranslations } from "next-intl";
 
-const formatStatus = (status: ProductStatus | undefined): string => {
-  if (!status) return "Unknown";
-  return status
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+const formatStatus = (status: ProductStatus | undefined, t: any): string => {
+  if (!status) return t("table.status.unknown");
+  const key = status.replace(/-/g, "_");
+  return t(`table.status.${key}`);
 };
 
 const getStatusColor = (status: ProductStatus | undefined): string => {
@@ -47,11 +46,12 @@ const ProductsTable = ({
   deleteLoading,
   onDelete,
 }: ProductsTableProps) => {
+  const t = useTranslations("admin.products");
   const router = useRouter();
 
   const columns: TableProps<Product>["columns"] = [
     {
-      title: "No.",
+      title: t("table.columns.number"),
       key: "number",
       width: 70,
       align: "center",
@@ -63,19 +63,19 @@ const ProductsTable = ({
       ),
     },
     {
-      title: "Product ",
+      title: t("table.columns.product"),
       key: "title",
       width: 250,
       align: "center",
       fixed: "left",
       render: (_, record) => (
         <Link
-          className="  max-w-[200px] flex items-center gap-2 text-black"
+          className="max-w-[200px] flex items-center gap-2 text-black"
           href={`/admin/products/${record.id}`}
         >
           <NextImage
             src={record.imageCover}
-            alt=""
+            alt={record.title}
             width={40}
             height={40}
             className="object-contain"
@@ -87,33 +87,30 @@ const ProductsTable = ({
       ),
     },
     {
-      title: "Price",
+      title: t("table.columns.price"),
       dataIndex: "price",
       align: "center",
-
       key: "price",
       width: 100,
       render: (price: number) => `$${price?.toFixed(2)}`,
       sorter: (a: Product, b: Product) => a.price - b.price,
     },
     {
-      title: "Category",
+      title: t("table.columns.category"),
       key: "category",
       align: "center",
-
       width: 150,
       render: (_, record: Product) => (
         <div className="truncate max-w-[130px]">
-          {record.category?.name || "Uncategorized"}
+          {record.category?.name || t("table.category.uncategorized")}
         </div>
       ),
     },
     {
-      title: "Stock",
+      title: t("table.columns.stock"),
       dataIndex: "quantity",
       key: "quantity",
       align: "center",
-
       width: 100,
       sorter: (a: Product, b: Product) => a.quantity - b.quantity,
       render: (quantity: number) => (
@@ -123,18 +120,17 @@ const ProductsTable = ({
       ),
     },
     {
-      title: "Status",
+      title: t("table.columns.status"),
       dataIndex: "status",
       key: "status",
       width: 120,
       align: "center",
-
       render: (status: ProductStatus) => (
-        <Tag color={getStatusColor(status)}>{formatStatus(status)}</Tag>
+        <Tag color={getStatusColor(status)}>{formatStatus(status, t)}</Tag>
       ),
     },
     {
-      title: "Actions",
+      title: t("table.columns.actions"),
       key: "actions",
       fixed: "right",
       align: "center",
@@ -146,14 +142,14 @@ const ProductsTable = ({
             icon={<EditOutlined />}
             onClick={() => router.push(`/admin/products/${record.id}`)}
           >
-            Edit
+            {t("table.actions.edit")}
           </Button>
           <Popconfirm
-            title="Delete Product"
-            description="Are you sure you want to delete this product?"
+            title={t("table.actions.delete.title")}
+            description={t("table.actions.delete.description")}
             onConfirm={() => onDelete(record.id)}
-            okText="Yes"
-            cancelText="No"
+            okText={t("table.actions.delete.confirm")}
+            cancelText={t("table.actions.delete.cancel")}
           >
             <Button
               type="link"
@@ -162,7 +158,7 @@ const ProductsTable = ({
               className="!px-2"
               icon={<DeleteOutlined />}
             >
-              Delete
+              {t("table.actions.delete.button")}
             </Button>
           </Popconfirm>
         </Space>

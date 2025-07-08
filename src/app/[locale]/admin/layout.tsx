@@ -21,12 +21,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { CiShop } from "react-icons/ci";
+import { useTranslations } from "next-intl";
 
 const { Header, Content, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const Admin = ({ children }: { children: React.ReactNode }) => {
+  const t = useTranslations("admin.layout");
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -70,16 +72,16 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
 
   const LogoutLabel = () => (
     <Popconfirm
-      title="Logout"
-      description="Are you sure you want to logout?"
-      okText="Yes"
-      cancelText="No"
+      title={t("logout.title")}
+      description={t("logout.description")}
+      okText={t("logout.confirm")}
+      cancelText={t("logout.cancel")}
       onConfirm={handleLogout}
       okButtonProps={{ loading: isPending }}
     >
       <div className="flex items-center gap-2 hover:text-white">
         <LogoutOutlined />
-        <span>Logout</span>
+        <span>{t("logout.title")}</span>
       </div>
     </Popconfirm>
   );
@@ -88,43 +90,42 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
     {
       key: "/admin",
       icon: <DashboardOutlined />,
-      label: "Dashboard",
+      label: t("menu.dashboard"),
     },
     {
       key: "/admin/orders",
       icon: <ShoppingCartOutlined />,
-      label: "Orders",
+      label: t("menu.orders"),
     },
     {
       key: "/admin/products",
       icon: <ShoppingOutlined />,
-      label: "All Products",
+      label: t("menu.products"),
     },
     {
       key: "/admin/categories",
       icon: <TagOutlined />,
-      label: "Categories",
+      label: t("menu.categories"),
     },
     {
       key: "/admin/sub-category",
       icon: <TagsOutlined />,
-      label: "Sub-Category",
+      label: t("menu.subCategories"),
     },
-
     {
       key: "/admin/coupons",
       icon: <GiftOutlined />,
-      label: "Coupons",
+      label: t("menu.coupons"),
     },
     {
       key: "/admin/users",
       icon: <UserOutlined />,
-      label: "Users",
+      label: t("menu.users"),
     },
     // {
     //   key: "/admin/settings",
     //   icon: <SettingOutlined />,
-    //   label: "Settings",
+    //   label: t("menu.settings"),
     // },
     { type: "divider" },
     {
@@ -146,7 +147,7 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
         >
           <div className="p-4 flex items-center justify-center">
             <h1 className="text-white text-xl font-bold">
-              {collapsed ? "AP" : "Admin Panel"}
+              {collapsed ? t("title.short") : t("title.full")}
             </h1>
           </div>
           <Menu
@@ -174,7 +175,7 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
           width={250}
         >
           <div className="p-4 flex items-center justify-center">
-            <h1 className="text-xl font-bold">Admin Panel</h1>
+            <h1 className="text-xl font-bold">{t("title.full")}</h1>
           </div>
           <Menu
             theme="light"
@@ -209,18 +210,18 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
               onClick={() => setDrawerVisible(true)}
             />
           )}
-          <div className=" pe-6 sm:px-6 h-full flex justify-between items-center w-full">
+          <div className="pe-6 sm:px-6 h-full flex justify-between items-center w-full">
             <Link
               href="/profile"
               className="flex items-center gap-2 text-black"
-              title="Profile"
+              title={t("header.profile")}
             >
-              <Avatar src={user?.profileImg} alt="user" />
+              <Avatar src={user?.profileImg} alt={user?.name || ""} />
               <h2 className="text-lg font-semibold hidden sm:block">
-                Welcome, {user?.name}
+                {t("header.welcome", { name: user?.name || "" })}
               </h2>
             </Link>
-            <Link href="/" title="Home">
+            <Link href="/" title={t("header.home")}>
               <CiShop size={40} className="text-primary/90" />
             </Link>
           </div>
@@ -228,7 +229,6 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
         <Content
           style={{
             margin: "24px 16px",
-            // padding: 24,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

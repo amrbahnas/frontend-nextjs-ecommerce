@@ -1,26 +1,29 @@
 "use client";
 import React from "react";
 import { Card, Table } from "antd";
+import { useTranslations } from "next-intl";
 
 interface TopSellingProductsProps {
   products: topSellingProducts[] | undefined;
 }
 
 export function TopSellingProducts({ products }: TopSellingProductsProps) {
+  const t = useTranslations("admin.dashboard.topProducts");
+
   const columns = [
     {
-      title: "Product",
+      title: t("columns.product"),
       dataIndex: "title",
       key: "title",
     },
     {
-      title: "Sales",
+      title: t("columns.sales"),
       dataIndex: "sales",
       key: "sales",
       sorter: (a: any, b: any) => a.sales - b.sales,
     },
     {
-      title: "Revenue",
+      title: t("columns.revenue"),
       dataIndex: "revenue",
       key: "revenue",
       render: (value: number) => `$${value.toLocaleString()}`,
@@ -29,7 +32,7 @@ export function TopSellingProducts({ products }: TopSellingProductsProps) {
   ];
 
   return (
-    <Card title="Top Selling Products">
+    <Card title={t("title")}>
       <Table
         dataSource={products}
         columns={columns}

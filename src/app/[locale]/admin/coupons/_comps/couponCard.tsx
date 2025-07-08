@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { useAdminDeleteCoupon } from "../_api/action";
+import { useTranslations } from "next-intl";
 
 const CouponCard = ({
   coupon,
@@ -26,12 +27,13 @@ const CouponCard = ({
   refetch: any;
   setDeleteCouponLoading: any;
 }) => {
+  const t = useTranslations("admin.coupons.card");
   const { deleteCoupon } = useAdminDeleteCoupon(coupon.id);
   const isExpired = dayjs(coupon.expireAt).isBefore(dayjs());
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(coupon.code);
-    toast.success("Coupon code copied to clipboard!");
+    toast.success(t("copy.success"));
   };
 
   const handleDelete = async () => {
@@ -41,7 +43,7 @@ const CouponCard = ({
         {},
         {
           onSuccess: () => {
-            toast.success("Coupon deleted successfully");
+            toast.success(t("delete.success"));
             refetch();
           },
         }
@@ -59,7 +61,7 @@ const CouponCard = ({
         isExpired ? "bg-gray-50" : "bg-gradient-to-br from-blue-50 to-white"
       }`}
       actions={[
-        <Tooltip title="Copy Code" key="copy">
+        <Tooltip title={t("copy.tooltip")} key="copy">
           <Button
             type="text"
             icon={<FaCopy />}
@@ -67,7 +69,7 @@ const CouponCard = ({
             className="text-blue-500 hover:text-blue-600"
           />
         </Tooltip>,
-        <Tooltip title="Edit Coupon" key="edit">
+        <Tooltip title={t("edit.tooltip")} key="edit">
           <Button
             type="text"
             icon={<MdEdit />}
@@ -78,13 +80,13 @@ const CouponCard = ({
             className="text-green-500 hover:text-green-600"
           />
         </Tooltip>,
-        <Tooltip title="Delete Coupon" key="delete">
+        <Tooltip title={t("delete.tooltip")} key="delete">
           <Popconfirm
-            title="Delete Coupon"
-            description="Are you sure you want to delete this coupon?"
+            title={t("delete.title")}
+            description={t("delete.description")}
             onConfirm={handleDelete}
-            okText="Yes"
-            cancelText="No"
+            okText={t("delete.confirm")}
+            cancelText={t("delete.cancel")}
             placement="bottom"
           >
             <Button
@@ -99,7 +101,7 @@ const CouponCard = ({
     >
       {isExpired && (
         <div className="absolute -right-12 top-6 bg-red-500 text-white px-16 py-1 rotate-45">
-          Expired
+          {t("status.expired")}
         </div>
       )}
 
@@ -110,7 +112,7 @@ const CouponCard = ({
             <div>
               <h3 className="text-lg font-semibold">{coupon.code}</h3>
               <p className="text-gray-500 text-sm">
-                {isExpired ? "Expired" : "Active"} Coupon
+                {isExpired ? t("status.expired") : t("status.active")}
               </p>
             </div>
           </div>
@@ -125,14 +127,15 @@ const CouponCard = ({
         <div className="flex items-center gap-2 text-gray-500">
           <FaCalendarAlt />
           <span className="text-sm">
-            Expires: {dayjs(coupon.expireAt).format("DD MMM YYYY")}
+            {t("dates.expires")}: {dayjs(coupon.expireAt).format("DD MMM YYYY")}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-gray-500">
           <FaRegClock />
           <span className="text-sm">
-            Created: {dayjs(coupon.createdAt).format("DD MMM YYYY")}
+            {t("dates.created")}:{" "}
+            {dayjs(coupon.createdAt).format("DD MMM YYYY")}
           </span>
         </div>
       </div>

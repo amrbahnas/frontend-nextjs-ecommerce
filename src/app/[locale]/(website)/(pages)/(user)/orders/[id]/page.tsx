@@ -64,7 +64,7 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
         position: "bottom-center",
       });
       toast.success("Check your email for the order details", {
-        duration: 2000,
+        duration: 4000,
         position: "bottom-center",
       });
     }

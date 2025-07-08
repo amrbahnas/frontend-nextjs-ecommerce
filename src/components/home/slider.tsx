@@ -2,39 +2,38 @@
 import { Button } from "antd";
 import Link from "next/link";
 import { Pagination, Autoplay } from "swiper/modules";
-const slides = [
-  {
-    id: 1,
-    title: "Spring Sale Collections",
-    description: "Sale! Up to 50% off!",
-    // img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800",
-    url: "/list",
-    bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
-  },
-  {
-    id: 2,
-    title: "Summer Sale Collections",
-    description: "Sale! Up to 50% off!",
-    // img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
-    url: "/list",
-    bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
-  },
-  {
-    id: 3,
-    title: "Winter Sale Collections",
-    description: "Sale! Up to 50% off!",
-    // img: "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-    url: "/list",
-    bg: "bg-gradient-to-r from-pink-50 to-blue-50",
-  },
-];
-
+import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/pagination";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Slider = () => {
+  const t = useTranslations("HomePage.slider");
+
+  const slides = [
+    {
+      id: 1,
+      title: t("springSale"),
+      description: t("saleOff"),
+      url: "/list",
+      bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
+    },
+    {
+      id: 2,
+      title: t("summerSale"),
+      description: t("saleOff"),
+      url: "/list",
+      bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+    },
+    {
+      id: 3,
+      title: t("winterSale"),
+      description: t("saleOff"),
+      url: "/list",
+      bg: "bg-gradient-to-r from-pink-50 to-blue-50",
+    },
+  ];
+
   return (
     <Swiper
       spaceBetween={50}
@@ -45,7 +44,7 @@ const Slider = () => {
       pagination={{
         clickable: true,
         bulletActiveClass: "!bg-primary",
-        renderBullet: function (index, className) {
+        renderBullet: function (index: number, className: string) {
           return `<div class="!w-3 !h-3    ${className}"></div>`;
         },
       }}
@@ -69,7 +68,7 @@ const Slider = () => {
                   size="large"
                   className="rounded-md !bg-black !text-white !py-5 !px-4"
                 >
-                  SHOP NOW
+                  {t("shopNow")}
                 </Button>
               </Link>
             </div>
@@ -81,17 +80,3 @@ const Slider = () => {
 };
 
 export default Slider;
-
-{
-  /* <div
-            className={`w-3 h-3  rounded-full ring-1 ring-gray-600 cursor-pointer flex items-center justify-center ${
-              current === index ? "scale-150" : ""
-            }`}
-            key={slide.id}
-            onClick={() => setCurrent(index)}
-          >
-            {current === index && (
-              <div className="w-[6px] h-[6px] bg-gray-600 rounded-full"></div>
-            )}
-          </div> */
-}

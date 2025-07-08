@@ -6,6 +6,7 @@ import { ChatInput } from "../sections/chatInput";
 import { ConversationsList } from "../sections/conversations";
 import { ConversationHeader } from "../sections/conversations/conversationHeader";
 import { MessageList } from "../sections/messages";
+import { useTranslations } from "next-intl";
 
 type Conversation = any; // Replace with your actual conversation type
 
@@ -14,6 +15,8 @@ interface ChatViewProps {
 }
 
 const UserView = memo(({ selectedConversation }: ChatViewProps) => {
+  const t = useTranslations("chat");
+
   return (
     <div className="w-full flex-1 flex flex-col">
       {selectedConversation ? (
@@ -25,7 +28,7 @@ const UserView = memo(({ selectedConversation }: ChatViewProps) => {
         </>
       ) : (
         <div className="flex items-center justify-center h-full text-gray-500">
-          Select a conversation to start chatting
+          {t("content.noConversation")}
         </div>
       )}
     </div>
@@ -44,6 +47,7 @@ const AdminView = memo(
     selectedConversation,
     setSelectedConversation,
   }: AdminViewProps) => {
+    const t = useTranslations("chat");
     const handleBackClick = useCallback(() => {
       setSelectedConversation(null);
     }, [setSelectedConversation]);
@@ -75,6 +79,7 @@ const AdminView = memo(
                   <button
                     onClick={handleBackClick}
                     className="hover:bg-gray-100 rounded-full"
+                    aria-label={t("content.back")}
                   >
                     <ArrowLeftOutlined />
                   </button>
@@ -88,7 +93,7 @@ const AdminView = memo(
             </>
           ) : (
             <div className="flex items-center justify-center h-full text-gray-500">
-              Select a conversation to start chatting
+              {t("content.noConversation")}
             </div>
           )}
         </div>

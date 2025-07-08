@@ -150,7 +150,7 @@ const Footer = () => {
                   href="/contact-us"
                   className="block text-gray-500 hover:text-primary transition-colors"
                 >
-                  Contact Us
+                  {t("contactUs")}
                 </Link>
               </li>
               <li>

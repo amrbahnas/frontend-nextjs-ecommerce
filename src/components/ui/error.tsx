@@ -19,7 +19,7 @@ export const Error = ({
         {!hideOkButton && (
           <button
             onClick={() => setShow(false)}
-            className="text-red-600 text-lg underline pl-2"
+            className="text-red-600 text-lg underline ps-2"
           >
             ok
           </button>

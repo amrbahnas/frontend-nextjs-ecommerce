@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import UploadAvatar from "@/components/ui/uploadAvatar";
 import Link from "next/link";
 import { Error } from "@/components/ui/error";
+import { useTranslations } from "next-intl";
+
 const { Item } = Form;
 
 const MainInfoForm = ({
@@ -24,6 +26,7 @@ const MainInfoForm = ({
 }) => {
   const { setUser } = useUserStore();
   const [form] = Form.useForm();
+  const t = useTranslations("Profile.form");
   const { updateProfile, updateProfileIsPending, updateProfileError } =
     useUpdateProfile();
   const [image, setImage] = useState<{
@@ -43,14 +46,13 @@ const MainInfoForm = ({
   const updateUserHandler = (values: any) => {
     const formData = new FormData();
     formData.append("name", values.name);
-    // formData.append("email", values.email); // email has separate endpoint
     formData.append("phone", values.phone || "");
     formData.append("profileImg", image?.file || image?.data_url || "");
 
     updateProfile(formData, {
       onSuccess: (result) => {
         refetch();
-        toast.success("Profile Updated Successfully");
+        toast.success(t("updateSuccess"));
         setIsFormChanged(false);
       },
     });
@@ -93,53 +95,53 @@ const MainInfoForm = ({
       >
         <Item
           name="name"
-          label="Full Name"
-          rules={[{ required: true, message: "Please input your name!" }]}
+          label={t("fullName")}
+          rules={[{ required: true, message: t("fullNameRequired") }]}
         >
           <Input
             prefix={<FiUser className="text-gray-400" />}
-            placeholder="Enter your full name"
+            placeholder={t("fullNamePlaceholder")}
             size="large"
           />
         </Item>
 
         <Item
           name="email"
-          label="Email"
+          label={t("email")}
           rules={[
-            { required: true, message: "Please input your email!" },
-            { type: "email", message: "Please enter a valid email!" },
+            { required: true, message: t("emailRequired") },
+            { type: "email", message: t("emailInvalid") },
           ]}
           className="!mb-1"
         >
           <Input
             prefix={<FiMail className="text-gray-400" />}
-            placeholder="Enter your email"
+            placeholder={t("emailPlaceholder")}
             size="large"
             disabled
           />
         </Item>
         <Link
           href={"/profile/change-Email"}
-          className="text-xs block pl-1 !mb-4"
+          className="text-xs block ps-1 !mb-4"
         >
-          Change Email
+          {t("changeEmail")}
         </Link>
 
         <Item
           name="phone"
-          label="Phone Number"
+          label={t("phone")}
           rules={[
             {
               required: false,
-              message: "invalid phone number",
+              message: t("phoneInvalid"),
               min: 8,
             },
           ]}
         >
           <Input
             prefix={<FiPhone className="text-gray-400" />}
-            placeholder="Enter your phone number"
+            placeholder={t("phonePlaceholder")}
             size="large"
           />
         </Item>
@@ -153,7 +155,7 @@ const MainInfoForm = ({
             size="large"
             className="w-full"
           >
-            Update Profile
+            {t("updateProfile")}
           </Button>
         </Item>
       </Form>

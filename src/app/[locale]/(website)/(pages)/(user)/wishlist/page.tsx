@@ -7,9 +7,11 @@ import useUserStore from "@/store/useUserStore";
 import { Divider } from "antd";
 import { useEffect } from "react";
 import { useGetWishlist } from "./_api/query";
+import { useTranslations } from "next-intl";
 
 const WishlistPage = () => {
   const { isLoading, wishlist, refetch, pagination } = useGetWishlist();
+  const t = useTranslations("wishlist");
 
   const storedWishlist = useUserStore((state) => state.user)?.wishlist || [];
 
@@ -21,7 +23,7 @@ const WishlistPage = () => {
     <Container>
       <div>
         <Divider className="!mb-8 !mt-4">
-          <h1 className="text-3xl font-semibold text-primary">Wishlist</h1>
+          <h1 className="text-3xl font-semibold text-primary">{t("title")}</h1>
         </Divider>
         <InfiniteScroll<Product>
           data={wishlist}

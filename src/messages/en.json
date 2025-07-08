@@ -7,7 +7,20 @@
     "home": "Home",
     "products": "Products",
     "cart": "Cart",
-    "account": "My Account"
+    "account": "My Account",
+    "shop": "Shop",
+    "deals": "Deals",
+    "about": "About",
+    "contact": "Contact",
+    "logout": "Logout",
+    "cart_with_count": "Cart ({count})",
+    "brand": "Shope",
+    "search": {
+      "placeholder": "Search products...",
+      "no_results": "No results found",
+      "loading": "Loading...",
+      "recent_searches": "Recent Searches"
+    }
   },
   "Common": {
     "loading": "Loading...",
@@ -22,7 +35,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "add": "Add",
-    "delete": "Delete"
+    "delete": "Delete",
+    "areYouSureDeleteThisReview": "Are you sure you want to delete this review?"
   },
   "HomePage": {
     "featuredProducts": "Featured Products",
@@ -31,9 +45,20 @@
     "newArrivals": "New Arrivals",
     "bestSellers": "Best Sellers",
     "specialOffers": "Special Offers",
-    "seeMore": "See More"
+    "seeMore": "See More",
+    "trendingProducts": "Trending Products",
+    "mostSoldProducts": "Most Sold Products",
+    "topRatedProducts": "Top Rated Products",
+    "slider": {
+      "springSale": "Spring Sale Collections",
+      "summerSale": "Summer Sale Collections",
+      "winterSale": "Winter Sale Collections",
+      "saleOff": "Sale! Up to 50% off!",
+      "shopNow": "SHOP NOW"
+    }
   },
   "Footer": {
+    
     "brand": "Elbahnsawy",
     "description": "Elbahnsawy is a global online fashion retail company.",
     "shop": "SHOP",
@@ -85,7 +110,24 @@
   },
   "Menu": {},
   "ProductDetails": {
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "size": "Size",
+    "colors": "Colors",
+    "chooseA": "Choose a {option}",
+    "colorNames": {
+      "red": "Red",
+      "green": "Green",
+      "blue": "Blue",
+      "yellow": "Yellow",
+      "pink": "Pink",
+      "cyan": "Cyan",
+      "white": "White",
+      "black": "Black",
+      "gray": "Gray",
+      "orange": "Orange",
+      "purple": "Purple",
+      "brown": "Brown"
+    }
   },
   "AddProduct": {
     "quantity": "Quantity",
@@ -104,11 +146,573 @@
   },
   "Reviews": {
     "userReviews": "User Reviews",
-    "noReviews": "No reviews yet",
-    "you": "You",
-    "editReview": "Edit Review",
-    "deleteReview": "Delete Review",
+    "comment": "Write your review here...",
     "addReview": "Add Review",
-    "title": "Title"
+    "editReview": "Edit Review",
+    "you": "you",
+    "edited": "edited",
+    "beFirstToReview": "Be the first to review this product",
+    "ratingValidation": {
+      "required": "Rating is required",
+      "min": "Minimum rating is 1"
+    },
+    "commentValidation": {
+      "required": "Comment is required",
+      "minLength": "Comment must be at least {min} characters"
+    }
+  },
+  "Profile": {
+    "title": "My Profile",
+    "description": "Manage your profile information and orders",
+    "sections": {
+      "recentOrders": "Recent Orders",
+      "viewAll": "View All",
+      "deliveryAddresses": "Delivery Addresses",
+      "noOrders": "No orders yet"
+    },
+    "form": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "fullNameRequired": "Please input your name!",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "emailRequired": "Please input your email!",
+      "emailInvalid": "Please enter a valid email!",
+      "changeEmail": "Change Email",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "phoneInvalid": "Invalid phone number",
+      "updateProfile": "Update Profile",
+      "updateSuccess": "Profile Updated Successfully"
+    },
+    "addresses": {
+      "title": "My Addresses",
+      "addNew": "Add Address",
+      "edit": "Edit Address",
+      "delete": {
+        "title": "Delete Address",
+        "confirm": "Are you sure you want to delete this address?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "form": {
+        "country": {
+          "label": "Country",
+          "placeholder": "Enter your country",
+          "required": "Please enter your country"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Enter your city",
+          "required": "Please enter your city"
+        },
+        "state": {
+          "label": "State",
+          "placeholder": "Enter your state",
+          "required": "Please enter your state"
+        },
+        "zipCode": {
+          "label": "Zip Code",
+          "placeholder": "Enter your Zip code"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter your phone",
+          "required": "Please enter your phone"
+        },
+        "details": {
+          "label": "More Address Details",
+          "placeholder": "More Address Details"
+        },
+        "submit": {
+          "add": "Add Address",
+          "update": "Update Address"
+        }
+      }
+    },
+    "menu": {
+      "profile": "My Profile",
+      "orders": "My Orders",
+      "wishlist": "My Wishlist",
+      "settings": "Settings",
+      "logout": "Logout",
+      "loggingOut": "Logging out..."
+    },
+    "user": {
+      "guest": "Guest",
+      "loginPrompt": "Click to login",
+      "loginButton": "Login"
+    }
+  },
+  "Cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "viewCart": "View Cart",
+    "shippingNote": "Shipping and taxes calculated at checkout.",
+    "actions": {
+      "checkout": "Checkout",
+      "viewCart": "View Cart",
+      "continueShopping": "Continue Shopping"
+    },
+    "invalidCart": {
+      "title": "Invalid Cart",
+      "message": "Some items in your cart are no longer available"
+    },
+    "item": {
+      "quantity": "Qty",
+      "color": "Color",
+      "size": "Size",
+      "remove": "Remove",
+      "outOfStock": "No longer available",
+      "price": "${price}"
+    },
+    "coupon": {
+      "title": "Apply Coupon",
+      "placeholder": "Enter coupon code",
+      "required": "Enter coupon code",
+      "apply": "Apply",
+      "remove": "Remove Coupon"
+    },
+    "reset": {
+      "title": "Reset Cart",
+      "confirm": "You will lose all items in your cart",
+      "ok": "Ok",
+      "cancel": "Cancel"
+    },
+    "pricing": {
+      "totalPrice": "Total Price",
+      "couponDiscount": "Coupon Discount",
+      "finalPrice": "Final Price",
+      "currency": "$",
+      "discount": {
+        "percentage": "{percentage}%",
+        "amount": "$ - {amount}"
+      }
+    }
+  },
+  "AboutUs": {
+    "title": "About Us",
+    "description": {
+      "intro": "Amr Elbahnsawy, Full Stack Developer with 3 years of experience, from Zagazig, Egypt.",
+      "education": "Graduated from Zagazig University, Faculty of Engineering, Computer and Systems Department."
+    },
+    "contact": {
+      "email": "elbahnsawy.work@gmail.com",
+      "phone": "(+20)1064480375"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    }
+  },
+  "checkout": {
+    "steps": {
+      "cartSummary": "Cart Summary",
+      "deliveryAddress": "Delivery Address",
+      "paymentMethod": "Payment Method"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next",
+      "placeOrder": "Place Order"
+    },
+    "cartSummary": {
+      "quantity": "Quantity",
+      "price": "Price",
+      "totalAmount": "Total Amount"
+    },
+    "address": {
+      "title": "Select Delivery Address",
+      "addNew": "Add New Address",
+      "empty": "No addresses found",
+      "phone": "Phone"
+    },
+    "payment": {
+      "title": "Select Payment Method",
+      "creditCard": {
+        "title": "Credit Card",
+        "description": "Pay securely with your credit card"
+      },
+      "cashOnDelivery": {
+        "title": "Cash on Delivery",
+        "description": "Pay when you receive your order"
+      }
+    },
+    "success": {
+      "orderPlaced": "Order placed successfully"
+    }
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "description": "For any questions, feedback, or inquiries, please feel free to reach out to us. We are here to help!",
+    "form": {
+      "name": {
+        "label": "Your Name",
+        "placeholder": "Your Name",
+        "required": "Please input your name!"
+      },
+      "email": {
+        "label": "Your Email",
+        "placeholder": "Your Email",
+        "required": "Please input a valid email!",
+        "gmailOnly": "Please input a valid Gmail address"
+      },
+      "message": {
+        "label": "Your Message",
+        "placeholder": "Your Message",
+        "required": "Please input your message!",
+        "minLength": "Message must be at least 10 characters long"
+      },
+      "submit": "Send Message",
+      "success": "Message sent successfully. Check your email for confirmation"
+    }
+  },
+  "customerService": {
+    "title": "Customer Service",
+    "description": "Our dedicated customer service team is here to help you with any issues or questions you may have.",
+    "contact": {
+      "call": "Call Us",
+      "email": "Email Us",
+      "liveChat": "Live Chat",
+      "liveChatHours": "Available Mon-Fri, 9am-5pm"
+    }
+  },
+  "findStore": {
+    "title": "Find a Store",
+    "description": "Locate the nearest store for a more personal shopping experience. Enter your location to find a store near you.",
+    "form": {
+      "placeholder": "Enter your location",
+      "submit": "Find Store"
+    }
+  },
+  "inactiveAccount": {
+    "title": "Account is not active",
+    "description": "Your account is inactive. Please contact the administrator to activate your account.",
+    "cases": {
+      "title": "Some cases can be happened:",
+      "list": {
+        "disabled": "Account is disabled by the administrator",
+        "wrongCredentials": "Account Entered Wrong Credentials more than 5 times",
+        "badActivities": "Account do Bad Activities. For example, write bad Reviews, etc",
+        "otherReasons": "Some Other reasons. Please contact the administrator for more"
+      }
+    }
+  },
+  "legalPrivacy": {
+    "title": "Legal & Privacy",
+    "description": "We value your privacy and are committed to protecting your personal information. Please read our privacy policy and legal terms carefully.",
+    "privacy": {
+      "title": "Privacy Policy",
+      "content": "Our privacy policy explains how we collect, use, and safeguard your information. [Add detailed policy here]."
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "content": "By using our website, you agree to our terms and conditions. [Add detailed terms here]."
+    }
+  },
+  "list": {
+    "campaign": {
+      "title": "Grab up to 50% off on Selected Products",
+      "button": "Buy Now"
+    },
+    "search": {
+      "results": "Search results for \"{search}\"",
+      "bestPicks": "Our Best Picks"
+    },
+    "filter": {
+      "title": "Product Filters",
+      "type": {
+        "label": "Type",
+        "trending": "Trending",
+        "featured": "Featured",
+        "popular": "Popular",
+        "normal": "Normal"
+      },
+      "price": {
+        "min": "Minimum Price",
+        "max": "Maximum Price"
+      },
+      "category": "Category",
+      "sort": {
+        "label": "Sort By",
+        "priceLowToHigh": "Price (low to high)",
+        "priceHighToLow": "Price (high to low)",
+        "newest": "Newest",
+        "oldest": "Oldest"
+      },
+      "buttons": {
+        "apply": "Apply Filter",
+        "reset": "Reset Filter",
+        "resetTags": "Reset"
+      },
+      "tags": {
+        "prefix": ":",
+        "loading": "..."
+      }
+    }
+  },
+  "notAllowed": {
+    "title": "403",
+    "subTitle": "Sorry, you are not authorized to access this page.",
+    "backHome": "Back Home"
+  },
+  "oops": {
+    "title": "Oops! Something Unexpected Happened",
+    "description": {
+      "main": "We apologize for the inconvenience. Our team has been notified and is working to resolve the issue.",
+      "suggestion": "In the meantime, you can try:",
+      "actions": {
+        "refresh": "Refreshing the page",
+        "cache": "Clearing your browser cache",
+        "wait": "Coming back in a few minutes"
+      }
+    },
+    "buttons": {
+      "refresh": "Refresh Page",
+      "back": "Go Back",
+      "home": "Return Home"
+    }
+  },
+  "Success": {
+    "title": "Successful",
+    "emailSent": "We sent the invoice to your e-mail",
+    "redirecting": "You are being redirected to the order page..."
+  },
+  "Orders": {
+    
+    "title": "My Orders",
+    "subtitle": "View and track all your orders",
+    "orderDetails": "Order Details",
+    "orderId": "Order ID",
+    "orderDate": "Order Date",
+    "paymentMethod": "Payment Method",
+    "paymentStatus": "Payment Status",
+    "totalAmount": "Total Amount",
+    "deliveryInfo": "Delivery Information",
+    "customer": "Customer",
+    "deliveryAddress": "Delivery Address",
+    "contact": "Contact",
+    "deliveryStatus": "Delivery Status",
+    "orderItems": "Order Items",
+    "orderSummary": "Order Summary",
+    "quantity": "Quantity",
+    "color": "Color",
+    "size": "Size",
+    "viewDetails": "View Details",
+    "orderStatus": "Status",
+    "status": {
+      "orderPlaced": "Order Placed",
+      "payment": "Payment",
+      "delivery": "Delivery",
+      "paid": "Paid",
+      "pending": "Pending",
+      "delivered": "Delivered",
+      "inTransit": "In Transit",
+      "inProgress": "In Progress",
+      "processing": "Processing",
+      "cancelled": "Cancelled",
+      "success": "Success"
+    },
+    "payment": {
+      "creditCard": "Credit Card",
+      "cashOnDelivery": "Cash on Delivery"
+    },
+    "notifications": {
+      "orderSuccess": "Order placed successfully",
+      "checkEmail": "Check your email for the order details"
+    }
+  },
+  "settings": {
+    "title": "Account Settings",
+    "description": "Manage your account settings and security",
+    "security": {
+      "title": "Security",
+      "changePassword": {
+        "title": "Change Password",
+        "currentPassword": "Current Password",
+        "currentPasswordPlaceholder": "Enter your Current password",
+        "currentPasswordRequired": "Please input your Current password!",
+        "newPassword": "New Password",
+        "newPasswordPlaceholder": "Enter New password",
+        "newPasswordRequired": "Please input your New password!",
+        "newPasswordMinLength": "Password must be at least 6 characters",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Enter your confirmPassword",
+        "confirmPasswordRequired": "Please input your confirmPassword!",
+        "passwordMismatch": "The two passwords that you entered do not match!",
+        "button": {
+          "changing": "Changing...",
+          "change": "Change Password"
+        },
+        "success": "Password Changed Successfully"
+      }
+    }
+  },
+  "verifyEmail": {
+    "title": "Verify Your Email",
+    "oneStepAway": "YOU ARE ONE STEP AWAY",
+    "verifyAddress": "Verify your email address",
+    "description": "To complete you profile and start shopping, you'll need to verify your email address.",
+    "checkEmail": "check your email, we have sent a code to your email:",
+    "code": {
+      "label": "Code",
+      "required": "Please input your code!",
+      "resend": "Resend Code",
+      "maxResendLimit": "You have reached the maximum limit of resending code. please try again later."
+    },
+    "success": {
+      "title": "Your email has been verified successfully!",
+      "subtitle": "Happy shopping with us.",
+      "continue": "Continue"
+    },
+    "button": {
+      "verify": "Verify Now",
+      "verifyEmail": "Verify Email",
+      "continue": "Continue",
+      "loading": "Loading..."
+    }
+  },
+  "wishlist": {
+    "title": "Wishlist"
+  },
+  "auth": {
+    "callback": {
+      "error": "Something went wrong",
+      "redirecting": "Redirecting",
+      "pleaseWait": "Please wait while we redirect you to the home page"
+    },
+    "login": {
+      "title": "Login",
+      "withGoogle": "Login with Google",
+      "or": "Or",
+      "moreDetails": "More Details",
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Enter your email",
+        "required": "Please input your email!"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "required": "Please input your password!"
+      },
+      "forgotPassword": "Forgot Password?",
+      "loading": "Loading...",
+      "loginButton": "Login",
+      "noAccount": "Don't have an account?"
+    },
+    "signup": {
+      "title": "Register",
+      "withGoogle": "Register with Google",
+      "or": "Or",
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter your Name",
+        "required": "Please input your Name!",
+        "minLength": "Name must be at least 3 characters!"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "example@gmail.com",
+        "required": "Please input your email!",
+        "invalid": "The input is not valid E-mail!",
+        "gmailOnly": "Please input a valid Gmail address"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "required": "Please input your password!"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password",
+        "placeholder": "Enter your confirmPassword",
+        "required": "Please input your confirmPassword!",
+        "mismatch": "The two passwords that you entered do not match!"
+      },
+      "sex": {
+        "required": "Please input your Sex!",
+        "male": "Male",
+        "female": "Female"
+      },
+      "loading": "Loading...",
+      "registerButton": "Register",
+      "haveAccount": "Have an account?"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "verifyCode": "Verify Code",
+      "createNewPassword": "Create New Password",
+      "sendResetCode": "Send Reset Code",
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Enter your email",
+        "required": "Please input your email!"
+      },
+      "verification": {
+        "sentCode": "We have sent a code to your email:",
+        "changeEmail": "Change Email",
+        "code": {
+          "label": "Code",
+          "required": "Please input your code!",
+          "resend": "Resend Code",
+          "resendLimit": "You have reached the limit of resending code"
+        }
+      },
+      "newPassword": {
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your new password",
+          "required": "Please input your password!"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Enter your new password",
+          "required": "Please input confirmPassword"
+        }
+      },
+      "loading": "Loading...",
+      "backToLogin": "Go back to Login",
+      "success": "Password changed successfully"
+    }
+  },
+  "chat": {
+    "trigger": {
+      "tooltip": "Chat Support"
+    },
+    "modal": {
+      "title": {
+        "admin": "Chat Support",
+        "user": "Chat"
+      }
+    },
+    "content": {
+      "noConversation": "Select a conversation to start chatting",
+      "back": "Back"
+    },
+    "conversation": {
+      "status": {
+        "online": "Online",
+        "offline": "Offline"
+      }
+    },
+    "input": {
+      "placeholder": "Type your message...",
+      "errors": {
+        "socketNotConnected": "Socket is not connected",
+        "sendFailed": "Failed to send message"
+      },
+      "imagePreview": {
+        "title": "Preview Image",
+        "cancel": "Cancel",
+        "send": "Send Image",
+        "alt": "Preview"
+      },
+      "aria": {
+        "uploadImage": "Upload Image",
+        "sendMessage": "Send Message"
+      }
+    }
   }
 }

@@ -1,12 +1,15 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FiPackage } from "react-icons/fi";
+import { useTranslations } from "next-intl";
 
 const LastThreeOrders = ({
   lastThreeOrders,
 }: {
   lastThreeOrders: OrderType[];
 }) => {
+  const t = useTranslations("Profile");
+
   return (
     <div className="space-y-4">
       {lastThreeOrders.map((order) => (
@@ -16,7 +19,7 @@ const LastThreeOrders = ({
               <FiPackage className="text-gray-600 text-lg" />
             </div>
             <div className="flex-1">
-              <div className="flex  flex-col w-full ">
+              <div className="flex flex-col w-full">
                 <span className="font-medium truncate block w-[80%]">
                   {order.orderItems.map((item) => item.title).join(", ")}
                 </span>
@@ -32,7 +35,9 @@ const LastThreeOrders = ({
         </Link>
       ))}
       {lastThreeOrders.length === 0 && (
-        <div className="text-center py-4 text-gray-500">No orders yet</div>
+        <div className="text-center py-4 text-gray-500">
+          {t("sections.noOrders")}
+        </div>
       )}
     </div>
   );

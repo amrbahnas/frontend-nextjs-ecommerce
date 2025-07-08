@@ -47,7 +47,7 @@ const Breadcrumbs = ({ items, className = "" }: BreadcrumbsProps) => {
               href={item.href}
               title={item.label}
               prefetch={index === items.length - 1}
-              className={`ml-2 text-sm ${
+              className={`ms-2 text-sm ${
                 index === items.length - 1
                   ? "text-gray-500 cursor-default pointer-events-none"
                   : "text-blue-600 hover:text-blue-800"

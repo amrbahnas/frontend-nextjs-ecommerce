@@ -16,6 +16,7 @@ import {
 } from "react-icons/fi";
 import useBreakPoints from "@/hooks/global/userBreakPoints";
 import { SmartLink } from "@/components/ui/smartLink";
+import { useTranslations } from "next-intl";
 
 type MenuItem = {
   icon: React.ReactNode;
@@ -23,28 +24,32 @@ type MenuItem = {
   href: string;
 };
 
-const menuItems: MenuItem[] = [
-  {
-    icon: <FiUser className="text-primary text-lg" />,
-    label: "Profile",
-    href: "/profile",
-  },
-  {
-    icon: <FiShoppingBag className="text-primary text-lg" />,
-    label: "Orders",
-    href: "/orders",
-  },
-  {
-    icon: <FiHeart className="text-primary text-lg" />,
-    label: "Wishlist",
-    href: "/wishlist",
-  },
-  {
-    icon: <FiSettings className="text-primary text-lg" />,
-    label: "Settings",
-    href: "/settings",
-  },
-];
+const useMenuItems = () => {
+  const t = useTranslations("Profile.menu");
+
+  return [
+    {
+      icon: <FiUser className="text-primary text-lg" />,
+      label: t("profile"),
+      href: "/profile",
+    },
+    {
+      icon: <FiShoppingBag className="text-primary text-lg" />,
+      label: t("orders"),
+      href: "/orders",
+    },
+    {
+      icon: <FiHeart className="text-primary text-lg" />,
+      label: t("wishlist"),
+      href: "/wishlist",
+    },
+    {
+      icon: <FiSettings className="text-primary text-lg" />,
+      label: t("settings"),
+      href: "/settings",
+    },
+  ];
+};
 
 const useProfilePopover = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,50 +107,56 @@ const PopoverContent: React.FC<{
   user: { name?: string; email?: string; profileImg?: string } | null;
   onLogout: () => void;
   isPending: boolean;
-}> = ({ user, onLogout, isPending }) => (
-  <div className="pt-3">
-    <div className="pb-3 border-b border-gray-100">
-      <div className="flex items-center gap-3">
-        <UserAvatar
-          src={user?.profileImg}
-          size={40}
-          className="border-2 border-primary/20"
-        />
-        <div className="flex-1 min-w-0">
-          <h4 className="font-medium text-gray-900 truncate">
-            {user?.name || "Guest User"}
-          </h4>
-          <p className="text-sm text-gray-500 truncate">
-            {user?.email || "Please login to continue"}
-          </p>
+}> = ({ user, onLogout, isPending }) => {
+  const t = useTranslations("Profile");
+  const menuItems = useMenuItems();
+
+  return (
+    <div className="pt-3">
+      <div className="pb-3 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <UserAvatar
+            src={user?.profileImg}
+            size={40}
+            className="border-2 border-primary/20"
+          />
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-gray-900 truncate">
+              {user?.name || t("user.guest")}
+            </h4>
+            <p className="text-sm text-gray-500 truncate">
+              {user?.email || t("user.loginPrompt")}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="pt-2">
+        {menuItems.map((item) => (
+          <MenuItem key={item.href} item={item} />
+        ))}
+
+        <div className="px-2 mt-2 pt-2 border-t border-gray-100">
+          <button
+            onClick={onLogout}
+            disabled={isPending}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors duration-200"
+          >
+            <FiLogOut className="text-lg" />
+            <span>{isPending ? t("menu.loggingOut") : t("menu.logout")}</span>
+          </button>
         </div>
       </div>
     </div>
-
-    <div className="pt-2">
-      {menuItems.map((item) => (
-        <MenuItem key={item.href} item={item} />
-      ))}
-
-      <div className="px-2 mt-2 pt-2 border-t border-gray-100">
-        <button
-          onClick={onLogout}
-          disabled={isPending}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors duration-200"
-        >
-          <FiLogOut className="text-lg" />
-          <span>{isPending ? "Logging out..." : "Logout"}</span>
-        </button>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 export const ProfileIcon = () => {
   const user = useUserStore((state) => state.user);
   const isLogin = useAuthStore((state) => state.isLogin);
   const xs = useBreakPoints("xs");
   const { isOpen, isPending, handleToggle, handleLogout } = useProfilePopover();
+  const t = useTranslations("Profile.user");
 
   return (
     <Popover
@@ -181,9 +192,9 @@ export const ProfileIcon = () => {
           </div>
         ) : (
           <div className="hidden md:block">
-            <p className="text-sm font-medium text-gray-700">Guest User</p>
+            <p className="text-sm font-medium text-gray-700">{t("guest")}</p>
             <p className="text-xs text-gray-500 truncate max-w-[100px] group-hover:text-primary transition-colors">
-              Please login
+              {t("loginButton")}
             </p>
           </div>
         )}

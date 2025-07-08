@@ -1,5 +1,6 @@
 import { Button, Tooltip } from "antd";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const CheckButton = ({
   isLoading,
@@ -12,6 +13,8 @@ const CheckButton = ({
   invalidCart: null | { status: string; message: string };
   size?: "large" | "middle" | "small";
 }) => {
+  const t = useTranslations("Cart.actions");
+
   return (
     <Tooltip title={!!invalidCart ? invalidCart.message : ""}>
       <Button
@@ -19,9 +22,9 @@ const CheckButton = ({
         size={size}
         disabled={isLoading || !!invalidCart}
         onClick={handleCheckout}
-        className=" !py-5  !bg-black/90  !border-none !text-white disabled:cursor-not-allowed !disabled:opacity-75 w-full"
+        className=" !py-5  !bg-primary hover:!bg-primary/80  !border-none !text-white disabled:cursor-not-allowed !disabled:opacity-75 w-full"
       >
-        Checkout
+        {t("checkout")}
       </Button>
     </Tooltip>
   );

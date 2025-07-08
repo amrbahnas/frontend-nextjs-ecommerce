@@ -16,8 +16,10 @@ import { useEffect, useState } from "react";
 import { GrShop } from "react-icons/gr";
 import CartPageSkeleton from "./_comps/cartPage.skeleton";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("Cart");
   const [deleting, setDeleting] = useState(false);
   const route = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -72,7 +74,7 @@ const Page = () => {
                   href="/"
                 >
                   <GrShop />
-                  <span>Continue Shopping</span>
+                  <span>{t("actions.continueShopping")}</span>
                 </Link>
               </div>
             )}
@@ -102,9 +104,7 @@ const Page = () => {
               totalCartPrice={totalCartPrice}
               totalPriceAfterDiscount={totalPriceAfterDiscount}
             />
-            <p className="text-gray-500 text-sm">
-              Shipping and taxes calculated at checkout.
-            </p>
+            <p className="text-gray-500 text-sm">{t("shippingNote")}</p>
             <Divider className="!my-3" />
 
             <div className="flex flex-col items-end text-sm">

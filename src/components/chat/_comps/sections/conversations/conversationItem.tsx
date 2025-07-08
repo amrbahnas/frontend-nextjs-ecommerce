@@ -44,7 +44,7 @@ const ConversationItem = ({
             />
           )}
         </div>
-        <div className="ml-4 flex-1">
+        <div className="ms-4 flex-1">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span>{conversation?.name}</span>
             <span style={{ fontSize: "12px", color: "#999" }}>

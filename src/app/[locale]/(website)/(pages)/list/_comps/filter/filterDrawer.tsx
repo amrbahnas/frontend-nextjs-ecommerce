@@ -1,10 +1,11 @@
 import CategoriesSelector from "@/components/selectors/categoriesSelector";
 import useParamsService from "@/hooks/global/useParamsService";
 import { Button, Drawer, Form, InputNumber, Select } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CiFilter } from "react-icons/ci";
 import { GrPowerReset } from "react-icons/gr";
 import { IoMdClose } from "react-icons/io";
+import { useTranslations } from "next-intl";
 
 import Item from "@/components/antd/item";
 
@@ -17,7 +18,8 @@ const FilterDrawer = ({
   setShowFilter: (value: boolean) => void;
   form: any;
 }) => {
-  const { setMultiParams, resetParams, getParams, getCurrentParams } =
+  const t = useTranslations("list.filter");
+  const { setMultiParams, resetParams, getCurrentParams } =
     useParamsService("okay I will");
 
   useEffect(() => {
@@ -39,11 +41,12 @@ const FilterDrawer = ({
     resetParams();
     form.resetFields();
   };
+
   return (
     <Drawer
       title={
         <div className="flex justify-between items-center w-full">
-          <span className="font-semibold">Product Filters</span>
+          <span className="font-semibold">{t("title")}</span>
           <IoMdClose
             className="text-xl cursor-pointer"
             onClick={() => setShowFilter(false)}
@@ -56,39 +59,39 @@ const FilterDrawer = ({
       width={320}
       closeIcon={null}
     >
-      <Form form={form} layout="vertical" className="flex flex-col !gap-4 ">
-        <Item name="status" label="Type">
+      <Form form={form} layout="vertical" className="flex flex-col !gap-4">
+        <Item name="status" label={t("type.label")}>
           <Select
             allowClear
             options={[
-              { label: "Trending", value: "trending" },
-              { label: "Featured", value: "featured" },
-              { label: "Popular", value: "popular" },
-              { label: "Normal", value: "normal" },
+              { label: t("type.trending"), value: "trending" },
+              { label: t("type.featured"), value: "featured" },
+              { label: t("type.popular"), value: "popular" },
+              { label: t("type.normal"), value: "normal" },
             ]}
           />
         </Item>
 
-        <Item name="minPrice" label="Minimum Price">
+        <Item name="minPrice" label={t("price.min")}>
           <InputNumber className="!w-full" />
         </Item>
 
-        <Item name="maxPrice" label="Maximum Price">
+        <Item name="maxPrice" label={t("price.max")}>
           <InputNumber className="!w-full" />
         </Item>
 
-        <Item name="category" label="Category">
+        <Item name="category" label={t("category")}>
           <CategoriesSelector />
         </Item>
 
-        <Item name="sort" label="Sort By">
+        <Item name="sort" label={t("sort.label")}>
           <Select
             allowClear
             options={[
-              { label: "Price (low to high)", value: "price" },
-              { label: "Price (high to low)", value: "-price" },
-              { label: "Newest", value: "-createdAt" },
-              { label: "Oldest", value: "createdAt" },
+              { label: t("sort.priceLowToHigh"), value: "price" },
+              { label: t("sort.priceHighToLow"), value: "-price" },
+              { label: t("sort.newest"), value: "-createdAt" },
+              { label: t("sort.oldest"), value: "createdAt" },
             ]}
           />
         </Item>
@@ -100,10 +103,10 @@ const FilterDrawer = ({
             onClick={handleFilterChange}
             size="large"
           >
-            Apply Filter
+            {t("buttons.apply")}
           </Button>
           <Button icon={<GrPowerReset />} onClick={handleResetFilter}>
-            Reset Filter
+            {t("buttons.reset")}
           </Button>
         </div>
       </Form>

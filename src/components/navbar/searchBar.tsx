@@ -14,6 +14,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import useParamsService from "../../hooks/global/useParamsService";
 import Image from "next/image";
 import proxyAxiosInstance from "@/config/proxyClient";
+import { useTranslations } from "next-intl";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
@@ -27,6 +28,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
   const search = getParams("search");
   const [form] = Form.useForm();
   const lg = useBreakPoints("lg");
+  const t = useTranslations("Navigation.search");
   const [options, setOptions] = useState<
     { value: string; label: React.ReactNode }[]
   >([]);
@@ -186,7 +188,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
             id={customId || "search"}
             allowClear
             size={lg ? "large" : "middle"}
-            placeholder="Search products..."
+            placeholder={t("placeholder")}
             onSearch={onSearch}
           />
         </AutoComplete>

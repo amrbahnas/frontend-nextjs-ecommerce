@@ -114,7 +114,7 @@ const ProfileSkeleton = () => {
                   <Skeleton.Input
                     style={{ width: "60%" }}
                     active
-                    className="mr-4"
+                    className="me-4"
                   />
                   <div className="flex gap-2">
                     <Skeleton.Button active size="small" />

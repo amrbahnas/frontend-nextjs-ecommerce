@@ -6,9 +6,11 @@ import DisableLink from "../ui/disableLink";
 import NextImage from "../ui/nextImage";
 import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const t = useTranslations("Navigation");
 
   return (
     <Container className=" shadow-sm">
@@ -21,7 +23,7 @@ const Navbar = () => {
             className="flex items-center gap-1 lg:gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
-            <div className=" text-2xl tracking-wide">Shope</div>
+            <div className=" text-2xl tracking-wide">{t("brand")}</div>
           </DisableLink>
 
           {/* Big screen */}

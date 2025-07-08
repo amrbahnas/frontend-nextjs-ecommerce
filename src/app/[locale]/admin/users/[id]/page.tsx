@@ -287,7 +287,7 @@ const Page = ({ params }: { params: Params }) => {
                   icon={
                     <Switch
                       size="small"
-                      className="mr-2"
+                      className="me-2"
                       checked={user.active}
                     />
                   }
@@ -307,7 +307,7 @@ const Page = ({ params }: { params: Params }) => {
                     value={user.stats.totalOrders}
                     prefix={
                       <FaBox
-                        className="mr-2"
+                        className="me-2"
                         style={{ color: iconColors.orders }}
                       />
                     }
@@ -322,7 +322,7 @@ const Page = ({ params }: { params: Params }) => {
                     value={formatPrice(user.stats.totalSpent)}
                     prefix={
                       <FaMoneyBillWave
-                        className="mr-2"
+                        className="me-2"
                         style={{ color: iconColors.money }}
                       />
                     }
@@ -337,7 +337,7 @@ const Page = ({ params }: { params: Params }) => {
                     value={formatPrice(user.stats.averageOrderValue)}
                     prefix={
                       <FaShoppingCart
-                        className="mr-2"
+                        className="me-2"
                         style={{ color: iconColors.cart }}
                       />
                     }
@@ -353,7 +353,7 @@ const Page = ({ params }: { params: Params }) => {
                     suffix="⭐"
                     prefix={
                       <FaStar
-                        className="mr-2"
+                        className="me-2"
                         style={{ color: iconColors.star }}
                       />
                     }
@@ -372,7 +372,7 @@ const Page = ({ params }: { params: Params }) => {
             tab={
               <span>
                 <FaClipboardList
-                  className="mr-2"
+                  className="me-2"
                   style={{ color: iconColors.orders }}
                 />
                 Orders ({user.orders.length})
@@ -393,7 +393,7 @@ const Page = ({ params }: { params: Params }) => {
             tab={
               <span>
                 <FaComments
-                  className="mr-2"
+                  className="me-2"
                   style={{ color: iconColors.comments }}
                 />
                 Reviews ({user.reviews.length})
@@ -413,7 +413,7 @@ const Page = ({ params }: { params: Params }) => {
                       {review.rating}{" "}
                       <FaStar
                         style={{ color: iconColors.star }}
-                        className="ml-1"
+                        className="ms-1"
                       />
                     </Tag>
                   }
@@ -434,7 +434,7 @@ const Page = ({ params }: { params: Params }) => {
             tab={
               <span>
                 <FaAddressCard
-                  className="mr-2"
+                  className="me-2"
                   style={{ color: iconColors.address }}
                 />
                 Addresses ({user.addresses.length})
@@ -450,7 +450,7 @@ const Page = ({ params }: { params: Params }) => {
                       title={
                         <span>
                           <FaMapMarkerAlt
-                            className="mr-2"
+                            className="me-2"
                             style={{ color: iconColors.address }}
                           />
                           {address.address}
@@ -474,7 +474,7 @@ const Page = ({ params }: { params: Params }) => {
             tab={
               <span>
                 <FaShoppingCart
-                  className="mr-2"
+                  className="me-2"
                   style={{ color: iconColors.cart }}
                 />
                 Cart ({user?.cart?.cartItems?.length})

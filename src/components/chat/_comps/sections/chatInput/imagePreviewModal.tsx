@@ -1,4 +1,5 @@
 import { Modal, Button } from "antd";
+import { useTranslations } from "next-intl";
 
 interface ImagePreviewModalProps {
   imagePreview: string | null;
@@ -13,23 +14,25 @@ export const ImagePreviewModal = ({
   onSend,
   loading,
 }: ImagePreviewModalProps) => {
+  const t = useTranslations("chat.input.imagePreview");
+
   return (
     <Modal
-      title="Preview Image"
+      title={t("title")}
       open={!!imagePreview}
       onCancel={onCancel}
       footer={[
         <Button key="cancel" onClick={onCancel}>
-          Cancel
+          {t("cancel")}
         </Button>,
         <Button key="send" type="primary" onClick={onSend} loading={loading}>
-          Send Image
+          {t("send")}
         </Button>,
       ]}
       width={400}
     >
       {imagePreview && (
-        <img src={imagePreview} alt="Preview" style={{ width: "100%" }} />
+        <img src={imagePreview} alt={t("alt")} style={{ width: "100%" }} />
       )}
     </Modal>
   );

@@ -1,3 +1,4 @@
+"use client";
 import { Error } from "@/components/ui/error";
 import { Button, Form, Rate } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -16,7 +17,6 @@ const ReviewForm = ({
 }: {
   productId?: string;
   review?: ReviewType;
-
   customOnSuccess?: () => void;
 }) => {
   const router = useRouter();
@@ -82,7 +82,9 @@ const ReviewForm = ({
               type: "number",
               min: 1,
               max: 5,
-              message: "Minimum rating is 1",
+              message: t("ratingValidation.min"),
+              required: true,
+              transform: (value) => Number(value),
             },
           ]}
         >
@@ -91,11 +93,11 @@ const ReviewForm = ({
         <Item
           name={"comment"}
           rules={[
-            { required: true, message: "Comment is required" },
+            { required: true, message: t("commentValidation.required") },
             {
               type: "string",
               min: 6,
-              message: "Comment must be at least 10 characters",
+              message: t("commentValidation.minLength", { min: 6 }),
             },
           ]}
         >

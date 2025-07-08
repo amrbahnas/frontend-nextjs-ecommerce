@@ -77,7 +77,7 @@ const OrderDetails = () => {
           {!order?.isPaid && (
             <Button
               type="primary"
-              icon={<FaCreditCard className="mr-2" />}
+              icon={<FaCreditCard className="me-2" />}
               onClick={() => setPayModalVisible(true)}
               loading={paySingleLoading}
             >
@@ -86,7 +86,7 @@ const OrderDetails = () => {
           )}
           {order?.isPaid && !order?.isDelivered && (
             <Button
-              icon={<FaTruck className="mr-2" />}
+              icon={<FaTruck className="me-2" />}
               onClick={() => setDeliverModalVisible(true)}
               loading={deliverSingleLoading}
             >
@@ -105,11 +105,11 @@ const OrderDetails = () => {
               <p className="text-sm text-gray-500">Payment Status</p>
               {order?.isPaid ? (
                 <div className="flex items-center text-green-500">
-                  <FaCheckCircle className="mr-1" /> Paid
+                  <FaCheckCircle className="me-1" /> Paid
                 </div>
               ) : (
                 <div className="flex items-center text-red-500">
-                  <FaTimesCircle className="mr-1" /> Not Paid
+                  <FaTimesCircle className="me-1" /> Not Paid
                 </div>
               )}
             </div>
@@ -120,11 +120,11 @@ const OrderDetails = () => {
               <p className="text-sm text-gray-500">Delivery Status</p>
               {order?.isDelivered ? (
                 <div className="flex items-center text-green-500">
-                  <FaCheckCircle className="mr-1" /> Delivered
+                  <FaCheckCircle className="me-1" /> Delivered
                 </div>
               ) : (
                 <div className="flex items-center text-yellow-500">
-                  <FaTimesCircle className="mr-1" /> Pending
+                  <FaTimesCircle className="me-1" /> Pending
                 </div>
               )}
             </div>
@@ -212,7 +212,7 @@ const OrderDetails = () => {
                     className="object-cover rounded"
                   />
                 </div>
-                <div className="ml-4 flex-grow">
+                <div className="ms-4 flex-grow">
                   <h4 className="font-medium">{item.title}</h4>
                   <p className="text-gray-500">
                     ${item.price} x {item.quantity}

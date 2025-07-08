@@ -4,8 +4,10 @@ import useAuthStore from "@/store/useAuthStore";
 import { useChatContext } from "@/context/chatContext";
 import dayjs from "dayjs";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export const ConversationHeader = () => {
+  const t = useTranslations("chat");
   const { onlineUsers, selectedConversation, setSelectedConversation, socket } =
     useChatContext();
   const isOnline = onlineUsers.includes(selectedConversation?.userId || "");
@@ -63,10 +65,10 @@ export const ConversationHeader = () => {
           }}
         >
           {isOnline
-            ? "Online"
+            ? t("conversation.status.online")
             : selectedConversation?.lastSeen
             ? dayjs(selectedConversation?.lastSeen).fromNow()
-            : "Offline"}
+            : t("conversation.status.offline")}
         </div>
       </div>
     </div>

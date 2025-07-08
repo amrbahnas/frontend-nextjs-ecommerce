@@ -4,15 +4,17 @@ import { useLogin } from "../_api/mutation";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const Callbackpage = () => {
   const { user, error } = useMe();
   const { onLoginSuccess } = useLogin();
   const router = useRouter();
+  const t = useTranslations("auth.callback");
 
   useEffect(() => {
     if (error) {
-      toast.error("Something went wrong");
+      toast.error(t("error"));
       router.push("/auth/login");
     }
     if (user?.id) {
@@ -25,7 +27,7 @@ const Callbackpage = () => {
       <div className="flex flex-col items-center justify-center h-full gap-8">
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Redirecting
+            {t("redirecting")}
             <span className="loading-dots">
               <span className="dot">.</span>
               <span className="dot">.</span>
@@ -33,9 +35,7 @@ const Callbackpage = () => {
               <span className="dot">.</span>
             </span>
           </h2>
-          <p className="text-gray-600">
-            Please wait while we redirect you to the home page
-          </p>
+          <p className="text-gray-600">{t("pleaseWait")}</p>
           <style jsx>{`
             .loading-dots {
               display: inline-block;

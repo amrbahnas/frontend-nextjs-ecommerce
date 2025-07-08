@@ -3,27 +3,28 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 // Helper function to get a friendly color name
-const getColorName = (color: string) => {
+const getColorName = (color: string, t: any) => {
   // Remove # if present and convert to lowercase
-  const normalizedColor = color.replace('#', '').toLowerCase();
-  
+  const normalizedColor = color.replace("#", "").toLowerCase();
+
   // Common color map
-  const colorNames: { [key: string]: string } = {
-    ff0000: 'Red',
-    '00ff00': 'Green',
-    '0000ff': 'Blue',
-    ffff00: 'Yellow',
-    ff00ff: 'Pink',
-    '00ffff': 'Cyan',
-    ffffff: 'White',
-    '000000': 'Black',
-    '808080': 'Gray',
-    ffa500: 'Orange',
-    '800080': 'Purple',
-    a52a2a: 'Brown',
+  const colorMap: { [key: string]: string } = {
+    ff0000: "red",
+    "00ff00": "green",
+    "0000ff": "blue",
+    ffff00: "yellow",
+    ff00ff: "pink",
+    "00ffff": "cyan",
+    ffffff: "white",
+    "000000": "black",
+    "808080": "gray",
+    ffa500: "orange",
+    "800080": "purple",
+    a52a2a: "brown",
   };
 
-  return colorNames[normalizedColor] || color;
+  const colorKey = colorMap[normalizedColor];
+  return colorKey ? t(`colorNames.${colorKey}`) : color;
 };
 
 const ColorSelector = ({
@@ -35,7 +36,7 @@ const ColorSelector = ({
   selectedColor: string;
   setSelectedColor: (color: string) => void;
 }) => {
-  const t = useTranslations("AddProduct");
+  const t = useTranslations("ProductDetails");
   if (availableColors.length === 0) return null;
 
   return (
@@ -43,23 +44,21 @@ const ColorSelector = ({
       <h4 className="font-medium">{t("colors")}</h4>
       <div className="flex flex-wrap gap-4">
         {availableColors.map((color) => (
-          <div 
-            key={color} 
-            className="flex flex-col items-center gap-1"
-          >
+          <div key={color} className="flex flex-col items-center gap-1">
             <button
               onClick={() => setSelectedColor(color)}
               className={`w-8 h-8 rounded-full transition-all duration-200 cursor-pointer
-                ${selectedColor === color 
-                  ? 'ring-2 ring-primary' 
-                  : 'ring-1 ring-gray-200 hover:ring-2'
+                ${
+                  selectedColor === color
+                    ? "ring-2 ring-primary"
+                    : "ring-1 ring-gray-200 hover:ring-2"
                 }
               `}
               style={{ backgroundColor: color }}
-              title={color}
+              title={getColorName(color, t)}
             />
             <span className="text-xs text-gray-600 capitalize">
-              {getColorName(color)}
+              {getColorName(color, t)}
             </span>
           </div>
         ))}

@@ -1,3 +1,4 @@
+"use client";
 import NextImage from "@/components/ui/nextImage";
 import dayjs from "@/config/dayjs";
 import { Rate } from "antd";
@@ -39,7 +40,7 @@ const ReviewCard = ({
             <div className="text-xs text-gray-500">
               <span>{dayjs(displayedDate).fromNow()}</span>
               {review.updatedAt !== review.createdAt && (
-                <span className="text-gray-500 "> (edited)</span>
+                <span className="text-gray-500"> ({t("edited")})</span>
               )}
             </div>
           </div>

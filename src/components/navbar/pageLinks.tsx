@@ -1,23 +1,26 @@
 import React from "react";
 import DisableLink from "../ui/disableLink";
+import { useTranslations } from "next-intl";
 
 export const PageLinks = () => {
+  const t = useTranslations("Navigation");
+
   return (
     <div className="hidden xl:flex gap-4">
       <DisableLink disabled href={"/"}>
-        Home
+        {t("home")}
       </DisableLink>
       <DisableLink disabled href={"/"}>
-        Shop
+        {t("shop")}
       </DisableLink>
       <DisableLink disabled href={"/"}>
-        Deals
+        {t("deals")}
       </DisableLink>
       <DisableLink disabled href={"/"}>
-        About
+        {t("about")}
       </DisableLink>
       <DisableLink disabled href={"/"}>
-        Contact
+        {t("contact")}
       </DisableLink>
     </div>
   );

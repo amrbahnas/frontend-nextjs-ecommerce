@@ -132,7 +132,7 @@ const successToast = () => {
       Product added to cart
       <Link
         href="/cart"
-        className="!text-blue-500 !underline !ml-2 !font-semibold"
+        className="!text-blue-500 !underline !ms-2 !font-semibold"
       >
         View Cart
       </Link>

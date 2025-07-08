@@ -8,26 +8,29 @@ import Item from "@/components/antd/item";
 import Container from "@/components/ui/container";
 import { FaGoogle } from "react-icons/fa";
 import { thirdpartAuth } from "@/constant/thirdpartAuth";
+import { useTranslations } from "next-intl";
 const { Password } = Input;
 
 const SignUpPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const { signUp, signUpError, signUpPending } = useSignUp();
+  const t = useTranslations("auth.signup");
+
   return (
     <Container className="h-[calc(100dvh-80px)] flex items-center justify-center">
       <div className=" w-full md:w-7/12   border p-4 md:p-8 !pt-0 rounded-md shadow-md mt-3">
         <Divider orientation="center">
           <h1 className="text-2xl md:text-3xl font-semibold text-primary">
-            Register
+            {t("title")}
           </h1>
         </Divider>
         <a className="mt-8 block" href={thirdpartAuth.google}>
           <Button size="large" className="!w-full" icon={<FaGoogle />}>
-            Register with Google
+            {t("withGoogle")}
           </Button>
         </a>
-        <Divider>Or</Divider>
+        <Divider>{t("or")}</Divider>
         <Form
           className="flex flex-col gap-3 w-full "
           form={form}
@@ -37,21 +40,21 @@ const SignUpPage = () => {
         >
           <div className="flex flex-col gap-2">
             <Item
-              label="Name"
+              label={t("name.label")}
               name="name"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Name!",
+                  message: t("name.required"),
                 },
                 {
                   min: 3,
-                  message: "Name must be at least 3 characters!",
+                  message: t("name.minLength"),
                 },
               ]}
             >
               <Input
-                placeholder="Enter your Name"
+                placeholder={t("name.placeholder")}
                 className=" rounded-md p-4"
                 size="large"
               />
@@ -59,26 +62,26 @@ const SignUpPage = () => {
           </div>
           <div className="flex flex-col gap-2">
             <Item
-              label="E-mail"
+              label={t("email.label")}
               name="email"
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: t("email.required"),
                 },
                 {
                   type: "email",
-                  message: "The input is not valid E-mail!",
+                  message: t("email.invalid"),
                 },
                 {
                   pattern: new RegExp(/^[a-zA-Z0-9._%+-]+@gmail.com$/),
-                  message: "Please input a valid Gmail address",
+                  message: t("email.gmailOnly"),
                 },
               ]}
             >
               <Input
                 type="email"
-                placeholder="example@gmail.com"
+                placeholder={t("email.placeholder")}
                 className=" rounded-md p-4"
                 size="large"
               />
@@ -87,18 +90,18 @@ const SignUpPage = () => {
 
           <div className="flex flex-col gap-2">
             <Item
-              label="Password"
+              label={t("password.label")}
               name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: t("password.required"),
                 },
               ]}
             >
               <Password
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t("password.placeholder")}
                 className=" rounded-md p-4"
                 size="large"
               />
@@ -106,12 +109,12 @@ const SignUpPage = () => {
           </div>
           <div className="flex flex-col gap-2">
             <Item
-              label="confirm Password"
+              label={t("confirmPassword.label")}
               name="confirmPassword"
               rules={[
                 {
                   required: true,
-                  message: "Please input your confirmPassword!",
+                  message: t("confirmPassword.required"),
                 },
                 // must be the same as password
                 ({ getFieldValue }) => ({
@@ -119,16 +122,14 @@ const SignUpPage = () => {
                     if (!value || getFieldValue("password") === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(
-                      "The two passwords that you entered do not match!"
-                    );
+                    return Promise.reject(t("confirmPassword.mismatch"));
                   },
                 }),
               ]}
             >
               <Password
                 type="password"
-                placeholder="Enter your confirmPassword"
+                placeholder={t("confirmPassword.placeholder")}
                 className=" rounded-md p-4"
                 size="large"
               />
@@ -141,13 +142,13 @@ const SignUpPage = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your Sex!",
+                  message: t("sex.required"),
                 },
               ]}
             >
               <Radio.Group>
-                <Radio value="male">Male</Radio>
-                <Radio value="female">Female</Radio>
+                <Radio value="male">{t("sex.male")}</Radio>
+                <Radio value="female">{t("sex.female")}</Radio>
               </Radio.Group>
             </Item>
           </div>
@@ -160,7 +161,7 @@ const SignUpPage = () => {
             type="primary"
             size="large"
           >
-            {signUpPending ? "Loading..." : "Register"}
+            {signUpPending ? t("loading") : t("registerButton")}
           </Button>
 
           <Error error={signUpError} />
@@ -171,7 +172,7 @@ const SignUpPage = () => {
               router.push("/auth/login");
             }}
           >
-            Have and account?
+            {t("haveAccount")}
           </div>
         </Form>
       </div>

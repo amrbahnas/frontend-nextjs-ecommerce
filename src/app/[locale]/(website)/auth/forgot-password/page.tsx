@@ -9,13 +9,16 @@ import { FORGET_PASSWORD_SCREENS as SCREENS } from "../../../../../enum/pagesScr
 import Container from "@/components/ui/container";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 const { Password } = Input;
+
 const ForgetPasswordPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const [screen, setScreen] = useState(SCREENS.SEND_RESET_CODE);
   const [email, setEmail] = useState("");
   const [resendCount, setResendCount] = useState(0);
+  const t = useTranslations("auth.forgotPassword");
   const {
     sendResetCode,
     verifyResetCode,
@@ -29,17 +32,17 @@ const ForgetPasswordPage = () => {
 
   const formTitle =
     screen === SCREENS.SEND_RESET_CODE
-      ? "Forgot Password"
+      ? t("title")
       : screen === SCREENS.VERIFICATION_RESET_CODE
-      ? "Verify Code"
-      : "Create New Password";
+      ? t("verifyCode")
+      : t("createNewPassword");
 
   const buttonTitle =
     screen === SCREENS.SEND_RESET_CODE
-      ? "Send Reset Code"
+      ? t("sendResetCode")
       : screen === SCREENS.VERIFICATION_RESET_CODE
-      ? "Verify Code"
-      : "Create New Password";
+      ? t("verifyCode")
+      : t("createNewPassword");
 
   const handleSubmit = async (values: any) => {
     switch (screen) {
@@ -69,7 +72,7 @@ const ForgetPasswordPage = () => {
           {
             onSuccess: () => {
               router.push("/auth/login");
-              toast.success("Password changed successfully");
+              toast.success(t("success"));
             },
           }
         );
@@ -94,12 +97,12 @@ const ForgetPasswordPage = () => {
             {screen === SCREENS.SEND_RESET_CODE && (
               <div className="flex flex-col gap-2 w-full md:w-96 mb-4">
                 <Item
-                  label="E-mail"
+                  label={t("email.label")}
                   name="email"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your email!",
+                      message: t("email.required"),
                     },
                   ]}
                 >
@@ -107,7 +110,7 @@ const ForgetPasswordPage = () => {
                     type="email"
                     name="email"
                     size="large"
-                    placeholder="Enter your email"
+                    placeholder={t("email.placeholder")}
                     className=" rounded-md p-4"
                   />
                 </Item>
@@ -116,11 +119,10 @@ const ForgetPasswordPage = () => {
             )}
             {screen === SCREENS.VERIFICATION_RESET_CODE && (
               <div className="flex flex-col gap-4 ">
-                {/*  check your email */}
                 <div>
                   <div className="text-sm flex items-center flex-wrap">
-                    <span>We have sent a code to your email:</span>
-                    <span className="  font-semibold pl-1">{email}</span>
+                    <span>{t("verification.sentCode")}</span>
+                    <span className="  font-semibold ps-1">{email}</span>
                   </div>
                   <Button
                     type="link"
@@ -129,23 +131,22 @@ const ForgetPasswordPage = () => {
                       setScreen(SCREENS.SEND_RESET_CODE);
                     }}
                   >
-                    Change Email
+                    {t("verification.changeEmail")}
                   </Button>
                 </div>
                 <Error error={error} />
                 <Item
-                  label="Code"
+                  label={t("verification.code.label")}
                   name="resetCode"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your code!",
+                      message: t("verification.code.required"),
                     },
                   ]}
                 >
                   <Input.OTP size="large" length={5} />
                 </Item>
-                {/*  resend code  */}
                 <Button
                   type="link"
                   className="text-sm underline cursor-pointer  !p-0 self-start"
@@ -161,13 +162,11 @@ const ForgetPasswordPage = () => {
                     );
                   }}
                 >
-                  Resend Code
+                  {t("verification.code.resend")}
                 </Button>
                 <Error
                   error={
-                    resendCount >= 5
-                      ? "You have reached the limit of resending code"
-                      : null
+                    resendCount >= 5 ? t("verification.code.resendLimit") : null
                   }
                 />
               </div>
@@ -176,34 +175,34 @@ const ForgetPasswordPage = () => {
               <div className="flex flex-col gap-2 mb-4">
                 <Error error={error} />
                 <Item
-                  label="Password"
+                  label={t("newPassword.password.label")}
                   name="password"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      message: t("newPassword.password.required"),
                     },
                   ]}
                 >
                   <Password
                     type="password"
-                    placeholder="Enter your new password"
+                    placeholder={t("newPassword.password.placeholder")}
                     className=" rounded-md p-4"
                   />
                 </Item>
                 <Item
-                  label="Confirm Password"
+                  label={t("newPassword.confirmPassword.label")}
                   name="confirmPassword"
                   rules={[
                     {
                       required: true,
-                      message: "Please input  confirmPassword",
+                      message: t("newPassword.confirmPassword.required"),
                     },
                   ]}
                 >
                   <Password
                     type="password"
-                    placeholder="Enter your new password"
+                    placeholder={t("newPassword.confirmPassword.placeholder")}
                     className=" rounded-md p-4"
                   />
                 </Item>
@@ -217,14 +216,14 @@ const ForgetPasswordPage = () => {
               type="primary"
               size="large"
             >
-              {loading ? "Loading..." : buttonTitle}
+              {loading ? t("loading") : buttonTitle}
             </Button>
             {screen === SCREENS.SEND_RESET_CODE && (
               <Link
                 className="text-sm underline cursor-pointer block mt-4"
                 href={"/auth/login"}
               >
-                Go back to Login
+                {t("backToLogin")}
               </Link>
             )}
           </Spin>

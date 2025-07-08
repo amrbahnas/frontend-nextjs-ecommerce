@@ -4,12 +4,14 @@ import { useRef, useState } from "react";
 import { useChatContext } from "@/context/chatContext";
 import { ImagePreviewModal } from "./imagePreviewModal";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 interface ChatFormValues {
   message: string;
 }
 
 export const ChatInput = () => {
+  const t = useTranslations("chat.input");
   const [form] = Form.useForm<ChatFormValues>();
   const [loadingState, setLoadingState] = useState<{
     type: string;
@@ -39,7 +41,7 @@ export const ChatInput = () => {
 
   const handleSendMessage = async (type: string, content: string | File) => {
     if (!socket) {
-      toast.error("Socket is not connected");
+      toast.error(t("errors.socketNotConnected"));
       return;
     }
 
@@ -60,7 +62,7 @@ export const ChatInput = () => {
       });
     } catch (error) {
       setLoadingState({ type, loading: false });
-      toast.error("Failed to send message");
+      toast.error(t("errors.sendFailed"));
     }
   };
 
@@ -74,7 +76,7 @@ export const ChatInput = () => {
     <Form
       form={form}
       onFinish={onFinish}
-      className="flex gap-2 h-[70px]  items-center border-t border-[#f0f0f0]"
+      className="flex gap-2 h-[70px] items-center border-t border-[#f0f0f0]"
     >
       <input
         type="file"
@@ -89,6 +91,7 @@ export const ChatInput = () => {
         onClick={() => fileInputRef.current?.click()}
         size="large"
         loading={loadingState.type === "image" && loadingState.loading}
+        aria-label={t("aria.uploadImage")}
       />
       <Form.Item
         name="message"
@@ -96,7 +99,7 @@ export const ChatInput = () => {
         rules={[{ required: true, message: "" }]}
       >
         <Input
-          placeholder="Type your message..."
+          placeholder={t("placeholder")}
           style={{ borderRadius: "20px" }}
           size="large"
           disabled={loadingState.loading}
@@ -105,10 +108,11 @@ export const ChatInput = () => {
       <Button
         type="primary"
         shape="circle"
-        icon={<SendOutlined />}
+        icon={<SendOutlined className="rtl:rotate-180" />}
         htmlType="submit"
         size="large"
         loading={loadingState.type === "text" && loadingState.loading}
+        aria-label={t("aria.sendMessage")}
       />
       <ImagePreviewModal
         imagePreview={imagePreview}

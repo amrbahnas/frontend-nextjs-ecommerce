@@ -1,25 +1,21 @@
 import Container from "@/components/ui/container";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const LegalPrivacy = () => {
+  const t = useTranslations("legalPrivacy");
+
   return (
-    <Container className="flex flex-col items-center justify-center  min-h-96  py-16 ">
-      <h1 className="text-4xl font-bold text-gray-800 mb-4">Legal & Privacy</h1>
+    <Container className="flex flex-col items-center justify-center min-h-96 py-16">
+      <h1 className="text-4xl font-bold text-gray-800 mb-4">{t("title")}</h1>
       <p className="text-lg text-gray-600 max-w-3xl mb-6 text-center">
-        We value your privacy and are committed to protecting your personal
-        information. Please read our privacy policy and legal terms carefully.
+        {t("description")}
       </p>
       <div className="space-y-4 text-gray-600 max-w-3xl">
-        <h2 className="text-2xl font-semibold">Privacy Policy</h2>
-        <p>
-          Our privacy policy explains how we collect, use, and safeguard your
-          information. [Add detailed policy here].
-        </p>
-        <h2 className="text-2xl font-semibold">Terms of Use</h2>
-        <p>
-          By using our website, you agree to our terms and conditions. [Add
-          detailed terms here].
-        </p>
+        <h2 className="text-2xl font-semibold">{t("privacy.title")}</h2>
+        <p>{t("privacy.content")}</p>
+        <h2 className="text-2xl font-semibold">{t("terms.title")}</h2>
+        <p>{t("terms.content")}</p>
       </div>
     </Container>
   );

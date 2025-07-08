@@ -1,15 +1,16 @@
 import React from "react";
-
 import { Button, Form, Input, Spin } from "antd";
 import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import { useChangePassword } from "../_api/mutation";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 const { Password } = Input;
 
 const ChangePasswordForm = () => {
   const route = useRouter();
+  const t = useTranslations("settings.security.changePassword");
   const { changePassword, changePasswordIsPending, changePasswordError } =
     useChangePassword();
   const [form] = Form.useForm();
@@ -17,7 +18,7 @@ const ChangePasswordForm = () => {
   const changePasswordHandler = async (values: any) => {
     changePassword(values, {
       onSuccess: (result) => {
-        toast.success("Password Changed Successfully");
+        toast.success(t("success"));
         route.push("/profile");
         form.resetFields();
       },
@@ -34,50 +35,50 @@ const ChangePasswordForm = () => {
         className="mt-12 flex flex-col gap-4"
       >
         <Item
-          label="Current Password"
+          label={t("currentPassword")}
           name="currentPassword"
           rules={[
             {
               required: true,
-              message: "Please input your Current password!",
+              message: t("currentPasswordRequired"),
             },
           ]}
         >
           <Password
             size="large"
             type="password"
-            placeholder="Enter your Current password"
+            placeholder={t("currentPasswordPlaceholder")}
             className=" rounded-md p-4"
           />
         </Item>
         <Item
-          label="New Password"
+          label={t("newPassword")}
           name="newPassword"
           rules={[
             {
               required: true,
-              message: "Please input your New password!",
+              message: t("newPasswordRequired"),
             },
             {
               min: 6,
-              message: "Password must be at least 6 characters",
+              message: t("newPasswordMinLength"),
             },
           ]}
         >
           <Password
             size="large"
             type="password"
-            placeholder="Enter New password"
+            placeholder={t("newPasswordPlaceholder")}
             className=" rounded-md p-4"
           />
         </Item>
         <Item
-          label="confirm Password"
+          label={t("confirmPassword")}
           name="confirmPassword"
           rules={[
             {
               required: true,
-              message: "Please input your confirmPassword!",
+              message: t("confirmPasswordRequired"),
             },
             // must be the same as password
             ({ getFieldValue }) => ({
@@ -85,16 +86,14 @@ const ChangePasswordForm = () => {
                 if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(
-                  "The two passwords that you entered do not match!"
-                );
+                return Promise.reject(t("passwordMismatch"));
               },
             }),
           ]}
         >
           <Password
             size="large"
-            placeholder="Enter your confirmPassword"
+            placeholder={t("confirmPasswordPlaceholder")}
             className=" rounded-md p-4"
           />
         </Item>
@@ -105,7 +104,7 @@ const ChangePasswordForm = () => {
           htmlType="submit"
           className="bg-lama text-white p-2 rounded-md cursor-pointer disabled:bg-pink-200 disabled:cursor-not-allowed "
         >
-          {changePasswordIsPending ? "Changing..." : "Change Password"}
+          {changePasswordIsPending ? t("button.changing") : t("button.change")}
         </Button>
         <Error error={changePasswordError} />
       </Form>

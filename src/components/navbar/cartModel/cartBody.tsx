@@ -10,6 +10,7 @@ import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
 import CartActionsBTN from "./cartActionsBTN";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const CartBody = ({
   cart,
@@ -23,6 +24,8 @@ const CartBody = ({
   const [deleting, setDeleting] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
   const route = useRouter();
+  const t = useTranslations("Cart");
+
   const {
     cartItems = [],
     totalCartPrice,
@@ -48,13 +51,13 @@ const CartBody = ({
 
   return (
     <Spin spinning={isLoading || deleting}>
-      <div className="  flex flex-col gap-6 z-20  min-w-72">
+      <div className="flex flex-col gap-6 z-20 min-w-72">
         {!cartItems[0] ? (
-          <Empty />
+          <Empty description={t("empty")} />
         ) : (
           <>
-            <div className="flex  justify-between items-center mt-2">
-              <h2 className="text-xl">Shopping Cart</h2>
+            <div className="flex justify-between items-center mt-2">
+              <h2 className="text-xl">{t("title")}</h2>
               <ResetCart handleResetCart={handleResetCart} />
             </div>
 
@@ -81,12 +84,8 @@ const CartBody = ({
                 totalPriceAfterDiscount={totalPriceAfterDiscount}
               />
               <p className="text-gray-500 text-sm mt-2 mb-4">
-                Shipping and taxes calculated at checkout.
+                {t("shippingNote")}
               </p>
-              {/* <CheckoutType
-                checkoutType={checkoutType}
-                setCheckoutType={setCheckoutType}
-              /> */}
               <CartActionsBTN
                 invalidCart={cart.invalidCart}
                 isLoading={isLoading}

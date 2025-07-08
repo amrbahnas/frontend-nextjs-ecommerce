@@ -1,8 +1,9 @@
 "use client";
-import { Button, Form, Input, Modal, Spin, message } from "antd";
+import { Button, Form, Input, Modal, Spin } from "antd";
 import { useCreateAddress, useUpdateAddress } from "../../_api/mutation";
 import { useEffect, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
+import { useTranslations } from "next-intl";
 
 const { Item } = Form;
 
@@ -19,7 +20,7 @@ const AddressModal = ({
   initialData,
   addressesRefetch,
 }: AddressModalProps) => {
-  // const addressId = initialData?.id;
+  const t = useTranslations("Profile.addresses");
   const [addressId, setAddressId] = useState<string | null | undefined>(
     initialData?.id
   );
@@ -61,7 +62,7 @@ const AddressModal = ({
 
   return (
     <Modal
-      title={initialData ? "Edit Address" : "Add New Address"}
+      title={initialData ? t("edit") : t("addNew")}
       open={open}
       onCancel={onClose}
       footer={null}
@@ -73,52 +74,44 @@ const AddressModal = ({
           onFinish={onFinish}
           autoComplete="off"
         >
-          {/* <Button
-            onClick={() => {}}
-            style={{ marginBottom: 16 }}
-            loading={false}
-            icon={<AimOutlined />}
-          >
-            Get Current Location
-          </Button> */}
           <Item
-            label="Country"
+            label={t("form.country.label")}
             name="country"
-            rules={[{ required: true, message: "Please enter your country" }]}
+            rules={[{ required: true, message: t("form.country.required") }]}
           >
-            <Input placeholder="Enter your country" />
+            <Input placeholder={t("form.country.placeholder")} />
           </Item>
           <Item
-            label="City"
+            label={t("form.city.label")}
             name="city"
-            rules={[{ required: true, message: "Please enter your city" }]}
+            rules={[{ required: true, message: t("form.city.required") }]}
           >
-            <Input placeholder="Enter your city" />
+            <Input placeholder={t("form.city.placeholder")} />
           </Item>
           <Item
-            label="State"
+            label={t("form.state.label")}
             name="state"
-            rules={[{ required: true, message: "Please enter your state" }]}
+            rules={[{ required: true, message: t("form.state.required") }]}
           >
-            <Input placeholder="Enter your state" />
+            <Input placeholder={t("form.state.placeholder")} />
           </Item>
-          <Item label="Zip Code" name="zipCode">
-            <Input placeholder="Enter your Zip code" />
+          <Item label={t("form.zipCode.label")} name="zipCode">
+            <Input placeholder={t("form.zipCode.placeholder")} />
           </Item>
           <Item
-            label="Phone"
+            label={t("form.phone.label")}
             name="phone"
-            rules={[{ required: true, message: "Please enter your phone" }]}
+            rules={[{ required: true, message: t("form.phone.required") }]}
           >
-            <Input placeholder="Enter your phone" />
+            <Input placeholder={t("form.phone.placeholder")} />
           </Item>
-          <Item label="More Address Details" name="address">
-            <TextArea placeholder="More Address Details" rows={4} />
+          <Item label={t("form.details.label")} name="address">
+            <TextArea placeholder={t("form.details.placeholder")} rows={4} />
           </Item>
 
           <Item className="mb-0">
             <Button type="primary" htmlType="submit" loading={isLoading} block>
-              {initialData ? "Update" : "Add"} Address
+              {initialData ? t("form.submit.update") : t("form.submit.add")}
             </Button>
           </Item>
         </Form>

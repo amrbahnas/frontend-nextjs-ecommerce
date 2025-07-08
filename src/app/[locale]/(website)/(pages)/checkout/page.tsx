@@ -11,29 +11,31 @@ import resSanatize from "@/services/sanatizeApiRes";
 import useCardStore from "@/store/useCardStore";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
-const steps = [
-  {
-    title: "Cart Summary",
-    content: <CartSummary />,
-  },
-  {
-    title: "Delivery Address",
-    content: <AddressSelection />,
-  },
-  {
-    title: "Payment Method",
-    content: <PaymentMethod />,
-  },
-];
+import { useTranslations } from "next-intl";
 
 const CheckoutPage = () => {
+  const t = useTranslations("checkout");
   const [current, setCurrent] = useState(0);
   const { resetCart } = useCardStore();
   const router = useRouter();
   const { getParams } = useParamsService("okay I will");
   const { cardCheckout, cashCheckout, cashCheckoutLoading, checkoutLoading } =
     useCheckout();
+
+  const steps = [
+    {
+      title: t("steps.cartSummary"),
+      content: <CartSummary />,
+    },
+    {
+      title: t("steps.deliveryAddress"),
+      content: <AddressSelection />,
+    },
+    {
+      title: t("steps.paymentMethod"),
+      content: <PaymentMethod />,
+    },
+  ];
 
   const next = () => {
     setCurrent(current + 1);
@@ -54,7 +56,7 @@ const CheckoutPage = () => {
           onSuccess: (res) => {
             resetCart();
             const orderId = resSanatize(res)?.orderId;
-            toast.success("Order placed successfully");
+            toast.success(t("success.orderPlaced"));
             router.push("/orders/" + orderId);
           },
         }
@@ -81,10 +83,12 @@ const CheckoutPage = () => {
           </Spin>
         </div>
         <div className="flex justify-end gap-2">
-          {current > 0 && <Button onClick={prev}>Previous</Button>}
+          {current > 0 && (
+            <Button onClick={prev}>{t("navigation.previous")}</Button>
+          )}
           {current < steps.length - 1 && (
             <Button type="primary" onClick={next}>
-              Next
+              {t("navigation.next")}
             </Button>
           )}
           {current === steps.length - 1 && (
@@ -93,7 +97,7 @@ const CheckoutPage = () => {
               type="primary"
               onClick={onFinish}
             >
-              Place Order
+              {t("navigation.placeOrder")}
             </Button>
           )}
         </div>

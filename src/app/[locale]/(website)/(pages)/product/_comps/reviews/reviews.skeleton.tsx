@@ -5,7 +5,7 @@ const ReviewsSkeleton = () => {
     <>
       <h1 className="text-2xl">
         User Reviews
-        <Skeleton.Button active size="small" shape="circle" className="ml-1" />
+        <Skeleton.Button active size="small" shape="circle" className="ms-1" />
       </h1>
 
       <div className=" space-y-6 ">

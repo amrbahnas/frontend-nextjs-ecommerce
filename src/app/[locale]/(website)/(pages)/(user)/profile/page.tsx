@@ -11,9 +11,11 @@ import Addresses from "./_comps/addresses";
 import { useMe } from "@/_api/query";
 import ProfileSkeleton from "./_comps/profile.skeleton";
 import LastThreeOrders from "./_comps/lastThreeOrders";
+import { useTranslations } from "next-intl";
 
 const ProfilePage = () => {
   const { user, isLoading: userLoading, error, refetch } = useMe();
+  const t = useTranslations("Profile");
 
   const { orders, isLoading: ordersLoading } = useGetAllOrders();
   const lastThreeOrders = orders.slice(0, 3);
@@ -25,10 +27,8 @@ const ProfilePage = () => {
   return (
     <Container>
       <div className="my-6">
-        <h1 className="text-2xl font-bold mb-2">My Profile</h1>
-        <p className="text-gray-500">
-          Manage your profile information and orders
-        </p>
+        <h1 className="text-2xl font-bold mb-2">{t("title")}</h1>
+        <p className="text-gray-500">{t("description")}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -48,13 +48,13 @@ const ProfilePage = () => {
             <Card
               title={
                 <div className="flex items-center justify-between">
-                  <span>Recent Orders</span>
+                  <span>{t("sections.recentOrders")}</span>
                   <Link href="/orders">
                     <Button
                       type="link"
-                      className="flex items-center gap-1 -mr-4"
+                      className="flex items-center gap-1 -me-4"
                     >
-                      View All <FiChevronRight />
+                      {t("sections.viewAll")} <FiChevronRight />
                     </Button>
                   </Link>
                 </div>
@@ -70,7 +70,7 @@ const ProfilePage = () => {
             title={
               <div className="flex items-center gap-2">
                 <FiMapPin className="text-gray-500" />
-                <span>Delivery Addresses</span>
+                <span>{t("sections.deliveryAddresses")}</span>
               </div>
             }
             className="shadow-sm"

@@ -40,6 +40,7 @@ const Newsletter = () => {
               className="relative !flex"
               size="large"
               layout="horizontal"
+              dir="ltr"
             >
               <Item
                 name="email"

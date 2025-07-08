@@ -9,14 +9,16 @@ import { EyeOutlined } from "@ant-design/icons";
 import AllOrdersSkeleton from "./_comps/allorders.skeleton";
 import Link from "next/link";
 import { FaCreditCard, FaMoneyBill } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 const OrdersPage = () => {
   const { orders, isLoading } = useGetAllOrders();
   const router = useRouter();
+  const t = useTranslations("Orders");
 
   const columns: TableProps<OrderType>["columns"] = [
     {
-      title: "Order ID",
+      title: t("orderId"),
       dataIndex: "id",
       key: "id",
       render: (id: string) => (
@@ -26,13 +28,13 @@ const OrdersPage = () => {
       ),
     },
     {
-      title: "Date",
+      title: t("orderDate"),
       dataIndex: "createdAt",
       key: "createdAt",
       render: (date: string) => dayjs(date).format("DD/MM/YYYY"),
     },
     {
-      title: "payment Method",
+      title: t("paymentMethod"),
       dataIndex: "paymentMethod",
       key: "paymentMethod",
       render: (method: string) => {
@@ -40,20 +42,20 @@ const OrdersPage = () => {
           return (
             <div className="flex items-center justify-center gap-2">
               <FaCreditCard className="text-gray-500" />
-              <span>Credit Card</span>
+              <span>{t("payment.creditCard")}</span>
             </div>
           );
         }
         return (
           <div className="flex items-center justify-center gap-2">
             <FaMoneyBill className="text-gray-500" />
-            <span>Cash on Delivery</span>
+            <span>{t("payment.cashOnDelivery")}</span>
           </div>
         );
       },
     },
     {
-      title: "Total",
+      title: t("totalAmount"),
       dataIndex: "totalOrderPrice",
       key: "totalOrderPrice",
       render: (price: number) => (
@@ -61,27 +63,27 @@ const OrdersPage = () => {
       ),
     },
     {
-      title: "Payment Status",
+      title: t("paymentStatus"),
       dataIndex: "isPaid",
       key: "isPaid",
       render: (isPaid: boolean) => (
         <Tag color={isPaid ? "success" : "warning"}>
-          {isPaid ? "Paid" : "Pending"}
+          {isPaid ? t("status.paid") : t("status.pending")}
         </Tag>
       ),
     },
     {
-      title: "Delivery Status",
+      title: t("deliveryStatus"),
       dataIndex: "isDelivered",
       key: "isDelivered",
       render: (isDelivered: boolean) => (
         <Tag color={isDelivered ? "success" : "processing"}>
-          {isDelivered ? "Delivered" : "In Progress"}
+          {isDelivered ? t("status.delivered") : t("status.inProgress")}
         </Tag>
       ),
     },
     {
-      title: "Actions",
+      title: t("viewDetails"),
       key: "actions",
       render: (_: any, record: OrderType) => (
         <Button
@@ -89,7 +91,7 @@ const OrdersPage = () => {
           icon={<EyeOutlined />}
           onClick={() => router.push(`/orders/${record.id}`)}
         >
-          View Details
+          {t("viewDetails")}
         </Button>
       ),
     },
@@ -102,8 +104,8 @@ const OrdersPage = () => {
   return (
     <Container>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-2">My Orders</h1>
-        <p className="text-gray-500">View and track all your orders</p>
+        <h1 className="text-2xl font-bold mb-2">{t("title")}</h1>
+        <p className="text-gray-500">{t("subtitle")}</p>
       </div>
 
       <Card>

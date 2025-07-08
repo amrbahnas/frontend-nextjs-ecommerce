@@ -130,14 +130,14 @@ const AdminProductCard = ({
           <div className="flex items-center gap-2">
             <FaRegMoneyBillAlt className="text-gray-400 text-lg flex-shrink-0" />
             <span className="text-gray-500">Price:</span>
-            <span className="font-medium text-primary ml-auto">
+            <span className="font-medium text-primary ms-auto">
               ${product.price?.toFixed(2)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <MdCategory className="text-gray-400 text-lg flex-shrink-0" />
             <span className="text-gray-500">Category:</span>
-            <span className="font-medium ml-auto">
+            <span className="font-medium ms-auto">
               {category?.name || "Uncategorized"}
             </span>
           </div>
@@ -146,7 +146,7 @@ const AdminProductCard = ({
             <span className="text-gray-500">Stock:</span>
             <Tag
               color={quantity > 10 ? "green" : quantity > 0 ? "orange" : "red"}
-              className="ml-auto"
+              className="ms-auto"
             >
               {quantity} items
             </Tag>

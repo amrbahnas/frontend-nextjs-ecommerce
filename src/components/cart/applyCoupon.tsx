@@ -3,6 +3,7 @@ import Item from "@/components/antd/item";
 import { Error } from "@/components/ui/error";
 import { Button, Form, Input } from "antd";
 import React, { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const ApplyCoupon = ({
   refetchCart,
@@ -13,6 +14,7 @@ const ApplyCoupon = ({
   hidden?: boolean;
   appliedCoupon?: CouponType | null;
 }) => {
+  const t = useTranslations("Cart.coupon");
   const { applyCoupon, isPending, error } = useApplyCoupon();
   const { isPending: removeCouponLoading, removeCoupon } = useRemoveCoupon();
   const [form] = Form.useForm();
@@ -40,22 +42,22 @@ const ApplyCoupon = ({
       form={form}
       onFinish={onFinish}
     >
-      <h3 className="text-md font-semibold text-gray-800 mb-2">Apply Coupon</h3>
+      <h3 className="text-md font-semibold text-gray-800 mb-2">{t("title")}</h3>
       <div className="flex gap-2">
         <Item
           name="code"
           className="flex-1"
-          rules={[{ required: true, message: "Enter coupon code" }]}
+          rules={[{ required: true, message: t("required") }]}
         >
           <Input
             size="large"
             allowClear
-            placeholder="Enter coupon code"
+            placeholder={t("placeholder")}
             disabled={appliedCoupon ? true : false}
           />
         </Item>
         <Button loading={isPending} htmlType="submit" size="large">
-          Apply
+          {t("apply")}
         </Button>
       </div>
       {appliedCoupon && (
@@ -76,7 +78,7 @@ const ApplyCoupon = ({
             );
           }}
         >
-          Remove Coupon
+          {t("remove")}
         </Button>
       )}
       <Error error={error} />

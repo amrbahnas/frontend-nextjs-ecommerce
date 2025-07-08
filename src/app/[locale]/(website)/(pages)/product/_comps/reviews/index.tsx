@@ -1,3 +1,4 @@
+"use client";
 import { InfiniteScroll } from "@/components/ui/InfiniteScroll";
 import useUserStore from "@/store/useUserStore";
 import { Badge } from "antd";
@@ -27,14 +28,14 @@ const Reviews = ({ productId }: { productId: string }) => {
             {t("userReviews")}
             <Badge
               count={reviews?.length}
-              className="!ml-2"
+              className="!ms-2"
               showZero
               color="#9ca3af"
             />
           </h1>
 
-          <div className=" space-y-6 ">
-            <div className="  max-h-96 overflow-auto">
+          <div className="space-y-6">
+            <div className="max-h-96 overflow-auto">
               <InfiniteScroll<ReviewType>
                 data={reviews}
                 fetchingMoreLoading={pagination.isFetchingNextPage}
@@ -50,7 +51,7 @@ const Reviews = ({ productId }: { productId: string }) => {
                 hasMore={pagination?.hasMore}
                 loading={isLoading}
                 customColsNum={1}
-                customNoData={<p>Be the first to review this product</p>}
+                customNoData={<p>{t("beFirstToReview")}</p>}
                 skeketonItem={(key) => <ReviewsSkeleton key={key} />}
               />
             </div>

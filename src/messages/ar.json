@@ -7,7 +7,20 @@
     "home": "الرئيسية",
     "products": "المنتجات",
     "cart": "سلة التسوق",
-    "account": "حسابي"
+    "account": "حسابي",
+    "shop": "تسوق",
+    "deals": "عروض",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "logout": "تسجيل الخروج",
+    "cart_with_count": "سلة التسوق ({count})",
+    "brand": "شوب",
+    "search": {
+      "placeholder": "ابحث عن المنتجات...",
+      "no_results": "لا توجد نتائج",
+      "loading": "جاري البحث...",
+      "recent_searches": "عمليات البحث السابقة"
+    }
   },
   "Common": {
     "loading": "جاري التحميل...",
@@ -22,7 +35,8 @@
     "save": "حفظ",
     "cancel": "الغاء",
     "add": "أضف",
-    "delete": "إزالة"
+    "delete": "إزالة",
+    "areYouSureDeleteThisReview": "هل أنت متأكد من حذف هذا التقييم؟"
   },
   "HomePage": {
     "featuredProducts": "منتجات مميزة",
@@ -31,7 +45,17 @@
     "newArrivals": "وصل حديثاً",
     "bestSellers": "الأكثر مبيعاً",
     "specialOffers": "عروض خاصة",
-    "seeMore": "المزيد"
+    "seeMore": "المزيد",
+    "trendingProducts": "المنتجات الرائجة",
+    "mostSoldProducts": "الأكثر مبيعاً",
+    "topRatedProducts": "الأعلى تقييماً",
+    "slider": {
+      "springSale": "تشكيلات تخفيضات الربيع",
+      "summerSale": "تشكيلات تخفيضات الصيف",
+      "winterSale": "تشكيلات تخفيضات الشتاء",
+      "saleOff": "تخفيضات! خصم يصل إلى 50%!",
+      "shopNow": "تسوق الآن"
+    }
   },
   "Footer": {
     "brand": "البهنساوي",
@@ -53,7 +77,16 @@
     "unitedStates": "الولايات المتحدة",
     "english": "الإنجليزية",
     "currency": "العملة",
-    "egp": "جنيه مصري"
+    "egp": "جنيه مصري",
+    "subscribeNewsletter": "اشترك في نشرتنا الإخبارية",
+    "newsletterDescription": "ابق على اطلاع بأحدث العروض والمنتجات",
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "subscribe": "اشترك",
+    "allRightsReserved": "جميع الحقوق محفوظة",
+    "emailUs": "البريد الإلكتروني",
+    "whatsappUs": "واتساب",
+    "followUs": "تابعنا على وسائل التواصل الاجتماعي",
+    "paymentMethods": "طرق الدفع"
   },
   "Product": {
     "title": "{title}",
@@ -76,7 +109,24 @@
   },
   "Menu": {},
   "ProductDetails": {
-    "reviews": "تقييمات"
+    "reviews": "تقييمات",
+    "size": "المقاس",
+    "colors": "الألوان",
+    "chooseA": "اختر {option}",
+    "colorNames": {
+      "red": "أحمر",
+      "green": "أخضر",
+      "blue": "أزرق",
+      "yellow": "أصفر",
+      "pink": "وردي",
+      "cyan": "سماوي",
+      "white": "أبيض",
+      "black": "أسود",
+      "gray": "رمادي",
+      "orange": "برتقالي",
+      "purple": "بنفسجي",
+      "brown": "بني"
+    }
   },
   "AddProduct": {
     "quantity": "الكمية",
@@ -94,12 +144,573 @@
     "errorMessage": "فشل في إضافة المنتج إلى السلة"
   },
   "Reviews": {
-    "userReviews": "مراجعات المستخدمين",
-    "noReviews": "لا توجد مراجعات بعد",
-    "you": "انت",
-    "editReview": "تعديل المراجعة",
-    "deleteReview": "حذف المراجعة",
-    "addReview": "أضف مراجعة",
-    "title": "العنوان" 
+    "userReviews": "تقييمات المستخدمين",
+    "comment": "اكتب تقييمك هنا...",
+    "addReview": "إضافة تقييم",
+    "editReview": "تعديل التقييم",
+    "you": "أنت",
+    "edited": "معدل",
+    "beFirstToReview": "كن أول من يقيم هذا المنتج",
+    "ratingValidation": {
+      "required": "التقييم مطلوب",
+      "min": "الحد الأدنى للتقييم هو 1"
+    },
+    "commentValidation": {
+      "required": "التعليق مطلوب",
+      "minLength": "يجب أن يكون التعليق {min} أحرف على الأقل"
+    }
+  },
+  "Profile": {
+    "title": "ملفي الشخصي",
+    "description": "إدارة معلومات ملفك الشخصي والطلبات",
+    "sections": {
+      "recentOrders": "الطلبات الأخيرة",
+      "viewAll": "عرض الكل",
+      "deliveryAddresses": "عناوين التوصيل",
+      "noOrders": "لا توجد طلبات حتى الآن"
+    },
+    "form": {
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل اسمك الكامل",
+      "fullNameRequired": "الرجاء إدخال اسمك!",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "emailRequired": "الرجاء إدخال بريدك الإلكتروني!",
+      "emailInvalid": "الرجاء إدخال بريد إلكتروني صحيح!",
+      "changeEmail": "تغيير البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "أدخل رقم هاتفك",
+      "phoneInvalid": "رقم الهاتف غير صحيح",
+      "updateProfile": "تحديث الملف الشخصي",
+      "updateSuccess": "تم تحديث الملف الشخصي بنجاح"
+    },
+    "addresses": {
+      "title": "عناويني",
+      "addNew": "إضافة عنوان",
+      "edit": "تعديل العنوان",
+      "delete": {
+        "title": "حذف العنوان",
+        "confirm": "هل أنت متأكد من حذف هذا العنوان؟",
+        "yes": "نعم",
+        "no": "لا"
+      },
+      "form": {
+        "country": {
+          "label": "الدولة",
+          "placeholder": "أدخل الدولة",
+          "required": "الرجاء إدخال الدولة"
+        },
+        "city": {
+          "label": "المدينة",
+          "placeholder": "أدخل المدينة",
+          "required": "الرجاء إدخال المدينة"
+        },
+        "state": {
+          "label": "المنطقة",
+          "placeholder": "أدخل المنطقة",
+          "required": "الرجاء إدخال المنطقة"
+        },
+        "zipCode": {
+          "label": "الرمز البريدي",
+          "placeholder": "أدخل الرمز البريدي"
+        },
+        "phone": {
+          "label": "رقم الهاتف",
+          "placeholder": "أدخل رقم الهاتف",
+          "required": "الرجاء إدخال رقم الهاتف"
+        },
+        "details": {
+          "label": "تفاصيل العنوان الإضافية",
+          "placeholder": "تفاصيل العنوان الإضافية"
+        },
+        "submit": {
+          "add": "إضافة العنوان",
+          "update": "تحديث العنوان"
+        }
+      }
+    },
+    "menu": {
+      "profile": "ملفي الشخصي",
+      "orders": "طلباتي",
+      "wishlist": "المفضلة",
+      "settings": "الإعدادات",
+      "logout": "تسجيل الخروج",
+      "loggingOut": "جاري تسجيل الخروج..."
+    },
+    "user": {
+      "guest": "زائر",
+      "loginPrompt": "انقر لتسجيل الدخول",
+      "loginButton": "تسجيل الدخول"
+    }
+  },
+  "Cart": {
+    "title": "سلة التسوق",
+    "empty": "سلة التسوق فارغة",
+    "viewCart": "عرض السلة",
+    "shippingNote": "يتم احتساب الشحن والضرائب عند الدفع.",
+    "actions": {
+      "checkout": "الدفع",
+      "viewCart": "عرض السلة",
+      "continueShopping": "مواصلة التسوق"
+    },
+    "invalidCart": {
+      "title": "سلة غير صالحة",
+      "message": "بعض المنتجات في سلتك لم تعد متوفرة"
+    },
+    "item": {
+      "quantity": "الكمية",
+      "color": "اللون",
+      "size": "المقاس",
+      "remove": "إزالة",
+      "outOfStock": "لم يعد متوفراً",
+      "price": "${price}"
+    },
+    "coupon": {
+      "title": "تطبيق كوبون",
+      "placeholder": "أدخل رمز الكوبون",
+      "required": "أدخل رمز الكوبون",
+      "apply": "تطبيق",
+      "remove": "إزالة الكوبون"
+    },
+    "reset": {
+      "title": "إعادة تعيين السلة",
+      "confirm": "ستفقد جميع المنتجات في سلتك",
+      "ok": "موافق",
+      "cancel": "إلغاء"
+    },
+    "pricing": {
+      "totalPrice": "السعر الإجمالي",
+      "couponDiscount": "خصم الكوبون",
+      "finalPrice": "السعر النهائي",
+      "currency": "$",
+      "discount": {
+        "percentage": "{percentage}%",
+        "amount": "$ - {amount}"
+      }
+    }
+  },
+  "AboutUs": {
+    "title": "من نحن",
+    "description": {
+      "intro": "عمرو البهنساوي، مطور ويب متكامل مع 3 سنوات من الخبرة، من الزقازيق، مصر.",
+      "education": "تخرج من جامعة الزقازيق، كلية الهندسة، قسم الحاسبات والنظم."
+    },
+    "contact": {
+      "email": "elbahnsawy.work@gmail.com",
+      "phone": "(+20)1064480375"
+    },
+    "social": {
+      "facebook": "فيسبوك",
+      "instagram": "انستجرام",
+      "linkedin": "لينكد إن",
+      "github": "جيت هب"
+    }
+  },
+  "checkout": {
+    "steps": {
+      "cartSummary": "ملخص السلة",
+      "deliveryAddress": "عنوان التوصيل",
+      "paymentMethod": "طريقة الدفع"
+    },
+    "navigation": {
+      "previous": "السابق",
+      "next": "التالي",
+      "placeOrder": "تأكيد الطلب"
+    },
+    "cartSummary": {
+      "quantity": "الكمية",
+      "price": "السعر",
+      "totalAmount": "المبلغ الإجمالي"
+    },
+    "address": {
+      "title": "اختر عنوان التوصيل",
+      "addNew": "إضافة عنوان جديد",
+      "empty": "لا توجد عناوين",
+      "phone": "الهاتف"
+    },
+    "payment": {
+      "title": "اختر طريقة الدفع",
+      "creditCard": {
+        "title": "بطاقة ائتمان",
+        "description": "ادفع بأمان باستخدام بطاقتك الائتمانية"
+      },
+      "cashOnDelivery": {
+        "title": "الدفع عند الاستلام",
+        "description": "ادفع عند استلام طلبك"
+      }
+    },
+    "success": {
+      "orderPlaced": "تم تأكيد الطلب بنجاح"
+    }
+  },
+  "contactUs": {
+    "title": "اتصل بنا",
+    "description": "لأي أسئلة أو ملاحظات أو استفسارات، لا تتردد في التواصل معنا. نحن هنا للمساعدة!",
+    "form": {
+      "name": {
+        "label": "اسمك",
+        "placeholder": "اسمك",
+        "required": "الرجاء إدخال اسمك!"
+      },
+      "email": {
+        "label": "بريدك الإلكتروني",
+        "placeholder": "بريدك الإلكتروني",
+        "required": "الرجاء إدخال بريد إلكتروني صحيح!",
+        "gmailOnly": "الرجاء إدخال عنوان بريد Gmail صحيح"
+      },
+      "message": {
+        "label": "رسالتك",
+        "placeholder": "رسالتك",
+        "required": "الرجاء إدخال رسالتك!",
+        "minLength": "يجب أن تكون الرسالة 10 أحرف على الأقل"
+      },
+      "submit": "إرسال الرسالة",
+      "success": "تم إرسال الرسالة بنجاح. تحقق من بريدك الإلكتروني للتأكيد"
+    }
+  },
+  "customerService": {
+    "title": "خدمة العملاء",
+    "description": "فريق خدمة العملاء المتخصص لدينا هنا لمساعدتك في أي مشاكل أو أسئلة قد تكون لديك.",
+    "contact": {
+      "call": "اتصل بنا",
+      "email": "راسلنا",
+      "liveChat": "الدردشة المباشرة",
+      "liveChatHours": "متاح من الاثنين إلى الجمعة، 9 صباحاً - 5 مساءً"
+    }
+  },
+  "findStore": {
+    "title": "ابحث عن متجر",
+    "description": "حدد موقع أقرب متجر لتجربة تسوق أكثر شخصية. أدخل موقعك للعثور على متجر قريب منك.",
+    "form": {
+      "placeholder": "أدخل موقعك",
+      "submit": "ابحث عن متجر"
+    }
+  },
+  "inactiveAccount": {
+    "title": "الحساب غير نشط",
+    "description": "حسابك غير نشط. يرجى الاتصال بالمسؤول لتفعيل حسابك.",
+    "cases": {
+      "title": "بعض الحالات التي قد تحدث:",
+      "list": {
+        "disabled": "تم تعطيل الحساب من قبل المسؤول",
+        "wrongCredentials": "تم إدخال بيانات اعتماد خاطئة أكثر من 5 مرات",
+        "badActivities": "قام الحساب بأنشطة سيئة. على سبيل المثال، كتابة تقييمات سيئة، إلخ",
+        "otherReasons": "أسباب أخرى. يرجى الاتصال بالمسؤول لمزيد من المعلومات"
+      }
+    }
+  },
+  "legalPrivacy": {
+    "title": "القانونية والخصوصية",
+    "description": "نحن نقدر خصوصيتك ونلتزم بحماية معلوماتك الشخصية. يرجى قراءة سياسة الخصوصية والشروط القانونية بعناية.",
+    "privacy": {
+      "title": "سياسة الخصوصية",
+      "content": "توضح سياسة الخصوصية الخاصة بنا كيفية جمع واستخدام وحماية معلوماتك. [أضف السياسة التفصيلية هنا]."
+    },
+    "terms": {
+      "title": "شروط الاستخدام",
+      "content": "باستخدام موقعنا، فإنك توافق على الشروط والأحكام الخاصة بنا. [أضف الشروط التفصيلية هنا]."
+    }
+  },
+  "list": {
+    "campaign": {
+      "title": "احصل على خصم يصل إلى 50% على المنتجات المختارة",
+      "button": "اشتر الآن"
+    },
+    "search": {
+      "results": "نتائج البحث عن \"{search}\"",
+      "bestPicks": "أفضل اختياراتنا"
+    },
+    "filter": {
+      "title": "تصفية المنتجات",
+      "type": {
+        "label": "النوع",
+        "trending": "رائج",
+        "featured": "مميز",
+        "popular": "شائع",
+        "normal": "عادي"
+      },
+      "price": {
+        "min": "الحد الأدنى للسعر",
+        "max": "الحد الأقصى للسعر"
+      },
+      "category": "الفئة",
+      "sort": {
+        "label": "ترتيب حسب",
+        "priceLowToHigh": "السعر (من الأقل إلى الأعلى)",
+        "priceHighToLow": "السعر (من الأعلى إلى الأقل)",
+        "newest": "الأحدث",
+        "oldest": "الأقدم"
+      },
+      "buttons": {
+        "apply": "تطبيق التصفية",
+        "reset": "إعادة تعيين التصفية",
+        "resetTags": "إعادة تعيين"
+      },
+      "tags": {
+        "prefix": ":",
+        "loading": "..."
+      }
+    }
+  },
+  "notAllowed": {
+    "title": "403",
+    "subTitle": "عذراً، غير مصرح لك بالوصول إلى هذه الصفحة.",
+    "backHome": "العودة للرئيسية"
+  },
+  "oops": {
+    "title": "عذراً! حدث خطأ غير متوقع",
+    "description": {
+      "main": "نعتذر عن الإزعاج. تم إخطار فريقنا ويعمل على حل المشكلة.",
+      "suggestion": "في هذه الأثناء، يمكنك تجربة:",
+      "actions": {
+        "refresh": "تحديث الصفحة",
+        "cache": "مسح ذاكرة التخزين المؤقت للمتصفح",
+        "wait": "العودة بعد بضع دقائق"
+      }
+    },
+    "buttons": {
+      "refresh": "تحديث الصفحة",
+      "back": "رجوع",
+      "home": "العودة للرئيسية"
+    }
+  },
+  "Success": {
+    "title": "تمت العملية بنجاح",
+    "emailSent": "لقد أرسلنا الفاتورة إلى بريدك الإلكتروني",
+    "redirecting": "جارٍ تحويلك إلى صفحة الطلب..."
+  },
+  "Orders": {
+    "title": "طلباتي",
+    "subtitle": "عرض وتتبع جميع طلباتك",
+    "orderDetails": "تفاصيل الطلب",
+    "orderId": "رقم الطلب",
+    "orderDate": "تاريخ الطلب",
+    "paymentMethod": "طريقة الدفع",
+    "paymentStatus": "حالة الدفع",
+    "totalAmount": "المبلغ الإجمالي",
+    "deliveryInfo": "معلومات التوصيل",
+    "customer": "العميل",
+    "deliveryAddress": "عنوان التوصيل",
+    "contact": "معلومات الاتصال",
+    "deliveryStatus": "حالة التوصيل",
+    "orderItems": "المنتجات المطلوبة",
+    "orderSummary": "ملخص الطلب",
+    "quantity": "الكمية",
+    "color": "اللون",
+    "size": "المقاس",
+    "viewDetails": "عرض التفاصيل",
+    "orderStatus": "الحالة",
+    "status": {
+      "orderPlaced": "تم تقديم الطلب",
+      "payment": "الدفع",
+      "delivery": "التوصيل",
+      "paid": "تم الدفع",
+      "pending": "قيد الانتظار",
+      "delivered": "تم التوصيل",
+      "inTransit": "قيد التوصيل",
+      "inProgress": "قيد التنفيذ",
+      "processing": "قيد المعالجة",
+      "cancelled": "ملغي",
+      "success": "تم بنجاح"
+    },
+    "payment": {
+      "creditCard": "بطاقة ائتمان",
+      "cashOnDelivery": "الدفع عند الاستلام"
+    },
+    "notifications": {
+      "orderSuccess": "تم تقديم الطلب بنجاح",
+      "checkEmail": "تحقق من بريدك الإلكتروني للحصول على تفاصيل الطلب"
+    }
+  },
+  "settings": {
+    "title": "إعدادات الحساب",
+    "description": "إدارة إعدادات وأمان حسابك",
+    "security": {
+      "title": "الأمان",
+      "changePassword": {
+        "title": "تغيير كلمة المرور",
+        "currentPassword": "كلمة المرور الحالية",
+        "currentPasswordPlaceholder": "أدخل كلمة المرور الحالية",
+        "currentPasswordRequired": "يرجى إدخال كلمة المرور الحالية!",
+        "newPassword": "كلمة المرور الجديدة",
+        "newPasswordPlaceholder": "أدخل كلمة المرور الجديدة",
+        "newPasswordRequired": "يرجى إدخال كلمة المرور الجديدة!",
+        "newPasswordMinLength": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "confirmPasswordPlaceholder": "أدخل تأكيد كلمة المرور",
+        "confirmPasswordRequired": "يرجى إدخال تأكيد كلمة المرور!",
+        "passwordMismatch": "كلمتا المرور اللتان أدخلتهما غير متطابقتين!",
+        "button": {
+          "changing": "جاري التغيير...",
+          "change": "تغيير كلمة المرور"
+        },
+        "success": "تم تغيير كلمة المرور بنجاح"
+      }
+    }
+  },
+  "verifyEmail": {
+    "title": "تحقق من بريدك الإلكتروني",
+    "oneStepAway": "أنت على بعد خطوة واحدة",
+    "verifyAddress": "تحقق من عنوان بريدك الإلكتروني",
+    "description": "لإكمال ملفك الشخصي وبدء التسوق، ستحتاج إلى التحقق من عنوان بريدك الإلكتروني.",
+    "checkEmail": "تحقق من بريدك الإلكتروني، لقد أرسلنا رمزاً إلى بريدك الإلكتروني:",
+    "code": {
+      "label": "الرمز",
+      "required": "يرجى إدخال الرمز!",
+      "resend": "إعادة إرسال الرمز",
+      "maxResendLimit": "لقد وصلت إلى الحد الأقصى لإعادة إرسال الرمز. يرجى المحاولة مرة أخرى لاحقاً."
+    },
+    "success": {
+      "title": "تم التحقق من بريدك الإلكتروني بنجاح!",
+      "subtitle": "تسوق سعيد معنا.",
+      "continue": "متابعة"
+    },
+    "button": {
+      "verify": "تحقق الآن",
+      "verifyEmail": "تحقق من البريد الإلكتروني",
+      "continue": "متابعة",
+      "loading": "جاري التحميل..."
+    }
+  },
+  "wishlist": {
+    "title": "قائمة الأمنيات"
+  },
+  "auth": {
+    "callback": {
+      "error": "حدث خطأ ما",
+      "redirecting": "جاري التحويل",
+      "pleaseWait": "يرجى الانتظار بينما نقوم بتحويلك إلى الصفحة الرئيسية"
+    },
+    "login": {
+      "title": "تسجيل الدخول",
+      "withGoogle": "تسجيل الدخول باستخدام جوجل",
+      "or": "أو",
+      "moreDetails": "المزيد من التفاصيل",
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل بريدك الإلكتروني",
+        "required": "يرجى إدخال بريدك الإلكتروني!"
+      },
+      "password": {
+        "label": "كلمة المرور",
+        "placeholder": "أدخل كلمة المرور",
+        "required": "يرجى إدخال كلمة المرور!"
+      },
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "loading": "جاري التحميل...",
+      "loginButton": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟"
+    },
+    "signup": {
+      "title": "تسجيل",
+      "withGoogle": "التسجيل باستخدام جوجل",
+      "or": "أو",
+      "name": {
+        "label": "الاسم",
+        "placeholder": "أدخل اسمك",
+        "required": "يرجى إدخال اسمك!",
+        "minLength": "يجب أن يكون الاسم 3 أحرف على الأقل!"
+      },
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "example@gmail.com",
+        "required": "يرجى إدخال بريدك الإلكتروني!",
+        "invalid": "البريد الإلكتروني غير صالح!",
+        "gmailOnly": "يرجى إدخال عنوان بريد جيميل صالح"
+      },
+      "password": {
+        "label": "كلمة المرور",
+        "placeholder": "أدخل كلمة المرور",
+        "required": "يرجى إدخال كلمة المرور!"
+      },
+      "confirmPassword": {
+        "label": "تأكيد كلمة المرور",
+        "placeholder": "أدخل تأكيد كلمة المرور",
+        "required": "يرجى إدخال تأكيد كلمة المرور!",
+        "mismatch": "كلمتا المرور اللتان أدخلتهما غير متطابقتين!"
+      },
+      "sex": {
+        "required": "يرجى اختيار الجنس!",
+        "male": "ذكر",
+        "female": "أنثى"
+      },
+      "loading": "جاري التحميل...",
+      "registerButton": "تسجيل",
+      "haveAccount": "لديك حساب؟"
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور",
+      "verifyCode": "التحقق من الرمز",
+      "createNewPassword": "إنشاء كلمة مرور جديدة",
+      "sendResetCode": "إرسال رمز إعادة التعيين",
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل بريدك الإلكتروني",
+        "required": "يرجى إدخال بريدك الإلكتروني!"
+      },
+      "verification": {
+        "sentCode": "لقد أرسلنا رمزاً إلى بريدك الإلكتروني:",
+        "changeEmail": "تغيير البريد الإلكتروني",
+        "code": {
+          "label": "الرمز",
+          "required": "يرجى إدخال الرمز!",
+          "resend": "إعادة إرسال الرمز",
+          "resendLimit": "لقد وصلت إلى الحد الأقصى لإعادة إرسال الرمز"
+        }
+      },
+      "newPassword": {
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة المرور الجديدة",
+          "required": "يرجى إدخال كلمة المرور!"
+        },
+        "confirmPassword": {
+          "label": "تأكيد كلمة المرور",
+          "placeholder": "أدخل كلمة المرور الجديدة",
+          "required": "يرجى إدخال تأكيد كلمة المرور"
+        }
+      },
+      "loading": "جاري التحميل...",
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "success": "تم تغيير كلمة المرور بنجاح"
+    }
+  },
+  "chat": {
+    "trigger": {
+      "tooltip": "دعم المحادثة"
+    },
+    "modal": {
+      "title": {
+        "admin": "دعم المحادثة",
+        "user": "المحادثة"
+      }
+    },
+    "content": {
+      "noConversation": "اختر محادثة للبدء في الدردشة",
+      "back": "رجوع"
+    },
+    "conversation": {
+      "status": {
+        "online": "متصل",
+        "offline": "غير متصل"
+      }
+    },
+    "input": {
+      "placeholder": "اكتب رسالتك...",
+      "errors": {
+        "socketNotConnected": "الاتصال غير متوفر",
+        "sendFailed": "فشل إرسال الرسالة"
+      },
+      "imagePreview": {
+        "title": "معاينة الصورة",
+        "cancel": "إلغاء",
+        "send": "إرسال الصورة",
+        "alt": "معاينة"
+      },
+      "aria": {
+        "uploadImage": "رفع صورة",
+        "sendMessage": "إرسال رسالة"
+      }
+    }
   }
 }

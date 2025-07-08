@@ -65,7 +65,7 @@ const EnterOTP = ({
             <span>check your email, we have sent a code to your </span>
             <div className="space-x-1">
               <span>Email:</span>
-              <span className="  font-semibold pl-1">{newEmail}</span>
+              <span className="  font-semibold ps-1">{newEmail}</span>
               <span
                 onClick={() => {
                   setNewEmail("");

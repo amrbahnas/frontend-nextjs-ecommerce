@@ -209,7 +209,7 @@ const Admin = ({ children }: { children: React.ReactNode }) => {
               onClick={() => setDrawerVisible(true)}
             />
           )}
-          <div className=" pr-6 sm:px-6 h-full flex justify-between items-center w-full">
+          <div className=" pe-6 sm:px-6 h-full flex justify-between items-center w-full">
             <Link
               href="/profile"
               className="flex items-center gap-2 text-black"

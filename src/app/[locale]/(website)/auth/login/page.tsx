@@ -7,12 +7,12 @@ import { Button, Divider, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
 import { useLogout } from "@/hooks/global/useLogout";
 import useAuthStore from "@/store/useAuthStore";
 import { useLogin } from "../_api/mutation";
 import { FaGoogle } from "react-icons/fa";
 import { thirdpartAuth } from "@/constant/thirdpartAuth";
+import { useTranslations } from "next-intl";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
@@ -21,6 +21,7 @@ const LoginPage = ({}) => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { logout } = useLogout();
   const { login, loginError, loginPending } = useLogin();
+  const t = useTranslations("auth.login");
 
   useEffect(() => {
     if (isLogin) {
@@ -37,21 +38,21 @@ const LoginPage = ({}) => {
         <div className=" w-full bg-white border !p-4 md:!p-8 rounded-md shadow-md ">
           <Divider orientation="center">
             <h1 className="text-2xl md:text-3xl font-semibold text-primary">
-              Login
+              {t("title")}
             </h1>
           </Divider>
           <a href={thirdpartAuth.google}>
             <Button size="large" className="!w-full" icon={<FaGoogle />}>
-              Login with Google
+              {t("withGoogle")}
             </Button>
           </a>
-          <Divider>Or</Divider>
+          <Divider>{t("or")}</Divider>
           {loginError && (
             <div className="flex items-center gap-2 mb-5">
               <Error error={loginError} hideOkButton={true} />
               {loginError && loginError.includes("not active") && (
                 <Link href="/inactiveAccount" className=" underline">
-                  More Details
+                  {t("moreDetails")}
                 </Link>
               )}
             </div>
@@ -64,29 +65,29 @@ const LoginPage = ({}) => {
             onFinish={login}
           >
             <Item
-              label="E-mail"
+              label={t("email.label")}
               name="email"
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: t("email.required"),
                 },
               ]}
             >
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("email.placeholder")}
                 size="large"
                 className=" rounded-md p-4"
               />
             </Item>
             <Item
-              label="Password"
+              label={t("password.label")}
               name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: t("password.required"),
                 },
               ]}
             >
@@ -94,7 +95,7 @@ const LoginPage = ({}) => {
                 type="password"
                 name="password"
                 size="large"
-                placeholder="Enter your password"
+                placeholder={t("password.placeholder")}
                 className=" rounded-md p-4"
               />
             </Item>
@@ -102,7 +103,7 @@ const LoginPage = ({}) => {
               className="text-sm underline cursor-pointer"
               href={"/auth/forgot-password"}
             >
-              Forgot Password?
+              {t("forgotPassword")}
             </Link>
             <Button
               className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
@@ -112,13 +113,13 @@ const LoginPage = ({}) => {
               type="primary"
               size="large"
             >
-              {loginPending ? "Loading..." : "Login"}
+              {loginPending ? t("loading") : t("loginButton")}
             </Button>
             <Link
               className="text-sm underline cursor-pointer text-gray-600"
               href={"/auth/signup"}
             >
-              {"Don't"} have an account?
+              {t("noAccount")}
             </Link>
           </Form>
         </div>

@@ -6,8 +6,10 @@ import { PlusOutlined } from "@ant-design/icons";
 import AddressModal from "@/app/[locale]/(website)/(pages)/(user)/profile/_comps/addresses/addressModal";
 import useParamsService from "@/hooks/global/useParamsService";
 import { formatAddress } from "@/utils/formatAddress";
+import { useTranslations } from "next-intl";
 
 const AddressSelection = () => {
+  const t = useTranslations("checkout.address");
   const { addresses, addressesIsLoading, addressesRefetch } = useGetAddresses();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setParams, getParams } = useParamsService("okay I will");
@@ -20,20 +22,20 @@ const AddressSelection = () => {
   return (
     <div>
       <div className="flex flex-wrap justify-between items-center mb-4 gap-2">
-        <h3 className=" text-base sm:text-lg font-medium">
-          Select Delivery Address
-        </h3>
+        <h3 className="text-base sm:text-lg font-medium">{t("title")}</h3>
         <Button
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => setIsModalOpen(true)}
         >
-          Add New Address
+          {t("addNew")}
         </Button>
       </div>
 
       <div className="min-h-[200px]">
-        {addresses.length === 0 && !addressesIsLoading && <Empty />}
+        {addresses.length === 0 && !addressesIsLoading && (
+          <Empty description={t("empty")} />
+        )}
         <Spin spinning={addressesIsLoading}>
           <Radio.Group
             onChange={(e) => setParams("address", e.target.value)}
@@ -51,9 +53,11 @@ const AddressSelection = () => {
                   className="w-full !p-4 border rounded-lg"
                   checked={getParams("address") === address.id}
                 >
-                  <div className="ml-2">
+                  <div className="ms-2">
                     <div className="font-medium">{formatAddress(address)}</div>
-                    <div className="text-gray-500">Phone: {address.phone}</div>
+                    <div className="text-gray-500">
+                      {t("phone")}: {address.phone}
+                    </div>
                   </div>
                 </Radio>
               ))}

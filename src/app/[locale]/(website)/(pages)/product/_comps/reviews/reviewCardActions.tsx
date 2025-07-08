@@ -1,3 +1,4 @@
+"use client";
 import { Button, Popconfirm, Popover, Rate } from "antd";
 import NextImage from "@/components/ui/nextImage";
 import { HiOutlineDotsVertical } from "react-icons/hi";
@@ -78,7 +79,7 @@ const ReviewCardActions = ({
       >
         {(currentUser?.role === "admin" || currentUserIsOwnThisReview) && (
           <div>
-            <HiOutlineDotsVertical className=" cursor-pointer" />
+            <HiOutlineDotsVertical className="cursor-pointer" />
           </div>
         )}
       </Popover>

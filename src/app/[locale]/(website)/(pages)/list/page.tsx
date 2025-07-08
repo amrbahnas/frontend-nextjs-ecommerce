@@ -7,21 +7,23 @@ import ProductSection from "./_comps/productSection";
 import Filter from "./_comps/filter";
 import NextImage from "@/components/ui/nextImage";
 import useParamsService from "@/hooks/global/useParamsService";
+import { useTranslations } from "next-intl";
 
 const ListPage = () => {
+  const t = useTranslations("list");
   const { getParams } = useParamsService("okay I will");
   const search = getParams("search");
+
   return (
     <Container>
       {/* CAMPAIGN */}
       <div className="hidden bg-pink-50 px-4 sm:flex justify-between h-64">
         <div className="w-2/3 flex flex-col items-center justify-center gap-8">
           <h1 className="text-4xl font-semibold leading-[48px] text-gray-700">
-            Grab up to 50% off on
-            <br /> Selected Products
+            {t("campaign.title")}
           </h1>
-          <Button className="rounded-3xl   w-max !py-4 px-5 text-sm">
-            Buy Now
+          <Button className="rounded-3xl w-max !py-4 px-5 text-sm">
+            {t("campaign.button")}
           </Button>
         </div>
         <div className="relative w-1/3">
@@ -38,7 +40,7 @@ const ListPage = () => {
       <Filter />
       {/* PRODUCTS */}
       <h1 className="text-xl font-semibold mb-4">
-        {search ? `Search results for "${search}"` : "Our Best Picks"}
+        {search ? t("search.results", { search }) : t("search.bestPicks")}
       </h1>
       <ProductSection />
     </Container>

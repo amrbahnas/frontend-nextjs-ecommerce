@@ -3,6 +3,7 @@ import { Button, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDeleteAddress } from "../../_api/mutation";
 import { formatAddress } from "@/utils/formatAddress";
+import { useTranslations } from "next-intl";
 
 const AddressCard = ({
   address,
@@ -13,6 +14,7 @@ const AddressCard = ({
   handleEdit: (address: AddressType) => void;
   refetch: () => void;
 }) => {
+  const t = useTranslations("Profile.addresses");
   const { deleteAddress, deleteAddressIsPending } = useDeleteAddress(
     address.id
   );
@@ -27,11 +29,13 @@ const AddressCard = ({
           type="text"
           icon={<EditOutlined />}
           onClick={() => handleEdit(address)}
+          title={t("edit")}
         />
         <Popconfirm
-          title="Are you sure you want to delete this address?"
-          okText="Yes"
-          cancelText="No"
+          title={t("delete.title")}
+          description={t("delete.confirm")}
+          okText={t("delete.yes")}
+          cancelText={t("delete.no")}
           onConfirm={() =>
             deleteAddress(
               {},
@@ -47,6 +51,7 @@ const AddressCard = ({
             icon={<DeleteOutlined />}
             loading={deleteAddressIsPending}
             disabled={deleteAddressIsPending}
+            title={t("delete.title")}
           />
         </Popconfirm>
       </div>

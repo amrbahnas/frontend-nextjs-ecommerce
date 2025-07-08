@@ -79,7 +79,7 @@ const successToast = () => {
       Product added to wishlist
       <Link
         href="/wishlist"
-        className="!text-blue-500 !underline !ml-2 !font-semibold"
+        className="!text-blue-500 !underline !ms-2 !font-semibold"
       >
         View wishlist
       </Link>

@@ -10,10 +10,6 @@ const ChangeLanguage = () => {
   const params = useParams();
   const currentLocale = (params?.locale as string) || "en";
 
-  if (process.env.NEXT_PUBLIC_ENV !== "development") {
-    return null;
-  }
-
   const toggleLanguage = () => {
     const newLocale = currentLocale === "en" ? "ar" : "en";
     // Remove the current locale from the pathname

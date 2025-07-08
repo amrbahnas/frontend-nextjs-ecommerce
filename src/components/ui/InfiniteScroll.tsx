@@ -84,7 +84,7 @@ function InfiniteScrollComponent<T>(
         ))}
       </RenderedCardsGrid>
       {fetchingMoreLoading && <Loader />}
-      {!hasMore && <NoMoreItems />}
+      {!hasMore && data?.length > 6 && <NoMoreItems />}
       <div ref={traggerRef} className="h-1" />
     </div>
   );

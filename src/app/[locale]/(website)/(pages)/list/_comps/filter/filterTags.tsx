@@ -2,8 +2,10 @@ import useParamsService from "@/hooks/global/useParamsService";
 import { Button, Tag } from "antd";
 import { GrPowerReset } from "react-icons/gr";
 import { useGetCategories } from "../../../_api/query";
+import { useTranslations } from "next-intl";
 
 const FilterTags = ({ form }: { form: any }) => {
+  const t = useTranslations("list.filter");
   const { getCurrentParams, removeParams, resetParams } =
     useParamsService("okay I will");
   const { categories } = useGetCategories();
@@ -22,10 +24,14 @@ const FilterTags = ({ form }: { form: any }) => {
             removeParams(param.key);
           }}
         >
-          <span className="capitalize mr-1">{param.key}:</span>
+          <span className="capitalize me-1">
+            {param.key}
+            {t("tags.prefix")}
+          </span>
           <span className="capitalize text-blue-600 font-semibold">
             {param.key === "category"
-              ? categories.find((cat) => cat.id === param.value)?.name || "..."
+              ? categories.find((cat) => cat.id === param.value)?.name ||
+                t("tags.loading")
               : param.value}
           </span>
         </Tag>
@@ -40,7 +46,7 @@ const FilterTags = ({ form }: { form: any }) => {
           }}
           size="small"
         >
-          Reset
+          {t("buttons.resetTags")}
         </Button>
       )}
     </div>

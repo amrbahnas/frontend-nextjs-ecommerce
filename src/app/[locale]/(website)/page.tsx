@@ -1,13 +1,10 @@
 "use client";
 import CategoriesSlider from "@/app/[locale]/(website)/(pages)/_comps/categoriesSlider";
-import Container from "@/components/ui/container";
 import Slider from "@/components/home/slider";
-import { useTranslations } from "next-intl";
+import Container from "@/components/ui/container";
 import ProductStatsList from "./(pages)/_comps/product-stats/productStatsList";
 
 const HomePage = () => {
-  const t = useTranslations("HomePage");
-
   return (
     <div>
       <Slider />

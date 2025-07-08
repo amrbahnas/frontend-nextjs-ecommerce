@@ -15,7 +15,7 @@ import ProductSkeleton from "../_comps/product.skeketon";
 import ProductImages from "../_comps/productImage";
 import Reviews from "../_comps/reviews";
 import { useProductSeo } from "../hooks/useProductSeo";
-import NotFound from "@/app/[locale]/not-found";
+import NotFound from "@/app/not-found";
 
 const SinglePage = ({ params }: { params: Params }) => {
   const { id } = use(params);

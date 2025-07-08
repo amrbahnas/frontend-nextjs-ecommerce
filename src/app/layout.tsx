@@ -10,7 +10,6 @@ import { Toaster } from "react-hot-toast";
 import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
 import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
 import ChatLayout from "@/components/layout/chatLayout";
-import "@ant-design/v5-patch-for-react-19";
 
 import "./globals.css";
 

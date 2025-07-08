@@ -2,6 +2,7 @@
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
+import "@ant-design/v5-patch-for-react-19";
 
 export default function AntDLayout({
   children,

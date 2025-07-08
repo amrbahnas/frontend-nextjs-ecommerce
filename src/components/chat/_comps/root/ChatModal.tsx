@@ -39,7 +39,6 @@ export const ChatModal = memo(
         </span>
       }
       open={isOpen}
-      onClose={onClose}
       onCancel={onClose}
       closeIcon={
         <div
@@ -64,7 +63,7 @@ export const ChatModal = memo(
           />
         </div>
       }
-      destroyOnClose
+      destroyOnHidden
       footer={null}
       className={classNames(
         {

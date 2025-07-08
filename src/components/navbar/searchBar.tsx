@@ -168,10 +168,14 @@ const SearchBar = ({ customId }: { customId?: string }) => {
           onSearch={fetchSuggestions}
           value={search}
           className="!w-full"
-          dropdownStyle={{
-            top: lg ? 70 : 85,
-            maxHeight: 400,
-            overflow: "auto",
+          styles={{
+            popup: {
+              root: {
+                top: lg ? 70 : 85,
+                maxHeight: 400,
+                overflow: "auto",
+              },
+            },
           }}
           onFocus={() => {
             setOptions(recentSearchOptions);

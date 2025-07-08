@@ -83,7 +83,6 @@ const CategoryModal = ({
 
   return (
     <Modal
-      onClose={onclose}
       open={visible}
       title={category ? "Edit Category" : "Create Category"}
       okText={category ? "Update" : "Create"}

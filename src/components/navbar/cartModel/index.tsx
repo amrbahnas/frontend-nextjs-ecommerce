@@ -42,7 +42,7 @@ const CartModal = () => {
   return (
     <Popover
       open={open}
-      destroyTooltipOnHide
+      destroyOnHidden
       onOpenChange={onOpenChangeHandler}
       content={
         isLoading ? (

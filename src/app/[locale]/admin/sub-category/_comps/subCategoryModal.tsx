@@ -75,9 +75,8 @@ const SubCategoryModal = ({
 
   return (
     <Modal
-      onClose={onclose}
       open={visible}
-      destroyOnClose
+      destroyOnHidden
       title={subCategory ? "Edit Sub Category" : "Create Sub Category"}
       okText={subCategory ? "Update" : "Create"}
       okButtonProps={{

@@ -24,7 +24,7 @@ const Page = () => {
   const route = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, setOnlineCart } = useCardStore();
-  const { cart: apiCart, isLoading: fetchLoading, refetch } = useGetCart();
+  const { cart: apiCart, isLoading: fetchLoading, refetch } = useGetCart({});
 
   const renderedCart = isLogin ? apiCart : storeCart;
   const cartCount = renderedCart?.cartItems?.length || 0;

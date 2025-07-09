@@ -31,11 +31,11 @@ export const useGetProducts = (params?: any) => {
   return { products: (data || []) as Product[], isLoading, pagination };
 };
 
-export const useGetCart = () => {
+export const useGetCart = ({ skip }: { skip?: boolean }) => {
   const isLogin = useAuthStore((state) => state.isLogin);
 
   const { data, isLoading, refetch } = useQuery<CartType>("/cart", {
-    skip: !isLogin,
+    skip: !isLogin || skip,
   });
 
   return {

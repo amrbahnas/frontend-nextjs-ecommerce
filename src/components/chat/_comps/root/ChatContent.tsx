@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { memo, useCallback } from "react";
 import { ChatInput } from "../sections/chatInput";
 import { ConversationsList } from "../sections/conversations";
-import { ConversationHeader } from "../sections/conversations/conversationHeader";
+import { MessagesHeader } from "../sections/messages/messagesHeader";
 import { MessageList } from "../sections/messages";
 import { useTranslations } from "next-intl";
 
@@ -84,7 +84,7 @@ const AdminView = memo(
                     <ArrowLeftOutlined />
                   </button>
                 )}
-                <ConversationHeader />
+                <MessagesHeader />
               </div>
               <div className="flex-1 overflow-y-auto">
                 <MessageList />

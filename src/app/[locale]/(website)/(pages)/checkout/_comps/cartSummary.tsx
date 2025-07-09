@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const CartSummary = () => {
   const t = useTranslations("checkout.cartSummary");
-  const { cart, isLoading } = useGetCart();
+  const { cart, isLoading } = useGetCart({});
 
   if (isLoading) {
     return (

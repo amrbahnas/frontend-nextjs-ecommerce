@@ -10,11 +10,18 @@ import { useManageRenderedConversations } from "./hooks/useManageRenderedConvers
 
 export const ConversationsList = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const { conversations, isPending, refetch, pagination, error } =
-    useGetAllConversations({});
+  const {
+    onlineUsers,
+    socket,
+    selectedConversation,
+    setSelectedConversation,
+    isOpen,
+  } = useChatContext();
 
-  const { onlineUsers, socket, selectedConversation, setSelectedConversation } =
-    useChatContext();
+  const { conversations, isPending, refetch, pagination, error } =
+    useGetAllConversations({
+      skip: !isOpen,
+    });
 
   const { renderedConversations, setRenderedConversations } =
     useManageRenderedConversations(conversations);
@@ -49,7 +56,7 @@ export const ConversationsList = () => {
       loading={isPending}
       fetchingMoreLoading={pagination.isFetchingNextPage}
       customColsNum={1}
-      className="w-full pe-3"
+      className="w-full pe-3 h-80"
       customNoData={<p>No conversations found</p>}
       skeketonItem={(key) => <ConversationsSkeleton key={key} />}
       error={error}
@@ -62,6 +69,7 @@ export const ConversationsList = () => {
           isOnline={onlineUsers.includes(conversation?.userId || "")}
         />
       )}
+      // dependency={pagination.current < 2 ? conversations : 1}
     />
   );
 };

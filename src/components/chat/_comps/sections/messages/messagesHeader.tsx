@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
-export const ConversationHeader = () => {
+export const MessagesHeader = () => {
   const t = useTranslations("chat");
   const { onlineUsers, selectedConversation, setSelectedConversation, socket } =
     useChatContext();
@@ -29,16 +29,7 @@ export const ConversationHeader = () => {
   }, [socket, selectedConversation]);
 
   return (
-    <div
-      style={{
-        borderBottom: "1px solid #f0f0f0",
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-        backgroundColor: "#fff",
-      }}
-      className="w-full"
-    >
+    <section className="w-full flex items-center gap-2 bg-white">
       <div style={{ position: "relative" }}>
         <Avatar
           src={selectedConversation?.image}
@@ -71,6 +62,6 @@ export const ConversationHeader = () => {
             : t("conversation.status.offline")}
         </div>
       </div>
-    </div>
+    </section>
   );
 };

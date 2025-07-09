@@ -14,7 +14,13 @@ const CartModal = () => {
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
   const { storeCart, setOnlineCart, onlineCart } = useCardStore();
-  const { cart: apiCart, isLoading, refetch } = useGetCart();
+  const {
+    cart: apiCart,
+    isLoading,
+    refetch,
+  } = useGetCart({
+    skip: !open,
+  });
 
   const renderedCart = (isLogin ? apiCart : storeCart) as CartType;
   const cartCount = isLogin

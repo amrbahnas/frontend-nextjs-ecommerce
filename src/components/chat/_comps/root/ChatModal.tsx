@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Modal } from "antd";
 import classNames from "classnames";
 import useAuthStore from "@/store/useAuthStore";
-import { ConversationHeader } from "../sections/conversations/conversationHeader";
+import { MessagesHeader } from "../sections/messages/messagesHeader";
 import {
   FullscreenOutlined,
   FullscreenExitOutlined,
@@ -36,9 +36,7 @@ export const ChatModal = memo(
     return (
       <Modal
         title={
-          <span>
-            {isAdmin ? t("modal.title.admin") : <ConversationHeader />}
-          </span>
+          <span>{isAdmin ? t("modal.title.admin") : <MessagesHeader />}</span>
         }
         open={isOpen}
         onCancel={onClose}

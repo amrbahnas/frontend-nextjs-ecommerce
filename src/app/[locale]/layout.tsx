@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
   title: {
-    template: "%s | Your Shop",
-    default: "Your Shop | Your Premier E-commerce Destination",
+    template: "%s | Elbahnsawy",
+    default: "Elbahnsawy | Your Premier E-commerce Destination",
   },
   description:
-    "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+    "Discover a wide range of quality products at Elbahnsawy. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
   keywords: [
     "e-commerce",
     "online shopping",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "best deals",
     "secure shopping",
     "fast delivery",
-    "Your Shop",
+    "Elbahnsawy",
   ],
   authors: [
     {
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: "Amr Elbahnsawy",
-  publisher: "Your Shop",
+  publisher: "Elbahnsawy",
   formatDetection: {
     email: false,
     address: false,
@@ -73,11 +73,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Your Shop | Your Premier E-commerce Destination",
+    title: "Elbahnsawy | Your Premier E-commerce Destination",
     description:
-      "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+      "Discover a wide range of quality products at Elbahnsawy. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: "Your Shop",
+    siteName: "Elbahnsawy",
     type: "website",
     locale: "en_US",
     images: [
@@ -85,15 +85,15 @@ export const metadata: Metadata = {
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/preview.png`,
         width: 1200,
         height: 630,
-        alt: "Your Shop - Your Premier E-commerce Destination",
+        alt: "Elbahnsawy - Your Premier E-commerce Destination",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Shop | Your Premier E-commerce Destination",
+    title: "Elbahnsawy | Your Premier E-commerce Destination",
     description:
-      "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+      "Discover a wide range of quality products at Elbahnsawy. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
     images: [`${process.env.NEXT_PUBLIC_SITE_URL}/preview.png`],
     creator: "@amr_elbahnsawy",
     site: "@amr_elbahnsawy",
@@ -149,7 +149,7 @@ export default async function LocaleLayout({
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="apple-mobile-web-app-title" content="Your Shop" />
+        <meta name="apple-mobile-web-app-title" content="Elbahnsawy" />
         <meta name="theme-color" content="#F35C7A" />
         <meta
           name="google-site-verification"

@@ -124,9 +124,9 @@ const PopoverContent: React.FC<{
             <h4 className="font-medium text-gray-900 truncate">
               {user?.name || t("user.guest")}
             </h4>
-            <p className="text-sm text-gray-500 truncate">
+            {/* <p className="text-sm text-gray-500 truncate">
               {user?.email || t("user.loginPrompt")}
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -68,7 +68,7 @@
     {
       "name": "Shopping Cart",
       "short_name": "Cart",
-      "description": "View Elbahnsawyping cart",
+      "description": "View Elbahnsawy-shopping cart",
       "url": "/cart",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     }

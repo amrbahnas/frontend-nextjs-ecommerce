@@ -18,7 +18,7 @@ const ConversationItem = ({
   return (
     <div
       onClick={() => handleSelectConversation(conversation)}
-      className={`p-3 cursor-pointer flex items-center border-b border-[#f0f0f0] transition-colors duration-300 hover:!bg-[rgba(0,0,0,0.04)] ${
+      className={`py-3 cursor-pointer flex items-center border-b last:border-b-0 border-[#f0f0f0] transition-colors duration-300 hover:!bg-[rgba(0,0,0,0.04)] ${
         selectedConversation?.id === conversation.id
           ? "bg-[rgba(0,0,0,0.02)]"
           : "bg-transparent"

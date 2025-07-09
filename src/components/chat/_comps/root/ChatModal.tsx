@@ -31,6 +31,7 @@ export const ChatModal = memo(
   }: ChatModalProps) => {
     const t = useTranslations("chat");
     const isAdmin = useAuthStore.getState().isAdmin;
+    const isRTL = document.dir === "rtl";
 
     return (
       <Modal
@@ -69,8 +70,9 @@ export const ChatModal = memo(
         className={classNames(
           {
             "!w-screen !h-screen !top-4": isFullScreen || !lg,
-            "!w-auto !fixed sm:!bottom-24 sm:!right-8 !m-0 !p-0 sm:!top-auto":
-              !isFullScreen && lg,
+            [`!w-auto !fixed sm:!bottom-24 ${
+              isRTL ? "sm:!left-8" : "sm:!right-8"
+            } !m-0 !p-0 sm:!top-auto`]: !isFullScreen && lg,
           },
           "[&_.ant-modal-close:hover]:!bg-transparent",
           "[&_.ant-modal-close:hover]:!text-gray-400"
@@ -78,10 +80,15 @@ export const ChatModal = memo(
         styles={{
           content: { paddingBottom: 0 },
           wrapper: { overflow: "hidden" },
+          mask: { direction: isRTL ? "rtl" : "ltr" },
+          body: { direction: isRTL ? "rtl" : "ltr" },
         }}
         modalRender={(modal) => (
           <div
-            style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+            style={{
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+              direction: isRTL ? "rtl" : "ltr",
+            }}
             className={classNames("overflow-hidden rounded-lg", {
               "!rounded-none": isFullScreen || !lg,
             })}

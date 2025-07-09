@@ -36,7 +36,7 @@ const ReviewStructuredData = ({
     datePublished: datePublished,
     publisher: {
       "@type": "Organization",
-      name: "Shope-Amr",
+      name: "store-Amr",
       logo: {
         "@type": "ImageObject",
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,

@@ -13,7 +13,7 @@
 
 ## Overview
 
-This guide covers all SEO implementations in the Shope-Amr e-commerce platform.
+This guide covers all SEO implementations in the store-Amr e-commerce platform.
 
 ### Key Features
 
@@ -256,15 +256,15 @@ export default function ProductPage({ product }) {
 // app/layout.tsx
 export const metadata = {
   title: {
-    default: "Elbahnsawt-Shope | Your Premier E-commerce Destination",
-    template: "%s | Elbahnsawy-Shope",
+    default: "Elbahnsawt-store | Your Premier E-commerce Destination",
+    template: "%s | Elbahnsawy-store",
   },
   description: "Your premier destination for online shopping",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://shop-elbahnsawy.vercel.app/",
-    siteName: "Elbahnsawy-Shope",
+    siteName: "Elbahnsawy-store",
   },
 };
 ```

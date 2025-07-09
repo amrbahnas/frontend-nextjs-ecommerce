@@ -2,7 +2,7 @@ const LocalBusinessStructuredData = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Shope-Amr",
+    name: "store-Amr",
     url: process.env.NEXT_PUBLIC_SITE_URL,
     logo: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,
     sameAs: [

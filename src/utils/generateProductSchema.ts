@@ -69,7 +69,7 @@ const generateProductSchema = (product: ProductDetails) => {
       url: `${baseUrl}/products/${product.id}`,
       seller: {
         "@type": "Organization",
-        name: "Shope-Amr",
+        name: "store-Amr",
         url: baseUrl,
       },
     },

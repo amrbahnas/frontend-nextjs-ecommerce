@@ -32,7 +32,7 @@ const CategoryStructuredData = ({
       priceCurrency: "USD",
       seller: {
         "@type": "Organization",
-        name: "Shope-Amr",
+        name: "store-Amr",
         url: process.env.NEXT_PUBLIC_SITE_URL,
       },
     },

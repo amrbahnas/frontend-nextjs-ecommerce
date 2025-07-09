@@ -1,6 +1,6 @@
 {
-  "name": "Shope-Amr",
-  "short_name": "Shope-Amr",
+  "name": "store-Amr",
+  "short_name": "store-Amr",
   "description": "Your Premier E-commerce Destination",
   "start_url": "/",
   "display": "standalone",

@@ -573,7 +573,11 @@
     }
   },
   "wishlist": {
-    "title": "قائمة الأمنيات"
+    "title": "قائمة الأمنيات",
+    "areYouSureResetWishlist": "هل أنت متأكد من إعادة تعيين قائمة المفضلة؟",
+    "resetWishlist": "إعادة تعيين قائمة المفضلة",
+    "delete": "حذف",
+    "cancel": "إلغاء"
   },
   "auth": {
     "callback": {

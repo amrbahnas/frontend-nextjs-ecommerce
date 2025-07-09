@@ -4,7 +4,7 @@ export const useProductSeo = (product: Product) => {
   useEffect(() => {
     // Dynamically update meta tags since this is a client component
     if (product) {
-      document.title = `${product.title} | Shope-Amr`;
+      document.title = `${product.title} | store-Amr`;
       const metaDescription = document.querySelector(
         'meta[name="description"]'
       );

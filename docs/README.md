@@ -1,6 +1,6 @@
-# Shope-Amr Documentation
+# store-Amr Documentation
 
-Welcome to the Shope-Amr documentation. Here you'll find comprehensive guides and documentation to help you start working with Shope-Amr.
+Welcome to the store-Amr documentation. Here you'll find comprehensive guides and documentation to help you start working with store-Amr.
 
 ## 📚 Contents
 

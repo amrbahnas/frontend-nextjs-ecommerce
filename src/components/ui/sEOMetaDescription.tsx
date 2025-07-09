@@ -15,7 +15,7 @@ const generateProductDescription = (product: {
     product.brand && `by ${product.brand}`,
     product.category && `in ${product.category}`,
     `for ${product.price} ${product.currency}`,
-    "at Shope-Amr.",
+    "at store-Amr.",
     "Free shipping available.",
   ].filter(Boolean);
 
@@ -36,7 +36,7 @@ const generateCategoryDescription = (category: {
       category.maxPrice &&
       category.currency &&
       `ranging from ${category.minPrice} to ${category.maxPrice} ${category.currency}`,
-    "at Shope-Amr.",
+    "at store-Amr.",
     "Free shipping available.",
   ].filter(Boolean);
 
@@ -59,4 +59,8 @@ const generateArticleDescription = (article: {
   return truncateText(parts.join(" "));
 };
 
-export { generateProductDescription, generateCategoryDescription, generateArticleDescription };
+export {
+  generateProductDescription,
+  generateCategoryDescription,
+  generateArticleDescription,
+};

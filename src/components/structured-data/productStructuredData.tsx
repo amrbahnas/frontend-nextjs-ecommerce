@@ -9,7 +9,7 @@ const ProductStructuredData = ({ product }: { product: Product }) => {
     mpn: product?.id,
     brand: {
       "@type": "Brand",
-      name: "Shope-Amr",
+      name: "store-Amr",
     },
     aggregateRating: {
       "@type": "AggregateRating",

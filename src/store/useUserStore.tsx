@@ -4,13 +4,18 @@ import { persist } from "zustand/middleware";
 type Store = {
   user: User | null;
   setUser: (user: any) => void;
+  resetWishlist: () => void;
 };
 
 const useUserStore = create<Store>(
   persist(
-    (set) => ({
+    (set, get: () => Store) => ({
       user: null,
       setUser: (user: any) => set({ user }),
+      resetWishlist: () =>
+        set((state) => ({
+          user: state.user ? { ...state.user, wishlist: [] } : null,
+        })),
     }),
     {
       name: "user-store",

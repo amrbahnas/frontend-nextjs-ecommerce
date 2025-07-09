@@ -1,4 +1,4 @@
-# SEO Implementation Guide for Shope-Amr E-commerce
+# SEO Implementation Guide for store-Amr E-commerce
 
 ## Table of Contents
 
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
   title: {
-    template: "%s | Elbahnswy-Shope",
-    default: "Elbahnsawy-Shope | Your Premier E-commerce Destination",
+    template: "%s | Elbahnswy-store",
+    default: "Elbahnsawy-store | Your Premier E-commerce Destination",
   },
   // ... other metadata
 };
@@ -179,8 +179,8 @@ Location: `public/manifest.json`
 
 ```json
 {
-  "name": "Shope-Amr",
-  "short_name": "Shope-Amr",
+  "name": "store-Amr",
+  "short_name": "store-Amr",
   "description": "Your Premier E-commerce Destination",
   "start_url": "/",
   "display": "standalone",

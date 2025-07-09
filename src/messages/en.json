@@ -14,7 +14,7 @@
     "contact": "Contact",
     "logout": "Logout",
     "cart_with_count": "Cart ({count})",
-    "brand": "Shope",
+    "brand": "Your Shop",
     "search": {
       "placeholder": "Search products...",
       "no_results": "No results found",
@@ -58,7 +58,6 @@
     }
   },
   "Footer": {
-    
     "brand": "Elbahnsawy",
     "description": "Elbahnsawy is a global online fashion retail company.",
     "shop": "SHOP",
@@ -481,7 +480,6 @@
     "redirecting": "You are being redirected to the order page..."
   },
   "Orders": {
-    
     "title": "My Orders",
     "subtitle": "View and track all your orders",
     "orderDetails": "Order Details",

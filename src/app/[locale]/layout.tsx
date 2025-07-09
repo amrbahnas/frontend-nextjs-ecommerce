@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
   title: {
-    template: "%s | Shope-Amr",
-    default: "Shope-Amr | Your Premier E-commerce Destination",
+    template: "%s | Your Shop",
+    default: "Your Shop | Your Premier E-commerce Destination",
   },
   description:
-    "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+    "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
   keywords: [
     "e-commerce",
     "online shopping",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "best deals",
     "secure shopping",
     "fast delivery",
-    "Shope-Amr",
+    "Your Shop",
   ],
   authors: [
     {
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: "Amr Elbahnsawy",
-  publisher: "Shope-Amr",
+  publisher: "Your Shop",
   formatDetection: {
     email: false,
     address: false,
@@ -73,28 +73,28 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Shope-Amr | Your Premier E-commerce Destination",
+    title: "Your Shop | Your Premier E-commerce Destination",
     description:
-      "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+      "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: "Shope-Amr",
+    siteName: "Your Shop",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/social/og-image.jpg`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/preview.png`,
         width: 1200,
         height: 630,
-        alt: "Shope-Amr - Your Premier E-commerce Destination",
+        alt: "Your Shop - Your Premier E-commerce Destination",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shope-Amr | Your Premier E-commerce Destination",
+    title: "Your Shop | Your Premier E-commerce Destination",
     description:
-      "Discover a wide range of quality products at Shope-Amr. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/social/twitter-image.jpg`],
+      "Discover a wide range of quality products at Your Shop. Shop the latest trends in fashion, electronics, and more with secure payment and fast delivery.",
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/preview.png`],
     creator: "@amr_elbahnsawy",
     site: "@amr_elbahnsawy",
   },
@@ -149,15 +149,12 @@ export default async function LocaleLayout({
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="apple-mobile-web-app-title" content="Shope-Amr" />
+        <meta name="apple-mobile-web-app-title" content="Your Shop" />
+        <meta name="theme-color" content="#F35C7A" />
         <meta
           name="google-site-verification"
           content="QKdQNht25W1XB9fhKkw-nTPR6mQruPIQ2katXOb6pj0"
         />
-        {/* <script
-          crossOrigin="anonymous"
-          src="//unpkg.com/react-scan/dist/auto.global.js"
-        /> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

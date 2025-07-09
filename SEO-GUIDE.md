@@ -1,6 +1,7 @@
 # SEO Implementation Guide for Shope-Amr E-commerce
 
 ## Table of Contents
+
 1. [Basic Setup](#basic-setup)
 2. [Structured Data Components](#structured-data-components)
 3. [UI Components](#ui-components)
@@ -11,19 +12,23 @@
 ## Basic Setup
 
 ### 1. Layout Configuration (layout.tsx)
+
 ```typescript
 // src/app/[locale]/layout.tsx
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   title: {
-    template: "%s | Shope-Amr",
-    default: "Shope-Amr | Your Premier E-commerce Destination"
+    template: "%s | Elbahnswy-Shope",
+    default: "Elbahnsawy-Shope | Your Premier E-commerce Destination",
   },
   // ... other metadata
 };
 ```
 
 ### 2. Environment Variables (.env)
+
 ```env
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
@@ -32,8 +37,10 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
 ## Structured Data Components
 
 ### 1. Product Structured Data
+
 Location: `src/components/structured-data/ProductStructuredData.tsx`
 Usage:
+
 ```typescript
 <ProductStructuredData
   name="Product Name"
@@ -45,15 +52,19 @@ Usage:
 ```
 
 ### 2. Local Business Data
+
 Location: `src/components/structured-data/LocalBusinessStructuredData.tsx`
 Usage:
+
 ```typescript
 <LocalBusinessStructuredData />
 ```
 
 ### 3. Review Data
+
 Location: `src/components/structured-data/ReviewStructuredData.tsx`
 Usage:
+
 ```typescript
 <ReviewStructuredData
   productName="Product Name"
@@ -65,8 +76,10 @@ Usage:
 ```
 
 ### 4. Article Data
+
 Location: `src/components/structured-data/ArticleStructuredData.tsx`
 Usage:
+
 ```typescript
 <ArticleStructuredData
   title="Article Title"
@@ -82,8 +95,10 @@ Usage:
 ## UI Components
 
 ### 1. SEO Image Component
+
 Location: `src/components/ui/SEOImage.tsx`
 Usage:
+
 ```typescript
 <SEOImage
   src="/path/to/image.jpg"
@@ -95,33 +110,32 @@ Usage:
 ```
 
 ### 2. SEO Link Component
+
 Location: `src/components/ui/SEOLink.tsx`
 Usage:
+
 ```typescript
-<SEOLink
-  href="/products/123"
-  title="View Product"
-  isExternal={false}
->
+<SEOLink href="/products/123" title="View Product" isExternal={false}>
   Product Name
 </SEOLink>
 ```
 
 ### 3. SEO Heading Component
+
 Location: `src/components/ui/SEOHeading.tsx`
 Usage:
+
 ```typescript
-<SEOHeading
-  level={1}
-  highlight={["sale", "discount"]}
->
+<SEOHeading level={1} highlight={["sale", "discount"]}>
   Special Sale: 20% Discount
 </SEOHeading>
 ```
 
 ### 4. Product Comparison Component
+
 Location: `src/components/ui/ProductComparison.tsx`
 Usage:
+
 ```typescript
 <ProductComparison
   products={[
@@ -132,10 +146,10 @@ Usage:
       price: 99.99,
       currency: "USD",
       features: {
-        "Feature1": "Value1",
-        "Feature2": true
-      }
-    }
+        Feature1: "Value1",
+        Feature2: true,
+      },
+    },
   ]}
 />
 ```
@@ -143,22 +157,26 @@ Usage:
 ## Meta Tags and Descriptions
 
 ### 1. Meta Description Generator
+
 Location: `src/components/ui/SEOMetaDescription.tsx`
 Usage:
+
 ```typescript
 const productDescription = generateProductDescription({
   name: "Product Name",
   price: 99.99,
   currency: "USD",
   category: "Category",
-  brand: "Brand"
+  brand: "Brand",
 });
 ```
 
 ## PWA Setup
 
 ### 1. Manifest File
+
 Location: `public/manifest.json`
+
 ```json
 {
   "name": "Shope-Amr",
@@ -173,8 +191,10 @@ Location: `public/manifest.json`
 ```
 
 ### 2. Icons
+
 Location: `public/icons/`
 Required sizes:
+
 - icon-72x72.png
 - icon-96x96.png
 - icon-128x128.png
@@ -187,6 +207,7 @@ Required sizes:
 ## Implementation Examples
 
 ### 1. Product Page Example
+
 ```typescript
 // src/app/[locale]/(website)/(pages)/product/[id]/page.tsx
 export default function ProductPage({ product }) {
@@ -208,6 +229,7 @@ export default function ProductPage({ product }) {
 ```
 
 ### 2. Category Page Example
+
 ```typescript
 // src/app/[locale]/(website)/(pages)/category/[id]/page.tsx
 export default function CategoryPage({ category, products }) {
@@ -215,7 +237,7 @@ export default function CategoryPage({ category, products }) {
     <>
       <CategoryStructuredData {...category} />
       <SEOHeading level={1}>{category.name}</SEOHeading>
-      {products.map(product => (
+      {products.map((product) => (
         <SEOLink
           key={product.id}
           href={`/product/${product.id}`}
@@ -232,29 +254,34 @@ export default function CategoryPage({ category, products }) {
 ## Best Practices
 
 1. **Always Include Required Meta Tags**
+
    - Title
    - Description
    - OpenGraph tags
    - Twitter cards
 
 2. **Structured Data Guidelines**
+
    - Use the most specific type possible
    - Include all required properties
    - Test using Google's Rich Results Test
 
 3. **Image Optimization**
+
    - Always use SEOImage component
    - Provide meaningful alt text
    - Use appropriate image sizes
    - Set priority for above-the-fold images
 
 4. **Link Best Practices**
+
    - Use descriptive anchor text
    - Add title attributes where appropriate
    - Mark external links properly
    - Use proper rel attributes
 
 5. **Heading Hierarchy**
+
    - One H1 per page
    - Maintain proper heading structure
    - Use meaningful heading text

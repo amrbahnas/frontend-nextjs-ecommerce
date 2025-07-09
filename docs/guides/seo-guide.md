@@ -256,15 +256,15 @@ export default function ProductPage({ product }) {
 // app/layout.tsx
 export const metadata = {
   title: {
-    default: "Shope-Amr | Your Premier E-commerce Destination",
-    template: "%s | Shope-Amr",
+    default: "Elbahnsawt-Shope | Your Premier E-commerce Destination",
+    template: "%s | Elbahnsawy-Shope",
   },
   description: "Your premier destination for online shopping",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://your-site.com",
-    siteName: "Shope-Amr",
+    url: "https://shop-elbahnsawy.vercel.app/",
+    siteName: "Elbahnsawy-Shope",
   },
 };
 ```

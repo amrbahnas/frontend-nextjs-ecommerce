@@ -21,6 +21,17 @@
   left: 10px;
 }
 
+/* RTL specific styles */
+[dir="rtl"] .product-swiper :global(.swiper-button-next) {
+  right: auto;
+  left: 10px;
+}
+
+[dir="rtl"] .product-swiper :global(.swiper-button-prev) {
+  left: auto;
+  right: 10px;
+}
+
 .product-swiper :global(.swiper-button-disabled) {
   opacity: 0;
 }

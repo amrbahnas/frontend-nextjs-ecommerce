@@ -121,12 +121,12 @@ const PopoverContent: React.FC<{
             className="border-2 border-primary/20"
           />
           <div className="flex-1 min-w-0">
-            <h4 className="font-medium text-gray-900 truncate">
+            <h4 dir="ltr" className="font-medium text-gray-900 truncate">
               {user?.name || t("user.guest")}
             </h4>
-            {/* <p className="text-sm text-gray-500 truncate">
+            <p className="text-sm text-gray-500 truncate">
               {user?.email || t("user.loginPrompt")}
-            </p> */}
+            </p>
           </div>
         </div>
       </div>
@@ -183,12 +183,15 @@ export const ProfileIcon = () => {
         />
         {isLogin ? (
           <div className="hidden md:block">
-            <p className="text-sm font-medium text-gray-700 group-hover:text-primary transition-colors">
+            <p
+              dir="ltr"
+              className="text-sm max-w-[100px] truncate font-medium text-gray-700 group-hover:text-primary transition-colors"
+            >
               {user?.name}
             </p>
-            <p className="text-xs text-gray-500 truncate max-w-[150px]">
+            {/* <p className="text-xs text-gray-500 truncate max-w-[150px]">
               {user?.email}
-            </p>
+            </p> */}
           </div>
         ) : (
           <div className="hidden md:block">

@@ -23,7 +23,9 @@ const Navbar = () => {
             className="flex items-center gap-1 lg:gap-3 "
           >
             <NextImage src="/logo.png" width={24} height={24} alt="logo" />
-            <div className=" text-2xl tracking-wide">{t("brand")}</div>
+            <div className=" text-md sm:text-2xl tracking-wide">
+              {t("brand")}
+            </div>
           </DisableLink>
 
           {/* Big screen */}

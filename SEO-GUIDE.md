@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
   title: {
-    template: "%s | Elbahnswy-store",
-    default: "Elbahnsawy-store | Your Premier E-commerce Destination",
+    template: "%s | Elbahnswy store",
+    default: "Elbahnsawy store | Your Premier E-commerce Destination",
   },
   // ... other metadata
 };

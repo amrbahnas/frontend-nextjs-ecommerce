@@ -16,10 +16,11 @@ const WishlistPage = () => {
   const { resetWishlist, isPending, error } = useResetWishlist();
   const t = useTranslations("wishlist");
   const resetStoredWishlist = useUserStore((state) => state.resetWishlist);
+  const storedWishlist = useUserStore((state) => state.wishlist);
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [storedWishlist]);
+  useEffect(() => {
+    refetch();
+  }, [storedWishlist]);
 
   return (
     <Container>

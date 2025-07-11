@@ -257,14 +257,14 @@ export default function ProductPage({ product }) {
 export const metadata = {
   title: {
     default: "Elbahnsawt-store | Your Premier E-commerce Destination",
-    template: "%s | Elbahnsawy-store",
+    template: "%s | Elbahnsawy store",
   },
   description: "Your premier destination for online shopping",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://shop-elbahnsawy.vercel.app/",
-    siteName: "Elbahnsawy-store",
+    url: "https://elbahnsawy-store.vercel.app/",
+    siteName: "Elbahnsawy store",
   },
 };
 ```

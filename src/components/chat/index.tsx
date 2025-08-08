@@ -69,14 +69,18 @@ const Chat = () => {
         toggleFullScreen={toggleFullScreen}
         isLargeScreen={isLargeScreen}
       >
-        <Spin spinning={isPending}>
+        {isPending ? (
+          <div className="flex items-center justify-center h-full w-full">
+            <Spin size="large" />
+          </div>
+        ) : (
           <ChatContent
             isAdmin={isAdmin}
             isLargeScreen={isLargeScreen}
             selectedConversation={selectedConversation}
             setSelectedConversation={setSelectedConversation}
           />
-        </Spin>
+        )}
       </ChatModal>
     </>
   );

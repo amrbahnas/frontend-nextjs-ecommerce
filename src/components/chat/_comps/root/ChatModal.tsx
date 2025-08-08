@@ -36,32 +36,34 @@ export const ChatModal = memo(
     return (
       <Modal
         title={
-          <span>{isAdmin ? t("modal.title.admin") : <MessagesHeader />}</span>
-        }
-        open={isOpen}
-        onCancel={onClose}
-        closeIcon={
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-2 pe-4"
-          >
+          <div className="flex items-center  justify-between gap-2">
+            <span>{isAdmin ? t("modal.title.admin") : <MessagesHeader />}</span>
             {lg && (
               <div
                 onClick={toggleFullScreen}
                 className="border-none bg-transparent cursor-pointer hover:text-blue-500 p-1"
               >
                 {isFullScreen ? (
-                  <FullscreenExitOutlined className="text-gray-400" />
+                  <span className="flex items-center gap-2">
+                    <FullscreenExitOutlined className="text-gray-400" />
+                    <span className="text-sm">Exit Fullscreen</span>
+                  </span>
                 ) : (
-                  <FullscreenOutlined className="text-gray-400" />
+                  <span className="flex items-center gap-2">
+                    <FullscreenOutlined className="text-gray-400" />
+                    <span className="text-sm">Fullscreen</span>
+                  </span>
                 )}
               </div>
             )}
-            <CloseOutlined
-              onClick={onClose}
-              className="text-gray-400 cursor-pointer hover:text-red-500"
-            />
           </div>
+        }
+        open={isOpen}
+        onCancel={onClose}
+        closeIcon={
+          lg ? null : (
+            <CloseOutlined className="text-gray-400 cursor-pointer hover:text-red-500" />
+          )
         }
         destroyOnHidden
         footer={null}

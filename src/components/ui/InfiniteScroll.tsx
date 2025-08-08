@@ -65,7 +65,7 @@ function InfiniteScrollComponent<T>(
     >
       {loading && data?.length === 0 && !error && (
         <RenderedCardsGrid length={5} customColsNum={customColsNum}>
-          {[1, 2, 3, 4, 5].map((num: any) => (
+          {[1, 2, 3, 4].map((num: any) => (
             <div key={num}>{skeketonItem?.(num)}</div>
           ))}
         </RenderedCardsGrid>

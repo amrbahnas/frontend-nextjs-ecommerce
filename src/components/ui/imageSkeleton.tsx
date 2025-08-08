@@ -4,7 +4,7 @@ import React from "react";
 const ImageSkeleton = () => {
   return (
     <Image
-      src="/image-placeholder.jpg"
+      src="/image-placeholder.png"
       alt="skeleton"
       fill
       className="object-cover"

@@ -72,7 +72,7 @@ function InfiniteScrollComponent<T>(
       )}
 
       {error && <Error error={error} />}
-      {data?.length === 0 && !loading && !error && customNoData && customNoData}
+      {data?.length === 0 && !loading && !error && (customNoData ?? <NoData />)}
 
       {data?.length > 0 && !error && (
         <RenderedCardsGrid

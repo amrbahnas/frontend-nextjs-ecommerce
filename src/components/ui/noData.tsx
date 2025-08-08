@@ -5,7 +5,7 @@ import React from "react";
 const NoData = () => {
   const lg = useBreakPoints("lg");
   return (
-    <div className="flex items-center justify-center w-full h-80">
+    <div className="flex items-center justify-center w-full">
       <Image
         src="/No-data.svg"
         alt="No Data"

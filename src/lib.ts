@@ -15,7 +15,12 @@ export async function verifyToken() {
     });
 
     return response?.data?.data as User;
-  } catch (error) {
-    return "error";
+  } catch (error: any) {
+    // case internal server error
+    if (error?.response?.status !== 401) {
+      return "error";
+    }
+    // case token is expired
+    return null;
   }
 }

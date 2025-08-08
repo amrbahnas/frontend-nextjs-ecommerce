@@ -8,12 +8,13 @@ import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
 import { useTranslations } from "next-intl";
 import useAuthStore from "@/store/useAuthStore";
+import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 const Navbar = () => {
   const pathName = usePathname();
   const t = useTranslations("Navigation");
   const isAdmin = useAuthStore((state) => state.isAdmin);
-
+  const md = useBreakPoints("md");
   return (
     <Container className=" shadow-sm">
       <div className="min-h-20 flex  flex-col  justify-center py-2 lg:py-4 ">
@@ -25,8 +26,12 @@ const Navbar = () => {
             className="flex items-center gap-1 lg:gap-3 "
           >
             <NextImage src="/logo.png" width={40} height={40} alt="logo" />
-            {!isAdmin && (
+            {!isAdmin ? (
               <h1 className=" text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
+                {t("brand")}
+              </h1>
+            ) : (
+              <h1 className=" hidden sm:block text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
                 {t("brand")}
               </h1>
             )}

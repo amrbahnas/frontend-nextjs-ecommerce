@@ -9,7 +9,7 @@ export const useManageRenderedConversations = (
 
   useEffect(() => {
     setRenderedConversations(conversations);
-  }, [conversations.length]);
+  }, [conversations]);
 
   return {
     renderedConversations,

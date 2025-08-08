@@ -3,6 +3,7 @@ import ms from "ms";
 import { useLogout } from "../global/useLogout";
 import axiosInstance from "@/config/apiClient";
 import proxyAxiosInstance from "@/config/proxyClient";
+import { useMemo } from "react";
 
 // ex:usage
 // export const useGetCalibrationCertificated = (id: string) => {
@@ -61,14 +62,17 @@ function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
     logout();
   }
   // Flatten the pages data for easier consumption
-  const flattenedData = data?.pages?.flatMap((page) => page.data?.list) || [];
-  const lists = options?.reverse
-    ? flattenedData.reverse()
-    : flattenedData || [];
+  const lists = useMemo(() => {
+    const items = data?.pages?.flatMap((page) => page.data?.list) || [];
+    return options?.reverse ? items.reverse() : items;
+  }, [data, options?.reverse]);
 
   // Get pagination info from the latest page
-  const latestPage = data?.pages[data.pages.length - 1];
-  const pagination = latestPage?.data?.pagination;
+  const pagination = useMemo(() => {
+    const latestPage = data?.pages[data.pages.length - 1];
+    const pagination = latestPage?.data?.pagination;
+    return pagination;
+  }, [data]);
 
   return {
     data: (lists || []) as T,

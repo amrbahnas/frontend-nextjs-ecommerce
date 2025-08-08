@@ -33,7 +33,7 @@ function InfiniteScrollComponent<T>(
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
-        if (target.isIntersecting && hasMore) {
+        if (target.isIntersecting && hasMore && !loading && data?.length > 0) {
           onLoadMore?.();
         }
       },
@@ -54,19 +54,7 @@ function InfiniteScrollComponent<T>(
         observer.unobserve(currentContainer);
       }
     };
-  }, [hasMore]);
-
-  if (loading && data?.length === 0)
-    return (
-      <RenderedCardsGrid length={5} customColsNum={customColsNum}>
-        {[1, 2, 3, 4, 5].map((num: any) => (
-          <div key={num}>{skeketonItem?.(num)}</div>
-        ))}
-      </RenderedCardsGrid>
-    );
-
-  if (error) return <Error error={error} />;
-  if (data?.length === 0 && !loading) return customNoData ?? <NoData />;
+  }, [hasMore, loading, data?.length]);
 
   return (
     <div
@@ -75,14 +63,27 @@ function InfiniteScrollComponent<T>(
         reverse ? "flex flex-col-reverse pt-2" : ""
       } ${className}`}
     >
-      <RenderedCardsGrid
-        customColsNum={customColsNum}
-        length={data?.length ?? 0}
-      >
-        {data?.map((item: any) => (
-          <div key={item?.id}>{renderItem?.(item)}</div>
-        ))}
-      </RenderedCardsGrid>
+      {loading && data?.length === 0 && !error && (
+        <RenderedCardsGrid length={5} customColsNum={customColsNum}>
+          {[1, 2, 3, 4, 5].map((num: any) => (
+            <div key={num}>{skeketonItem?.(num)}</div>
+          ))}
+        </RenderedCardsGrid>
+      )}
+
+      {error && <Error error={error} />}
+      {data?.length === 0 && !loading && !error && customNoData && customNoData}
+
+      {data?.length > 0 && !error && (
+        <RenderedCardsGrid
+          customColsNum={customColsNum}
+          length={data?.length ?? 0}
+        >
+          {data?.map((item: any) => (
+            <div key={item?.id}>{renderItem?.(item)}</div>
+          ))}
+        </RenderedCardsGrid>
+      )}
       {fetchingMoreLoading && <Loader />}
       {!hasMore && data?.length > 6 && <NoMoreItems />}
       <div ref={traggerRef} className="h-1" />

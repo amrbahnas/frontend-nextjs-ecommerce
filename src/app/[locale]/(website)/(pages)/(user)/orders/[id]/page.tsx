@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Descriptions, Steps, Tag, List } from "antd";
+import { Card, Descriptions, Steps, Tag, List, Image } from "antd";
 import Container from "@/components/ui/container";
 import {
   CheckCircleOutlined,
@@ -11,7 +11,7 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import Image from "next/image";
+
 import dayjs from "dayjs";
 import { useGetSpecificOrder } from "../_api/query";
 import OrderDetailsSkeleton from "./_comps/orderDetails.skeleton";
@@ -104,7 +104,6 @@ const OrderDetailsPage = ({ params }: { params: Params }) => {
                         <Image
                           src={item.imageCover || ""}
                           alt={item.title || ""}
-                          fill
                           className="object-cover rounded"
                         />
                       </div>

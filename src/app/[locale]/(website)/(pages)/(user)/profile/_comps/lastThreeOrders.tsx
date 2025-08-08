@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { FiPackage } from "react-icons/fi";
 import { useTranslations } from "next-intl";
-import { Image } from "antd";
+import Image from "next/image";
 
 const LastThreeOrders = ({
   lastThreeOrders,

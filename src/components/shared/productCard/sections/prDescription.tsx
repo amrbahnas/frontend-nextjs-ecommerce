@@ -20,7 +20,7 @@ const PrDescription = ({
   return (
     <div className="p-3 space-y-2">
       {/* Title */}
-      <h3 className="font-medium  line-clamp-1 text-gray-900 text-sm leading-tight sm:line-clamp-2 hover:text-primary transition-colors duration-200">
+      <h3 className="font-medium  line-clamp-1 text-gray-900 dark:text-dark-text text-sm leading-tight sm:line-clamp-2 hover:text-primary transition-colors duration-200">
         {t("title", { title })}
       </h3>
 
@@ -30,10 +30,10 @@ const PrDescription = ({
           afterPrice={price}
           beforePrice={price + 50}
           afterPriceClassName="text-base font-semibold text-primary"
-          beforePriceClassName="text-xs text-gray-400 line-through"
+          beforePriceClassName="text-xs text-gray-400 dark:text-gray-500 line-through"
         />
-        <div className="inline-block px-2 py-0.5 bg-green-50 rounded-full  w-fit">
-          <span className="text-[10px] font-medium text-green-600 whitespace-nowrap ">
+        <div className="inline-block px-2 py-0.5 bg-green-50 dark:bg-green-900/20 rounded-full  w-fit">
+          <span className="text-[10px] font-medium text-green-600 dark:text-green-400 whitespace-nowrap ">
             <SavingPercentage
               small
               beforePrice={price + 50}
@@ -57,11 +57,13 @@ const PrDescription = ({
             t("wonderful"),
           ]}
         />
-        <span className="text-xs text-gray-500">({ratingsAverage})</span>
+        <span className="text-xs text-gray-500 dark:text-dark-text-secondary">
+          ({ratingsAverage})
+        </span>
       </div>
 
       {/* Description - Optional, can be removed if too crowded */}
-      <p className="text-xs text-gray-600 line-clamp-1 h-4">
+      <p className="text-xs text-gray-600 dark:text-dark-text-secondary line-clamp-1 h-4">
         {t("description", { description })}
       </p>
     </div>

@@ -76,7 +76,7 @@ export const ChatInput = () => {
     <Form
       form={form}
       onFinish={onFinish}
-      className="flex gap-2 h-[70px] items-center border-t border-[#f0f0f0]"
+      className="flex gap-2 h-[70px] items-center border-t border-[#f0f0f0] dark:border-dark-border  transition-colors duration-200"
     >
       <input
         type="file"

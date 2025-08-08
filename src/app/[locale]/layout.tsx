@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import WebsiteStructuredData from "@/components/structured-data/websiteStructuredData";
 import LocalBusinessStructuredData from "@/components/structured-data/localBusinessStructuredData";
 import ChatLayout from "@/components/layout/chatLayout";
+import ThemeProvider from "@/components/layout/themeProvider";
 
 import "./globals.css";
 
@@ -153,21 +154,23 @@ export default async function LocaleLayout({
         <meta name="theme-color" content="#F35C7A" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text transition-colors duration-200`}
       >
         <WebsiteStructuredData />
         <LocalBusinessStructuredData />
         <NextIntlClientProvider locale={locale}>
-          <ReactQueryLayout>
-            <AntDLayout locale={locale}>
-              <ProgressBarLayout>
-                <DayjsConfig />
-                <OnlineStatus>{children}</OnlineStatus>
-                <ChatLayout />
-              </ProgressBarLayout>
-            </AntDLayout>
-          </ReactQueryLayout>
-          <Toaster />
+          <ThemeProvider>
+            <ReactQueryLayout>
+              <AntDLayout locale={locale}>
+                <ProgressBarLayout>
+                  <DayjsConfig />
+                  <OnlineStatus>{children}</OnlineStatus>
+                  <ChatLayout />
+                </ProgressBarLayout>
+              </AntDLayout>
+            </ReactQueryLayout>
+            <Toaster />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -27,13 +27,20 @@ const Blog = () => {
       </p>
       <div className="space-y-6 w-full max-w-3xl">
         {posts.map((post, index) => (
-          <div key={index} className="p-6 bg-white shadow-md rounded-lg">
-            <h2 className="text-2xl font-semibold text-gray-800">
+          <div
+            key={index}
+            className="p-6 bg-white dark:bg-dark-bg shadow-md rounded-lg"
+          >
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-dark-text">
               {post.title}
             </h2>
-            <p className="text-sm text-gray-500 mb-2">{post.date}</p>
-            <p className="text-gray-600">{post.preview}</p>
-            <button className="mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
+            <p className="text-sm text-gray-500 dark:text-dark-text-secondary mb-2">
+              {post.date}
+            </p>
+            <p className="text-gray-600 dark:text-dark-text-secondary">
+              {post.preview}
+            </p>
+            <button className="mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700">
               Read More
             </button>
           </div>

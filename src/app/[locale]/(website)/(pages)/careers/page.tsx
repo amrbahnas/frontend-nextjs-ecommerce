@@ -10,12 +10,14 @@ const Careers = () => {
         always looking for talented individuals to help us grow.
       </p>
       <div className="space-y-6 w-full max-w-2xl">
-        <div className="p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">
+        <div className="p-6 bg-white dark:bg-dark-bg shadow-md rounded-lg">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-dark-text">
             Frontend Developer
           </h2>
-          <p className="text-gray-600 mt-2">Location: Remote</p>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 dark:text-dark-text-secondary mt-2">
+            Location: Remote
+          </p>
+          <p className="text-gray-600 dark:text-dark-text-secondary mt-2">
             We are looking for a skilled frontend developer with experience in
             React and Tailwind CSS.
           </p>

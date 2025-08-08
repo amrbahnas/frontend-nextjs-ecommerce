@@ -35,7 +35,7 @@ const LoginPage = ({}) => {
         <img src="/loginBg.png" alt="login" className=" w-[80%]" />
       </div>
       <div className=" w-full md:w-1/2 ">
-        <div className=" w-full bg-white border !p-4 md:!p-8 rounded-md shadow-md ">
+        <div className=" w-full bg-white dark:bg-dark-bg border !p-4 md:!p-8 rounded-md shadow-md ">
           <Divider orientation="center">
             <h1 className="text-2xl md:text-3xl font-semibold text-primary">
               {t("title")}

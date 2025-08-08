@@ -23,10 +23,10 @@ const Callbackpage = () => {
   }, [user, error]);
 
   return (
-    <div className="fixed inset-0 bg-white z-50">
+    <div className="fixed inset-0 bg-white dark:bg-dark-bg z-50">
       <div className="flex flex-col items-center justify-center h-full gap-8">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-dark-text mb-2">
             {t("redirecting")}
             <span className="loading-dots">
               <span className="dot">.</span>
@@ -35,7 +35,9 @@ const Callbackpage = () => {
               <span className="dot">.</span>
             </span>
           </h2>
-          <p className="text-gray-600">{t("pleaseWait")}</p>
+          <p className="text-gray-600 dark:text-dark-text-secondary">
+            {t("pleaseWait")}
+          </p>
           <style jsx>{`
             .loading-dots {
               display: inline-block;

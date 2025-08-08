@@ -13,7 +13,7 @@ const Footer = () => {
   const phoneNumber = "+201064480375"; // Format for WhatsApp
 
   return (
-    <footer className="bg-gray-50 text-gray-600 mt-24">
+    <footer className="bg-gray-50 dark:bg-dark-bg-secondary text-gray-600 dark:text-dark-text-secondary mt-24 transition-colors duration-200">
       {/* Newsletter Section */}
       <Newsletter />
 
@@ -24,17 +24,19 @@ const Footer = () => {
           <article className="space-y-6">
             <header>
               <Link href="/" className="block">
-                <h2 className="text-2xl font-bold tracking-wide text-gray-800 m-0">
+                <h2 className="text-2xl font-bold tracking-wide text-gray-800 dark:text-dark-text m-0">
                   {t("brand")}
                 </h2>
               </Link>
             </header>
-            <p className="text-gray-500 leading-relaxed">{t("description")}</p>
+            <p className="text-gray-500 dark:text-dark-text-secondary leading-relaxed">
+              {t("description")}
+            </p>
 
             <address className="space-y-3 not-italic">
               <a
                 href="mailto:elbahnsawy.work@gmail.com"
-                className="flex items-center gap-2 text-nowrap text-gray-600 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-nowrap text-gray-600 dark:text-dark-text-secondary hover:text-primary transition-colors"
               >
                 <span
                   className="material-icons-outlined text-lg"
@@ -108,14 +110,14 @@ const Footer = () => {
 
           {/* Quick Links */}
           <nav className="space-y-6" aria-label="Shop categories">
-            <h3 className="text-lg font-semibold text-gray-800 m-0">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text m-0">
               {t("shop")}
             </h3>
             <ul className="space-y-4 list-none p-0 m-0">
               <li>
                 <Link
                   href="/list?cat=66fc7bc1ce2284e5c7c337ae"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("men")}
                 </Link>
@@ -123,7 +125,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="?cat=66fc7f18e3bd2937a6e60771"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("sport")}
                 </Link>
@@ -131,7 +133,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/list"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("allProducts")}
                 </Link>
@@ -141,14 +143,14 @@ const Footer = () => {
 
           {/* Help */}
           <nav className="space-y-6" aria-label="Customer support">
-            <h3 className="text-lg font-semibold text-gray-800 m-0">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text m-0">
               {t("help")}
             </h3>
             <ul className="space-y-4 list-none p-0 m-0">
               <li>
                 <Link
                   href="/contact-us"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("contactUs")}
                 </Link>
@@ -156,7 +158,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/customer-service"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("customerService")}
                 </Link>
@@ -164,7 +166,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/profile"
-                  className="block text-gray-500 hover:text-primary transition-colors"
+                  className="block text-gray-500 dark:text-dark-text-secondary hover:text-primary transition-colors"
                 >
                   {t("myAccount")}
                 </Link>
@@ -174,7 +176,7 @@ const Footer = () => {
 
           {/* Payment Methods */}
           <section className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-800 m-0">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text m-0">
               {t("paymentMethods")}
             </h3>
             <figure>
@@ -233,7 +235,7 @@ const Footer = () => {
         </section>
 
         {/* Bottom Bar */}
-        <section className="mt-16 pt-8 border-t border-gray-200">
+        <section className="mt-16 pt-8 border-t border-gray-200 dark:border-dark-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
             <p className="text-gray-500 m-0">
               {t("copyright")} &copy; 2025 {t("brand")}.{" "}

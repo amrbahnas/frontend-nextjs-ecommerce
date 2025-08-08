@@ -10,7 +10,7 @@ const AddSubCategoryCard = ({
   return (
     <div
       onClick={() => setVisible(true)}
-      className="group relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer min-h-[160px] border-2 border-dashed border-gray-200 hover:border-blue-400"
+      className="group relative bg-white dark:bg-dark-bg rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer min-h-[160px] border-2 border-dashed border-gray-200 hover:border-blue-400"
     >
       {/* Gradient Overlay on Hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

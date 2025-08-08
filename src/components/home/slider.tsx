@@ -16,21 +16,21 @@ const Slider = () => {
       title: t("springSale"),
       description: t("saleOff"),
       url: "/list",
-      bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
+      bg: "bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20",
     },
     {
       id: 2,
       title: t("summerSale"),
       description: t("saleOff"),
       url: "/list",
-      bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+      bg: "bg-gradient-to-r from-yellow-50 to-pink-50 dark:from-yellow-900/20 dark:to-pink-900/20",
     },
     {
       id: 3,
       title: t("winterSale"),
       description: t("saleOff"),
       url: "/list",
-      bg: "bg-gradient-to-r from-pink-50 to-blue-50",
+      bg: "bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-900/20 dark:to-blue-900/20",
     },
   ];
 
@@ -66,7 +66,7 @@ const Slider = () => {
                 <Button
                   type="primary"
                   size="large"
-                  className="rounded-md !bg-black !text-white !py-5 !px-4"
+                  className="rounded-md !bg-black !text-white !py-5 !px-4 dark:!bg-white dark:!text-black"
                 >
                   {t("shopNow")}
                 </Button>

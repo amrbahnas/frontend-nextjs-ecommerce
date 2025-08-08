@@ -83,7 +83,7 @@ const CheckoutPage = () => {
           responsive={true}
           status="finish"
         />
-        <div className="bg-white p-6 rounded-lg shadow mb-6">
+        <div className="bg-white dark:bg-dark-bg p-6 rounded-lg shadow mb-6">
           <Spin spinning={cashCheckoutLoading || checkoutLoading}>
             {steps[current].content}
           </Spin>

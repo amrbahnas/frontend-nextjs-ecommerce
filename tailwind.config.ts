@@ -7,6 +7,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
@@ -24,6 +25,15 @@ const config: Config = {
       },
       colors: {
         primary: "#F35C7A",
+        // Dark mode colors
+        dark: {
+          bg: "#0f172a",
+          "bg-secondary": "#1e293b",
+          "bg-tertiary": "#334155",
+          text: "#f8fafc",
+          "text-secondary": "#cbd5e1",
+          border: "#475569",
+        },
       },
       gridTemplateColumns: {
         //grid-cols-autoFit

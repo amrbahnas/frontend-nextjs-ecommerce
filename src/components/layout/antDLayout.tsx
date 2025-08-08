@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import "@ant-design/v5-patch-for-react-19";
+import useThemeStore from "@/store/useThemeStore";
 
 export default function AntDLayout({
   children,
@@ -12,12 +13,15 @@ export default function AntDLayout({
   locale?: string;
 }) {
   const direction = locale === "ar" ? "rtl" : "ltr";
+  const currentTheme = useThemeStore((state) => state.theme);
+  const isDark = currentTheme === "dark";
 
   return (
     <AntdRegistry>
       <ConfigProvider
         direction={direction}
         theme={{
+          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
           components: {
             Button: {
               paddingContentHorizontal: 36,
@@ -39,15 +43,12 @@ export default function AntDLayout({
             Divider: {},
             Menu: {
               darkItemColor: "#fff",
-              itemHoverBg: "#fff",
-              darkItemHoverBg: "#000",
-              itemHoverColor: "#9B7029",
-              // itemMarginBlock: "",
-              // itemMarginInline: 20,
-              // itemPaddingInline: "",
-              itemSelectedBg: "",
-              itemSelectedColor: "#9B7029",
-              subMenuItemBg: "",
+              itemHoverBg: isDark ? "#334155" : "#fff",
+              darkItemHoverBg: "#334155",
+              itemHoverColor: "#F35C7A",
+              itemSelectedBg: isDark ? "#475569" : "#f1f5f9",
+              itemSelectedColor: "#F35C7A",
+              subMenuItemBg: isDark ? "#1e293b" : "#ffffff",
               iconSize: 18,
             },
             Layout: {
@@ -59,7 +60,7 @@ export default function AntDLayout({
               algorithm: true,
             },
             Badge: {
-              colorBgContainer: "#fff",
+              colorBgContainer: isDark ? "#1e293b" : "#fff",
             },
             Select: {
               optionFontSize: 12,

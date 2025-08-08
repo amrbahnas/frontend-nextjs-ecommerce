@@ -23,7 +23,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   } = product;
   return (
     <ProductStatusBadge status={status}>
-      <div className="group bg-white rounded-lg border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+      <div className="group bg-white dark:bg-dark-bg-secondary rounded-lg border border-gray-100 dark:border-dark-border hover:border-primary/20 dark:hover:border-primary/40 hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
         {/* Image Section - Made larger */}
         <div className="relative h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden">
           <Link

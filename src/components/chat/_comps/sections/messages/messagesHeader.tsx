@@ -29,7 +29,7 @@ export const MessagesHeader = () => {
   }, [socket, selectedConversation]);
 
   return (
-    <section className="w-full flex items-center gap-2 bg-white">
+    <section className="w-full flex items-center gap-2  transition-colors duration-200">
       <div style={{ position: "relative" }}>
         <Avatar
           src={selectedConversation?.image}

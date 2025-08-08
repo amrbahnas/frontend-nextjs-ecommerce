@@ -49,7 +49,7 @@ const CategoryCard = ({
   };
 
   return (
-    <div className="relative flex flex-col items-center bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <div className="relative flex flex-col items-center bg-white dark:bg-dark-bg   rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
       <div className="relative w-full h-40 flex justify-center items-center overflow-hidden">
         <img
           src={category.image}

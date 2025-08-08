@@ -48,7 +48,7 @@ const SubCategoryCard = ({
   };
 
   return (
-    <div className="group relative bg-white rounded-xl shadow-md sm:shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <div className="group relative bg-white dark:bg-dark-bg rounded-xl shadow-md sm:shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
       {/* Gradient Overlay on Hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

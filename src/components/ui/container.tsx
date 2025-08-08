@@ -12,7 +12,10 @@ const Container = ({
   return (
     <div
       style={style}
-      className={" px-4 md:px-8 lg:px-10 xl:px-24 2xl:px-30 " + className}
+      className={
+        " px-4 md:px-8 lg:px-10 xl:px-24 2xl:px-30 bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text transition-colors duration-200 " +
+        className
+      }
     >
       {children}
     </div>

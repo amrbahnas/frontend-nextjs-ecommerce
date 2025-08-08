@@ -16,7 +16,7 @@ const Navbar = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const md = useBreakPoints("md");
   return (
-    <Container className=" shadow-sm">
+    <Container className="shadow-sm bg-white dark:bg-dark-bg border-b border-gray-200 dark:border-dark-border">
       <div className="min-h-20 flex  flex-col  justify-center py-2 lg:py-4 ">
         <div className="flex items-center justify-between h-full ">
           {/* left */}

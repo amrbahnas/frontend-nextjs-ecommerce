@@ -9,6 +9,7 @@ import { MdDashboard } from "react-icons/md";
 import CartModal from "../cartModel";
 import ProfileIcon from "./profileIcon";
 import ChangeLanguage from "./changeLanguage";
+import ThemeToggle from "./themeToggle";
 
 const NavIcons = () => {
   const { isLogin, isAdmin } = useAuthStore();
@@ -17,6 +18,7 @@ const NavIcons = () => {
   return (
     <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
       <ChangeLanguage />
+      <ThemeToggle />
       <ProfileIcon />
       {isAdmin && (
         <Link href={"/admin"} className="flex items-center gap-1 ">

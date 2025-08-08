@@ -54,7 +54,8 @@ const ProfilePage = () => {
                       type="link"
                       className="flex items-center gap-1 -me-4"
                     >
-                      {t("sections.viewAll")} <FiChevronRight />
+                      {t("sections.viewAll")}{" "}
+                      <FiChevronRight className="rtl:rotate-180" />
                     </Button>
                   </Link>
                 </div>

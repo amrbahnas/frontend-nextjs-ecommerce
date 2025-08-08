@@ -14,18 +14,18 @@ const ProductSkeleton = () => {
 
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
           <Skeleton active />
-          <div className="h-[2px] bg-gray-100" />
+          <div className="h-[2px] bg-gray-100 dark:bg-dark-bg-secondary" />
 
           <div className="flex items-center gap-4">
             <Skeleton.Button active />
           </div>
 
-          <div className="h-[2px] bg-gray-100" />
+          <div className="h-[2px] bg-gray-100 dark:bg-dark-bg-secondary" />
 
           <Skeleton.Button active />
-          <div className="h-[2px] bg-gray-100" />
+          <div className="h-[2px] bg-gray-100 dark:bg-dark-bg-secondary" />
 
-          <div className="h-[2px] bg-gray-100" />
+          <div className="h-[2px] bg-gray-100 dark:bg-dark-bg-secondary" />
 
           <h1 className="text-2xl">User Reviews</h1>
 

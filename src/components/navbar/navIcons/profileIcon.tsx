@@ -89,7 +89,7 @@ const UserAvatar: React.FC<{
   <Avatar
     src={src || "/profile.png"}
     size={size}
-    className={className}
+    className={className + (src ? "" : " dark:invert")}
     alt={name || "User avatar"}
   />
 );

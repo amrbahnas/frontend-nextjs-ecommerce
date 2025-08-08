@@ -17,9 +17,9 @@ const ListPage = () => {
   return (
     <Container>
       {/* CAMPAIGN */}
-      <div className="hidden bg-pink-50 px-4 sm:flex justify-between h-64">
+      <div className="hidden bg-pink-50 dark:bg-pink-900/20 px-4 sm:flex justify-between h-64">
         <div className="w-2/3 flex flex-col items-center justify-center gap-8">
-          <h1 className="text-4xl font-semibold leading-[48px] text-gray-700">
+          <h1 className="text-4xl font-semibold leading-[48px] text-gray-700 dark:text-dark-text">
             {t("campaign.title")}
           </h1>
           <Button className="rounded-3xl w-max !py-4 px-5 text-sm">
@@ -32,7 +32,7 @@ const ListPage = () => {
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
-            className="object-contain"
+            className="object-contain "
           />
         </div>
       </div>

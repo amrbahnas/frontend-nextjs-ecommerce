@@ -7,7 +7,7 @@ const ImageSkeleton = () => {
       src="/image-placeholder.png"
       alt="skeleton"
       fill
-      className="object-cover"
+      className="object-cover dark:invert"
     />
   );
 };

@@ -32,10 +32,10 @@ const LoginPage = ({}) => {
   return (
     <Container className=" flex items-center justify-center gap-4 mt-5">
       <div className="w-1/2 hidden md:block">
-        <img src="/loginBg.png" alt="login" className=" w-[80%]" />
+        <img src="/loginBg.png" alt="login" className=" w-[80%] dark:invert" />
       </div>
       <div className=" w-full md:w-1/2 ">
-        <div className=" w-full bg-white dark:bg-dark-bg border !p-4 md:!p-8 rounded-md shadow-md ">
+        <div className=" w-full bg-white dark:bg-dark-bg border dark:border-dark-border !p-4 md:!p-8 rounded-md shadow-md dark:shadow-dark-bg-secondary ">
           <Divider orientation="center">
             <h1 className="text-2xl md:text-3xl font-semibold text-primary">
               {t("title")}
@@ -106,7 +106,7 @@ const LoginPage = ({}) => {
               {t("forgotPassword")}
             </Link>
             <Button
-              className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
+              className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed  "
               disabled={loginPending}
               loading={loginPending}
               htmlType="submit"
@@ -116,7 +116,7 @@ const LoginPage = ({}) => {
               {loginPending ? t("loading") : t("loginButton")}
             </Button>
             <Link
-              className="text-sm underline cursor-pointer text-gray-600"
+              className="text-sm underline cursor-pointer text-gray-600 dark:text-dark-text-secondary"
               href={"/auth/signup"}
             >
               {t("noAccount")}

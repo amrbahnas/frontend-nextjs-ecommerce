@@ -87,7 +87,7 @@ const ForgetPasswordPage = () => {
       <div className="  justify-center flex items-center w-full -mt-12 max-w-[500px]">
         <Form
           validateTrigger="onSubmit"
-          className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full "
+          className="flex flex-col  border !p-4 md:!p-8 rounded-md shadow-md !-mt-14 !w-full dark:bg-dark-bg dark:border-dark-border dark:shadow-dark-bg-secondary"
           form={form}
           layout="vertical"
           onFinish={handleSubmit}

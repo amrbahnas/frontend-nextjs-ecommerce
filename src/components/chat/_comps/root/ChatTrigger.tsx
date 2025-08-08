@@ -24,7 +24,7 @@ export const ChatTrigger = memo(
         <FloatButton
           onClick={onOpenChat}
           shape="circle"
-          tooltip={notificationContent ? "" : t("trigger.tooltip")}
+          // tooltip={notificationContent ? "" : t("trigger.tooltip")}
           type="primary"
           badge={{
             count: hasNotification ? "!" : 0,

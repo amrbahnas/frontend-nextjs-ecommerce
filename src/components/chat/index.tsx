@@ -27,7 +27,7 @@ const Chat = () => {
   } = useChatContext();
 
   const { conversations } = useGetAllConversations({
-    skip: !isOpen || !isAdmin,
+    skip: !isOpen || isAdmin,
   });
 
   // set initial conversation case  Role is user

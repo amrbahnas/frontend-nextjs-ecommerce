@@ -8,6 +8,7 @@ import { useGetAllConversations } from "./_api/query";
 import { ChatModal } from "./_comps/root/ChatModal";
 import { ChatTrigger } from "./_comps/root/ChatTrigger";
 import { ChatContent } from "./_comps/root/ChatContent";
+import { Spin } from "antd";
 
 const Chat = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
@@ -26,7 +27,7 @@ const Chat = () => {
     setNotificationContent,
   } = useChatContext();
 
-  const { conversations } = useGetAllConversations({
+  const { conversations, isPending } = useGetAllConversations({
     skip: !isOpen || isAdmin,
   });
 
@@ -37,6 +38,7 @@ const Chat = () => {
     selectedConversation,
     setSelectedConversation,
     isOpen,
+    isPending,
   });
 
   const onOpenChat = useCallback(() => {
@@ -67,12 +69,14 @@ const Chat = () => {
         toggleFullScreen={toggleFullScreen}
         isLargeScreen={isLargeScreen}
       >
-        <ChatContent
-          isAdmin={isAdmin}
-          isLargeScreen={isLargeScreen}
-          selectedConversation={selectedConversation}
-          setSelectedConversation={setSelectedConversation}
-        />
+        <Spin spinning={isPending}>
+          <ChatContent
+            isAdmin={isAdmin}
+            isLargeScreen={isLargeScreen}
+            selectedConversation={selectedConversation}
+            setSelectedConversation={setSelectedConversation}
+          />
+        </Spin>
       </ChatModal>
     </>
   );

@@ -69,7 +69,7 @@ const Chat = () => {
         toggleFullScreen={toggleFullScreen}
         isLargeScreen={isLargeScreen}
       >
-        {isPending ? (
+        {isPending && !isAdmin ? (
           <div className="flex items-center justify-center h-full w-full">
             <Spin size="large" />
           </div>

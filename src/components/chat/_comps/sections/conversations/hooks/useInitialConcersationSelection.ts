@@ -4,6 +4,7 @@ import { adminConversation } from "../../messages/welcome";
 interface Props {
   isAdmin: boolean;
   conversations: ConversationType[];
+  selectedConversation: ConversationType | null;
   setSelectedConversation: (conversation: ConversationType | null) => void;
   isOpen: boolean;
 }
@@ -11,6 +12,7 @@ interface Props {
 export const useInitialConversationSelection = ({
   isAdmin,
   conversations,
+  selectedConversation,
   setSelectedConversation,
   isOpen,
 }: Props) => {
@@ -22,7 +24,7 @@ export const useInitialConversationSelection = ({
       const { name, image } = adminConversation;
       setSelectedConversation({ ...conversations[0], name, image });
     } else {
-      setSelectedConversation(adminConversation);
+      !selectedConversation?.id && setSelectedConversation(adminConversation);
     }
-  }, [isAdmin, conversations.length, isOpen]);
+  }, [isAdmin, conversations.length, isOpen, selectedConversation]);
 };

@@ -34,6 +34,7 @@ const Chat = () => {
   useInitialConversationSelection({
     isAdmin,
     conversations,
+    selectedConversation,
     setSelectedConversation,
     isOpen,
   });

@@ -26,7 +26,7 @@ const Newsletter = () => {
   return (
     <div className="bg-primary/5 py-12">
       <Container>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-start sm:items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-semibold text-gray-800 mb-2">
               {t("subscribeNewsletter")}
@@ -37,10 +37,9 @@ const Newsletter = () => {
             <Form
               form={form}
               onFinish={handleSubscribe}
-              className="relative !flex"
+              className="relative !flex !w-full"
               size="large"
               layout="horizontal"
-              dir="ltr"
             >
               <Item
                 name="email"
@@ -53,7 +52,7 @@ const Newsletter = () => {
                   size="large"
                   placeholder={t("enterEmail")}
                   disabled={isPending}
-                  className="!border-r-0 !rounded-r-none"
+                  className="!border-r-0 ltr:!rounded-r-none rtl:!rounded-l-none"
                   allowClear
                 />
               </Item>
@@ -63,7 +62,7 @@ const Newsletter = () => {
                 size="large"
                 loading={isPending}
                 disabled={isPending}
-                className="!px-3 !py-2 !border-l-0 !rounded-l-none"
+                className="!px-3 !py-2 !border-l-0 ltr:!rounded-l-none rtl:!rounded-r-none"
               >
                 {t("subscribe")}
               </Button>

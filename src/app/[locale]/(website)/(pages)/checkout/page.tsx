@@ -76,7 +76,13 @@ const CheckoutPage = () => {
   return (
     <Container>
       <div className="py-8">
-        <Steps current={current} items={items} className="!mb-8" />
+        <Steps
+          current={current}
+          items={items}
+          className="!mb-8"
+          responsive={true}
+          status="finish"
+        />
         <div className="bg-white p-6 rounded-lg shadow mb-6">
           <Spin spinning={cashCheckoutLoading || checkoutLoading}>
             {steps[current].content}

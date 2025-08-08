@@ -79,38 +79,66 @@ const AddressModal = ({
             name="country"
             rules={[{ required: true, message: t("form.country.required") }]}
           >
-            <Input placeholder={t("form.country.placeholder")} />
+            <Input size="large" placeholder={t("form.country.placeholder")} />
           </Item>
           <Item
             label={t("form.city.label")}
             name="city"
             rules={[{ required: true, message: t("form.city.required") }]}
           >
-            <Input placeholder={t("form.city.placeholder")} />
+            <Input size="large" placeholder={t("form.city.placeholder")} />
           </Item>
           <Item
             label={t("form.state.label")}
             name="state"
             rules={[{ required: true, message: t("form.state.required") }]}
           >
-            <Input placeholder={t("form.state.placeholder")} />
+            <Input size="large" placeholder={t("form.state.placeholder")} />
           </Item>
-          <Item label={t("form.zipCode.label")} name="zipCode">
-            <Input placeholder={t("form.zipCode.placeholder")} />
+          <Item
+            label={t("form.zipCode.label")}
+            name="zipCode"
+            rules={[
+              {
+                required: true,
+                message: t("form.zipCode.required"),
+              },
+              {
+                min: 4,
+              },
+            ]}
+          >
+            <Input size="large" placeholder={t("form.zipCode.placeholder")} />
           </Item>
           <Item
             label={t("form.phone.label")}
             name="phone"
-            rules={[{ required: true, message: t("form.phone.required") }]}
+            rules={[
+              { required: true, message: t("form.phone.required") },
+              {
+                min: 8,
+                message: t("form.phone.invalid"),
+              },
+            ]}
           >
-            <Input placeholder={t("form.phone.placeholder")} />
+            <Input size="large" placeholder={t("form.phone.placeholder")} />
           </Item>
           <Item label={t("form.details.label")} name="address">
-            <TextArea placeholder={t("form.details.placeholder")} rows={4} />
+            <TextArea
+              size="large"
+              placeholder={t("form.details.placeholder")}
+              rows={4}
+            />
           </Item>
 
           <Item className="mb-0">
-            <Button type="primary" htmlType="submit" loading={isLoading} block>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={isLoading}
+              block
+              size="large"
+            >
               {initialData ? t("form.submit.update") : t("form.submit.add")}
             </Button>
           </Item>

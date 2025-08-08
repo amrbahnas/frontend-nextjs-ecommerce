@@ -121,7 +121,7 @@ const PopoverContent: React.FC<{
             className="border-2 border-primary/20"
           />
           <div className="flex-1 min-w-0">
-            <h4 dir="ltr" className="font-medium text-gray-900 truncate">
+            <h4 className="font-medium text-gray-900 truncate">
               {user?.name || t("user.guest")}
             </h4>
             <p className="text-sm text-gray-500 truncate">

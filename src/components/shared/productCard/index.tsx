@@ -39,7 +39,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           </Link>
 
           {/* Status Badge */}
-          <div className="absolute top-3 left-3">
+          <div className="absolute top-3 left-3 rtl:right-3">
             <CardBadge productId={id} />
           </div>
 

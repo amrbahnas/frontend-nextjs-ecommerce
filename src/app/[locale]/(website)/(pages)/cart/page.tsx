@@ -65,7 +65,7 @@ const Page = () => {
     <Container>
       <Spin spinning={isLoading || deleting || fetchLoading}>
         <div className="flex flex-col md:flex-row mt-6 gap-4 md:gap-32 items-start">
-          <div className="flex flex-col gap-8 max-h-96 overflow-auto w-full md:flex-1">
+          <div className="flex flex-col gap-8 max-h-96 overflow-auto w-full md:flex-1 p-2 custom-scrollbar">
             {cartItems?.length === 0 && (
               <div className="flex items-center flex-col gap-8">
                 <NoData />

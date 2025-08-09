@@ -42,7 +42,9 @@ const ApplyCoupon = ({
       form={form}
       onFinish={onFinish}
     >
-      <h3 className="text-md font-semibold text-gray-800 mb-2">{t("title")}</h3>
+      <h3 className="text-md font-semibold text-gray-800 dark:text-dark-text mb-2">
+        {t("title")}
+      </h3>
       <div className="flex gap-2">
         <Item
           name="code"

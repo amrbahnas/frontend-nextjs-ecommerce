@@ -44,7 +44,7 @@ const CartItem = ({
               <h3 className="font-semibold">{item.title}</h3>
             </Link>
             {!isOutOfStock && (
-              <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
+              <div className="p-1 bg-gray-50 dark:bg-dark-bg-secondary rounded-sm flex items-center gap-2">
                 {item.quantity && item.quantity > 1 && (
                   <div className="text-xs text-green-500 truncate flex">
                     {item.quantity}

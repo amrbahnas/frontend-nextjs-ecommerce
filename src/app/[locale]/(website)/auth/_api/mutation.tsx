@@ -13,7 +13,7 @@ export const useLogin = () => {
 
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
-  const { storeCart } = useCardStore();
+  const { storeCart, resetCart } = useCardStore();
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
@@ -21,6 +21,7 @@ export const useLogin = () => {
     try {
       setUser(user);
       setAuthData({ role: user.role });
+      resetCart();
       const redirect = getParams("redirect");
       if (!user.emailVerified) {
         if (redirect) {

@@ -107,7 +107,26 @@
     "originalPrice": "السعر الأصلي",
     "rating": "التقييم"
   },
-  "Menu": {},
+  "Menu": {
+    "drawer": {
+      "title": "الإعدادات والخيارات",
+      "subtitle": "إجراءات سريعة",
+      "description": "خصص تجربتك",
+      "language": {
+        "title": "اللغة",
+        "description": "تغيير اللغة"
+      },
+      "theme": {
+        "title": "المظهر",
+        "description": "وضع فاتح أو داكن"
+      },
+      "wishlist": {
+        "title": "المفضلة",
+        "description": "عرض العناصر المحفوظة"
+      },
+      "footer": "اضغط خارج النافذة للإغلاق"
+    }
+  },
   "ProductDetails": {
     "reviews": "تقييمات",
     "size": "المقاس",

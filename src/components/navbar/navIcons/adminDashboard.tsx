@@ -11,8 +11,8 @@ const AdminDashboard = () => {
       href={"/admin"}
       className="flex items-center gap-1 "
     >
-      <MdDashboard />
-      admin
+      <MdDashboard size={20} />
+      <span className="hidden sm:block">Admin Panel</span>
     </SmartLink>
   );
 };

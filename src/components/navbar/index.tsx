@@ -25,15 +25,10 @@ const Navbar = () => {
             className="flex items-center gap-1 lg:gap-3 "
           >
             <NextImage src="/logo.png" width={40} height={40} alt="logo" />
-            {!isAdmin ? (
-              <h1 className=" text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
-                {t("brand")}
-              </h1>
-            ) : (
-              <h1 className=" hidden sm:block text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
-                {t("brand")}
-              </h1>
-            )}
+
+            <h1 className="   text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
+              {t("brand")}
+            </h1>
           </DisableLink>
 
           {/* Big screen */}

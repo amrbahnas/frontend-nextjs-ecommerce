@@ -107,7 +107,26 @@
     "originalPrice": "Original Price",
     "rating": "Rating"
   },
-  "Menu": {},
+  "Menu": {
+    "drawer": {
+      "title": "Settings & Options",
+      "subtitle": "Quick Actions",
+      "description": "Customize your experience",
+      "language": {
+        "title": "Language",
+        "description": "Change language"
+      },
+      "theme": {
+        "title": "Theme",
+        "description": "Light or dark mode"
+      },
+      "wishlist": {
+        "title": "Wishlist",
+        "description": "View saved items"
+      },
+      "footer": "Tap outside to close"
+    }
+  },
   "ProductDetails": {
     "reviews": "reviews",
     "size": "Size",

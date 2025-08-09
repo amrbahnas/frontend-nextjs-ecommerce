@@ -1,17 +1,16 @@
 "use client";
 
-import Container from "@/components/ui/container";
-import { Avatar, Card, Button, Spin } from "antd";
-import MainInfoForm from "./_comps/mainInfoForm";
-import { useGetAllOrders } from "../orders/_api/query";
-import Link from "next/link";
-import dayjs from "dayjs";
-import { FiPackage, FiMapPin, FiChevronRight } from "react-icons/fi";
-import Addresses from "./_comps/addresses";
 import { useMe } from "@/_api/query";
-import ProfileSkeleton from "./_comps/profile.skeleton";
-import LastThreeOrders from "./_comps/lastThreeOrders";
+import Container from "@/components/ui/container";
+import { Button, Card, Spin } from "antd";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { FiChevronRight, FiMapPin } from "react-icons/fi";
+import { useGetAllOrders } from "../orders/_api/query";
+import Addresses from "./_comps/addresses";
+import LastThreeOrders from "./_comps/lastThreeOrders";
+import MainInfoForm from "./_comps/mainInfoForm";
+import ProfileSkeleton from "./_comps/profile.skeleton";
 
 const ProfilePage = () => {
   const { user, isLoading: userLoading, error, refetch } = useMe();

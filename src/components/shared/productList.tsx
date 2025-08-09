@@ -32,7 +32,7 @@ const ProductList = ({
 }) => {
   if (isLoading && displayType === "grid")
     return (
-      <RenderedCardsGrid length={5}>
+      <RenderedCardsGrid length={4}>
         {Array.from({ length: pagination?.pageSize || 5 }).map((_, i) => (
           <ProductCardSkeleton key={i} />
         ))}

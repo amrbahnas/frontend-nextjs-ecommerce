@@ -21,7 +21,7 @@ const AddressCard = ({
   return (
     <div
       key={address.id}
-      className="flex justify-between items-center p-4 border rounded-lg"
+      className="flex justify-between items-center p-4 border dark:border-dark-border rounded-lg"
     >
       <span className="flex-1 truncate">{formatAddress(address)}</span>
       <div className="flex gap-2">

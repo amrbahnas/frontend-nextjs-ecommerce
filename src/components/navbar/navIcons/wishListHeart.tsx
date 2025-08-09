@@ -8,8 +8,8 @@ import { useTranslations } from "next-intl";
 
 const WishListHeart = ({ mobile = false }: { mobile?: boolean }) => {
   const user = useUserStore((state) => state.user);
-  if (!user) return null;
   const t = useTranslations("Menu.drawer");
+  if (!user) return null;
 
   const icon = (
     <Badge

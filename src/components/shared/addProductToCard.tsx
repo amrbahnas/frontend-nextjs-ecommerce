@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { MdAddShoppingCart } from "react-icons/md";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import resSanatize from "@/services/sanatizeApiRes";
 
 type ButtonStyleType = {
@@ -36,7 +36,7 @@ const AddProductToCard = ({
   const isLogin = useAuthStore((state) => state.isLogin);
   const { addProduct, isPending } = useAddProductToCart();
   const { addCartItem, setOnlineCart, storeCart, onlineCart } = useCardStore();
-
+  const locale = useLocale();
   const t = useTranslations("AddToCart");
 
   const cartItemCount = useMemo(() => {
@@ -90,7 +90,7 @@ const AddProductToCard = ({
                   totalCartPrice: cart?.totalCartPrice || 0,
                 });
 
-                successToast();
+                successToast(locale as string);
               } catch (error: any) {
                 toast.error(t("errorMessage"));
               }
@@ -109,7 +109,7 @@ const AddProductToCard = ({
           imageCover: product.imageCover,
         });
 
-        successToast();
+        successToast(locale as string);
       }
     } catch (error) {
       toast.error(t("errorMessage"));
@@ -126,15 +126,15 @@ const AddProductToCard = ({
 };
 
 export default AddProductToCard;
-const successToast = () => {
+const successToast = (lang: string) => {
   toast.success(
     <div>
-      Product added to cart
+      {lang === "ar" ? "تم إضافة المنتج إلى السلة" : "Product added to cart"}
       <Link
         href="/cart"
         className="!text-blue-500 !underline !ms-2 !font-semibold"
       >
-        View Cart
+        {lang === "ar" ? "عرض السلة" : "View Cart"}
       </Link>
     </div>,
     {

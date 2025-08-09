@@ -1,15 +1,15 @@
 import Link from "next/link";
 
 import { useToggleProductWishlist } from "@/_api/actions";
+import resSanatize from "@/services/sanatizeApiRes";
 import useAuthStore from "@/store/useAuthStore";
 import useUserStore from "@/store/useUserStore";
-import { Spin } from "antd";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import HeartAnimation from "../ui/heartAnimation";
-import resSanatize from "@/services/sanatizeApiRes";
 
 const WishlistButton = ({
   productId,
@@ -23,7 +23,7 @@ const WishlistButton = ({
   const isLogin = useAuthStore((state) => state.isLogin);
   const wishlist = user?.wishlist || [];
   const setUser = useUserStore((state) => state.setUser);
-
+  const locale = useLocale();
   const [isWithListed, setIsWithListed] = useState(
     wishlist.includes(productId)
   );
@@ -44,9 +44,13 @@ const WishlistButton = ({
           const newUser = resSanatize(res);
           setUser(newUser);
           if (!isWithListed) {
-            successToast();
+            successToast(locale as string);
           } else {
-            toast.success("Product Removed from wishlist");
+            toast.success(
+              locale === "ar"
+                ? "تم إزالة المنتج من المفضلة"
+                : "Product Removed from wishlist"
+            );
           }
         },
         onError: () => {
@@ -73,15 +77,17 @@ const WishlistButton = ({
   );
 };
 
-const successToast = () => {
+const successToast = (lang: string) => {
   toast.success(
     <div className={"flex items-center gap-1 flex-wrap"}>
-      Product added to wishlist
+      {lang === "ar"
+        ? "تم إضافة المنتج إلى المفضلة"
+        : "Product added to wishlist"}
       <Link
         href="/wishlist"
         className="!text-blue-500 !underline !ms-2 !font-semibold"
       >
-        View wishlist
+        {lang === "ar" ? "عرض المفضلة" : "View wishlist"}
       </Link>
     </div>,
     {

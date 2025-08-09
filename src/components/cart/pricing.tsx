@@ -20,7 +20,7 @@ const Pricing = ({
         <span className="">{t("totalPrice")}:</span>
         <span className="">
           {t("currency")}
-          {totalCartPrice}
+          {totalCartPrice.toFixed(2)}
         </span>
       </div>
       {totalPriceAfterDiscount < totalCartPrice && (

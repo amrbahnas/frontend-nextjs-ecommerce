@@ -27,9 +27,9 @@ const ChangeLanguage = () => {
         onClick={toggleLanguage}
         className="flex items-center justify-center gap-2 w-fit !m-0 !px-2 !py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
       >
-        <IoLanguage className="text-lg opacity-70" />
+        {/* <IoLanguage className="text-lg opacity-70" /> */}
         <span className="text-sm font-medium">
-          {currentLocale === "en" ? "Arabic" : "English"}
+          {currentLocale === "en" ? "العربية" : "English"}
         </span>
       </Button>
     </Tooltip>

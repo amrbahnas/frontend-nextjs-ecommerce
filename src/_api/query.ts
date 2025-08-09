@@ -1,5 +1,4 @@
 import useInfiniteQuery from "@/hooks/apiHandler/useInfiniteQuery";
-import usePagination from "@/hooks/apiHandler/usePagination";
 import useQuery from "@/hooks/apiHandler/useQuery";
 import useAuthStore from "@/store/useAuthStore";
 import { cartDataPlaceholder } from "@/utils/responsePlaceholder";

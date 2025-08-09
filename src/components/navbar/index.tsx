@@ -1,4 +1,6 @@
 "use client";
+import useAuthStore from "@/store/useAuthStore";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { memo } from "react";
 import Container from "../ui/container";
@@ -6,15 +8,12 @@ import DisableLink from "../ui/disableLink";
 import NextImage from "../ui/nextImage";
 import NavIcons from "./navIcons";
 import SearchBar from "./searchBar";
-import { useTranslations } from "next-intl";
-import useAuthStore from "@/store/useAuthStore";
-import useBreakPoints from "@/hooks/global/userBreakPoints";
 
 const Navbar = () => {
   const pathName = usePathname();
   const t = useTranslations("Navigation");
   const isAdmin = useAuthStore((state) => state.isAdmin);
-  const md = useBreakPoints("md");
+
   return (
     <Container className="shadow-sm bg-white dark:bg-dark-bg border-b border-gray-200 dark:border-dark-border">
       <div className="min-h-20 flex  flex-col  justify-center py-2 lg:py-4 ">

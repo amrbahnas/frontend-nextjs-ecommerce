@@ -1,45 +1,25 @@
-import { useGetCart } from "@/_api/query";
 import useAuthStore from "@/store/useAuthStore";
 import useCardStore from "@/store/useCardStore";
 import { Badge, Popover } from "antd";
 import { usePathname, useRouter } from "next/navigation";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
-import CartSkeleton from "./cart.skeleton";
 import CartBody from "./cartBody";
+import { useGetCartCount } from "@/_api/query";
 
 const CartModal = () => {
   const route = useRouter();
   const pathName = usePathname();
   const [open, setOpen] = useState(false);
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { storeCart, setOnlineCart, onlineCart } = useCardStore();
-  const {
-    cart: apiCart,
-    isLoading,
-    refetch,
-  } = useGetCart({
-    skip: !open,
+  const { storeCart, onlineCart } = useCardStore();
+  const { cartItemsCount } = useGetCartCount({
+    skip: !isLogin || onlineCart.cartItems.length > 0,
   });
-
-  const renderedCart = (isLogin ? apiCart : storeCart) as CartType;
   const cartCount = isLogin
-    ? onlineCart.cartItems.length
+    ? onlineCart.cartItems.length || cartItemsCount
     : storeCart.cartItems.length;
 
-  useEffect(() => {
-    if (open && isLogin) refetch();
-  }, [open, isLogin]);
-
-  useEffect(() => {
-    if (apiCart.id && isLogin) {
-      setOnlineCart({
-        id: apiCart.id,
-        cartItems: apiCart.cartItems,
-        totalCartPrice: apiCart.totalCartPrice,
-      });
-    }
-  }, [apiCart]);
   const onOpenChangeHandler = () => {
     if (pathName === "/cart") return;
     cartCount > 2 ? route.push("/cart") : setOpen(!open);
@@ -50,13 +30,7 @@ const CartModal = () => {
       open={open}
       destroyOnHidden
       onOpenChange={onOpenChangeHandler}
-      content={
-        isLoading ? (
-          <CartSkeleton />
-        ) : (
-          <CartBody refetch={refetch} cart={renderedCart} setOpen={setOpen} />
-        )
-      }
+      content={<CartBody setOpen={setOpen} />}
       trigger="click"
     >
       <Badge

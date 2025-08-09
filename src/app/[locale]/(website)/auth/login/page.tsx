@@ -13,18 +13,20 @@ import { useLogin } from "../_api/mutation";
 import { FaGoogle } from "react-icons/fa";
 import { thirdpartAuth } from "@/constant/thirdpartAuth";
 import { useTranslations } from "next-intl";
+import useUserStore from "@/store/useUserStore";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
   const router = useRouter();
   const isLogin = useAuthStore((state) => state.isLogin);
+  const user = useUserStore((state) => state.user);
   const { logout } = useLogout();
   const { login, loginError, loginPending } = useLogin();
   const t = useTranslations("auth.login");
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin || user) {
       logout();
     }
   }, []);

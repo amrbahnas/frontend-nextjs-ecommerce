@@ -1,30 +1,31 @@
-import CheckoutType from "@/components/cart/checkoutType";
+import { useGetCart } from "@/_api/query";
 import ResetCart from "@/components/cart/resetCart";
 import useCartActions from "@/hooks/global/useCartActions";
 import useAuthStore from "@/store/useAuthStore";
-import { Button, Empty, Spin } from "antd";
-import Link from "next/link";
-import { memo, useState } from "react";
+import useCardStore from "@/store/useCardStore";
+import { Empty, Spin } from "antd";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
 import ApplyCoupon from "../../cart/applyCoupon";
 import CartItem from "../../cart/cartItem";
 import Pricing from "../../cart/pricing";
+import CartSkeleton from "./cart.skeleton";
 import CartActionsBTN from "./cartActionsBTN";
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 
-const CartBody = ({
-  cart,
-  refetch,
-  setOpen,
-}: {
-  cart: CartType;
-  refetch: any;
-  setOpen: (value: boolean) => void;
-}) => {
-  const [deleting, setDeleting] = useState(false);
-  const isLogin = useAuthStore((state) => state.isLogin);
+const CartBody = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
   const route = useRouter();
   const t = useTranslations("Cart");
+  const [deleting, setDeleting] = useState(false);
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { storeCart, setOnlineCart } = useCardStore();
+  const {
+    cart: apiCart,
+    isLoading: isLoadingApiCart,
+    refetch,
+  } = useGetCart({
+    skip: !isLogin,
+  });
 
   const {
     cartItems = [],
@@ -32,7 +33,18 @@ const CartBody = ({
     id: cartId,
     totalPriceAfterDiscount,
     appliedCoupon,
-  } = cart;
+    invalidCart,
+  } = (isLogin ? apiCart : storeCart) as CartType;
+
+  useEffect(() => {
+    if (apiCart.id && isLogin) {
+      setOnlineCart({
+        id: apiCart.id,
+        cartItems: apiCart.cartItems,
+        totalCartPrice: apiCart.totalCartPrice,
+      });
+    }
+  }, [apiCart]);
 
   const { isLoading, handleResetCart } = useCartActions({
     cartId,
@@ -48,6 +60,8 @@ const CartBody = ({
     route.push("/checkout");
     setOpen(false);
   };
+
+  if (isLoadingApiCart) return <CartSkeleton />;
 
   return (
     <Spin spinning={isLoading || deleting}>
@@ -87,7 +101,7 @@ const CartBody = ({
                 {t("shippingNote")}
               </p>
               <CartActionsBTN
-                invalidCart={cart.invalidCart}
+                invalidCart={invalidCart}
                 isLoading={isLoading}
                 handleCheckout={handleCheckout}
                 setOpen={setOpen}

@@ -26,7 +26,7 @@ const Navbar = () => {
           >
             <NextImage src="/logo.png" width={40} height={40} alt="logo" />
 
-            <h1 className="   text-md sm:text-2xl tracking-wide select-none  text-transparent  bg-clip-text bg-gradient-to-r from-primary to-yellow-500 font-bold ">
+            <h1 className="   text-md sm:text-2xl tracking-wide select-none  text-transparent   supports-[background-clip:text]:bg-clip-text bg-gradient-to-r from-primary to-yellow-500  font-bold ">
               {t("brand")}
             </h1>
           </DisableLink>

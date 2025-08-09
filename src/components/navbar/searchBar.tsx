@@ -173,7 +173,7 @@ const SearchBar = ({ customId }: { customId?: string }) => {
           styles={{
             popup: {
               root: {
-                top: lg ? 70 : 85,
+                top: lg ? 70 : 95,
                 maxHeight: 400,
                 overflow: "auto",
               },

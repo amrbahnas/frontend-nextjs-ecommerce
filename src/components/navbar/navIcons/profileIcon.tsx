@@ -59,7 +59,7 @@ const useProfilePopover = () => {
   const { logout, isPending } = useLogout();
 
   const handleToggle = () => {
-    isLogin ? setIsOpen(!isOpen) : router.push("/auth/login");
+    isLogin && setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
@@ -175,13 +175,14 @@ export const ProfileIcon = () => {
         root: "!p-0 !m-0 !w-64",
       }}
     >
-      <div className="flex items-center gap-3 cursor-pointer group">
-        <UserAvatar
-          src={user?.profileImg}
-          name={user?.name}
-          className="border-2 border-transparent group-hover:border-primary/20 transition-colors"
-        />
-        {isLogin ? (
+      {isLogin ? (
+        <div className="flex items-center gap-3 cursor-pointer group">
+          <UserAvatar
+            src={user?.profileImg}
+            name={user?.name}
+            className="border-2 border-transparent group-hover:border-primary/20 transition-colors"
+          />
+
           <div className="hidden md:block">
             <p
               dir="ltr"
@@ -193,17 +194,21 @@ export const ProfileIcon = () => {
               {user?.email}
             </p> */}
           </div>
-        ) : (
-          <div className="hidden md:block">
-            <p className="text-sm font-medium text-gray-700 dark:text-dark-text">
-              {t("guest")}
-            </p>
-            <p className="text-xs text-gray-500 truncate max-w-[100px] group-hover:text-primary transition-colors dark:text-dark-text-secondary">
-              {t("loginButton")}
-            </p>
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div>
+          {/* <p className="text-sm font-medium text-gray-700 dark:text-dark-text">
+            {t("guest")}
+          </p> */}
+          <SmartLink
+            prefetchOnHover
+            href="/auth/login"
+            className=" hover:text-primary hover:underline transition-all duration-200 text-sm sm:text-base"
+          >
+            {t("loginButton")}
+          </SmartLink>
+        </div>
+      )}
     </Popover>
   );
 };

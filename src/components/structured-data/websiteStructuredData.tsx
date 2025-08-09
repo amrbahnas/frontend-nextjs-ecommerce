@@ -2,7 +2,7 @@ const WebsiteStructuredData = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Elbahnsawy store",
+    name: "El-bahnsawy store",
     alternateName: "Shop Amr",
     url: process.env.NEXT_PUBLIC_SITE_URL,
     potentialAction: {
@@ -15,7 +15,7 @@ const WebsiteStructuredData = () => {
     },
     publisher: {
       "@type": "Organization",
-      name: "Elbahnsawy store",
+      name: "El-bahnsawy store",
       alternateName: "Shop Amr",
       logo: {
         "@type": "ImageObject",

@@ -23,6 +23,7 @@
     }
   },
   "Common": {
+    "adminPanel": "Admin Panel",
     "loading": "Loading...",
     "error": "An error occurred",
     "addToCart": "Add to Cart",

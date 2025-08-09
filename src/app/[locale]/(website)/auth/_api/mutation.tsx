@@ -6,12 +6,14 @@ import useAuthStore from "@/store/useAuthStore";
 import resSanatize from "@/services/sanatizeApiRes";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import useCardStore from "@/store/useCardStore";
 export const useLogin = () => {
   const { setUser } = useUserStore();
   const { getParams } = useParamsService({});
 
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
+  const { storeCart } = useCardStore();
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
@@ -36,9 +38,16 @@ export const useLogin = () => {
   };
 
   const login = (values: { email: string; password: string }) => {
-    mutate(values, {
-      onSuccess: (res) => onLoginSuccess(resSanatize(res)),
-    });
+    mutate(
+      {
+        ...values,
+        cartItems:
+          storeCart?.cartItems?.length > 0 ? storeCart.cartItems : undefined,
+      },
+      {
+        onSuccess: (res) => onLoginSuccess(resSanatize(res)),
+      }
+    );
   };
 
   return {

@@ -2,23 +2,22 @@
 import Item from "@/components/antd/item";
 import Container from "@/components/ui/container";
 import { Error } from "@/components/ui/error";
-import useParamsService from "@/hooks/global/useParamsService";
+import { thirdpartAuth } from "@/constant/thirdpartAuth";
+import { useLogout } from "@/hooks/global/useLogout";
+import useAuthStore from "@/store/useAuthStore";
+import useUserStore from "@/store/useUserStore";
 import { Button, Divider, Form, Input } from "antd";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useLogout } from "@/hooks/global/useLogout";
-import useAuthStore from "@/store/useAuthStore";
-import { useLogin } from "../_api/mutation";
 import { FaGoogle } from "react-icons/fa";
-import { thirdpartAuth } from "@/constant/thirdpartAuth";
-import { useTranslations } from "next-intl";
-import useUserStore from "@/store/useUserStore";
+import { useLogin } from "../_api/mutation";
 const { Password } = Input;
 
 const LoginPage = ({}) => {
   const [form] = Form.useForm();
-  const router = useRouter();
+
   const isLogin = useAuthStore((state) => state.isLogin);
   const user = useUserStore((state) => state.user);
   const { logout } = useLogout();

@@ -29,14 +29,6 @@ export const useResetCart = () => {
   };
 };
 
-export const useMergeLocalCart = () => {
-  const { mutate: mergeCart, isPending } = useMutation(`/cart/merge`);
-  return {
-    mergeCart,
-    isPending,
-  };
-};
-
 export const useCardCheckout = (cartId: string) => {
   const { mutate: cardCheckout, isPending: checkoutLoading } = useMutation(
     `/payments/credit-order/${cartId}`

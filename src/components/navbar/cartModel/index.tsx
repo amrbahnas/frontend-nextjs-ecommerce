@@ -22,7 +22,8 @@ const CartModal = () => {
 
   const onOpenChangeHandler = () => {
     if (pathName === "/cart") return;
-    cartCount > 2 ? route.push("/cart") : setOpen(!open);
+    setOpen((prev) => !prev);
+    cartCount > 2 && route.push("/cart");
   };
 
   return (

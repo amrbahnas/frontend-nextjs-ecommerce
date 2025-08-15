@@ -2,12 +2,16 @@
 import useAuthStore from "@/store/useAuthStore";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { memo } from "react";
 import Container from "../ui/container";
 import DisableLink from "../ui/disableLink";
 import NextImage from "../ui/nextImage";
 import NavIcons from "./navIcons";
-import SearchBar from "./searchBar";
+
+const SearchBar = dynamic(() => import("./searchBar"), {
+  ssr: false,
+});
 
 const Navbar = () => {
   const pathName = usePathname();

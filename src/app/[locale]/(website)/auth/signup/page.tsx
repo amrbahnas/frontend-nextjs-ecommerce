@@ -19,7 +19,7 @@ const SignUpPage = () => {
 
   return (
     <Container className="h-[calc(100dvh-80px)] flex items-center justify-center">
-      <div className=" w-full md:w-7/12   sm:border sm:dark:border-dark-border p-4 md:p-8 !pt-0 rounded-md shadow-md mt-3 dark:bg-dark-bg dark:shadow-dark-bg-secondary">
+      <div className=" w-full md:w-7/12    p-4 md:p-8 !pt-0 rounded-md shadow-md mt-3 dark:bg-dark-bg dark:shadow-dark-bg-secondary">
         <Divider orientation="center">
           <h1 className="text-2xl md:text-3xl font-semibold text-primary">
             {t("title")}

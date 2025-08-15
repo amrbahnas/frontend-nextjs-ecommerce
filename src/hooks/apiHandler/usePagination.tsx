@@ -2,18 +2,23 @@
 
 import axiosInstance from "@/config/apiClient";
 import proxyAxiosInstance from "@/config/proxyClient";
+import useAuthStore from "@/store/useAuthStore";
 import {
   keepPreviousData as keepPreviousDataPlaceholder,
   useQuery as reactUseQuery,
 } from "@tanstack/react-query";
 import ms from "ms";
 import { useEffect, useState, useRef } from "react";
+import toast from "react-hot-toast";
+import { useLogout } from "../global/useLogout";
 
-function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
+async function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
+  const { logout } = useLogout();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
   const prevParamsRef = useRef(options?.params);
+  const isLogin = useAuthStore((state) => state.isLogin);
 
   useEffect(() => {
     if (
@@ -35,7 +40,7 @@ function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
     return res.data;
   };
 
-  const { data, isLoading, ...result } = reactUseQuery({
+  const { data, isLoading, ...result } = reactUseQuery<any, CustomError>({
     queryKey: [endpoint, page, options?.params || "", pageSize],
     queryFn,
     staleTime: ms(options?.staleTime || "5s"),
@@ -48,6 +53,31 @@ function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
       : undefined,
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
+
+  useEffect(() => {
+    if (result.error) {
+      const handleError = async () => {
+        process.env.NEXT_PUBLIC_ENV === "development" &&
+          toast.error(
+            JSON.stringify(
+              result.error.response?.data || "Internal Server Error"
+            )
+          );
+
+        if (isLogin) {
+          if (result.error.response?.status === 401) {
+            await logout("/auth/login");
+            return;
+          }
+          if (result.error.response?.status === 403) {
+            await logout("/inactiveAccount");
+            return;
+          }
+        }
+      };
+      handleError();
+    }
+  }, [result.error]);
 
   return {
     pagination: {

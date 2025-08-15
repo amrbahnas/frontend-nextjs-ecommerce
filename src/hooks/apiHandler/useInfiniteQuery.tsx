@@ -3,7 +3,9 @@ import ms from "ms";
 import { useLogout } from "../global/useLogout";
 import axiosInstance from "@/config/apiClient";
 import proxyAxiosInstance from "@/config/proxyClient";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import toast from "react-hot-toast";
+import useAuthStore from "@/store/useAuthStore";
 
 // ex:usage
 // export const useGetCalibrationCertificated = (id: string) => {
@@ -15,10 +17,11 @@ import { useMemo } from "react";
 
 function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
   const { logout } = useLogout();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
   const pageSize = options?.pageSize || 12;
 
-  const fetchPage = async ({ pageParam = 1 }) => {
+  const fetchPage = async ({ pageParam = 1 }: any) => {
     const res = await instance.get(endpoint, {
       params: {
         pageSize,
@@ -38,7 +41,7 @@ function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
     isFetchingNextPage,
     refetch,
     ...result
-  } = reactUseInfiniteQuery({
+  } = reactUseInfiniteQuery<any, CustomError>({
     queryKey: [endpoint, options?.params || "", pageSize],
     queryFn: fetchPage,
     initialPageParam: 1,
@@ -57,10 +60,29 @@ function useInfiniteQuery<T>(endpoint: string, options?: QueryOptionsType) {
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
-  //@ts-ignore
-  if (error?.response?.status === 401) {
-    logout();
-  }
+  useEffect(() => {
+    if (error) {
+      const handleError = async () => {
+        process.env.NEXT_PUBLIC_ENV === "development" &&
+          toast.error(
+            JSON.stringify(error.response?.data || "Internal Server Error")
+          );
+
+        if (isLogin) {
+          if (error.response?.status === 401) {
+            await logout("/auth/login");
+            return;
+          }
+          if (error.response?.status === 403) {
+            await logout("/inactiveAccount");
+            return;
+          }
+        }
+      };
+      handleError();
+    }
+  }, [error]);
+
   // Flatten the pages data for easier consumption
   const lists = useMemo(() => {
     const items = data?.pages?.flatMap((page) => page.data?.list) || [];

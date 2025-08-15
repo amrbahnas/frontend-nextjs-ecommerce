@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 export const useLogout = () => {
   const resetData = useResetAppData();
   const { mutate, isPending } = useLogoutApi();
-  const logout = (pushTo?: string) => {
-    mutate(
+  const logout = async (pushTo?: string) => {
+    return mutate(
       {},
       {
         onSuccess: () => {

@@ -6,6 +6,7 @@ import { useQuery as reactUseQuery } from "@tanstack/react-query";
 import ms from "ms";
 import toast from "react-hot-toast";
 import { useLogout } from "../global/useLogout";
+import { useEffect } from "react";
 
 type UseQueryOptionsType = {
   params?: ParamsType;
@@ -17,7 +18,7 @@ type UseQueryOptionsType = {
   disableProxy?: boolean;
 };
 
-function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
+async function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const { logout } = useLogout();
   const isLogin = useAuthStore((state) => state.isLogin);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;
@@ -40,21 +41,30 @@ function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
     refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
   });
 
-  if (result.error) {
-    process.env.NEXT_PUBLIC_ENV === "development" &&
-      toast.error(
-        JSON.stringify(result.error.response?.data || "Internal Server Error")
-      );
+  useEffect(() => {
+    if (result.error) {
+      const handleError = async () => {
+        process.env.NEXT_PUBLIC_ENV === "development" &&
+          toast.error(
+            JSON.stringify(
+              result.error.response?.data || "Internal Server Error"
+            )
+          );
 
-    if (isLogin) {
-      if (result.error.response?.status === 401) {
-        logout("/auth/login");
-      }
-      if (result.error.response?.status === 403) {
-        logout("/inactiveAccount");
-      }
+        if (isLogin) {
+          if (result.error.response?.status === 401) {
+            await logout("/auth/login");
+            return;
+          }
+          if (result.error.response?.status === 403) {
+            await logout("/inactiveAccount");
+            return;
+          }
+        }
+      };
+      handleError();
     }
-  }
+  }, [result.error]);
 
   return {
     data: data?.data as T | undefined,

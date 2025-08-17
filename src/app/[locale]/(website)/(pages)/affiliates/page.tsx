@@ -1,5 +1,26 @@
 import Container from "@/components/ui/container";
 import React from "react";
+import { Metadata } from "next";
+
+// Generate metadata for SEO
+export const metadata: Metadata = {
+  title: "Affiliate Program - Partner with Us",
+  description:
+    "Become an affiliate and earn commissions by promoting our products. Join our program and grow your income!",
+  keywords: [
+    "affiliate program",
+    "partner",
+    "commissions",
+    "earn money",
+    "promote products",
+  ],
+  openGraph: {
+    title: "Affiliate Program - Partner with Us",
+    description:
+      "Become an affiliate and earn commissions by promoting our products.",
+    type: "website",
+  },
+};
 
 const Affiliates = () => {
   return (

@@ -18,7 +18,7 @@ type UseQueryOptionsType = {
   disableProxy?: boolean;
 };
 
-async function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
+function useQuery<T>(endpoint: string, options?: UseQueryOptionsType) {
   const { logout } = useLogout();
   const isLogin = useAuthStore((state) => state.isLogin);
   const instance = options?.disableProxy ? axiosInstance : proxyAxiosInstance;

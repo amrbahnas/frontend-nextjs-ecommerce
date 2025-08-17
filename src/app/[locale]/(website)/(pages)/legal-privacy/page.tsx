@@ -1,9 +1,31 @@
 import Container from "@/components/ui/container";
 import React from "react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 
-const LegalPrivacy = () => {
-  const t = useTranslations("legalPrivacy");
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("legalPrivacy");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "privacy policy",
+      "terms of service",
+      "legal",
+      "data protection",
+    ],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+    },
+  };
+}
+
+const LegalPrivacy = async () => {
+  const t = await getTranslations("legalPrivacy");
 
   return (
     <Container className="flex flex-col items-center justify-center min-h-96 py-16">

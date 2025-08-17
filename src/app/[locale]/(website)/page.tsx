@@ -1,25 +1,30 @@
-"use client";
-import CategoriesSlider from "@/app/[locale]/(website)/(pages)/_comps/categoriesSlider";
-import Slider from "@/components/home/slider";
-import Container from "@/components/ui/container";
-import ProductStatsList from "./(pages)/_comps/product-stats/productStatsList";
+import { Metadata } from "next";
+import ClientHomePage from "./_components/ClientHomePage";
 
-const HomePage = () => {
-  return (
-    <div>
-      <Slider />
-      <Container>
-        <CategoriesSlider />
-        <div className=" space-y-9 mt-8">
-          <ProductStatsList type="most-sold" />
-          <ProductStatsList type="new-arrivals" displayType="swiper" />
-          <ProductStatsList type="top-rated" />
-          <ProductStatsList type="trending" />
-          <ProductStatsList type="featured" />
-        </div>
-      </Container>
-    </div>
-  );
+// Generate metadata for SEO
+export const metadata: Metadata = {
+  title: "El-bahnsawy store | Your Premier E-commerce Destination",
+  description:
+    "Discover amazing products at great prices. Shop the latest trends in fashion, electronics, and more.",
+  keywords: [
+    "e-commerce",
+    "online shopping",
+    "fashion",
+    "electronics",
+    "best deals",
+  ],
+  openGraph: {
+    title: "El-bahnsawy store",
+    description: "Your Premier E-commerce Destination",
+    type: "website",
+  },
+};
+
+// Enable ISR with revalidation every 3600 seconds (1 hour)
+export const revalidate = 3600;
+
+const HomePage = async () => {
+  return <ClientHomePage />;
 };
 
 export default HomePage;

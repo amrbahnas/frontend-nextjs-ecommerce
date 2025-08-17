@@ -20,7 +20,7 @@ const ReviewCard = ({
   const displayedDate =
     review.updatedAt !== review.createdAt ? review.updatedAt : review.createdAt;
   return (
-    <div className="flex items-start gap-4 font-medium border px-4 py-3 rounded-md">
+    <div className="flex items-start gap-4 font-medium border border-gray-200 dark:border-dark-border px-4 py-3 rounded-md">
       <NextImage
         src={review?.user?.profileImg || "/profile.png"}
         alt=""
@@ -31,7 +31,7 @@ const ReviewCard = ({
       <div className="flex flex-col flex-1">
         <div className="flex flex-col">
           <div className="flex flex-col mb-1">
-            <div className="flex items-center gap-1 text-gray-700">
+            <div className="flex items-center gap-1 text-gray-700 dark:text-dark-text">
               <span>{review.user?.name}</span>
               {currentUserIsOwnThisReview && (
                 <span className="text-xs text-gray-500"> ({t("you")})</span>

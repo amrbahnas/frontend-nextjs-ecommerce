@@ -41,7 +41,7 @@ const CategoriesSlider = () => {
           },
         }}
       >
-        {categories?.map((category) => (
+        {categories?.map((category: CategoryType) => (
           <SwiperSlide key={category.id}>
             <CategoryCard category={category} />
           </SwiperSlide>

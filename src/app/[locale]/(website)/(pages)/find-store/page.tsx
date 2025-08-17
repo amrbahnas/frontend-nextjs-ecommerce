@@ -1,9 +1,26 @@
 import Container from "@/components/ui/container";
 import React from "react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 
-const FindAStore = () => {
-  const t = useTranslations("findStore");
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("findStore");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: ["store locator", "find store", "locations", "address"],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+    },
+  };
+}
+
+const FindAStore = async () => {
+  const t = await getTranslations("findStore");
 
   return (
     <Container className="flex flex-col items-center justify-center min-h-96 py-16">

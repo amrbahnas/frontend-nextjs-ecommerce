@@ -2,10 +2,27 @@ import Container from "@/components/ui/container";
 import React from "react";
 import { FaFacebookSquare, FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 
-const AboutUs = () => {
-  const t = useTranslations("AboutUs");
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("AboutUs");
+
+  return {
+    title: t("title"),
+    description: t("description.intro"),
+    keywords: ["about us", "team", "e-commerce", "online store"],
+    openGraph: {
+      title: t("title"),
+      description: t("description.intro"),
+      type: "website",
+    },
+  };
+}
+
+const AboutUs = async () => {
+  const t = await getTranslations("AboutUs");
 
   return (
     <Container className="flex flex-col items-center justify-center py-16 min-h-96">

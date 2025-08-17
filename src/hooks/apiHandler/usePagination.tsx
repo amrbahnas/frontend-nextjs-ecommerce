@@ -12,7 +12,7 @@ import { useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { useLogout } from "../global/useLogout";
 
-async function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
+function usePagination<T>(endpoint: string, options?: QueryOptionsType) {
   const { logout } = useLogout();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(options?.pageSize || 10);

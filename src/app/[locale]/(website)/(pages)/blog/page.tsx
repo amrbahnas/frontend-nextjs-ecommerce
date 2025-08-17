@@ -1,5 +1,20 @@
 import Container from "@/components/ui/container";
 import React from "react";
+import { Metadata } from "next";
+
+// Generate metadata for SEO
+export const metadata: Metadata = {
+  title: "Blog - Tips, Insights & Community Stories",
+  description:
+    "Explore our blog for the latest tips, product insights, and stories from our community.",
+  keywords: ["blog", "tips", "product insights", "community", "articles"],
+  openGraph: {
+    title: "Blog - Tips, Insights & Community Stories",
+    description:
+      "Explore our blog for the latest tips, product insights, and stories from our community.",
+    type: "website",
+  },
+};
 
 const Blog = () => {
   const posts = [

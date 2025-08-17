@@ -1,5 +1,26 @@
 import Container from "@/components/ui/container";
 import React from "react";
+import { Metadata } from "next";
+
+// Generate metadata for SEO
+export const metadata: Metadata = {
+  title: "Careers - Join Our Team",
+  description:
+    "Join our team and be part of an innovative and dynamic company. We are always looking for talented individuals to help us grow.",
+  keywords: [
+    "careers",
+    "jobs",
+    "employment",
+    "frontend developer",
+    "remote work",
+  ],
+  openGraph: {
+    title: "Careers - Join Our Team",
+    description:
+      "Join our team and be part of an innovative and dynamic company.",
+    type: "website",
+  },
+};
 
 const Careers = () => {
   return (

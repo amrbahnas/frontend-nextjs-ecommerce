@@ -160,12 +160,11 @@ export const useLogoutApi = () => {
   };
 };
 
-// googleAuth
-export const useGoogleAuth = () => {
-  const { mutate: googleAuth, isPending: googleAuthPending } =
-    useMutation("/auth/googlse");
+// merge cart
+export const useMergeCart = () => {
+  const { mutate, isPending } = useMutation("/cart/merge-cart");
   return {
-    googleAuth,
-    isPending: googleAuthPending,
+    mergeCart: mutate,
+    isPending,
   };
 };

@@ -1,13 +1,16 @@
 "use client";
 import { useMe } from "@/_api/query";
-import { useLogin } from "../_api/mutation";
+import { useLogin, useMergeCart } from "../_api/mutation";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
+import useCardStore from "@/store/useCardStore";
 
 const Callbackpage = () => {
   const { user, error } = useMe();
+  const { storeCart, resetStoreCart } = useCardStore();
+  const { mergeCart, isPending } = useMergeCart();
   const { onLoginSuccess } = useLogin();
   const router = useRouter();
   const t = useTranslations("auth.callback");
@@ -18,7 +21,28 @@ const Callbackpage = () => {
       router.push("/auth/login");
     }
     if (user?.id) {
-      onLoginSuccess(user);
+      if (storeCart?.cartItems?.length > 0) {
+        mergeCart(
+          {
+            cartItems:
+              storeCart?.cartItems?.length > 0
+                ? storeCart.cartItems
+                : undefined,
+          },
+          {
+            onSuccess: () => {
+              resetStoreCart();
+              onLoginSuccess(user);
+            },
+            onError: () => {
+              onLoginSuccess(user);
+            },
+          }
+        );
+        return;
+      } else {
+        onLoginSuccess(user);
+      }
     }
   }, [user, error]);
 

@@ -10,6 +10,7 @@ type Store = {
   deleteCartItem: (cartItem: CartItemType) => void;
   resetCart: () => void;
   setCartLoading: (loading: boolean) => void;
+  resetStoreCart: () => void;
 };
 
 const newCartItemsHandler = (
@@ -90,6 +91,13 @@ const useCardStore = create<Store>(
           cartItemsCount: 0,
           cartLoading: false,
           onlineCart: {
+            cartItems: [],
+            totalCartPrice: 0,
+          },
+        }),
+      resetStoreCart: () =>
+        set({
+          storeCart: {
             cartItems: [],
             totalCartPrice: 0,
           },

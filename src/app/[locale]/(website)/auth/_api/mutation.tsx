@@ -13,7 +13,7 @@ export const useLogin = () => {
 
   const router = useRouter();
   const setAuthData = useAuthStore((state) => state.setAuthData);
-  const { storeCart, resetCart } = useCardStore();
+  const { storeCart, resetStoreCart } = useCardStore();
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/login");
 
@@ -21,7 +21,7 @@ export const useLogin = () => {
     try {
       setUser(user);
       setAuthData({ role: user.role });
-      resetCart();
+      resetStoreCart();
       const redirect = getParams("redirect");
       if (!user.emailVerified) {
         if (redirect) {
@@ -66,6 +66,7 @@ export const useSignUp = () => {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const setAuthData = useAuthStore((state) => state.setAuthData);
+  const { storeCart, resetStoreCart } = useCardStore();
   const { data, error, isPending, isSuccess, isError, mutate } =
     useMutation("/auth/signup");
   const signUp = (values: {
@@ -74,14 +75,22 @@ export const useSignUp = () => {
     password: string;
     confirmPassword: string;
   }) => {
-    mutate(values, {
-      onSuccess: (res: any) => {
-        const user = resSanatize(res);
-        setUser(user);
-        setAuthData({ role: user.role });
-        router.push("/verifyEmail");
+    mutate(
+      {
+        ...values,
+        cartItems:
+          storeCart?.cartItems?.length > 0 ? storeCart.cartItems : undefined,
       },
-    });
+      {
+        onSuccess: (res: any) => {
+          const user = resSanatize(res);
+          setUser(user);
+          setAuthData({ role: user.role });
+          resetStoreCart();
+          router.push("/verifyEmail");
+        },
+      }
+    );
   };
 
   return {

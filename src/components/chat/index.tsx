@@ -70,7 +70,7 @@ const Chat = () => {
         isLargeScreen={isLargeScreen}
       >
         {isPending && !isAdmin ? (
-          <div className="flex items-center justify-center h-full w-full">
+          <div className="flex items-center justify-center h-full min-w-[300px] w-full">
             <Spin size="large" />
           </div>
         ) : (

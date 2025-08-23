@@ -48,9 +48,9 @@
     --ring: #f35c7a;
   }
 
-  * {
+  /* * {
     border-color: hsl(var(--border));
-  }
+  } */
 
   body {
     background-color: hsl(var(--background));

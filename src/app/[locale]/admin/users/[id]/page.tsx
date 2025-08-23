@@ -274,6 +274,7 @@ const Page = ({ params }: { params: Params }) => {
                   value={user.role}
                   onChange={handleRoleChange}
                   loading={changeUserRoleLoading}
+                  popupMatchSelectWidth={false}
                 >
                   <Option value="user">User</Option>
                   <Option value="admin">Admin</Option>

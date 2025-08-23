@@ -245,7 +245,7 @@ const Page = () => {
       <ConfirmModal
         open={payModalVisible}
         title={t("actions.bulk.pay.title")}
-        action={t("actions.bulk.pay.action")}
+        action={t("actions.bulk.pay.title")}
         onConfirm={confirmPay}
         onCancel={() => setPayModalVisible(false)}
         confirmLoading={payMultiLoading}
@@ -254,7 +254,7 @@ const Page = () => {
       <ConfirmModal
         open={deliverModalVisible}
         title={t("actions.bulk.deliver.title")}
-        action={t("actions.bulk.deliver.action")}
+        action={t("actions.bulk.deliver.title")}
         onConfirm={confirmDeliver}
         onCancel={() => setDeliverModalVisible(false)}
         confirmLoading={deliverMultiLoading}

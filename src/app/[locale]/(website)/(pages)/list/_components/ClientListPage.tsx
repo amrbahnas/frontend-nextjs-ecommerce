@@ -27,7 +27,7 @@ const ClientListPage = () => {
         </div>
         <div className="relative w-1/3">
           <NextImage
-            src="/woman.png"
+            src="/logo.png"
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"

@@ -81,10 +81,9 @@ Includes analytics & real-time updates.
 Install dependencies:
 
 ```bash
-npm install
-# or
 yarn install
-# or
-pnpm install
-# or
-bun install
+```
+Run development server:
+```bash
+yarn dev
+```

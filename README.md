@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛍️ Elbahnsawy Store — Full-Stack E-Commerce Platform  
 
-## Getting Started
+Live Demo → **https://elbahnsawy-store.vercel.app/**  
+YouTube Overview → **https://www.youtube.com/watch?v=cTiRmD5zm_c**
 
-First, run the development server:
+This is a full-stack E-commerce application built with modern technologies using **Next.js, NestJS, MongoDB, Prisma, Ant Design, and Cloudinary**.
+
+---
+
+## 🚀 Tech Stack
+
+### **Frontend**
+- Next.js 14 (App Router)
+- Ant Design
+- Cloudinary (image hosting & optimization)
+- Next Auth / Middleware-based route protection
+- next/font (Google font optimization)
+
+### **Backend**
+- NestJS
+- MongoDB + Prisma ORM
+- JWT (Access + Refresh Tokens)
+
+---
+
+## ✨ Project Highlights
+
+### 🔐 Authentication & Security
+- JWT authentication (access + refresh tokens)
+- Protected routes via Next.js middleware
+- Google OAuth login
+- OTP email verification
+- Secure cookie proxying on server-side
+- Active/inactive user checks on every request
+
+### 🛒 E-Commerce Features
+- Smart cart with **guest → user merging**
+- Coupon / discount system
+- Wishlist with live updates
+- Product reviews (add, edit, delete)
+- 3-step checkout: *summary → address → payment*
+- Infinite scrolling
+- Debounced search with instant suggestions
+
+### 🛠️ Admin Dashboard
+Full CRUD for:
+- Users  
+- Products  
+- Categories  
+- Subcategories  
+- Coupons  
+- Orders  
+
+Includes analytics & real-time updates.
+
+### 💬 Real-Time Features
+- Live chat (User ↔ Admin)
+- Supports text + images
+
+### 🎨 User Experience (UX)
+- Multi-language (AR / EN)
+- Dark mode
+- Fully responsive UI
+- Clean and modern Ant Design components
+
+### ⚡ Performance & SEO
+- Auto structured data generation
+- SEO-friendly meta tags
+- Pagination for optimized loading
+- Cloudinary image optimization
+
+### 📧 Notifications & Emails
+- Signup email verification
+- Order confirmation emails
+- Order status update notifications
+
+---
+
+## 🧪 Getting Started (Development)
+
+Install dependencies:
 
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
+yarn install
 # or
-pnpm dev
+pnpm install
 # or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+bun install

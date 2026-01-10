@@ -33,7 +33,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             prefetch
           >
             <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-500">
-              <PrImage imageCover={imageCover} />
+              <PrImage imageCover={imageCover} title={title} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </Link>

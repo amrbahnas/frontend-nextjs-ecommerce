@@ -36,11 +36,15 @@ const NavIcons = () => {
       <AdminDashboard />
       <ProfileIcon />
       <CartModal />
-      <IoIosMenu
-        size={28}
-        className="cursor-pointer"
+      <button
+        type="button"
+        aria-label={t("openMenu")}
+        aria-expanded={drawerOpen}
+        className="cursor-pointer p-1 hover:opacity-70 transition-opacity"
         onClick={() => setDrawerOpen(true)}
-      />
+      >
+        <IoIosMenu size={28} aria-hidden="true" />
+      </button>
 
       <Drawer
         width="80%"

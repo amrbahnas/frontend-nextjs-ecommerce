@@ -1,5 +1,4 @@
 "use client";
-import { Skeleton } from "antd";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
@@ -18,12 +17,20 @@ const validateSrc = (src: string | StaticImport) => {
 const NextImage = ({
   src,
   alt = "image",
+  loading = "lazy",
   ...props
 }: React.ComponentProps<typeof Image>) => {
   if (!src) {
     return <ImageSkeleton />;
   }
-  return <Image src={validateSrc(src)} alt={alt} {...props} />;
+  return (
+    <Image
+      src={validateSrc(src)}
+      alt={alt}
+      loading={props.priority ? undefined : loading}
+      {...props}
+    />
+  );
 };
 
 export default NextImage;

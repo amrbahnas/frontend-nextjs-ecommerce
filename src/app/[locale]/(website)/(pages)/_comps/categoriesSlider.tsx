@@ -62,10 +62,11 @@ const CategoryCard = ({ category }: { category: CategoryType }) => {
     >
       <NextImage
         src={category.image}
-        alt=""
+        alt={`${category.name} category`}
         width={80}
         height={80}
         className="object-cover rounded-full bg-gray-300 aspect-square"
+        loading="lazy"
       />
       <span className=" font-light text-sm sm:text-xl tracking-wide text-center text-black dark:text-dark-text">
         {category.name}

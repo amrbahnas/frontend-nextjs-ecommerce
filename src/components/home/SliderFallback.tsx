@@ -10,7 +10,11 @@ const SliderFallback = () => {
   const t = useTranslations("HomePage.slider");
 
   return (
-    <div className="h-screen max-h-[500px] relative">
+    <section
+      className="h-screen max-h-[500px] relative"
+      role="region"
+      aria-label={t("springSale")}
+    >
       <div className="w-full h-full flex flex-col gap-16 xl:flex-row items-center justify-center bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20">
         <div className="flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center">
           <h2 className="text-xl lg:text-3xl 2xl:text-5xl">{t("saleOff")}</h2>
@@ -33,7 +37,7 @@ const SliderFallback = () => {
         <div className="w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600"></div>
         <div className="w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600"></div>
       </div>
-    </div>
+    </section>
   );
 };
 

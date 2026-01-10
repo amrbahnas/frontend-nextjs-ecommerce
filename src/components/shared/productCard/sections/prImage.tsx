@@ -1,16 +1,21 @@
 import NextImage from "@/components/ui/nextImage";
 import React from "react";
 
-const PrImage = ({ imageCover }: { imageCover: string }) => {
+type PrImageProps = {
+  imageCover: string;
+  title?: string;
+};
+
+const PrImage = ({ imageCover, title = "Product image" }: PrImageProps) => {
   return (
     <div className="relative w-full h-full">
       <NextImage
         src={imageCover || "/product.png"}
-        alt=""
+        alt={title}
         fill
-        sizes="25vw"
-        className="object-cover rounded-lg "
-        priority // for avoid Largest Contentful Paint (LCP) issue
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="object-cover rounded-lg"
+        loading="lazy"
       />
     </div>
   );

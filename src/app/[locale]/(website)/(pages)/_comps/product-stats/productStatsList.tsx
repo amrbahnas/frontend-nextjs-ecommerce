@@ -32,7 +32,7 @@ const ProductStatsList = ({ type, displayType }: Props) => {
     <div className="min-h-[200px]" ref={ref} id={type}>
       {inView && (
         <>
-          <h1 className="text-2xl font-medium mb-4 ">{titleMap[type]}</h1>
+          <h2 className="text-2xl font-medium mb-4 ">{titleMap[type]}</h2>
           <ProductList
             products={productStats}
             isLoading={isLoading}

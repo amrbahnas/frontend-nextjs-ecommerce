@@ -24,7 +24,13 @@ const Navbar = () => {
             href={"/"}
             className="flex items-center gap-1 lg:gap-3 "
           >
-            <NextImage src="/logo.png" width={40} height={40} alt="logo" />
+            <NextImage
+              src="/logo.png"
+              width={40}
+              height={40}
+              alt="Elbahnsawy Store logo"
+              priority
+            />
 
             <h1 className="   text-md sm:text-2xl tracking-wide select-none  text-transparent   supports-[background-clip:text]:bg-clip-text bg-gradient-to-r from-primary to-yellow-500  font-bold ">
               {t("brand")}

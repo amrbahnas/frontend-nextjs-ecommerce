@@ -125,7 +125,8 @@
         "title": "Wishlist",
         "description": "View saved items"
       },
-      "footer": "Tap outside to close"
+      "footer": "Tap outside to close",
+      "openMenu": "Open menu"
     }
   },
   "ProductDetails": {

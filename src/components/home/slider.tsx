@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "antd";
 import Link from "next/link";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, A11y } from "swiper/modules";
 import { useTranslations } from "next-intl";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -39,16 +39,31 @@ const Slider = () => {
       spaceBetween={50}
       slidesPerView={1}
       loop={true}
-      autoplay={{ delay: 3000 }}
-      modules={[Pagination, Autoplay]}
+      autoplay={{
+        delay: 3000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
+      }}
+      modules={[Pagination, Autoplay, A11y]}
       pagination={{
         clickable: true,
         bulletActiveClass: "!bg-primary",
         renderBullet: function (index: number, className: string) {
-          return `<div class="!w-3 !h-3    ${className}"></div>`;
+          return `<button type="button" aria-label="Go to slide ${
+            index + 1
+          }" class="!w-3 !h-3 ${className}"></button>`;
         },
       }}
+      a11y={{
+        prevSlideMessage: "Previous slide",
+        nextSlideMessage: "Next slide",
+        firstSlideMessage: "This is the first slide",
+        lastSlideMessage: "This is the last slide",
+        paginationBulletMessage: "Go to slide {{index}}",
+      }}
       className="h-screen max-h-[500px]"
+      role="region"
+      aria-label="Promotional slides"
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>

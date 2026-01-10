@@ -29,7 +29,7 @@ const WishlistButton = ({
   );
 
   const { toggleWishlist, isPending } = useToggleProductWishlist(productId);
-  const handleToggleWishlist = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleToggleWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isPending) return;
     setIsWithListed((prev) => !prev);
     setShowHeartAnimation(true);
@@ -63,17 +63,27 @@ const WishlistButton = ({
   if (!isLogin) return null;
   // if (isPending) return <Spin />;
   return (
-    <div
-      onClick={handleToggleWishlist}
+    <button
+      type="button"
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+        handleToggleWishlist(e)
+      }
+      aria-label={isWithListed ? "Remove from wishlist" : "Add to wishlist"}
+      aria-pressed={isWithListed}
+      disabled={isPending}
       className={
-        "cursor-pointer relative border border-gray-300 rounded-lg p-1 md:p-2 hover:border-primary  hover:text-primary " +
+        "cursor-pointer relative border border-gray-300 rounded-lg p-1 md:p-2 hover:border-primary hover:text-primary transition-colors bg-transparent disabled:opacity-50 " +
         className
       }
     >
-      {isWithListed ? <FaHeart size={25} color="red" /> : <CiHeart size={25} />}
+      {isWithListed ? (
+        <FaHeart size={25} color="red" aria-hidden="true" />
+      ) : (
+        <CiHeart size={25} aria-hidden="true" />
+      )}
 
       <HeartAnimation play={showHeartAnimation} />
-    </div>
+    </button>
   );
 };
 

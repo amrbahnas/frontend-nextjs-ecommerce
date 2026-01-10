@@ -131,7 +131,17 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir}>
       <head>
-        <title>El-bahnsawy store</title>
+        {/* Preconnect to external domains for better performance */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
+        {/* Apple Touch Icons */}
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -149,15 +159,12 @@ export default async function LocaleLayout({
           sizes="16x16"
           href="/icons/favicon-16x16.png"
         />
+
+        {/* PWA Meta Tags */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="Elbahnsawy-store" />
         <meta name="theme-color" content="#F35C7A" />
-
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no"
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text transition-colors duration-200`}

@@ -51,11 +51,13 @@ const Newsletter = () => {
                 ]}
               >
                 <Input
+                  id="newsletter-email"
                   size="large"
                   placeholder={t("enterEmail")}
                   disabled={isPending}
                   className="!border-r-0 ltr:!rounded-r-none rtl:!rounded-l-none"
                   allowClear
+                  aria-label={t("enterEmail")}
                 />
               </Item>
               <Button

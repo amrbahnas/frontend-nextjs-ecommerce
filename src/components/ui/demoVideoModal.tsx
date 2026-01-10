@@ -90,7 +90,7 @@ const DemoVideoModal = () => {
         {/* Footer Section */}
         <div className="px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white/5 border-t border-white/10">
           <p className="text-white/50 text-xs">
-            You can always find this demo in our help section
+            You can always find this demo in our Footer section
           </p>
           <button
             onClick={handleClose}

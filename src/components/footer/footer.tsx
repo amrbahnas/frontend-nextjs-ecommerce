@@ -171,6 +171,18 @@ const Footer = () => {
                   {t("myAccount")}
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/watch?v=cTiRmD5zm_c"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 text-gray-500 dark:text-dark-text-secondary hover:text-red-500 transition-colors"
+                  aria-label="Watch demo video on YouTube"
+                >
+                  <span>🎬</span>
+                  <span>Watch Demo</span>
+                </a>
+              </li>
             </ul>
           </nav>
 

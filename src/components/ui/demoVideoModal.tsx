@@ -2,17 +2,17 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { FaPlay, FaTimes } from "react-icons/fa";
+import useUserStore from "@/store/useUserStore";
 
-const DEMO_VIDEO_SEEN_KEY = "demo_video_modal_seen";
 const YOUTUBE_VIDEO_ID = "cTiRmD5zm_c";
 
 const DemoVideoModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { demoVideoSeen, setDemoVideoSeen } = useUserStore();
 
   useEffect(() => {
     // Check if the user has already seen the demo modal
-    const hasSeenDemo = localStorage.getItem(DEMO_VIDEO_SEEN_KEY);
-    if (hasSeenDemo) return;
+    if (demoVideoSeen) return;
 
     // Handler function - stored in variable so we can remove it
     const handleScroll = () => {
@@ -27,11 +27,11 @@ const DemoVideoModal = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [demoVideoSeen]);
 
   const handleClose = () => {
     setIsOpen(false);
-    localStorage.setItem(DEMO_VIDEO_SEEN_KEY, "true");
+    setDemoVideoSeen(true);
   };
 
   return (

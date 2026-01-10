@@ -2,7 +2,6 @@
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
-import "@ant-design/v5-patch-for-react-19";
 import useThemeStore from "@/store/useThemeStore";
 
 export default function AntDLayout({

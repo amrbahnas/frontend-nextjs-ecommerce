@@ -26,7 +26,7 @@ const OrdersFilter = () => {
         className="!w-full md:!w-[350px]"
         placeholder={t("date.placeholder")}
         onChange={(date, dateString) =>
-          setParams("createdAt", dateString.toLocaleString())
+          setParams("createdAt", dateString?.toLocaleString())
         }
       />
     </div>

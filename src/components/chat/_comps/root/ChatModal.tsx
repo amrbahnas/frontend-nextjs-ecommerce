@@ -78,7 +78,8 @@ export const ChatModal = memo(
           "[&_.ant-modal-close:hover]:!text-gray-400"
         )}
         styles={{
-          content: { paddingBottom: 0 },
+          // content: { paddingBottom: 0 },
+          container: { paddingBottom: 0 },
           wrapper: { overflow: "hidden" },
           mask: { direction: isRTL ? "rtl" : "ltr" },
           body: { direction: isRTL ? "rtl" : "ltr" },

@@ -12,13 +12,21 @@ const DemoVideoModal = () => {
   useEffect(() => {
     // Check if the user has already seen the demo modal
     const hasSeenDemo = localStorage.getItem(DEMO_VIDEO_SEEN_KEY);
-    if (!hasSeenDemo) {
-      // Small delay to ensure page has loaded
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
+    if (hasSeenDemo) return;
+
+    // Handler function - stored in variable so we can remove it
+    const handleScroll = () => {
+      setIsOpen(true);
+      // Remove listener after first scroll
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // Use window for scroll events (more reliable)
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleClose = () => {
@@ -66,7 +74,7 @@ const DemoVideoModal = () => {
             {/* Video Glow Effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-xl blur opacity-30" />
 
-            <div className="relative aspect-video bg-black rounded-xl overflow-hidden h-[500px]">
+            <div className="relative  bg-black rounded-xl overflow-hidden w-full h-[250px] sm:h-[500px]">
               <iframe
                 src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
                 title="Store Demo Video"

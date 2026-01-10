@@ -24,13 +24,13 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="bg-primary/5 dark:bg-primary/10 py-12 transition-colors duration-200">
+    <div className="bg-primary/5 dark:bg-primary/20 py-12 transition-colors duration-200">
       <Container className="!bg-transparent">
         <div className="flex flex-col md:flex-row items-start sm:items-center justify-between gap-6">
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-dark-text mb-2">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-dark-text mb-2">
               {t("subscribeNewsletter")}
-            </h3>
+            </h2>
             <p className="text-gray-500 dark:text-dark-text-secondary">
               {t("newsletterDescription")}
             </p>

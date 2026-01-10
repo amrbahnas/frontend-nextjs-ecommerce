@@ -31,7 +31,8 @@ const config: Config = {
           "bg-secondary": "#1e293b",
           "bg-tertiary": "#334155",
           text: "#f8fafc",
-          "text-secondary": "#cbd5e1",
+          "text-secondary": "#e2e8f0", // Improved contrast (was #cbd5e1)
+          "text-muted": "#94a3b8", // For labels that need to be accessible
           border: "#475569",
         },
       },

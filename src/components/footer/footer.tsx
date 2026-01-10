@@ -8,9 +8,9 @@ import { memo } from "react";
 import { useTranslations } from "next-intl";
 import Newsletter from "./newsletter";
 
+const phoneNumber = "+201064480375"; // Format for WhatsApp
 const Footer = () => {
   const t = useTranslations("Footer");
-  const phoneNumber = "+201064480375"; // Format for WhatsApp
 
   return (
     <footer className="bg-gray-50 dark:bg-dark-bg-secondary text-gray-600 dark:text-dark-text-secondary mt-24 transition-colors duration-200">
@@ -237,20 +237,26 @@ const Footer = () => {
         {/* Bottom Bar */}
         <section className="mt-16 pt-8 border-t border-gray-200 dark:border-dark-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-            <p className="text-gray-500 m-0">
+            <p className="text-gray-500 dark:text-dark-text-secondary m-0">
               {t("copyright")} &copy; 2025 {t("brand")}.{" "}
               {t("allRightsReserved")}
             </p>
             <aside className="flex flex-wrap justify-center gap-6">
               <div className="flex items-center gap-2">
-                <span className="text-gray-400">{t("language")}:</span>
-                <span className="text-gray-600">
+                <span className="text-gray-400 dark:text-dark-text-muted">
+                  {t("language")}:
+                </span>
+                <span className="text-gray-600 dark:text-dark-text-secondary">
                   {t("unitedStates")} | {t("english")}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-gray-400">{t("currency")}:</span>
-                <span className="text-gray-600">$ {t("egp")}</span>
+                <span className="text-gray-400 dark:text-dark-text-muted">
+                  {t("currency")}:
+                </span>
+                <span className="text-gray-600 dark:text-dark-text-secondary">
+                  $ {t("egp")}
+                </span>
               </div>
             </aside>
           </div>

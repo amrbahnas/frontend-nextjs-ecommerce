@@ -131,6 +131,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir}>
       <head>
+        <title>El-bahnsawy store</title>
         <link
           rel="apple-touch-icon"
           sizes="180x180"

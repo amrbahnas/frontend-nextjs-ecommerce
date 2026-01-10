@@ -2,6 +2,7 @@
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar";
 import Breadcrumb from "../../../components/ui/breadcrumb";
+import DemoVideoModal from "@/components/ui/demoVideoModal";
 
 export default function RootLayout({
   children,
@@ -10,6 +11,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
+      {/* Demo Video Modal - Shows on first visit */}
+      <DemoVideoModal />
+
       {/* Skip Navigation Link for Accessibility */}
       <a
         href="#main-content"

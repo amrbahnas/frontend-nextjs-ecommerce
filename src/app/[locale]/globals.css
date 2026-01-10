@@ -159,3 +159,22 @@
     scrollbar-color: rgba(155, 155, 155, 0.8) transparent;
   }
 }
+
+/* Demo Video Modal Styles */
+.demo-video-modal .ant-modal-content {
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.demo-video-modal .ant-modal-close {
+  top: 12px;
+  right: 12px;
+}
+
+.demo-video-modal .ant-modal-close:hover {
+  background-color: transparent;
+}

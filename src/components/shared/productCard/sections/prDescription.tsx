@@ -58,7 +58,7 @@ const PrDescription = ({
           ]}
         />
         <span className="text-xs text-gray-500 dark:text-dark-text-secondary">
-          ({ratingsAverage})
+          ({ratingsAverage.toFixed(1)})
         </span>
       </div>
 

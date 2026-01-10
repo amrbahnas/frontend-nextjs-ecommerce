@@ -10,7 +10,8 @@ const nextConfig: NextConfig = {
   // Optimize production builds
   productionBrowserSourceMaps: false,
 
-  // Experimental features for better performance
+  // Experimental features for better performance\
+  // install yarn add critters for that
   experimental: {
     optimizeCss: true,
   },

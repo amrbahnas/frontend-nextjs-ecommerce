@@ -37,7 +37,7 @@ const LoginPage = ({}) => {
       </div>
       <div className=" w-full md:w-1/2 ">
         <div className=" w-full bg-white dark:bg-dark-bg  border border-gray-200 dark:border-dark-border !p-4 md:!p-8 rounded-md shadow-md dark:shadow-dark-bg-secondary ">
-          <Divider orientation="center">
+          <Divider>
             <h1 className="text-2xl md:text-3xl font-semibold text-primary">
               {t("title")}
             </h1>

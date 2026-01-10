@@ -41,7 +41,7 @@ const DemoVideoModal = () => {
       footer={null}
       width={900}
       centered
-      destroyOnClose
+      destroyOnHidden
       styles={{
         body: {
           padding: 0,

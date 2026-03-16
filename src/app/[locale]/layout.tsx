@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import ProgressBarLayout from "@/components/layout/progressBarLayout";
+
 import AntDLayout from "@/components/layout/antDLayout";
 import ReactQueryLayout from "@/components/layout/reactQueryLayout";
 import OnlineStatus from "@/components/layout/onlineStatus";
@@ -13,6 +13,7 @@ import ChatLayout from "@/components/layout/chatLayout";
 import ThemeProvider from "@/components/layout/themeProvider";
 
 import "./globals.css";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),
   title: {
     template: "%s | El-bahnsawy store",
@@ -169,17 +170,16 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text transition-colors duration-200`}
       >
+        <NextTopLoader color="#F35C7A" showSpinner={false} />
         <WebsiteStructuredData />
         <LocalBusinessStructuredData />
         <NextIntlClientProvider locale={locale}>
           <ThemeProvider>
             <ReactQueryLayout>
               <AntDLayout locale={locale}>
-                <ProgressBarLayout>
-                  <DayjsConfig />
-                  <OnlineStatus>{children}</OnlineStatus>
-                  <ChatLayout />
-                </ProgressBarLayout>
+                <DayjsConfig />
+                <OnlineStatus>{children}</OnlineStatus>
+                <ChatLayout />
               </AntDLayout>
             </ReactQueryLayout>
             <Toaster />
